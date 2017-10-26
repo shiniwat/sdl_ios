@@ -68,6 +68,7 @@ UIImage * _Nullable sdl_createTextImage(NSString *text, CGSize size) {
     
     CGContextRestoreGState(context);
     UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
 
     return image;
 }
