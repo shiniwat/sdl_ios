@@ -4,25 +4,21 @@
 
 #import "SDLSystemRequest.h"
 
-#import "SDLNames.h"
-#import "SDLRequestType.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLSystemRequest
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_SystemRequest]) {
+    if (self = [super initWithName:SDLRPCFunctionNameSystemRequest]) {
     }
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
-}
-
-- (instancetype)initWithType:(SDLRequestType *)requestType fileName:(NSString *)fileName {
+- (instancetype)initWithType:(SDLRequestType)requestType fileName:(nullable NSString *)fileName {
     self = [self init];
     if (!self) {
         return nil;
@@ -34,33 +30,42 @@
     return self;
 }
 
-- (void)setRequestType:(SDLRequestType *)requestType {
-    if (requestType != nil) {
-        [parameters setObject:requestType forKey:NAMES_requestType];
-    } else {
-        [parameters removeObjectForKey:NAMES_requestType];
-    }
+- (instancetype)initWithProprietaryType:(NSString *)proprietaryType fileName:(nullable NSString *)fileName {
+    self = [self init];
+    if (!self) { return nil; }
+
+    self.requestType = SDLRequestTypeOEMSpecific;
+    self.requestSubType = proprietaryType;
+    self.fileName = fileName;
+
+    return self;
 }
 
-- (SDLRequestType *)requestType {
-    NSObject *obj = [parameters objectForKey:NAMES_requestType];
-    if (obj == nil || [obj isKindOfClass:SDLRequestType.class]) {
-        return (SDLRequestType *)obj;
-    } else {
-        return [SDLRequestType valueOf:(NSString *)obj];
-    }
+- (void)setRequestType:(SDLRequestType)requestType {
+    [parameters sdl_setObject:requestType forName:SDLRPCParameterNameRequestType];
 }
 
-- (void)setFileName:(NSString *)fileName {
-    if (fileName != nil) {
-        [parameters setObject:fileName forKey:NAMES_fileName];
-    } else {
-        [parameters removeObjectForKey:NAMES_fileName];
-    }
+- (SDLRequestType)requestType {
+    NSError *error = nil;
+    return [parameters sdl_enumForName:SDLRPCParameterNameRequestType error:&error];
 }
 
-- (NSString *)fileName {
-    return [parameters objectForKey:NAMES_fileName];
+- (void)setRequestSubType:(nullable NSString *)requestSubType {
+    [parameters sdl_setObject:requestSubType forName:SDLRPCParameterNameRequestSubType];
+}
+
+- (nullable NSString *)requestSubType {
+    return [parameters sdl_objectForName:SDLRPCParameterNameRequestSubType ofClass:NSString.class error:nil];
+}
+
+- (void)setFileName:(nullable NSString *)fileName {
+    [parameters sdl_setObject:fileName forName:SDLRPCParameterNameFilename];
+}
+
+- (nullable NSString *)fileName {
+    return [parameters sdl_objectForName:SDLRPCParameterNameFilename ofClass:NSString.class error:nil];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

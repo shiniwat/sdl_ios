@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+#import "SDLHMILevel.h"
 #import "SDLPermissionConstants.h"
 
-@class SDLHMILevel;
 @class SDLPermissionItem;
 
 
@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A dictionary specifying if the passed in RPC names are currently allowed or not
  */
-- (NSDictionary<SDLPermissionRPCName, NSNumber<SDLBool> *> *)statusOfRPCs:(NSArray<SDLPermissionRPCName> *)rpcNames;
+- (NSDictionary<SDLPermissionRPCName, NSNumber *> *)statusOfRPCs:(NSArray<SDLPermissionRPCName> *)rpcNames;
 
 /**
  *  Add an observer for specified RPC names, with a callback that will be called whenever the value changes, as well as immediately with the current status.

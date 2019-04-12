@@ -10,7 +10,7 @@
 
 #import "SDLChoice.h"
 #import "SDLImage.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
 
 
 QuickSpecBegin(SDLChoiceSpec)
@@ -40,13 +40,13 @@ describe(@"Getter/Setter Tests", ^ {
     });
     
     it(@"Should get correctly when initialized", ^ {
-        NSMutableDictionary* dict = [@{NAMES_choiceID:@3,
-                                       NAMES_menuName:@"Hello",
-                                       NAMES_vrCommands:[@[@"1", @"2"] mutableCopy],
-                                       NAMES_image:image,
-                                       NAMES_secondaryText:@"Arbitrary",
-                                       NAMES_tertiaryText:@"qwerty",
-                                       NAMES_secondaryImage:secondaryImage} mutableCopy];
+        NSMutableDictionary<NSString *, id> *dict = [@{SDLRPCParameterNameChoiceId:@3,
+                                       SDLRPCParameterNameMenuName:@"Hello",
+                                       SDLRPCParameterNameVRCommands:[@[@"1", @"2"] mutableCopy],
+                                       SDLRPCParameterNameImage:image,
+                                       SDLRPCParameterNameSecondaryText:@"Arbitrary",
+                                       SDLRPCParameterNameTertiaryText:@"qwerty",
+                                       SDLRPCParameterNameSecondaryImage:secondaryImage} mutableCopy];
         SDLChoice* testStruct = [[SDLChoice alloc] initWithDictionary:dict];
         
         expect(testStruct.choiceID).to(equal(@3));

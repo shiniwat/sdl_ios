@@ -2,10 +2,14 @@
 //
 
 #import "SDLAppInfo.h"
-#import "SDLNames.h"
+
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
 
 static NSString *const SDLBundleShortVersionStringKey = @"CFBundleShortVersionString";
 static NSString *const SDLBundleAppNameKey = @"CFBundleName";
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLAppInfo
 
@@ -23,39 +27,32 @@ static NSString *const SDLBundleAppNameKey = @"CFBundleName";
 }
 
 - (void)setAppDisplayName:(NSString *)appDisplayName {
-    if (appDisplayName != nil) {
-        [store setObject:appDisplayName forKey:NAMES_appDisplayName];
-    } else {
-        [store removeObjectForKey:NAMES_appDisplayName];
-    }
+    [store sdl_setObject:appDisplayName forName:SDLRPCParameterNameAppDisplayName];
 }
 
 - (NSString *)appDisplayName {
-    return [store objectForKey:NAMES_appDisplayName];
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNameAppDisplayName ofClass:NSString.class error:&error];
 }
 
 - (void)setAppBundleID:(NSString *)appBundleID {
-    if (appBundleID != nil) {
-        [store setObject:appBundleID forKey:NAMES_appBundleID];
-    } else {
-        [store removeObjectForKey:NAMES_appBundleID];
-    }
+    [store sdl_setObject:appBundleID forName:SDLRPCParameterNameAppBundleId];
 }
 
 - (NSString *)appBundleID {
-    return [store objectForKey:NAMES_appBundleID];
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNameAppBundleId ofClass:NSString.class error:&error];
 }
 
 - (void)setAppVersion:(NSString *)appVersion {
-    if (appVersion != nil) {
-        [store setObject:appVersion forKey:NAMES_appVersion];
-    } else {
-        [store removeObjectForKey:NAMES_appVersion];
-    }
+    [store sdl_setObject:appVersion forName:SDLRPCParameterNameAppVersion];
 }
 
 - (NSString *)appVersion {
-    return [store objectForKey:NAMES_appVersion];
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNameAppVersion ofClass:NSString.class error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

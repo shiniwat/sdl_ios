@@ -4,32 +4,29 @@
 
 #import "SDLOnHashChange.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLOnHashChange
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_OnHashChange]) {
-    }
-    return self;
-}
-
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
+    if (self = [super initWithName:SDLRPCFunctionNameOnHashChange]) {
     }
     return self;
 }
 
 - (void)setHashID:(NSString *)hashID {
-    if (hashID != nil) {
-        [parameters setObject:hashID forKey:NAMES_hashID];
-    } else {
-        [parameters removeObjectForKey:NAMES_hashID];
-    }
+    [parameters sdl_setObject:hashID forName:SDLRPCParameterNameHashId];
 }
 
 - (NSString *)hashID {
-    return [parameters objectForKey:NAMES_hashID];
+    NSError *error = nil;
+    return [parameters sdl_objectForName:SDLRPCParameterNameHashId ofClass:NSString.class error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

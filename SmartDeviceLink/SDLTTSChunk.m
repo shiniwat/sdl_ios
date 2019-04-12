@@ -3,25 +3,14 @@
 
 #import "SDLTTSChunk.h"
 
-#import "SDLNames.h"
-#import "SDLSpeechCapabilities.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLTTSChunk
 
-- (instancetype)init {
-    if (self = [super init]) {
-    }
-    return self;
-}
-
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
-}
-
-- (instancetype)initWithText:(NSString *)text type:(SDLSpeechCapabilities *)type {
+- (instancetype)initWithText:(NSString *)text type:(SDLSpeechCapabilities)type {
     self = [self init];
     if (!self) {
         return nil;
@@ -33,61 +22,56 @@
     return self;
 }
 
-+ (NSMutableArray<SDLTTSChunk *> *)textChunksFromString:(NSString *)string {
-    return [self sdl_chunksFromString:string type:[SDLSpeechCapabilities TEXT]];
++ (NSArray<SDLTTSChunk *> *)textChunksFromString:(NSString *)string {
+    return [self sdl_chunksFromString:string type:SDLSpeechCapabilitiesText];
 }
 
-+ (NSMutableArray<SDLTTSChunk *> *)sapiChunksFromString:(NSString *)string {
-    return [self sdl_chunksFromString:string type:[SDLSpeechCapabilities SAPI_PHONEMES]];
++ (NSArray<SDLTTSChunk *> *)sapiChunksFromString:(NSString *)string {
+    return [self sdl_chunksFromString:string type:SDLSpeechCapabilitiesSAPIPhonemes];
 }
 
-+ (NSMutableArray<SDLTTSChunk *> *)lhPlusChunksFromString:(NSString *)string {
-    return [self sdl_chunksFromString:string type:[SDLSpeechCapabilities LHPLUS_PHONEMES]];
++ (NSArray<SDLTTSChunk *> *)lhPlusChunksFromString:(NSString *)string {
+    return [self sdl_chunksFromString:string type:SDLSpeechCapabilitiesLHPlusPhonemes];
 }
 
-+ (NSMutableArray<SDLTTSChunk *> *)prerecordedChunksFromString:(NSString *)string {
-    return [self sdl_chunksFromString:string type:[SDLSpeechCapabilities PRE_RECORDED]];
++ (NSArray<SDLTTSChunk *> *)prerecordedChunksFromString:(NSString *)string {
+    return [self sdl_chunksFromString:string type:SDLSpeechCapabilitiesPrerecorded];
 }
 
-+ (NSMutableArray<SDLTTSChunk *> *)silenceChunks {
-    return [self sdl_chunksFromString:nil type:[SDLSpeechCapabilities SILENCE]];
++ (NSArray<SDLTTSChunk *> *)silenceChunks {
+    return [self sdl_chunksFromString:@"" type:SDLSpeechCapabilitiesSilence];
 }
 
-+ (NSMutableArray<SDLTTSChunk *> *)sdl_chunksFromString:(NSString *)string type:(SDLSpeechCapabilities *)type {
-    if (string.length == 0) {
++ (NSArray<SDLTTSChunk *> *)fileChunksWithName:(NSString *)fileName {
+    return [self sdl_chunksFromString:fileName type:SDLSpeechCapabilitiesFile];
+}
+
++ (nullable NSArray<SDLTTSChunk *> *)sdl_chunksFromString:(nullable NSString *)string type:(SDLSpeechCapabilities)type {
+    if (string == nil) {
         return nil;
     }
 
-    return [NSMutableArray arrayWithObject:[[[self class] alloc] initWithText:string type:type]];
+    return @[[[SDLTTSChunk alloc] initWithText:string type:type]];
 }
 
 - (void)setText:(NSString *)text {
-    if (text != nil) {
-        [store setObject:text forKey:NAMES_text];
-    } else {
-        [store removeObjectForKey:NAMES_text];
-    }
+    [store sdl_setObject:text forName:SDLRPCParameterNameText];
 }
 
 - (NSString *)text {
-    return [store objectForKey:NAMES_text];
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNameText ofClass:NSString.class error:&error];
 }
 
-- (void)setType:(SDLSpeechCapabilities *)type {
-    if (type != nil) {
-        [store setObject:type forKey:NAMES_type];
-    } else {
-        [store removeObjectForKey:NAMES_type];
-    }
+- (void)setType:(SDLSpeechCapabilities)type {
+    [store sdl_setObject:type forName:SDLRPCParameterNameType];
 }
 
-- (SDLSpeechCapabilities *)type {
-    NSObject *obj = [store objectForKey:NAMES_type];
-    if (obj == nil || [obj isKindOfClass:SDLSpeechCapabilities.class]) {
-        return (SDLSpeechCapabilities *)obj;
-    } else {
-        return [SDLSpeechCapabilities valueOf:(NSString *)obj];
-    }
+- (SDLSpeechCapabilities)type {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNameType error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

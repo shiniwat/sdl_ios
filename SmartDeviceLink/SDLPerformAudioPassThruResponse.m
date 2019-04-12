@@ -4,20 +4,20 @@
 
 #import "SDLPerformAudioPassThruResponse.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLPerformAudioPassThruResponse
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_PerformAudioPassThru]) {
-    }
-    return self;
-}
-
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
+    if (self = [super initWithName:SDLRPCFunctionNamePerformAudioPassThru]) {
     }
     return self;
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

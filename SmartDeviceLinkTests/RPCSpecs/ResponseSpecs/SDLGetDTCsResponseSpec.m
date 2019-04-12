@@ -9,7 +9,8 @@
 #import <Nimble/Nimble.h>
 
 #import "SDLGetDTCsResponse.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 
 QuickSpecBegin(SDLGetDTCsResponseSpec)
 
@@ -25,11 +26,11 @@ describe(@"Getter/Setter Tests", ^ {
     });
     
     it(@"Should get correctly when initialized", ^ {
-        NSMutableDictionary* dict = [@{NAMES_response:
-                                          @{NAMES_parameters:
-                                                @{NAMES_ecuHeader:@404,
-                                                  NAMES_dtc:[@[@"FFFF", @"FFFE", @"FFFD"] mutableCopy]},
-                                            NAMES_operation_name:NAMES_GetDTCs}} mutableCopy];
+        NSMutableDictionary<NSString *, id> *dict = [@{SDLRPCParameterNameResponse:
+                                                          @{SDLRPCParameterNameParameters:
+                                                                @{SDLRPCParameterNameECUHeader:@404,
+                                                                  SDLRPCParameterNameDTC:[@[@"FFFF", @"FFFE", @"FFFD"] mutableCopy]},
+                                                            SDLRPCParameterNameOperationName:SDLRPCFunctionNameGetDTCs}} mutableCopy];
         SDLGetDTCsResponse* testResponse = [[SDLGetDTCsResponse alloc] initWithDictionary:dict];
         
         expect(testResponse.ecuHeader).to(equal(@404));

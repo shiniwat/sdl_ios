@@ -10,7 +10,8 @@
 
 #import "SDLAudioType.h"
 #import "SDLBitsPerSample.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 #import "SDLPerformAudioPassThru.h"
 #import "SDLSamplingRate.h"
 
@@ -23,40 +24,40 @@ describe(@"Getter/Setter Tests", ^ {
         
         testRequest.audioPassThruDisplayText1 = @"passthru#1";
         testRequest.audioPassThruDisplayText2 = @"passthru#2";
-        testRequest.samplingRate = [SDLSamplingRate _22KHZ];
+        testRequest.samplingRate = SDLSamplingRate22KHZ;
         testRequest.maxDuration = @34563;
-        testRequest.bitsPerSample = [SDLBitsPerSample _16_BIT];
-        testRequest.audioType = [SDLAudioType PCM];
+        testRequest.bitsPerSample = SDLBitsPerSample16Bit;
+        testRequest.audioType = SDLAudioTypePCM;
         testRequest.muteAudio = @NO;
         
         expect(testRequest.audioPassThruDisplayText1).to(equal(@"passthru#1"));
         expect(testRequest.audioPassThruDisplayText2).to(equal(@"passthru#2"));
-        expect(testRequest.samplingRate).to(equal([SDLSamplingRate _22KHZ]));
+        expect(testRequest.samplingRate).to(equal(SDLSamplingRate22KHZ));
         expect(testRequest.maxDuration).to(equal(@34563));
-        expect(testRequest.bitsPerSample).to(equal([SDLBitsPerSample _16_BIT]));
-        expect(testRequest.audioType).to(equal([SDLAudioType PCM]));
+        expect(testRequest.bitsPerSample).to(equal(SDLBitsPerSample16Bit));
+        expect(testRequest.audioType).to(equal(SDLAudioTypePCM));
         expect(testRequest.muteAudio).to(equal(@NO));
     });
     
     it(@"Should get correctly when initialized", ^ {
-        NSMutableDictionary* dict = [@{NAMES_request:
-                                           @{NAMES_parameters:
-                                                 @{NAMES_audioPassThruDisplayText1:@"passthru#1",
-                                                   NAMES_audioPassThruDisplayText2:@"passthru#2",
-                                                   NAMES_samplingRate:[SDLSamplingRate _22KHZ],
-                                                   NAMES_maxDuration:@34563,
-                                                   NAMES_bitsPerSample:[SDLBitsPerSample _16_BIT],
-                                                   NAMES_audioType:[SDLAudioType PCM],
-                                                   NAMES_muteAudio:@NO},
-                                             NAMES_operation_name:NAMES_PerformAudioPassThru}} mutableCopy];
+        NSMutableDictionary* dict = [@{SDLRPCParameterNameRequest:
+                                           @{SDLRPCParameterNameParameters:
+                                                 @{SDLRPCParameterNameAudioPassThruDisplayText1:@"passthru#1",
+                                                   SDLRPCParameterNameAudioPassThruDisplayText2:@"passthru#2",
+                                                   SDLRPCParameterNameSamplingRate:SDLSamplingRate22KHZ,
+                                                   SDLRPCParameterNameMaxDuration:@34563,
+                                                   SDLRPCParameterNameBitsPerSample:SDLBitsPerSample16Bit,
+                                                   SDLRPCParameterNameAudioType:SDLAudioTypePCM,
+                                                   SDLRPCParameterNameMuteAudio:@NO},
+                                             SDLRPCParameterNameOperationName:SDLRPCFunctionNamePerformAudioPassThru}} mutableCopy];
         SDLPerformAudioPassThru* testRequest = [[SDLPerformAudioPassThru alloc] initWithDictionary:dict];
         
         expect(testRequest.audioPassThruDisplayText1).to(equal(@"passthru#1"));
         expect(testRequest.audioPassThruDisplayText2).to(equal(@"passthru#2"));
-        expect(testRequest.samplingRate).to(equal([SDLSamplingRate _22KHZ]));
+        expect(testRequest.samplingRate).to(equal(SDLSamplingRate22KHZ));
         expect(testRequest.maxDuration).to(equal(@34563));
-        expect(testRequest.bitsPerSample).to(equal([SDLBitsPerSample _16_BIT]));
-        expect(testRequest.audioType).to(equal([SDLAudioType PCM]));
+        expect(testRequest.bitsPerSample).to(equal(SDLBitsPerSample16Bit));
+        expect(testRequest.audioType).to(equal(SDLAudioTypePCM));
         expect(testRequest.muteAudio).to(equal(@NO));
     });
     

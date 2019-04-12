@@ -4,18 +4,14 @@
 
 #import "SDLScrollableMessageResponse.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 
 @implementation SDLScrollableMessageResponse
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_ScrollableMessage]) {
-    }
-    return self;
-}
-
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
+    if (self = [super initWithName:SDLRPCFunctionNameScrollableMessage]) {
     }
     return self;
 }

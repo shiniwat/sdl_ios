@@ -10,7 +10,8 @@
 
 #import "SDLButtonEventMode.h"
 #import "SDLButtonName.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 #import "SDLOnButtonEvent.h"
 
 
@@ -20,26 +21,26 @@ describe(@"Getter/Setter Tests", ^ {
     it(@"Should set and get correctly", ^ {
         SDLOnButtonEvent* testNotification = [[SDLOnButtonEvent alloc] init];
         
-        testNotification.buttonName = [SDLButtonName CUSTOM_BUTTON];
-        testNotification.buttonEventMode = [SDLButtonEventMode BUTTONDOWN];
+        testNotification.buttonName = SDLButtonNameCustomButton;
+        testNotification.buttonEventMode = SDLButtonEventModeButtonDown;
         testNotification.customButtonID = @4252;
         
-        expect(testNotification.buttonName).to(equal([SDLButtonName CUSTOM_BUTTON]));
-        expect(testNotification.buttonEventMode).to(equal([SDLButtonEventMode BUTTONDOWN]));
+        expect(testNotification.buttonName).to(equal(SDLButtonNameCustomButton));
+        expect(testNotification.buttonEventMode).to(equal(SDLButtonEventModeButtonDown));
         expect(testNotification.customButtonID).to(equal(@4252));
     });
     
     it(@"Should get correctly when initialized", ^ {
-        NSMutableDictionary* dict = [@{NAMES_notification:
-                                           @{NAMES_parameters:
-                                                 @{NAMES_buttonName:[SDLButtonName CUSTOM_BUTTON],
-                                                   NAMES_buttonEventMode:[SDLButtonEventMode BUTTONDOWN],
-                                                   NAMES_customButtonID:@4252},
-                                             NAMES_operation_name:NAMES_OnButtonEvent}} mutableCopy];
+        NSMutableDictionary* dict = [@{SDLRPCParameterNameNotification:
+                                           @{SDLRPCParameterNameParameters:
+                                                 @{SDLRPCParameterNameButtonName:SDLButtonNameCustomButton,
+                                                   SDLRPCParameterNameButtonEventMode:SDLButtonEventModeButtonDown,
+                                                   SDLRPCParameterNameCustomButtonId:@4252},
+                                             SDLRPCParameterNameOperationName:SDLRPCFunctionNameOnButtonEvent}} mutableCopy];
         SDLOnButtonEvent* testNotification = [[SDLOnButtonEvent alloc] initWithDictionary:dict];
         
-        expect(testNotification.buttonName).to(equal([SDLButtonName CUSTOM_BUTTON]));
-        expect(testNotification.buttonEventMode).to(equal([SDLButtonEventMode BUTTONDOWN]));
+        expect(testNotification.buttonName).to(equal(SDLButtonNameCustomButton));
+        expect(testNotification.buttonEventMode).to(equal(SDLButtonEventModeButtonDown));
         expect(testNotification.customButtonID).to(equal(@4252));
     });
     

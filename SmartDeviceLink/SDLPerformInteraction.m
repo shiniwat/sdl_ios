@@ -4,25 +4,18 @@
 
 #import "SDLPerformInteraction.h"
 
-#import "SDLInteractionMode.h"
-#import "SDLLayoutMode.h"
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 #import "SDLTTSChunk.h"
-#import "SDLTTSChunkFactory.h"
 #import "SDLVrHelpItem.h"
 
-static UInt16 const SDLDefaultTimeout = 10000;
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLPerformInteraction
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_PerformInteraction]) {
-    }
-    return self;
-}
-
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
+    if (self = [super initWithName:SDLRPCFunctionNamePerformInteraction]) {
     }
     return self;
 }
@@ -31,30 +24,45 @@ static UInt16 const SDLDefaultTimeout = 10000;
     return [self initWithInteractionChoiceSetIdList:@[@(interactionChoiceSetId)]];
 }
 
-- (instancetype)initWithInitialPrompt:(NSString *)initialPrompt initialText:(NSString *)initialText interactionChoiceSetID:(UInt16)interactionChoiceSetID {
-    return [self initWithInitialPrompt:initialPrompt initialText:initialText interactionChoiceSetID:interactionChoiceSetID vrHelp:nil];
+- (instancetype)initWithInitialPrompt:(nullable NSString *)initialPrompt initialText:(NSString *)initialText interactionChoiceSetID:(UInt16)interactionChoiceSetID {
+    self = [self initWithInteractionChoiceSetId:interactionChoiceSetID];
+    if (!self) {
+        return nil;
+    }
+    
+    self.initialPrompt = [SDLTTSChunk textChunksFromString:initialPrompt];
+    self.initialText = initialText;
+    
+    return self;
 }
 
-- (instancetype)initWithInitialPrompt:(NSString *)initialPrompt initialText:(NSString *)initialText interactionChoiceSetID:(UInt16)interactionChoiceSetID vrHelp:(NSArray<SDLVRHelpItem *> *)vrHelp {
-    return [self initWithInitialPrompt:initialPrompt initialText:initialText interactionChoiceSetIDList:@[@(interactionChoiceSetID)] helpPrompt:nil timeoutPrompt:nil interactionMode:nil timeout:SDLDefaultTimeout vrHelp:vrHelp];
+- (instancetype)initWithInitialPrompt:(nullable NSString *)initialPrompt initialText:(NSString *)initialText interactionChoiceSetID:(UInt16)interactionChoiceSetID vrHelp:(nullable NSArray<SDLVRHelpItem *> *)vrHelp {
+    self = [self initWithInitialPrompt:initialPrompt initialText:initialText interactionChoiceSetID:interactionChoiceSetID];
+    if (!self) {
+        return nil;
+    }
+    
+    self.vrHelp = [vrHelp mutableCopy];
+    
+    return self;
 }
 
-- (instancetype)initWithInitialPrompt:(NSString *)initialPrompt initialText:(NSString *)initialText interactionChoiceSetIDList:(NSArray<NSNumber<SDLUInt> *> *)interactionChoiceSetIDList helpPrompt:(NSString *)helpPrompt timeoutPrompt:(NSString *)timeoutPrompt interactionMode:(SDLInteractionMode *)interactionMode timeout:(UInt32)timeout {
+- (instancetype)initWithInitialPrompt:(nullable NSString *)initialPrompt initialText:(NSString *)initialText interactionChoiceSetIDList:(NSArray<NSNumber<SDLUInt> *> *)interactionChoiceSetIDList helpPrompt:(nullable NSString *)helpPrompt timeoutPrompt:(nullable NSString *)timeoutPrompt interactionMode:(SDLInteractionMode)interactionMode timeout:(UInt32)timeout {
     return [self initWithInitialPrompt:initialPrompt initialText:initialText interactionChoiceSetIDList:interactionChoiceSetIDList helpPrompt:helpPrompt timeoutPrompt:timeoutPrompt interactionMode:interactionMode timeout:timeout vrHelp:nil];
 }
 
-- (instancetype)initWithInitialPrompt:(NSString *)initialPrompt initialText:(NSString *)initialText interactionChoiceSetIDList:(NSArray<NSNumber<SDLUInt> *> *)interactionChoiceSetIDList helpPrompt:(NSString *)helpPrompt timeoutPrompt:(NSString *)timeoutPrompt interactionMode:(SDLInteractionMode *)interactionMode timeout:(UInt32)timeout vrHelp:(NSArray<SDLVRHelpItem *> *)vrHelp {
-    NSMutableArray *initialChunks = [SDLTTSChunk textChunksFromString:initialPrompt];
-    NSMutableArray *helpChunks = [SDLTTSChunk textChunksFromString:helpPrompt];
-    NSMutableArray *timeoutChunks = [SDLTTSChunk textChunksFromString:timeoutPrompt];
+- (instancetype)initWithInitialPrompt:(nullable NSString *)initialPrompt initialText:(NSString *)initialText interactionChoiceSetIDList:(NSArray<NSNumber<SDLUInt> *> *)interactionChoiceSetIDList helpPrompt:(nullable NSString *)helpPrompt timeoutPrompt:(nullable NSString *)timeoutPrompt interactionMode:(SDLInteractionMode)interactionMode timeout:(UInt32)timeout vrHelp:(nullable NSArray<SDLVRHelpItem *> *)vrHelp {
+    NSArray *initialChunks = [SDLTTSChunk textChunksFromString:initialPrompt];
+    NSArray *helpChunks = [SDLTTSChunk textChunksFromString:helpPrompt];
+    NSArray *timeoutChunks = [SDLTTSChunk textChunksFromString:timeoutPrompt];
     return [self initWithInitialChunks:initialChunks initialText:initialText interactionChoiceSetIDList:interactionChoiceSetIDList helpChunks:helpChunks timeoutChunks:timeoutChunks interactionMode:interactionMode timeout:timeout vrHelp:vrHelp];
 }
 
-- (instancetype)initWithInitialChunks:(NSArray<SDLTTSChunk *> *)initialChunks initialText:(NSString *)initialText interactionChoiceSetIDList:(NSArray<NSNumber<SDLUInt> *> *)interactionChoiceSetIDList helpChunks:(NSArray *)helpChunks timeoutChunks:(NSArray *)timeoutChunks interactionMode:(SDLInteractionMode *)interactionMode timeout:(UInt32)timeout vrHelp:(NSArray<SDLVRHelpItem *> *)vrHelp {
+- (instancetype)initWithInitialChunks:(nullable NSArray<SDLTTSChunk *> *)initialChunks initialText:(NSString *)initialText interactionChoiceSetIDList:(NSArray<NSNumber<SDLUInt> *> *)interactionChoiceSetIDList helpChunks:(nullable NSArray<SDLTTSChunk *> *)helpChunks timeoutChunks:(nullable NSArray<SDLTTSChunk *> *)timeoutChunks interactionMode:(SDLInteractionMode)interactionMode timeout:(UInt32)timeout vrHelp:(nullable NSArray<SDLVRHelpItem *> *)vrHelp {
     return [self initWithInitialChunks:initialChunks initialText:initialText interactionChoiceSetIDList:interactionChoiceSetIDList helpChunks:helpChunks timeoutChunks:timeoutChunks interactionMode:interactionMode timeout:timeout vrHelp:vrHelp interactionLayout:nil];
 }
 
-- (instancetype)initWithInitialChunks:(NSArray<SDLTTSChunk *> *)initialChunks initialText:(NSString *)initialText interactionChoiceSetIDList:(NSArray<NSNumber<SDLUInt> *> *)interactionChoiceSetIDList helpChunks:(NSArray<SDLTTSChunk *> *)helpChunks timeoutChunks:(NSArray<SDLTTSChunk *> *)timeoutChunks interactionMode:(SDLInteractionMode *)interactionMode timeout:(UInt32)timeout vrHelp:(NSArray<SDLVRHelpItem *> *)vrHelp interactionLayout:(SDLLayoutMode *)layout {
+- (instancetype)initWithInitialChunks:(nullable NSArray<SDLTTSChunk *> *)initialChunks initialText:(NSString *)initialText interactionChoiceSetIDList:(NSArray<NSNumber<SDLUInt> *> *)interactionChoiceSetIDList helpChunks:(nullable NSArray<SDLTTSChunk *> *)helpChunks timeoutChunks:(nullable NSArray<SDLTTSChunk *> *)timeoutChunks interactionMode:(SDLInteractionMode)interactionMode timeout:(UInt32)timeout vrHelp:(nullable NSArray<SDLVRHelpItem *> *)vrHelp interactionLayout:(nullable SDLLayoutMode)layout {
     self = [self initWithInteractionChoiceSetIdList:interactionChoiceSetIDList];
     if (!self) {
         return nil;
@@ -72,7 +80,7 @@ static UInt16 const SDLDefaultTimeout = 10000;
     return self;
 }
 
-- (instancetype)initWithInteractionChoiceSetIdList:(NSArray *)interactionChoiceSetIdList {
+- (instancetype)initWithInteractionChoiceSetIdList:(NSArray<NSNumber<SDLInt> *> *)interactionChoiceSetIdList {
     self = [self init];
     if (!self) {
         return nil;
@@ -84,165 +92,80 @@ static UInt16 const SDLDefaultTimeout = 10000;
 }
 
 - (void)setInitialText:(NSString *)initialText {
-    if (initialText != nil) {
-        [parameters setObject:initialText forKey:NAMES_initialText];
-    } else {
-        [parameters removeObjectForKey:NAMES_initialText];
-    }
+    [parameters sdl_setObject:initialText forName:SDLRPCParameterNameInitialText];
 }
 
 - (NSString *)initialText {
-    return [parameters objectForKey:NAMES_initialText];
+    NSError *error = nil;
+    return [parameters sdl_objectForName:SDLRPCParameterNameInitialText ofClass:NSString.class error:&error];
 }
 
-- (void)setInitialPrompt:(NSMutableArray *)initialPrompt {
-    if (initialPrompt != nil) {
-        [parameters setObject:initialPrompt forKey:NAMES_initialPrompt];
-    } else {
-        [parameters removeObjectForKey:NAMES_initialPrompt];
-    }
+- (void)setInitialPrompt:(nullable NSArray<SDLTTSChunk *> *)initialPrompt {
+    [parameters sdl_setObject:initialPrompt forName:SDLRPCParameterNameInitialPrompt];
 }
 
-- (NSMutableArray *)initialPrompt {
-    NSMutableArray *array = [parameters objectForKey:NAMES_initialPrompt];
-    if ([array isEqual:[NSNull null]]) {
-        return [NSMutableArray array];
-    } else if (array.count < 1 || [array.firstObject isKindOfClass:SDLTTSChunk.class]) {
-        return array;
-    } else {
-        NSMutableArray *newList = [NSMutableArray arrayWithCapacity:[array count]];
-        for (NSDictionary *dict in array) {
-            [newList addObject:[[SDLTTSChunk alloc] initWithDictionary:(NSMutableDictionary *)dict]];
-        }
-        return newList;
-    }
+- (nullable NSArray<SDLTTSChunk *> *)initialPrompt {
+    return [parameters sdl_objectsForName:SDLRPCParameterNameInitialPrompt ofClass:SDLTTSChunk.class error:nil];
 }
 
-- (void)setInteractionMode:(SDLInteractionMode *)interactionMode {
-    if (interactionMode != nil) {
-        [parameters setObject:interactionMode forKey:NAMES_interactionMode];
-    } else {
-        [parameters removeObjectForKey:NAMES_interactionMode];
-    }
+- (void)setInteractionMode:(SDLInteractionMode)interactionMode {
+    [parameters sdl_setObject:interactionMode forName:SDLRPCParameterNameInteractionMode];
 }
 
-- (SDLInteractionMode *)interactionMode {
-    NSObject *obj = [parameters objectForKey:NAMES_interactionMode];
-    if (obj == nil || [obj isKindOfClass:SDLInteractionMode.class]) {
-        return (SDLInteractionMode *)obj;
-    } else {
-        return [SDLInteractionMode valueOf:(NSString *)obj];
-    }
+- (SDLInteractionMode)interactionMode {
+    NSError *error = nil;
+    return [parameters sdl_enumForName:SDLRPCParameterNameInteractionMode error:&error];
 }
 
-- (void)setInteractionChoiceSetIDList:(NSMutableArray *)interactionChoiceSetIDList {
-    if (interactionChoiceSetIDList != nil) {
-        [parameters setObject:interactionChoiceSetIDList forKey:NAMES_interactionChoiceSetIDList];
-    } else {
-        [parameters removeObjectForKey:NAMES_interactionChoiceSetIDList];
-    }
+- (void)setInteractionChoiceSetIDList:(NSArray<NSNumber<SDLInt> *> *)interactionChoiceSetIDList {
+    [parameters sdl_setObject:interactionChoiceSetIDList forName:SDLRPCParameterNameInteractionChoiceSetIdList];
 }
 
-- (NSMutableArray *)interactionChoiceSetIDList {
-    return [parameters objectForKey:NAMES_interactionChoiceSetIDList];
+- (NSArray<NSNumber<SDLInt> *> *)interactionChoiceSetIDList {
+    NSError *error = nil;
+    return [parameters sdl_objectsForName:SDLRPCParameterNameInteractionChoiceSetIdList ofClass:NSNumber.class error:&error];
 }
 
-- (void)setHelpPrompt:(NSMutableArray *)helpPrompt {
-    if (helpPrompt != nil) {
-        [parameters setObject:helpPrompt forKey:NAMES_helpPrompt];
-    } else {
-        [parameters removeObjectForKey:NAMES_helpPrompt];
-    }
+- (void)setHelpPrompt:(nullable NSArray<SDLTTSChunk *> *)helpPrompt {
+    [parameters sdl_setObject:helpPrompt forName:SDLRPCParameterNameHelpPrompt];
 }
 
-- (NSMutableArray *)helpPrompt {
-    NSMutableArray *array = [parameters objectForKey:NAMES_helpPrompt];
-    if ([array isEqual:[NSNull null]]) {
-        return [NSMutableArray array];
-    } else if (array.count < 1 || [array.firstObject isKindOfClass:SDLTTSChunk.class]) {
-        return array;
-    } else {
-        NSMutableArray *newList = [NSMutableArray arrayWithCapacity:[array count]];
-        for (NSDictionary *dict in array) {
-            [newList addObject:[[SDLTTSChunk alloc] initWithDictionary:(NSMutableDictionary *)dict]];
-        }
-        return newList;
-    }
+- (nullable NSArray<SDLTTSChunk *> *)helpPrompt {
+    return [parameters sdl_objectsForName:SDLRPCParameterNameHelpPrompt ofClass:SDLTTSChunk.class error:nil];
 }
 
-- (void)setTimeoutPrompt:(NSMutableArray *)timeoutPrompt {
-    if (timeoutPrompt != nil) {
-        [parameters setObject:timeoutPrompt forKey:NAMES_timeoutPrompt];
-    } else {
-        [parameters removeObjectForKey:NAMES_timeoutPrompt];
-    }
+- (void)setTimeoutPrompt:(nullable NSArray<SDLTTSChunk *> *)timeoutPrompt {
+    [parameters sdl_setObject:timeoutPrompt forName:SDLRPCParameterNameTimeoutPrompt];
 }
 
-- (NSMutableArray *)timeoutPrompt {
-    NSMutableArray *array = [parameters objectForKey:NAMES_timeoutPrompt];
-    if ([array isEqual:[NSNull null]]) {
-        return [NSMutableArray array];
-    } else if (array.count < 1 || [array.firstObject isKindOfClass:SDLTTSChunk.class]) {
-        return array;
-    } else {
-        NSMutableArray *newList = [NSMutableArray arrayWithCapacity:[array count]];
-        for (NSDictionary *dict in array) {
-            [newList addObject:[[SDLTTSChunk alloc] initWithDictionary:(NSMutableDictionary *)dict]];
-        }
-        return newList;
-    }
+- (nullable NSArray<SDLTTSChunk *> *)timeoutPrompt {
+    return [parameters sdl_objectsForName:SDLRPCParameterNameTimeoutPrompt ofClass:SDLTTSChunk.class error:nil];
 }
 
-- (void)setTimeout:(NSNumber *)timeout {
-    if (timeout != nil) {
-        [parameters setObject:timeout forKey:NAMES_timeout];
-    } else {
-        [parameters removeObjectForKey:NAMES_timeout];
-    }
+- (void)setTimeout:(nullable NSNumber<SDLInt> *)timeout {
+    [parameters sdl_setObject:timeout forName:SDLRPCParameterNameTimeout];
 }
 
-- (NSNumber *)timeout {
-    return [parameters objectForKey:NAMES_timeout];
+- (nullable NSNumber<SDLInt> *)timeout {
+    return [parameters sdl_objectForName:SDLRPCParameterNameTimeout ofClass:NSNumber.class error:nil];
 }
 
-- (void)setVrHelp:(NSMutableArray *)vrHelp {
-    if (vrHelp != nil) {
-        [parameters setObject:vrHelp forKey:NAMES_vrHelp];
-    } else {
-        [parameters removeObjectForKey:NAMES_vrHelp];
-    }
+- (void)setVrHelp:(nullable NSArray<SDLVRHelpItem *> *)vrHelp {
+    [parameters sdl_setObject:vrHelp forName:SDLRPCParameterNameVRHelp];
 }
 
-- (NSMutableArray *)vrHelp {
-    NSMutableArray *array = [parameters objectForKey:NAMES_vrHelp];
-    if ([array isEqual:[NSNull null]]) {
-        return [NSMutableArray array];
-    } else if (array.count < 1 || [array.firstObject isKindOfClass:SDLVRHelpItem.class]) {
-        return array;
-    } else {
-        NSMutableArray *newList = [NSMutableArray arrayWithCapacity:[array count]];
-        for (NSDictionary *dict in array) {
-            [newList addObject:[[SDLVRHelpItem alloc] initWithDictionary:(NSMutableDictionary *)dict]];
-        }
-        return newList;
-    }
+- (nullable NSArray<SDLVRHelpItem *> *)vrHelp {
+    return [parameters sdl_objectsForName:SDLRPCParameterNameVRHelp ofClass:SDLVRHelpItem.class error:nil];
 }
 
-- (void)setInteractionLayout:(SDLLayoutMode *)interactionLayout {
-    if (interactionLayout != nil) {
-        [parameters setObject:interactionLayout forKey:NAMES_interactionLayout];
-    } else {
-        [parameters removeObjectForKey:NAMES_interactionLayout];
-    }
+- (void)setInteractionLayout:(nullable SDLLayoutMode)interactionLayout {
+    [parameters sdl_setObject:interactionLayout forName:SDLRPCParameterNameInteractionLayout];
 }
 
-- (SDLLayoutMode *)interactionLayout {
-    NSObject *obj = [parameters objectForKey:NAMES_interactionLayout];
-    if (obj == nil || [obj isKindOfClass:SDLLayoutMode.class]) {
-        return (SDLLayoutMode *)obj;
-    } else {
-        return [SDLLayoutMode valueOf:(NSString *)obj];
-    }
+- (nullable SDLLayoutMode)interactionLayout {
+    return [parameters sdl_enumForName:SDLRPCParameterNameInteractionLayout error:nil];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

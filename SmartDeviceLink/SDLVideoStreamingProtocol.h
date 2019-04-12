@@ -2,57 +2,35 @@
 //  SDLVideoStreamingProtocol.h
 //  SmartDeviceLink-iOS
 //
-//  Created by Brett McIsaac on 7/27/17.
-//  Copyright © 2017 smartdevicelink. All rights reserved.
-//
 
 #import "SDLEnum.h"
 
 /**
- * Enum for each type of video streaming protocol
- *
- * @since SDL 4.7
+ * Enum for each type of video streaming protocol, used in VideoStreamingFormat
  */
-@interface SDLVideoStreamingProtocol : SDLEnum
+typedef SDLEnum SDLVideoStreamingProtocol SDL_SWIFT_ENUM;
 
 /**
- * Convert String to SDLVideoStreamingProtocol
- *
- * @param value String value to retrieve the object for
- *
- * @return SDLVideoStreamingProtocol
+ * RAW
  */
-+ (SDLVideoStreamingProtocol *)valueOf:(NSString *)value;
+extern SDLVideoStreamingProtocol const SDLVideoStreamingProtocolRAW;
 
 /**
- @abstract Store the enumeration of all possible SDLVideoStreamingProtocol
- @return an array that store all possible SDLVideoStreamingProtocol
+ * RTP
  */
-+ (NSArray *)values;
+extern SDLVideoStreamingProtocol const SDLVideoStreamingProtocolRTP;
 
 /**
- @abstract SDLVideoStreamingProtocol : RAW
+ * RTSP
  */
-+ (SDLVideoStreamingProtocol *)RAW;
+extern SDLVideoStreamingProtocol const SDLVideoStreamingProtocolRTSP;
 
 /**
- @abstract SDLVideoStreamingProtocol : RTP
+ * RTMP
  */
-+ (SDLVideoStreamingProtocol *)RTP;
+extern SDLVideoStreamingProtocol const SDLVideoStreamingProtocolRTMP;
 
 /**
- @abstract SDLVideoStreamingProtocol : RTSP
+ * WebM
  */
-+ (SDLVideoStreamingProtocol *)RTSP;
-
-/**
- @abstract SDLVideoStreamingProtocol : RTMP
- */
-+ (SDLVideoStreamingProtocol *)RTMP;
-
-/**
- @abstract SDLVideoStreamingProtocol : WEBM
- */
-+ (SDLVideoStreamingProtocol *)WEBM;
-
-@end
+extern SDLVideoStreamingProtocol const SDLVideoStreamingProtocolWebM;

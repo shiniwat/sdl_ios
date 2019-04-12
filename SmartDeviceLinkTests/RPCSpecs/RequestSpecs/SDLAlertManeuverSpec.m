@@ -11,7 +11,8 @@
 #import "SDLAlertManeuver.h"
 #import "SDLTTSChunk.h"
 #import "SDLSoftButton.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 
 QuickSpecBegin(SDLAlertManeuverSpec)
 
@@ -30,11 +31,11 @@ describe(@"Getter/Setter Tests", ^ {
     });
     
     it(@"Should get correctly when initialized", ^ {
-        NSMutableDictionary* dict = [@{NAMES_request:
-                                           @{NAMES_parameters:
-                                                 @{NAMES_ttsChunks:[@[tts] mutableCopy],
-                                                   NAMES_softButtons:[@[button] mutableCopy]},
-                                             NAMES_operation_name:NAMES_AlertManeuver}} mutableCopy];
+        NSMutableDictionary<NSString *, id> *dict = [@{SDLRPCParameterNameRequest:
+                                                           @{SDLRPCParameterNameParameters:
+                                                                 @{SDLRPCParameterNameTTSChunks:[@[tts] mutableCopy],
+                                                                   SDLRPCParameterNameSoftButtons:[@[button] mutableCopy]},
+                                                             SDLRPCParameterNameOperationName:SDLRPCFunctionNameAlertManeuver}} mutableCopy];
         SDLAlertManeuver* testRequest = [[SDLAlertManeuver alloc] initWithDictionary:dict];
         
         expect(testRequest.ttsChunks).to(equal([@[tts] mutableCopy]));

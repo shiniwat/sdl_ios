@@ -9,7 +9,8 @@
 #import <Nimble/Nimble.h>
 
 #import "SDLDeleteInteractionChoiceSet.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 
 QuickSpecBegin(SDLDeleteInteractionChoiceSetSpec)
 
@@ -23,10 +24,10 @@ describe(@"Getter/Setter Tests", ^ {
     });
     
     it(@"Should get correctly when initialized", ^ {
-        NSMutableDictionary* dict = [@{NAMES_request:
-                                           @{NAMES_parameters:
-                                                 @{NAMES_interactionChoiceSetID:@20314},
-                                             NAMES_operation_name:NAMES_DeleteInteractionChoiceSet}} mutableCopy];
+        NSMutableDictionary<NSString *, id> *dict = [@{SDLRPCParameterNameRequest:
+                                                           @{SDLRPCParameterNameParameters:
+                                                                 @{SDLRPCParameterNameInteractionChoiceSetId:@20314},
+                                                             SDLRPCParameterNameOperationName:SDLRPCFunctionNameDeleteInteractionChoiceSet}} mutableCopy];
         SDLDeleteInteractionChoiceSet* testRequest = [[SDLDeleteInteractionChoiceSet alloc] initWithDictionary:dict];
         
         expect(testRequest.interactionChoiceSetID).to(equal(@20314));

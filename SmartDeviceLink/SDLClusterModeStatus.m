@@ -3,87 +3,49 @@
 
 #import "SDLClusterModeStatus.h"
 
-#import "SDLCarModeStatus.h"
-#import "SDLNames.h"
-#import "SDLPowerModeQualificationStatus.h"
-#import "SDLPowerModeStatus.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLClusterModeStatus
 
-- (instancetype)init {
-    if (self = [super init]) {
-    }
-    return self;
+- (void)setPowerModeActive:(NSNumber<SDLBool> *)powerModeActive {
+    [store sdl_setObject:powerModeActive forName:SDLRPCParameterNamePowerModeActive];
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (NSNumber<SDLBool> *)powerModeActive {
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNamePowerModeActive ofClass:NSNumber.class error:&error];
 }
 
-- (void)setPowerModeActive:(NSNumber *)powerModeActive {
-    if (powerModeActive != nil) {
-        [store setObject:powerModeActive forKey:NAMES_powerModeActive];
-    } else {
-        [store removeObjectForKey:NAMES_powerModeActive];
-    }
+- (void)setPowerModeQualificationStatus:(SDLPowerModeQualificationStatus)powerModeQualificationStatus {
+    [store sdl_setObject:powerModeQualificationStatus forName:SDLRPCParameterNamePowerModeQualificationStatus];
 }
 
-- (NSNumber *)powerModeActive {
-    return [store objectForKey:NAMES_powerModeActive];
+- (SDLPowerModeQualificationStatus)powerModeQualificationStatus {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNamePowerModeQualificationStatus error:&error];
 }
 
-- (void)setPowerModeQualificationStatus:(SDLPowerModeQualificationStatus *)powerModeQualificationStatus {
-    if (powerModeQualificationStatus != nil) {
-        [store setObject:powerModeQualificationStatus forKey:NAMES_powerModeQualificationStatus];
-    } else {
-        [store removeObjectForKey:NAMES_powerModeQualificationStatus];
-    }
+- (void)setCarModeStatus:(SDLCarModeStatus)carModeStatus {
+    [store sdl_setObject:carModeStatus forName:SDLRPCParameterNameCarModeStatus];
 }
 
-- (SDLPowerModeQualificationStatus *)powerModeQualificationStatus {
-    NSObject *obj = [store objectForKey:NAMES_powerModeQualificationStatus];
-    if (obj == nil || [obj isKindOfClass:SDLPowerModeQualificationStatus.class]) {
-        return (SDLPowerModeQualificationStatus *)obj;
-    } else {
-        return [SDLPowerModeQualificationStatus valueOf:(NSString *)obj];
-    }
+- (SDLCarModeStatus)carModeStatus {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNameCarModeStatus error:&error];
 }
 
-- (void)setCarModeStatus:(SDLCarModeStatus *)carModeStatus {
-    if (carModeStatus != nil) {
-        [store setObject:carModeStatus forKey:NAMES_carModeStatus];
-    } else {
-        [store removeObjectForKey:NAMES_carModeStatus];
-    }
+- (void)setPowerModeStatus:(SDLPowerModeStatus)powerModeStatus {
+    [store sdl_setObject:powerModeStatus forName:SDLRPCParameterNamePowerModeStatus];
 }
 
-- (SDLCarModeStatus *)carModeStatus {
-    NSObject *obj = [store objectForKey:NAMES_carModeStatus];
-    if (obj == nil || [obj isKindOfClass:SDLCarModeStatus.class]) {
-        return (SDLCarModeStatus *)obj;
-    } else {
-        return [SDLCarModeStatus valueOf:(NSString *)obj];
-    }
-}
-
-- (void)setPowerModeStatus:(SDLPowerModeStatus *)powerModeStatus {
-    if (powerModeStatus != nil) {
-        [store setObject:powerModeStatus forKey:NAMES_powerModeStatus];
-    } else {
-        [store removeObjectForKey:NAMES_powerModeStatus];
-    }
-}
-
-- (SDLPowerModeStatus *)powerModeStatus {
-    NSObject *obj = [store objectForKey:NAMES_powerModeStatus];
-    if (obj == nil || [obj isKindOfClass:SDLPowerModeStatus.class]) {
-        return (SDLPowerModeStatus *)obj;
-    } else {
-        return [SDLPowerModeStatus valueOf:(NSString *)obj];
-    }
+- (SDLPowerModeStatus)powerModeStatus {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNamePowerModeStatus error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

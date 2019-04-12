@@ -8,23 +8,28 @@
 
 #import "SDLSystemCapability.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLAppServicesCapabilities.h"
+#import "SDLRPCParameterNames.h"
 #import "SDLNavigationCapability.h"
 #import "SDLPhoneCapability.h"
 #import "SDLSystemCapabilityType.h"
 #import "SDLVideoStreamingCapability.h"
+#import "SDLRemoteControlCapabilities.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLSystemCapability
 
-- (instancetype)init {
-    if (self = [super init]) {
+- (instancetype)initWithAppServicesCapabilities:(SDLAppServicesCapabilities *)capability {
+    self = [self init];
+    if (!self) {
+        return nil;
     }
-    return self;
-}
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
+    self.systemCapabilityType = SDLSystemCapabilityTypeAppServices;
+    self.appServicesCapabilities = capability;
+
     return self;
 }
 
@@ -34,7 +39,7 @@
         return nil;
     }
 
-    self.systemCapabilityType = [SDLSystemCapabilityType PHONE_CALL];
+    self.systemCapabilityType = SDLSystemCapabilityTypePhoneCall;
     self.phoneCapability = capability;
 
     return self;
@@ -46,7 +51,7 @@
         return nil;
     }
 
-    self.systemCapabilityType = [SDLSystemCapabilityType NAVIGATION];
+    self.systemCapabilityType = SDLSystemCapabilityTypeNavigation;
     self.navigationCapability = capability;
 
     return self;
@@ -58,80 +63,73 @@
         return nil;
     }
 
-    self.systemCapabilityType = [SDLSystemCapabilityType VIDEO_STREAMING];
+    self.systemCapabilityType = SDLSystemCapabilityTypeVideoStreaming;
     self.videoStreamingCapability = capability;
 
     return self;
 }
 
-- (void)setSystemCapabilityType:(SDLSystemCapabilityType *)type {
-    if (type != nil) {
-        [store setObject:type forKey:NAMES_systemCapabilityType];
-    } else {
-        [store removeObjectForKey:NAMES_systemCapabilityType];
+- (instancetype)initWithRemoteControlCapability:(SDLRemoteControlCapabilities *)capability {
+    self = [self init];
+    if (!self) {
+        return nil;
     }
+
+    self.systemCapabilityType = SDLSystemCapabilityTypeRemoteControl;
+    self.remoteControlCapability = capability;
+
+    return self;
 }
 
-- (SDLSystemCapabilityType *)systemCapabilityType {
-    id obj = store[NAMES_systemCapabilityType];
-    if (obj == nil || [obj isKindOfClass:SDLSystemCapabilityType.class]) {
-        return (SDLSystemCapabilityType *)obj;
-    } else {
-        return [SDLSystemCapabilityType valueOf:(NSString *)obj];
-    }
+- (void)setSystemCapabilityType:(SDLSystemCapabilityType)type {
+    [store sdl_setObject:type forName:SDLRPCParameterNameSystemCapabilityType];
 }
 
-// TODO: Nav / Phone Capability
-
-- (void)setNavigationCapability:(SDLNavigationCapability *)navigationCapability {
-    if (navigationCapability != nil) {
-        store[NAMES_navigationCapability] = navigationCapability;
-    } else {
-        [store removeObjectForKey:NAMES_navigationCapability];
-    }
+- (SDLSystemCapabilityType)systemCapabilityType {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNameSystemCapabilityType error:&error];
 }
 
-- (SDLNavigationCapability *)navigationCapability {
-    NSObject *obj = store[NAMES_navigationCapability];
-    if (obj == nil || [obj isKindOfClass:SDLNavigationCapability.class]) {
-        return (SDLNavigationCapability *)obj;
-    } else {
-        return [[SDLNavigationCapability alloc] initWithDictionary:(NSMutableDictionary *)obj];
-    }
+- (void)setAppServicesCapabilities:(nullable SDLAppServicesCapabilities *)appServicesCapabilities {
+    [store sdl_setObject:appServicesCapabilities forName:SDLRPCParameterNameAppServicesCapabilities];
 }
 
-- (void)setPhoneCapability:(SDLPhoneCapability *)phoneCapability {
-    if (phoneCapability != nil) {
-        store[NAMES_phoneCapability] = phoneCapability;
-    } else {
-        [store removeObjectForKey:NAMES_phoneCapability];
-    }
+- (nullable SDLAppServicesCapabilities *)appServicesCapabilities {
+    return [store sdl_objectForName:SDLRPCParameterNameAppServicesCapabilities ofClass:SDLAppServicesCapabilities.class error:nil];
 }
 
-- (SDLPhoneCapability *)phoneCapability {
-    NSObject *obj = store[NAMES_phoneCapability];
-    if (obj == nil || [obj isKindOfClass:SDLPhoneCapability.class]) {
-        return (SDLPhoneCapability *)obj;
-    } else {
-        return [[SDLPhoneCapability alloc] initWithDictionary:(NSMutableDictionary *)obj];
-    }
+- (void)setNavigationCapability:(nullable SDLNavigationCapability *)navigationCapability {
+    [store sdl_setObject:navigationCapability forName:SDLRPCParameterNameNavigationCapability];
 }
 
-- (void)setVideoStreamingCapability:(SDLVideoStreamingCapability *)videoStreamingCapability {
-    if (videoStreamingCapability != nil) {
-        store[NAMES_videoStreamingCapability] = videoStreamingCapability;
-    } else {
-        [store removeObjectForKey:NAMES_videoStreamingCapability];
-    }
+- (nullable SDLNavigationCapability *)navigationCapability {
+    return [store sdl_objectForName:SDLRPCParameterNameNavigationCapability ofClass:SDLNavigationCapability.class error:nil];
 }
 
-- (SDLVideoStreamingCapability *)videoStreamingCapability {
-    NSObject *obj = store[NAMES_videoStreamingCapability];
-    if (obj == nil || [obj isKindOfClass:SDLVideoStreamingCapability.class]) {
-        return (SDLVideoStreamingCapability *)obj;
-    } else {
-        return [[SDLVideoStreamingCapability alloc] initWithDictionary:(NSMutableDictionary *)obj];
-    }
+- (void)setPhoneCapability:(nullable SDLPhoneCapability *)phoneCapability {
+    [store sdl_setObject:phoneCapability forName:SDLRPCParameterNamePhoneCapability];
+}
+
+- (nullable SDLPhoneCapability *)phoneCapability {
+    return [store sdl_objectForName:SDLRPCParameterNamePhoneCapability ofClass:SDLPhoneCapability.class error:nil];
+}
+
+- (void)setVideoStreamingCapability:(nullable SDLVideoStreamingCapability *)videoStreamingCapability {
+    [store sdl_setObject:videoStreamingCapability forName:SDLRPCParameterNameVideoStreamingCapability];
+}
+
+- (nullable SDLVideoStreamingCapability *)videoStreamingCapability {
+    return [store sdl_objectForName:SDLRPCParameterNameVideoStreamingCapability ofClass:SDLVideoStreamingCapability.class error:nil];
+}
+
+- (void)setRemoteControlCapability:(nullable SDLRemoteControlCapabilities *)remoteControlCapability {
+    [store sdl_setObject:remoteControlCapability forName:SDLRPCParameterNameRemoteControlCapability];
+}
+
+- (nullable SDLRemoteControlCapabilities *)remoteControlCapability {
+    return [store sdl_objectForName:SDLRPCParameterNameRemoteControlCapability ofClass:SDLRemoteControlCapabilities.class error:nil];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

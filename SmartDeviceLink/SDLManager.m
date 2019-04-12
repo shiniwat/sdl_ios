@@ -2,19 +2,24 @@
 
 #import <Foundation/Foundation.h>
 
-#import "SmartDeviceLink.h"
-
 #import "SDLManager.h"
 
 #import "NSMapTable+Subscripting.h"
+#import "SDLConfiguration.h"
 #import "SDLConnectionManagerType.h"
+#import "SDLFileManagerConfiguration.h"
+#import "SDLLifecycleConfiguration.h"
 #import "SDLLifecycleManager.h"
+#import "SDLLockScreenConfiguration.h"
 #import "SDLLockScreenManager.h"
 #import "SDLLockScreenPresenter.h"
+#import "SDLLogConfiguration.h"
 #import "SDLManagerDelegate.h"
 #import "SDLNotificationDispatcher.h"
 #import "SDLResponseDispatcher.h"
+#import "SDLSoftButtonManager.h"
 #import "SDLStateMachine.h"
+#import "SDLTextAndGraphicManager.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -35,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark Lifecycle
 
 - (instancetype)init {
-    return [self initWithConfiguration:[SDLConfiguration configurationWithLifecycle:[SDLLifecycleConfiguration defaultConfigurationWithAppName:@"SDL APP" appId:@"001"] lockScreen:[SDLLockScreenConfiguration enabledConfiguration]] delegate:nil];
+    return [self initWithConfiguration:[SDLConfiguration configurationWithLifecycle:[SDLLifecycleConfiguration defaultConfigurationWithAppName:@"SDL APP" fullAppId:@"001"] lockScreen:[SDLLockScreenConfiguration enabledConfiguration] logging:[SDLLogConfiguration defaultConfiguration] fileManager:[SDLFileManagerConfiguration defaultConfiguration]] delegate:nil];
 }
 
 - (instancetype)initWithConfiguration:(SDLConfiguration *)configuration delegate:(nullable id<SDLManagerDelegate>)delegate {
@@ -64,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self.lifecycleManager.configuration;
 }
 
-- (SDLHMILevel *)hmiLevel {
+- (nullable SDLHMILevel)hmiLevel {
     return self.lifecycleManager.hmiLevel;
 }
 
@@ -80,8 +85,20 @@ NS_ASSUME_NONNULL_BEGIN
     return self.lifecycleManager.streamManager;
 }
 
+- (SDLScreenManager *)screenManager {
+    return self.lifecycleManager.screenManager;
+}
+
+- (SDLSystemCapabilityManager *)systemCapabilityManager {
+    return self.lifecycleManager.systemCapabilityManager;
+}
+
 - (nullable SDLRegisterAppInterfaceResponse *)registerResponse {
     return self.lifecycleManager.registerResponse;
+}
+
+- (nullable NSString *)authToken {
+    return self.lifecycleManager.authToken;
 }
 
 - (nullable id<SDLManagerDelegate>)delegate {
@@ -90,6 +107,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setDelegate:(nullable id<SDLManagerDelegate>)delegate {
     self.lifecycleManager.delegate = delegate;
+}
+
+- (NSArray<__kindof NSOperation *> *)pendingRPCTransactions {
+    return self.lifecycleManager.rpcOperationQueue.operations;
 }
 
 #pragma clang diagnostic push
@@ -102,12 +123,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark SDLConnectionManager Protocol
 
+- (void)sendRPC:(__kindof SDLRPCMessage *)rpc {
+    [self.lifecycleManager sendRPC:rpc];
+}
+
 - (void)sendRequest:(SDLRPCRequest *)request {
     [self sendRequest:request withResponseHandler:nil];
 }
 
 - (void)sendRequest:(__kindof SDLRPCRequest *)request withResponseHandler:(nullable SDLResponseHandler)handler {
-    [self.lifecycleManager sendRequest:request withResponseHandler:handler];
+    [self.lifecycleManager sendRequest:(__kindof SDLRPCMessage *)request withResponseHandler:handler];
+}
+
+- (void)sendRequests:(NSArray<SDLRPCRequest *> *)requests progressHandler:(nullable SDLMultipleAsyncRequestProgressHandler)progressHandler completionHandler:(nullable SDLMultipleRequestCompletionHandler)completionHandler {
+    [self.lifecycleManager sendRequests:requests progressHandler:progressHandler completionHandler:completionHandler];
+}
+
+- (void)sendSequentialRequests:(NSArray<SDLRPCRequest *> *)requests progressHandler:(nullable SDLMultipleSequentialRequestProgressHandler)progressHandler completionHandler:(nullable SDLMultipleRequestCompletionHandler)completionHandler {
+    [self.lifecycleManager sendSequentialRequests:requests progressHandler:progressHandler completionHandler:completionHandler];
 }
 
 @end

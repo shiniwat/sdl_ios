@@ -5,220 +5,203 @@
 #import "SDLEnum.h"
 
 /**
- * Specifies the language to be used for TTS, VR, displayed messages/menus
- *
- * @since SDL 1.0
+ Specifies the language to be used for TTS, VR, displayed messages/menus. Used in ChangeRegistration and RegisterAppInterface.
+
+ @since SDL 1.0
  */
-@interface SDLLanguage : SDLEnum {
-}
+typedef SDLEnum SDLLanguage SDL_SWIFT_ENUM;
 
 /**
- * @abstract Get a Langusge according to a String
- *
- * @param value The value of the string to get an object for
- *
- * @return The Language
+ English_SA
  */
-+ (SDLLanguage *)valueOf:(NSString *)value;
+extern SDLLanguage const SDLLanguageEnSa;
 
 /**
- * @abstract store all possible Language values
- *
- * @return an array with all possible Language values inside
+ Hebrew_IL
  */
-+ (NSArray *)values;
-/*!
- @abstract English_SA
- */
-+ (SDLLanguage *)EN_SA;
-
-/*!
- @abstract Hebrew_IL
- */
-+ (SDLLanguage *)HE_IL;
-
-/*!
- @abstract Romanian_RO
- */
-+ (SDLLanguage *)RO_RO;
-
-/*!
- @abstract Ukrainian_UA
- */
-+ (SDLLanguage *)UK_UA;
-
-/*!
- @abstract Indonesian_ID
- */
-+ (SDLLanguage *)ID_ID;
-
-/*!
- @abstract Vietnamese_VN
- */
-+ (SDLLanguage *)VI_VN;
-
-/*!
- @abstract Malay_MY
- */
-+ (SDLLanguage *)MS_MY;
-
-/*!
- @abstract Hindi_IN
- */
-+ (SDLLanguage *)HI_IN;
-
-/*!
- @abstract Dutch_BE
- */
-+ (SDLLanguage *)NL_BE;
-
-/*!
- @abstract Greek_GR
- */
-+ (SDLLanguage *)EL_GR;
-
-/*!
- @abstract Hungarian_HU
- */
-+ (SDLLanguage *)HU_HU;
-
-/*!
- @abstract Finnish_FI
- */
-+ (SDLLanguage *)FI_FI;
-
-/*!
- @abstract Slovak_SK
- */
-+ (SDLLanguage *)SK_SK;
-
-/*!
- @abstract English_US
- */
-+ (SDLLanguage *)EN_US;
-
-/*!
- @abstract English_IN
- */
-+ (SDLLanguage *)EN_IN;
-
-/*!
- @abstract Thai_TH
- */
-+ (SDLLanguage *)TH_TH;
-/**
- @abstract Spanish - Mexico
- */
-+ (SDLLanguage *)ES_MX;
+extern SDLLanguage const SDLLanguageHeIl;
 
 /**
- * @abstract French - Canada
+ Romainian_RO
  */
-+ (SDLLanguage *)FR_CA;
+extern SDLLanguage const SDLLanguageRoRo;
 
 /**
- * @abstract German - Germany
+ Ukrainian_UA
  */
-+ (SDLLanguage *)DE_DE;
+extern SDLLanguage const SDLLanguageUkUa;
 
 /**
- * @abstract Spanish - Spain
+ Indonesian_ID
  */
-+ (SDLLanguage *)ES_ES;
+extern SDLLanguage const SDLLanguageIdId;
 
 /**
- @abstract English - Great Britain
+ Vietnamese_VN
  */
-+ (SDLLanguage *)EN_GB;
+extern SDLLanguage const SDLLanguageViVn;
 
 /**
- * @abstract Russian - Russia
+ Malay_MY
  */
-+ (SDLLanguage *)RU_RU;
+extern SDLLanguage const SDLLanguageMsMy;
 
 /**
- * @abstract Turkish - Turkey
+ Hindi_IN
  */
-+ (SDLLanguage *)TR_TR;
+extern SDLLanguage const SDLLanguageHiIn;
 
 /**
- * @abstract Polish - Poland
+ Dutch(Flemish)_BE
  */
-+ (SDLLanguage *)PL_PL;
+extern SDLLanguage const SDLLanguageNlBe;
 
 /**
- * @abstract French - France
+ Greek_GR
  */
-+ (SDLLanguage *)FR_FR;
+extern SDLLanguage const SDLLanguageElGr;
 
 /**
- * @abstract Italian - Italy
+ Hungarian_HU
  */
-+ (SDLLanguage *)IT_IT;
+extern SDLLanguage const SDLLanguageHuHu;
 
 /**
- * @abstract Swedish - Sweden
+ Finnish_FI
  */
-+ (SDLLanguage *)SV_SE;
+extern SDLLanguage const SDLLanguageFiFi;
 
 /**
- * @abstract Portuguese - Portugal
+ Slovak_SK
  */
-+ (SDLLanguage *)PT_PT;
+extern SDLLanguage const SDLLanguageSkSk;
 
 /**
- * @abstract Dutch (Standard) - Netherlands
+ English_US
  */
-+ (SDLLanguage *)NL_NL;
+extern SDLLanguage const SDLLanguageEnUs;
 
 /**
- * @abstract English - Australia
+ English - India
  */
-+ (SDLLanguage *)EN_AU;
+extern SDLLanguage const SDLLanguageEnIn;
 
 /**
- * @abstract Mandarin - China
+ Thai - Thailand
  */
-+ (SDLLanguage *)ZH_CN;
+extern SDLLanguage const SDLLanguageThTh;
 
 /**
- * @abstract Mandarin - Taiwan
+ Spanish - Mexico
  */
-+ (SDLLanguage *)ZH_TW;
+extern SDLLanguage const SDLLanguageEsMx;
 
 /**
- * @abstract Japanese - Japan
+ French - Canada
  */
-+ (SDLLanguage *)JA_JP;
+extern SDLLanguage const SDLLanguageFrCa;
 
 /**
- * @abstract Arabic - Saudi Arabia
+ German - Germany
  */
-+ (SDLLanguage *)AR_SA;
+extern SDLLanguage const SDLLanguageDeDe;
 
 /**
- * @abstract Korean - South Korea
+ * Spanish - Spain
  */
-+ (SDLLanguage *)KO_KR;
+extern SDLLanguage const SDLLanguageEsEs;
 
 /**
- * @abstract Portuguese - Brazil
+ English - Great Britain
  */
-+ (SDLLanguage *)PT_BR;
+extern SDLLanguage const SDLLanguageEnGb;
 
 /**
- * @abstract Czech - Czech Republic
+Russian - Russia
  */
-+ (SDLLanguage *)CS_CZ;
+extern SDLLanguage const SDLLanguageRuRu;
 
 /**
- * @abstract Danish - Denmark
+ Turkish - Turkey
  */
-+ (SDLLanguage *)DA_DK;
+extern SDLLanguage const SDLLanguageTrTr;
 
 /**
- * @abstract Norwegian - Norway
+ Polish - Poland
  */
-+ (SDLLanguage *)NO_NO;
+extern SDLLanguage const SDLLanguagePlPl;
 
-@end
+/**
+ French - France
+ */
+extern SDLLanguage const SDLLanguageFrFr;
+
+/**
+ Italian - Italy
+ */
+extern SDLLanguage const SDLLanguageItIt;
+
+/**
+ Swedish - Sweden
+ */
+extern SDLLanguage const SDLLanguageSvSe;
+
+/**
+ Portuguese - Portugal
+ */
+extern SDLLanguage const SDLLanguagePtPt;
+
+/**
+ Dutch (Standard) - Netherlands
+ */
+extern SDLLanguage const SDLLanguageNlNl;
+
+/**
+ English - Australia
+ */
+extern SDLLanguage const SDLLanguageEnAu;
+
+/**
+ Mandarin - China
+ */
+extern SDLLanguage const SDLLanguageZhCn;
+
+/**
+ Mandarin - Taiwan
+ */
+extern SDLLanguage const SDLLanguageZhTw;
+
+/**
+ Japanese - Japan
+ */
+extern SDLLanguage const SDLLanguageJaJp;
+
+/**
+ Arabic - Saudi Arabia
+ */
+extern SDLLanguage const SDLLanguageArSa;
+
+/**
+ Korean - South Korea
+ */
+extern SDLLanguage const SDLLanguageKoKr;
+
+/**
+ Portuguese - Brazil
+ */
+extern SDLLanguage const SDLLanguagePtBr;
+
+/**
+ Czech - Czech Republic
+ */
+extern SDLLanguage const SDLLanguageCsCz;
+
+/**
+ Danish - Denmark
+ */
+extern SDLLanguage const SDLLanguageDaDk;
+
+/**
+ Norwegian - Norway
+ */
+extern SDLLanguage const SDLLanguageNoNo;

@@ -10,7 +10,8 @@
 
 #import "SDLResetGlobalProperties.h"
 #import "SDLGlobalProperty.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 
 QuickSpecBegin(SDLResetGlobalPropertiesSpec)
 
@@ -18,19 +19,19 @@ describe(@"Getter/Setter Tests", ^ {
     it(@"Should set and get correctly", ^ {
         SDLResetGlobalProperties* testRequest = [[SDLResetGlobalProperties alloc] init];
         
-        testRequest.properties = [@[[SDLGlobalProperty MENUNAME], [SDLGlobalProperty VRHELPTITLE]] copy];
+        testRequest.properties = [@[SDLGlobalPropertyMenuName, SDLGlobalPropertyVoiceRecognitionHelpTitle] copy];
         
-        expect(testRequest.properties).to(equal([@[[SDLGlobalProperty MENUNAME], [SDLGlobalProperty VRHELPTITLE]] copy]));
+        expect(testRequest.properties).to(equal([@[SDLGlobalPropertyMenuName, SDLGlobalPropertyVoiceRecognitionHelpTitle] copy]));
     });
     
     it(@"Should get correctly when initialized", ^ {
-        NSMutableDictionary* dict = [@{NAMES_request:
-                                           @{NAMES_parameters:
-                                                 @{NAMES_properties:[@[[SDLGlobalProperty MENUNAME], [SDLGlobalProperty VRHELPTITLE]] copy]},
-                                             NAMES_operation_name:NAMES_ResetGlobalProperties}} mutableCopy];
+        NSMutableDictionary* dict = [@{SDLRPCParameterNameRequest:
+                                           @{SDLRPCParameterNameParameters:
+                                                 @{SDLRPCParameterNameProperties:[@[SDLGlobalPropertyMenuName, SDLGlobalPropertyVoiceRecognitionHelpTitle] copy]},
+                                             SDLRPCParameterNameOperationName:SDLRPCFunctionNameResetGlobalProperties}} mutableCopy];
         SDLResetGlobalProperties* testRequest = [[SDLResetGlobalProperties alloc] initWithDictionary:dict];
         
-        expect(testRequest.properties).to(equal([@[[SDLGlobalProperty MENUNAME], [SDLGlobalProperty VRHELPTITLE]] copy]));
+        expect(testRequest.properties).to(equal([@[SDLGlobalPropertyMenuName, SDLGlobalPropertyVoiceRecognitionHelpTitle] copy]));
     });
     
     it(@"Should return nil if not set", ^ {

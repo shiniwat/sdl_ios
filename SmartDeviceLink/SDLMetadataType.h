@@ -1,119 +1,76 @@
+
 //
-//  SDLTextFieldType.h
+//  SDLMetadataType.h
 //  SmartDeviceLink-iOS
 //
-//  Created by Brett McIsaac on 8/1/17.
+//  Created by Brett McIsaac on 8/2/17.
 //  Copyright © 2017 smartdevicelink. All rights reserved.
 //
 
 #import "SDLEnum.h"
 
 /**
- * The list of possible metadata for text fields
- *
- * @since SDL 4.7.0
+ * Text Field metadata types. Used in Show.
  */
-@interface SDLMetadataType : SDLEnum {
-}
+typedef SDLEnum SDLMetadataType SDL_SWIFT_ENUM;
 
 /**
- * Convert String to SDLTextAlignment
- *
- * @param value The value of the string to get an object for
- *
- * @return SDLTextAlignment
+ * The song / media title name
  */
-+ (SDLMetadataType *)valueOf:(NSString *)value;
+extern SDLMetadataType const SDLMetadataTypeMediaTitle;
 
 /**
- * @abstract Store the enumeration of all possible SDLTextFieldType
- *
- * @return an array that store all possible SDLTextFieldType
+ * The "artist" of the media
  */
-+ (NSArray *)values;
+extern SDLMetadataType const SDLMetadataTypeMediaArtist;
 
 /**
- * @abstract The data in this field contains the title of the currently playing audio track.
- *
- * @return A SDLTextFieldType object with value of *MEDIA_TITLE*
+ * The "album" of the media"
  */
-+ (SDLMetadataType *)MEDIA_TITLE;
+extern SDLMetadataType const SDLMetadataTypeMediaAlbum;
 
 /**
- * @abstract The data in this field contains the artist or creator of the currently playing audio track.
- *
- * @return A SDLTextFieldType object with value of *MEDIA_ARTIST*
+ * The "year" that the media was created
  */
-+ (SDLMetadataType *)MEDIA_ARTIST;
+extern SDLMetadataType const SDLMetadataTypeMediaYear;
 
 /**
- * @abstract The data in this field contains the album title of the currently playing audio track.
- *
- * @return A SDLTextFieldType object with value of *MEDIA_ALBUM*
+ * The "genre" of the media
  */
-+ (SDLMetadataType *)MEDIA_ALBUM;
+extern SDLMetadataType const SDLMetadataTypeMediaGenre;
 
 /**
- * @abstract The data in this field contains the creation year of the currently playing audio track.
- *
- * @return A SDLTextFieldType object with value of *MEDIA_YEAR*
+ * The "station" that the media is playing on
  */
-+ (SDLMetadataType *)MEDIA_YEAR;
+extern SDLMetadataType const SDLMetadataTypeMediaStation;
 
 /**
- * @abstract The data in this field contains the genre of the currently playing audio track.
- *
- * @return A SDLTextFieldType object with value of *MEDIA_GENRE*
+ * The "rating" given to the media
  */
-+ (SDLMetadataType *)MEDIA_GENRE;
+extern SDLMetadataType const SDLMetadataTypeRating;
 
 /**
- * @abstract The data in this field contains the name of the current source for the media.
- *
- * @return A SDLTextFieldType object with value of *MEDIA_STATION*
+ * The current temperature of the weather information
  */
-+ (SDLMetadataType *)MEDIA_STATION;
+extern SDLMetadataType const SDLMetadataTypeCurrentTemperature;
 
 /**
- * @abstract The data in this field is a rating.
- *
- * @return A SDLTextFieldType object with value of *RATING*
+ * The high / maximum temperature of the weather information for the current period
  */
-+ (SDLMetadataType *)RATING;
+extern SDLMetadataType const SDLMetadataTypeMaximumTemperature;
 
 /**
- * @abstract The data in this field is the current temperature.
- *
- * @return A SDLTextFieldType object with value of *CURRENT_TEMPERATURE*
+ * The low / minimum temperature of the weather information for the current period
  */
-+ (SDLMetadataType *)CURRENT_TEMPERATURE;
+extern SDLMetadataType const SDLMetadataTypeMinimumTemperature;
 
 /**
- * @abstract The data in this field is the maximum temperature for the day.
- *
- * @return A SDLTextFieldType object with value of *MAXIMUM_TEMPERATURE*
+ * A description of the weather for the current period
  */
-+ (SDLMetadataType *)MAXIMUM_TEMPERATURE;
+extern SDLMetadataType const SDLMetadataTypeWeatherTerm;
 
 /**
- * @abstract The data in this field is the minimum temperature for the day.
- *
- * @return A SDLTextFieldType object with value of *MINIMUM_TEMPERATURE*
+ * The humidity of the weather information for the current period
  */
-+ (SDLMetadataType *)MINIMUM_TEMPERATURE;
+extern SDLMetadataType const SDLMetadataTypeHumidity;
 
-/**
- * @abstract The data in this field describes the current weather (ex. cloudy, clear, etc.).
- *
- * @return A SDLTextFieldType object with value of *WEATHER_TERM*
- */
-+ (SDLMetadataType *)WEATHER_TERM;
-
-/**
- * @abstract The data in this field describes the current humidity value.
- *
- * @return A SDLTextFieldType object with value of *HUMIDITY*
- */
-+ (SDLMetadataType *)HUMIDITY;
-
-@end

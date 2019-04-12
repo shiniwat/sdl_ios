@@ -11,7 +11,7 @@
 #import "SDLImage.h"
 #import "SDLLocationCoordinate.h"
 #import "SDLLocationDetails.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
 #import "SDLOasisAddress.h"
 
 QuickSpecBegin(SDLGetWaypointsResponseSpec)
@@ -63,9 +63,9 @@ describe(@"Getter/Setter Tests", ^ {
                 
                 someWaypoints = @[someLocation];
                 
-                NSDictionary *initDict = @{NAMES_response : @{
-                                                   NAMES_parameters: @{
-                                                           NAMES_waypoints: someWaypoints
+                NSDictionary *initDict = @{SDLRPCParameterNameResponse : @{
+                                                   SDLRPCParameterNameParameters: @{
+                                                           SDLRPCParameterNameWayPoints: someWaypoints
                                                            }
                                                    }
                                            };
@@ -83,8 +83,8 @@ describe(@"Getter/Setter Tests", ^ {
         context(@"when parameters are not set", ^{
             beforeEach(^{
                 NSDictionary *initDict = @{
-                                           NAMES_request: @{
-                                                   NAMES_parameters: @{}
+                                           SDLRPCParameterNameRequest: @{
+                                                   SDLRPCParameterNameParameters: @{}
                                                    }
                                            };
                 

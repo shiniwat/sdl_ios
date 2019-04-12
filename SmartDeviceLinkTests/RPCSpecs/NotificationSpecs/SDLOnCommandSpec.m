@@ -8,7 +8,8 @@
 #import <Quick/Quick.h>
 #import <Nimble/Nimble.h>
 
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 #import "SDLOnCommand.h"
 #import "SDLTriggerSource.h"
 
@@ -19,22 +20,22 @@ describe(@"Getter/Setter Tests", ^ {
         SDLOnCommand* testNotification = [[SDLOnCommand alloc] init];
         
         testNotification.cmdID = @5676544;
-        testNotification.triggerSource = [SDLTriggerSource KEYBOARD];
+        testNotification.triggerSource = SDLTriggerSourceKeyboard;
         
         expect(testNotification.cmdID).to(equal(@5676544));
-        expect(testNotification.triggerSource).to(equal([SDLTriggerSource KEYBOARD]));
+        expect(testNotification.triggerSource).to(equal(SDLTriggerSourceKeyboard));
     });
     
     it(@"Should get correctly when initialized", ^ {
-        NSMutableDictionary* dict = [@{NAMES_notification:
-                                           @{NAMES_parameters:
-                                                 @{NAMES_cmdID:@5676544,
-                                                   NAMES_triggerSource:[SDLTriggerSource KEYBOARD]},
-                                             NAMES_operation_name:NAMES_OnCommand}} mutableCopy];
+        NSMutableDictionary* dict = [@{SDLRPCParameterNameNotification:
+                                           @{SDLRPCParameterNameParameters:
+                                                 @{SDLRPCParameterNameCommandId:@5676544,
+                                                   SDLRPCParameterNameTriggerSource:SDLTriggerSourceKeyboard},
+                                             SDLRPCParameterNameOperationName:SDLRPCFunctionNameOnCommand}} mutableCopy];
         SDLOnCommand* testNotification = [[SDLOnCommand alloc] initWithDictionary:dict];
         
         expect(testNotification.cmdID).to(equal(@5676544));
-        expect(testNotification.triggerSource).to(equal([SDLTriggerSource KEYBOARD]));
+        expect(testNotification.triggerSource).to(equal(SDLTriggerSourceKeyboard));
     });
     
     it(@"Should return nil if not set", ^ {

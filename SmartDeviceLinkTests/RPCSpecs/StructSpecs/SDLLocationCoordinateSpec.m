@@ -7,7 +7,7 @@
 #import <Nimble/Nimble.h>
 
 #import "SDLLocationCoordinate.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
 
 
 QuickSpecBegin(SDLLocationCoordinateSpec)
@@ -51,8 +51,8 @@ describe(@"Getter/Setter Tests", ^ {
                 someLongitude = @123.4567;
                 someLatitude = @65.4321;
                 NSDictionary *initDict = @{
-                                           NAMES_longitudeDegrees: someLongitude,
-                                           NAMES_latitudeDegrees: someLatitude,
+                                           SDLRPCParameterNameLongitudeDegrees: someLongitude,
+                                           SDLRPCParameterNameLatitudeDegrees: someLatitude,
                                            };
                 
                 testStruct = [[SDLLocationCoordinate alloc] initWithDictionary:[NSMutableDictionary dictionaryWithDictionary:initDict]];
@@ -69,13 +69,21 @@ describe(@"Getter/Setter Tests", ^ {
                 expect(testStruct.latitudeDegrees).to(beIdenticalTo(someLatitude));
             });
         });
-        
+
+        context(@"when init with initWithLatitudeDegrees:longitudeDegrees", ^{
+            it(@"should get and set correctly", ^{
+                float testLatitude = 34.5;
+                float testLongitude = 120.345;
+                SDLLocationCoordinate *testStruct = [[SDLLocationCoordinate alloc] initWithLatitudeDegrees:testLatitude longitudeDegrees:testLongitude];
+
+                expect(testStruct.latitudeDegrees).to(equal(testLatitude));
+                expect(testStruct.longitudeDegrees).to(equal(testLongitude));
+            });
+        });
+
         context(@"when parameters are not set", ^{
             beforeEach(^{
                 NSDictionary *initDict = @{
-                                           NAMES_request: @{
-                                                   NAMES_parameters: @{}
-                                                   }
                                            };
                 
                 testStruct = [[SDLLocationCoordinate alloc] initWithDictionary:[NSMutableDictionary dictionaryWithDictionary:initDict]];

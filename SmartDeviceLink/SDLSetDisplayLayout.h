@@ -4,7 +4,9 @@
 
 #import "SDLRPCRequest.h"
 
-@class SDLPredefinedLayout;
+#import "SDLPredefinedLayout.h"
+
+@class SDLTemplateColorScheme;
 
 /**
  * Used to set an alternate display layout. If not sent, default screen for
@@ -12,31 +14,40 @@
  *
  * Since SmartDeviceLink 2.0
  */
-@interface SDLSetDisplayLayout : SDLRPCRequest {
-}
 
-/**
- * @abstract Constructs a new SDLSetDisplayLayout object
- */
-- (instancetype)init;
-/**
- * @abstract Constructs a new SDLSetDisplayLayout object indicated by the NSMutableDictionary
- * parameter
- * @param dict The dictionary to use
- */
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict;
+NS_ASSUME_NONNULL_BEGIN
 
-- (instancetype)initWithPredefinedLayout:(SDLPredefinedLayout *)predefinedLayout;
+@interface SDLSetDisplayLayout : SDLRPCRequest
+
+- (instancetype)initWithPredefinedLayout:(SDLPredefinedLayout)predefinedLayout;
 
 - (instancetype)initWithLayout:(NSString *)displayLayout;
 
+- (instancetype)initWithPredefinedLayout:(SDLPredefinedLayout)predefinedLayout dayColorScheme:(SDLTemplateColorScheme *)dayColorScheme nightColorScheme:(SDLTemplateColorScheme *)nightColorScheme;
+
 
 /**
- * @abstract A display layout. Predefined or dynamically created screen layout.
+ * A display layout. Predefined or dynamically created screen layout.
  * Currently only predefined screen layouts are defined. Predefined layouts
  * include: "ONSCREEN_PRESETS" Custom screen containing app-defined onscreen
  * presets. Currently defined for GEN2
  */
-@property (strong) NSString *displayLayout;
+@property (strong, nonatomic) NSString *displayLayout;
+
+/**
+ The color scheme to be used on a head unit using a "light" or "day" color scheme. The OEM may only support this theme if their head unit only has a light color scheme.
+
+ Optional
+ */
+@property (strong, nonatomic, nullable) SDLTemplateColorScheme *dayColorScheme;
+
+/**
+ The color scheme to be used on a head unit using a "dark" or "night" color scheme. The OEM may only support this theme if their head unit only has a dark color scheme.
+
+ Optional
+ */
+@property (strong, nonatomic, nullable) SDLTemplateColorScheme *nightColorScheme;
 
 @end
+
+NS_ASSUME_NONNULL_END

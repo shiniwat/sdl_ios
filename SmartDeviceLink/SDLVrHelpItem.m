@@ -4,24 +4,15 @@
 
 #import "SDLVrHelpItem.h"
 
+#import "NSMutableDictionary+Store.h"
 #import "SDLImage.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLVRHelpItem
 
-- (instancetype)init {
-    if (self = [super init]) {
-    }
-    return self;
-}
-
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
-}
-
-- (instancetype)initWithText:(NSString *)text image:(SDLImage *)image position:(UInt8)position {
+- (instancetype)initWithText:(NSString *)text image:(nullable SDLImage *)image position:(UInt8)position {
     self = [self initWithText:text image:image];
     if (!self) {
         return nil;
@@ -32,7 +23,7 @@
     return self;
 }
 
-- (instancetype)initWithText:(NSString *)text image:(SDLImage *)image {
+- (instancetype)initWithText:(NSString *)text image:(nullable SDLImage *)image {
     self = [self init];
     if (!self) {
         return nil;
@@ -45,44 +36,31 @@
 }
 
 - (void)setText:(NSString *)text {
-    if (text != nil) {
-        [store setObject:text forKey:NAMES_text];
-    } else {
-        [store removeObjectForKey:NAMES_text];
-    }
+    [store sdl_setObject:text forName:SDLRPCParameterNameText];
 }
 
 - (NSString *)text {
-    return [store objectForKey:NAMES_text];
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNameText ofClass:NSString.class error:&error];
 }
 
-- (void)setImage:(SDLImage *)image {
-    if (image != nil) {
-        [store setObject:image forKey:NAMES_image];
-    } else {
-        [store removeObjectForKey:NAMES_image];
-    }
+- (void)setImage:(nullable SDLImage *)image {
+    [store sdl_setObject:image forName:SDLRPCParameterNameImage];
 }
 
-- (SDLImage *)image {
-    NSObject *obj = [store objectForKey:NAMES_image];
-    if (obj == nil || [obj isKindOfClass:SDLImage.class]) {
-        return (SDLImage *)obj;
-    } else {
-        return [[SDLImage alloc] initWithDictionary:(NSMutableDictionary *)obj];
-    }
+- (nullable SDLImage *)image {
+    return [store sdl_objectForName:SDLRPCParameterNameImage ofClass:SDLImage.class error:nil];
 }
 
-- (void)setPosition:(NSNumber *)position {
-    if (position != nil) {
-        [store setObject:position forKey:NAMES_position];
-    } else {
-        [store removeObjectForKey:NAMES_position];
-    }
+- (void)setPosition:(NSNumber<SDLInt> *)position {
+    [store sdl_setObject:position forName:SDLRPCParameterNamePosition];
 }
 
-- (NSNumber *)position {
-    return [store objectForKey:NAMES_position];
+- (NSNumber<SDLInt> *)position {
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNamePosition ofClass:NSNumber.class error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -6,7 +6,7 @@
 #import <Nimble/Nimble.h>
 
 #import "SDLDialNumber.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
 
 
 QuickSpecBegin(SDLDialNumberSpec)
@@ -43,9 +43,9 @@ describe(@"Dial Number RPC", ^{
         beforeEach(^{
             somePhoneNumber = @"1234567890";
             NSDictionary *initDict = @{
-                                       NAMES_request: @{
-                                               NAMES_parameters: @{
-                                                       NAMES_number: [somePhoneNumber copy]
+                                       SDLRPCParameterNameRequest: @{
+                                               SDLRPCParameterNameParameters: @{
+                                                       SDLRPCParameterNameNumber: [somePhoneNumber copy]
                                                        }
                                                }
                                        };
@@ -62,8 +62,8 @@ describe(@"Dial Number RPC", ^{
         __block SDLDialNumber *testRequest = nil;
         beforeEach(^{
             NSDictionary *initDict = @{
-                                       NAMES_request: @{
-                                               NAMES_parameters: @{
+                                       SDLRPCParameterNameRequest: @{
+                                               SDLRPCParameterNameParameters: @{
                                                        }
                                                }
                                        };

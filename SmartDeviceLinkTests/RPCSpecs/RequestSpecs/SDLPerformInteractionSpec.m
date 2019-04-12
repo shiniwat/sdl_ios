@@ -13,7 +13,8 @@
 #import "SDLPerformInteraction.h"
 #import "SDLTTSChunk.h"
 #import "SDLVrHelpItem.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 
 QuickSpecBegin(SDLPerformInteractionSpec)
 
@@ -28,49 +29,49 @@ describe(@"Getter/Setter Tests", ^ {
         
         testRequest.initialText = @"a";
         testRequest.initialPrompt = [@[chunk1] mutableCopy];
-        testRequest.interactionMode = [SDLInteractionMode VR_ONLY];
+        testRequest.interactionMode = SDLInteractionModeVoiceRecognitionOnly;
         testRequest.interactionChoiceSetIDList = [@[@1, @2, @3] mutableCopy];
         testRequest.helpPrompt = [@[chunk2] mutableCopy];
         testRequest.timeoutPrompt = [@[chunk3] mutableCopy];
         testRequest.timeout = @42000;
         testRequest.vrHelp = [@[helpItem] mutableCopy];
-        testRequest.interactionLayout = [SDLLayoutMode ICON_WITH_SEARCH];
+        testRequest.interactionLayout = SDLLayoutModeIconWithSearch;
         
         expect(testRequest.initialText).to(equal(@"a"));
         expect(testRequest.initialPrompt).to(equal([@[chunk1] mutableCopy]));
-        expect(testRequest.interactionMode).to(equal([SDLInteractionMode VR_ONLY]));
+        expect(testRequest.interactionMode).to(equal(SDLInteractionModeVoiceRecognitionOnly));
         expect(testRequest.interactionChoiceSetIDList).to(equal([@[@1, @2, @3] mutableCopy]));
         expect(testRequest.helpPrompt).to(equal([@[chunk2] mutableCopy]));
         expect(testRequest.timeoutPrompt).to(equal([@[chunk3] mutableCopy]));
         expect(testRequest.timeout).to(equal(@42000));
         expect(testRequest.vrHelp).to(equal([@[helpItem] mutableCopy]));
-        expect(testRequest.interactionLayout).to(equal([SDLLayoutMode ICON_WITH_SEARCH]));
+        expect(testRequest.interactionLayout).to(equal(SDLLayoutModeIconWithSearch));
     });
     
     it(@"Should get correctly when initialized", ^ {
-        NSMutableDictionary* dict = [@{NAMES_request:
-                                           @{NAMES_parameters:
-                                                 @{NAMES_initialText:@"a",
-                                                   NAMES_initialPrompt:[@[chunk1] mutableCopy],
-                                                   NAMES_interactionMode:[SDLInteractionMode VR_ONLY],
-                                                   NAMES_interactionChoiceSetIDList:[@[@1, @2, @3] mutableCopy],
-                                                   NAMES_helpPrompt:[@[chunk2] mutableCopy],
-                                                   NAMES_timeoutPrompt:[@[chunk3] mutableCopy],
-                                                   NAMES_timeout:@42000,
-                                                   NAMES_vrHelp:[@[helpItem] mutableCopy],
-                                                   NAMES_interactionLayout:[SDLLayoutMode ICON_WITH_SEARCH]},
-                                             NAMES_operation_name:NAMES_PerformInteraction}} mutableCopy];
+        NSMutableDictionary* dict = [@{SDLRPCParameterNameRequest:
+                                           @{SDLRPCParameterNameParameters:
+                                                 @{SDLRPCParameterNameInitialText:@"a",
+                                                   SDLRPCParameterNameInitialPrompt:[@[chunk1] mutableCopy],
+                                                   SDLRPCParameterNameInteractionMode:SDLInteractionModeVoiceRecognitionOnly,
+                                                   SDLRPCParameterNameInteractionChoiceSetIdList:[@[@1, @2, @3] mutableCopy],
+                                                   SDLRPCParameterNameHelpPrompt:[@[chunk2] mutableCopy],
+                                                   SDLRPCParameterNameTimeoutPrompt:[@[chunk3] mutableCopy],
+                                                   SDLRPCParameterNameTimeout:@42000,
+                                                   SDLRPCParameterNameVRHelp:[@[helpItem] mutableCopy],
+                                                   SDLRPCParameterNameInteractionLayout:SDLLayoutModeIconWithSearch},
+                                             SDLRPCParameterNameOperationName:SDLRPCFunctionNamePerformInteraction}} mutableCopy];
         SDLPerformInteraction* testRequest = [[SDLPerformInteraction alloc] initWithDictionary:dict];
         
         expect(testRequest.initialText).to(equal(@"a"));
         expect(testRequest.initialPrompt).to(equal([@[chunk1] mutableCopy]));
-        expect(testRequest.interactionMode).to(equal([SDLInteractionMode VR_ONLY]));
+        expect(testRequest.interactionMode).to(equal(SDLInteractionModeVoiceRecognitionOnly));
         expect(testRequest.interactionChoiceSetIDList).to(equal([@[@1, @2, @3] mutableCopy]));
         expect(testRequest.helpPrompt).to(equal([@[chunk2] mutableCopy]));
         expect(testRequest.timeoutPrompt).to(equal([@[chunk3] mutableCopy]));
         expect(testRequest.timeout).to(equal(@42000));
         expect(testRequest.vrHelp).to(equal([@[helpItem] mutableCopy]));
-        expect(testRequest.interactionLayout).to(equal([SDLLayoutMode ICON_WITH_SEARCH]));
+        expect(testRequest.interactionLayout).to(equal(SDLLayoutModeIconWithSearch));
     });
     
     it(@"Should return nil if not set", ^ {

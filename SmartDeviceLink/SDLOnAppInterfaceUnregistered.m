@@ -3,39 +3,29 @@
 
 #import "SDLOnAppInterfaceUnregistered.h"
 
-#import "SDLAppInterfaceUnregisteredReason.h"
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLOnAppInterfaceUnregistered
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_OnAppInterfaceUnregistered]) {
+    if (self = [super initWithName:SDLRPCFunctionNameOnAppInterfaceUnregistered]) {
     }
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (void)setReason:(SDLAppInterfaceUnregisteredReason)reason {
+    [parameters sdl_setObject:reason forName:SDLRPCParameterNameReason];
 }
 
-- (void)setReason:(SDLAppInterfaceUnregisteredReason *)reason {
-    if (reason != nil) {
-        [parameters setObject:reason forKey:NAMES_reason];
-    } else {
-        [parameters removeObjectForKey:NAMES_reason];
-    }
-}
-
-- (SDLAppInterfaceUnregisteredReason *)reason {
-    NSObject *obj = [parameters objectForKey:NAMES_reason];
-    if (obj == nil || [obj isKindOfClass:SDLAppInterfaceUnregisteredReason.class]) {
-        return (SDLAppInterfaceUnregisteredReason *)obj;
-    } else {
-        return [SDLAppInterfaceUnregisteredReason valueOf:(NSString *)obj];
-    }
+- (SDLAppInterfaceUnregisteredReason)reason {
+    NSError *error = nil;
+    return [parameters sdl_enumForName:SDLRPCParameterNameReason error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

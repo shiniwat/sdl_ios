@@ -4,26 +4,23 @@
 
 #import "SDLSpeak.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 #import "SDLTTSChunk.h"
-#import "SDLTTSChunkFactory.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLSpeak
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_Speak]) {
-    }
-    return self;
-}
-
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
+    if (self = [super initWithName:SDLRPCFunctionNameSpeak]) {
     }
     return self;
 }
 
 - (instancetype)initWithTTS:(NSString *)ttsText {
-    NSMutableArray *ttsChunks = [SDLTTSChunk textChunksFromString:ttsText];
+    NSArray *ttsChunks = [SDLTTSChunk textChunksFromString:ttsText];
     return [self initWithTTSChunks:ttsChunks];
 }
 
@@ -38,27 +35,15 @@
     return self;
 }
 
-- (void)setTtsChunks:(NSMutableArray *)ttsChunks {
-    if (ttsChunks != nil) {
-        [parameters setObject:ttsChunks forKey:NAMES_ttsChunks];
-    } else {
-        [parameters removeObjectForKey:NAMES_ttsChunks];
-    }
+- (void)setTtsChunks:(NSArray<SDLTTSChunk *> *)ttsChunks {
+    [parameters sdl_setObject:ttsChunks forName:SDLRPCParameterNameTTSChunks];
 }
 
-- (NSMutableArray *)ttsChunks {
-    NSMutableArray *array = [parameters objectForKey:NAMES_ttsChunks];
-    if ([array isEqual:[NSNull null]]) {
-        return [NSMutableArray array];
-    } else if (array.count < 1 || [array.firstObject isKindOfClass:SDLTTSChunk.class]) {
-        return array;
-    } else {
-        NSMutableArray *newList = [NSMutableArray arrayWithCapacity:[array count]];
-        for (NSDictionary *dict in array) {
-            [newList addObject:[[SDLTTSChunk alloc] initWithDictionary:(NSMutableDictionary *)dict]];
-        }
-        return newList;
-    }
+- (NSArray<SDLTTSChunk *> *)ttsChunks {
+    NSError *error = nil;
+    return [parameters sdl_objectsForName:SDLRPCParameterNameTTSChunks ofClass:SDLTTSChunk.class error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

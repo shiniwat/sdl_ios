@@ -6,41 +6,34 @@
 //  Copyright © 2017 smartdevicelink. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 #import "SDLEnum.h"
 
 /**
- The type of system capability to get more information on
+ The type of system capability to get more information on. Used in GetSystemCapability.
  */
-@interface SDLSystemCapabilityType : SDLEnum
+typedef SDLEnum SDLSystemCapabilityType SDL_SWIFT_ENUM;
 
 /**
- * Convert String to SDLSystemCapabilityType
- * @param value String
- * @return SDLSystemCapabilityType
+ The app services capability
  */
-+ (SDLSystemCapabilityType *)valueOf:(NSString *)value;
+extern SDLSystemCapabilityType const SDLSystemCapabilityTypeAppServices;
 
 /**
- Returns an array of all possible SDLSystemCapabilityType values
- @return an array that store all possible SDLSystemCapabilityType
+ The navigation capability
  */
-+ (NSArray *)values;
+extern SDLSystemCapabilityType const SDLSystemCapabilityTypeNavigation;
 
 /**
- @abstract NAVIGATION
+ The phone call capability
  */
-+ (SDLSystemCapabilityType *)NAVIGATION;
+extern SDLSystemCapabilityType const SDLSystemCapabilityTypePhoneCall;
 
 /**
- @abstract PHONE_CALL
+ The video streaming capability
  */
-+ (SDLSystemCapabilityType *)PHONE_CALL;
+extern SDLSystemCapabilityType const SDLSystemCapabilityTypeVideoStreaming;
 
 /**
- @abstract VIDEO_STREAMING
+ The remote control capability
  */
-+ (SDLSystemCapabilityType *)VIDEO_STREAMING;
-
-@end
+extern SDLSystemCapabilityType const SDLSystemCapabilityTypeRemoteControl;

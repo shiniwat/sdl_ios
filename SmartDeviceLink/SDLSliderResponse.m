@@ -4,32 +4,28 @@
 
 #import "SDLSliderResponse.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLSliderResponse
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_Slider]) {
+    if (self = [super initWithName:SDLRPCFunctionNameSlider]) {
     }
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (void)setSliderPosition:(nullable NSNumber<SDLInt> *)sliderPosition {
+    [parameters sdl_setObject:sliderPosition forName:SDLRPCParameterNameSliderPosition];
 }
 
-- (void)setSliderPosition:(NSNumber *)sliderPosition {
-    if (sliderPosition != nil) {
-        [parameters setObject:sliderPosition forKey:NAMES_sliderPosition];
-    } else {
-        [parameters removeObjectForKey:NAMES_sliderPosition];
-    }
-}
-
-- (NSNumber *)sliderPosition {
-    return [parameters objectForKey:NAMES_sliderPosition];
+- (nullable NSNumber<SDLInt> *)sliderPosition {
+    return [parameters sdl_objectForName:SDLRPCParameterNameSliderPosition ofClass:NSNumber.class error:nil];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -2,15 +2,19 @@
 //
 
 #import "SDLOasisAddress.h"
-#import "SDLNames.h"
+
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLOasisAddress
 
-- (instancetype)initWithSubThoroughfare:(NSString *)subThoroughfare thoroughfare:(NSString *)thoroughfare locality:(NSString *)locality administrativeArea:(NSString *)administrativeArea postalCode:(NSString *)postalCode countryCode:(NSString *)countryCode {
+- (instancetype)initWithSubThoroughfare:(nullable NSString *)subThoroughfare thoroughfare:(nullable NSString *)thoroughfare locality:(nullable NSString *)locality administrativeArea:(nullable NSString *)administrativeArea postalCode:(nullable NSString *)postalCode countryCode:(nullable NSString *)countryCode {
     return [self initWithSubThoroughfare:subThoroughfare thoroughfare:thoroughfare locality:locality administrativeArea:administrativeArea postalCode:postalCode countryCode:countryCode countryName:nil subAdministrativeArea:nil subLocality:nil];
 }
 
-- (instancetype)initWithSubThoroughfare:(NSString *)subThoroughfare thoroughfare:(NSString *)thoroughfare locality:(NSString *)locality administrativeArea:(NSString *)administrativeArea postalCode:(NSString *)postalCode countryCode:(NSString *)countryCode countryName:(NSString *)countryName subAdministrativeArea:(NSString *)subAdministrativeArea subLocality:(NSString *)subLocality {
+- (instancetype)initWithSubThoroughfare:(nullable NSString *)subThoroughfare thoroughfare:(nullable NSString *)thoroughfare locality:(nullable NSString *)locality administrativeArea:(nullable NSString *)administrativeArea postalCode:(nullable NSString *)postalCode countryCode:(nullable NSString *)countryCode countryName:(nullable NSString *)countryName subAdministrativeArea:(nullable NSString *)subAdministrativeArea subLocality:(nullable NSString *)subLocality {
     self = [self init];
     if (!self) {
         return nil;
@@ -29,113 +33,78 @@
     return self;
 }
 
-
-- (void)setCountryName:(NSString *)countryName {
-    if (countryName != nil) {
-        store[NAMES_countryName] = countryName;
-    } else {
-        [store removeObjectForKey:NAMES_countryName];
-    }
+- (void)setCountryName:(nullable NSString *)countryName {
+    [store sdl_setObject:countryName forName:SDLRPCParameterNameCountryName];
 }
 
-- (NSString *)countryName {
-    return store[NAMES_countryName];
+- (nullable NSString *)countryName {
+    return [store sdl_objectForName:SDLRPCParameterNameCountryName ofClass:NSString.class error:nil];
 }
 
-- (void)setCountryCode:(NSString *)countryCode {
-    if (countryCode != nil) {
-        store[NAMES_countryCode] = countryCode;
-    } else {
-        [store removeObjectForKey:NAMES_countryCode];
-    }
+- (void)setCountryCode:(nullable NSString *)countryCode {
+    [store sdl_setObject:countryCode forName:SDLRPCParameterNameCountryCode];
 }
 
-- (NSString *)countryCode {
-    return store[NAMES_countryCode];
+- (nullable NSString *)countryCode {
+    return [store sdl_objectForName:SDLRPCParameterNameCountryCode ofClass:NSString.class error:nil];
 }
 
-- (void)setPostalCode:(NSString *)postalCode {
-    if (postalCode != nil) {
-        store[NAMES_postalCode] = postalCode;
-    } else {
-        [store removeObjectForKey:NAMES_postalCode];
-    }
+- (void)setPostalCode:(nullable NSString *)postalCode {
+    [store sdl_setObject:postalCode forName:SDLRPCParameterNamePostalCode];
 }
 
-- (NSString *)postalCode {
-    return store[NAMES_postalCode];
+- (nullable NSString *)postalCode {
+    return [store sdl_objectForName:SDLRPCParameterNamePostalCode ofClass:NSString.class error:nil];
 }
 
-- (void)setAdministrativeArea:(NSString *)administrativeArea {
-    if (administrativeArea != nil) {
-        store[NAMES_administrativeArea] = administrativeArea;
-    } else {
-        [store removeObjectForKey:NAMES_administrativeArea];
-    }
+- (void)setAdministrativeArea:(nullable NSString *)administrativeArea {
+    [store sdl_setObject:administrativeArea forName:SDLRPCParameterNameAdministrativeArea];
 }
 
-- (NSString *)administrativeArea {
-    return store[NAMES_administrativeArea];
+- (nullable NSString *)administrativeArea {
+    return [store sdl_objectForName:SDLRPCParameterNameAdministrativeArea ofClass:NSString.class error:nil];
 }
 
-- (void)setSubAdministrativeArea:(NSString *)subAdministrativeArea {
-    if (subAdministrativeArea != nil) {
-        store[NAMES_subAdministrativeArea] = subAdministrativeArea;
-    } else {
-        [store removeObjectForKey:NAMES_subAdministrativeArea];
-    }
+- (void)setSubAdministrativeArea:(nullable NSString *)subAdministrativeArea {
+    [store sdl_setObject:subAdministrativeArea forName:SDLRPCParameterNameSubAdministrativeArea];
 }
 
-- (NSString *)subAdministrativeArea {
-    return store[NAMES_subAdministrativeArea];
+- (nullable NSString *)subAdministrativeArea {
+    return [store sdl_objectForName:SDLRPCParameterNameSubAdministrativeArea ofClass:NSString.class error:nil];
 }
 
-- (void)setLocality:(NSString *)locality {
-    if (locality != nil) {
-        store[NAMES_locality] = locality;
-    } else {
-        [store removeObjectForKey:NAMES_locality];
-    }
+- (void)setLocality:(nullable NSString *)locality {
+    [store sdl_setObject:locality forName:SDLRPCParameterNameLocality];
 }
 
-- (NSString *)locality {
-    return store[NAMES_locality];
+- (nullable NSString *)locality {
+    return [store sdl_objectForName:SDLRPCParameterNameLocality ofClass:NSString.class error:nil];
 }
 
-- (void)setSubLocality:(NSString *)subLocality {
-    if (subLocality != nil) {
-        store[NAMES_subLocality] = subLocality;
-    } else {
-        [store removeObjectForKey:NAMES_subLocality];
-    }
+- (void)setSubLocality:(nullable NSString *)subLocality {
+    [store sdl_setObject:subLocality forName:SDLRPCParameterNameSubLocality];
 }
 
-- (NSString *)subLocality {
-    return store[NAMES_subLocality];
+- (nullable NSString *)subLocality {
+    return [store sdl_objectForName:SDLRPCParameterNameSubLocality ofClass:NSString.class error:nil];
 }
 
-- (void)setThoroughfare:(NSString *)thoroughfare {
-    if (thoroughfare != nil) {
-        store[NAMES_thoroughfare] = thoroughfare;
-    } else {
-        [store removeObjectForKey:NAMES_thoroughfare];
-    }
+- (void)setThoroughfare:(nullable NSString *)thoroughfare {
+    [store sdl_setObject:thoroughfare forName:SDLRPCParameterNameThoroughfare];
 }
 
-- (NSString *)thoroughfare {
-    return store[NAMES_thoroughfare];
+- (nullable NSString *)thoroughfare {
+    return [store sdl_objectForName:SDLRPCParameterNameThoroughfare ofClass:NSString.class error:nil];
 }
 
-- (void)setSubThoroughfare:(NSString *)subThoroughfare {
-    if (subThoroughfare != nil) {
-        store[NAMES_subThoroughfare] = subThoroughfare;
-    } else {
-        [store removeObjectForKey:NAMES_subThoroughfare];
-    }
+- (void)setSubThoroughfare:(nullable NSString *)subThoroughfare {
+    [store sdl_setObject:subThoroughfare forName:SDLRPCParameterNameSubThoroughfare];
 }
 
-- (NSString *)subThoroughfare {
-    return store[NAMES_subThoroughfare];
+- (nullable NSString *)subThoroughfare {
+    return [store sdl_objectForName:SDLRPCParameterNameSubThoroughfare ofClass:NSString.class error:nil];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

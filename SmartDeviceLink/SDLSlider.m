@@ -4,34 +4,30 @@
 
 #import "SDLSlider.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLSlider
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_Slider]) {
+    if (self = [super initWithName:SDLRPCFunctionNameSlider]) {
     }
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
-}
-
-- (instancetype)initWithNumTicks:(UInt8)numTicks position:(UInt8)position sliderHeader:(NSString *)sliderHeader sliderFooter:(NSString *)sliderFooter timeout:(UInt16)timeout {
-    NSMutableArray *sliderFooters = [NSMutableArray arrayWithCapacity:numTicks];
-
-    // Populates array with the same footer value for each position
-    for (int i = 0; i < sliderFooters.count; i++) {
-        sliderFooters[0] = sliderFooter;
+- (instancetype)initWithNumTicks:(UInt8)numTicks position:(UInt8)position sliderHeader:(NSString *)sliderHeader sliderFooter:(nullable NSString *)sliderFooter timeout:(UInt16)timeout {
+    NSArray<NSString *> *footer = nil;
+    if (sliderFooter != nil) {
+        footer = @[sliderFooter];
     }
 
-    return [self initWithNumTicks:numTicks position:position sliderHeader:sliderHeader sliderFooter:[sliderFooters copy] timeout:timeout];
+    return [self initWithNumTicks:numTicks position:position sliderHeader:sliderHeader sliderFooters:footer timeout:timeout];
 }
 
-- (instancetype)initWithNumTicks:(UInt8)numTicks position:(UInt8)position sliderHeader:(NSString *)sliderHeader sliderFooters:(NSArray<NSString *> *)sliderFooters timeout:(UInt16)timeout {
+- (instancetype)initWithNumTicks:(UInt8)numTicks position:(UInt8)position sliderHeader:(NSString *)sliderHeader sliderFooters:(nullable NSArray<NSString *> *)sliderFooters timeout:(UInt16)timeout {
     self = [self initWithNumTicks:numTicks position:position];
     if (!self) {
         return nil;
@@ -56,64 +52,49 @@
     return self;
 }
 
-- (void)setNumTicks:(NSNumber *)numTicks {
-    if (numTicks != nil) {
-        [parameters setObject:numTicks forKey:NAMES_numTicks];
-    } else {
-        [parameters removeObjectForKey:NAMES_numTicks];
-    }
+- (void)setNumTicks:(NSNumber<SDLInt> *)numTicks {
+    [parameters sdl_setObject:numTicks forName:SDLRPCParameterNameNumberTicks];
 }
 
-- (NSNumber *)numTicks {
-    return [parameters objectForKey:NAMES_numTicks];
+- (NSNumber<SDLInt> *)numTicks {
+    NSError *error = nil;
+    return [parameters sdl_objectForName:SDLRPCParameterNameNumberTicks ofClass:NSNumber.class error:&error];
 }
 
-- (void)setPosition:(NSNumber *)position {
-    if (position != nil) {
-        [parameters setObject:position forKey:NAMES_position];
-    } else {
-        [parameters removeObjectForKey:NAMES_position];
-    }
+- (void)setPosition:(NSNumber<SDLInt> *)position {
+    [parameters sdl_setObject:position forName:SDLRPCParameterNamePosition];
 }
 
-- (NSNumber *)position {
-    return [parameters objectForKey:NAMES_position];
+- (NSNumber<SDLInt> *)position {
+    NSError *error = nil;
+    return [parameters sdl_objectForName:SDLRPCParameterNamePosition ofClass:NSNumber.class error:&error];
 }
 
 - (void)setSliderHeader:(NSString *)sliderHeader {
-    if (sliderHeader != nil) {
-        [parameters setObject:sliderHeader forKey:NAMES_sliderHeader];
-    } else {
-        [parameters removeObjectForKey:NAMES_sliderHeader];
-    }
+    [parameters sdl_setObject:sliderHeader forName:SDLRPCParameterNameSliderHeader];
 }
 
 - (NSString *)sliderHeader {
-    return [parameters objectForKey:NAMES_sliderHeader];
+    NSError *error = nil;
+    return [parameters sdl_objectForName:SDLRPCParameterNameSliderHeader ofClass:NSString.class error:&error];
 }
 
-- (void)setSliderFooter:(NSMutableArray *)sliderFooter {
-    if (sliderFooter != nil) {
-        [parameters setObject:sliderFooter forKey:NAMES_sliderFooter];
-    } else {
-        [parameters removeObjectForKey:NAMES_sliderFooter];
-    }
+- (void)setSliderFooter:(nullable NSArray<NSString *> *)sliderFooter {
+    [parameters sdl_setObject:sliderFooter forName:SDLRPCParameterNameSliderFooter];
 }
 
-- (NSMutableArray *)sliderFooter {
-    return [parameters objectForKey:NAMES_sliderFooter];
+- (nullable NSArray<NSString *> *)sliderFooter {
+    return [parameters sdl_objectsForName:SDLRPCParameterNameSliderFooter ofClass:NSString.class error:nil];
 }
 
-- (void)setTimeout:(NSNumber *)timeout {
-    if (timeout != nil) {
-        [parameters setObject:timeout forKey:NAMES_timeout];
-    } else {
-        [parameters removeObjectForKey:NAMES_timeout];
-    }
+- (void)setTimeout:(nullable NSNumber<SDLInt> *)timeout {
+    [parameters sdl_setObject:timeout forName:SDLRPCParameterNameTimeout];
 }
 
-- (NSNumber *)timeout {
-    return [parameters objectForKey:NAMES_timeout];
+- (nullable NSNumber<SDLInt> *)timeout {
+    return [parameters sdl_objectForName:SDLRPCParameterNameTimeout ofClass:NSNumber.class error:nil];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

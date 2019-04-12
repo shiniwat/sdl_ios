@@ -2,36 +2,34 @@
 //  SDLVideoStreamingFormat.h
 //  SmartDeviceLink-iOS
 //
-//  Created by Brett McIsaac on 7/27/17.
-//  Copyright © 2017 smartdevicelink. All rights reserved.
-//
 
 #import "SDLRPCMessage.h"
+#import "SDLVideoStreamingProtocol.h"
+#import "SDLVideoStreamingCodec.h"
 
-@class SDLVideoStreamingCodec;
-@class SDLVideoStreamingProtocol;
+NS_ASSUME_NONNULL_BEGIN
 
+/**
+ An available format for video streaming in projection applications
+ */
 @interface SDLVideoStreamingFormat : SDLRPCStruct
 
 /**
- * @abstract Constructs a newly allocated SDLVideoStreamingFormat object
+ Protocol type, see VideoStreamingProtocol
+
+ Required
  */
-- (instancetype)init;
+@property (strong, nonatomic) SDLVideoStreamingProtocol protocol;
 
 /**
- * @abstract Constructs a newly allocated SDLVideoStreamingFormat object indicated by the dictionary parameter
- * @param dict The dictionary to use
- */
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict;
+ Codec type, see VideoStreamingCodec
 
-/**
- * @abstract Protocol type, see VideoStreamingProtocol, mandatory
+ Required
  */
-@property (strong, nonatomic) SDLVideoStreamingProtocol *protocol;
+@property (strong, nonatomic) SDLVideoStreamingCodec codec;
 
-/**
- * @abstract Codec type, see VideoStreamingCodec, mandatory
- */
-@property (strong, nonatomic) SDLVideoStreamingCodec *codec;
+- (instancetype)initWithCodec:(SDLVideoStreamingCodec)codec protocol:(SDLVideoStreamingProtocol)protocol;
 
 @end
+
+NS_ASSUME_NONNULL_END

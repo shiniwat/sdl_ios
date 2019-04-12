@@ -4,25 +4,23 @@
 
 #import "SDLUpdateTurnList.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 #import "SDLSoftButton.h"
 #import "SDLTurn.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLUpdateTurnList
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_UpdateTurnList]) {
+    if (self = [super initWithName:SDLRPCFunctionNameUpdateTurnList]) {
     }
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
-}
-
-- (instancetype)initWithTurnList:(NSArray<SDLTurn *> *)turnList softButtons:(NSArray<SDLSoftButton *> *)softButtons {
+- (instancetype)initWithTurnList:(nullable NSArray<SDLTurn *> *)turnList softButtons:(nullable NSArray<SDLSoftButton *> *)softButtons {
     self = [self init];
     if (!self) {
         return nil;
@@ -34,50 +32,22 @@
     return self;
 }
 
-- (void)setTurnList:(NSMutableArray *)turnList {
-    if (turnList != nil) {
-        [parameters setObject:turnList forKey:NAMES_turnList];
-    } else {
-        [parameters removeObjectForKey:NAMES_turnList];
-    }
+- (void)setTurnList:(nullable NSArray<SDLTurn *> *)turnList {
+    [parameters sdl_setObject:turnList forName:SDLRPCParameterNameTurnList];
 }
 
-- (NSMutableArray *)turnList {
-    NSMutableArray *array = [parameters objectForKey:NAMES_turnList];
-    if ([array isEqual:[NSNull null]]) {
-        return [NSMutableArray array];
-    } else if (array.count < 1 || [array.firstObject isKindOfClass:SDLTurn.class]) {
-        return array;
-    } else {
-        NSMutableArray *newList = [NSMutableArray arrayWithCapacity:[array count]];
-        for (NSDictionary *dict in array) {
-            [newList addObject:[[SDLTurn alloc] initWithDictionary:(NSMutableDictionary *)dict]];
-        }
-        return newList;
-    }
+- (nullable NSArray<SDLTurn *> *)turnList {
+    return [parameters sdl_objectsForName:SDLRPCParameterNameTurnList ofClass:SDLTurn.class error:nil];
 }
 
-- (void)setSoftButtons:(NSMutableArray *)softButtons {
-    if (softButtons != nil) {
-        [parameters setObject:softButtons forKey:NAMES_softButtons];
-    } else {
-        [parameters removeObjectForKey:NAMES_softButtons];
-    }
+- (void)setSoftButtons:(nullable NSArray<SDLSoftButton *> *)softButtons {
+    [parameters sdl_setObject:softButtons forName:SDLRPCParameterNameSoftButtons];
 }
 
-- (NSMutableArray *)softButtons {
-    NSMutableArray *array = [parameters objectForKey:NAMES_softButtons];
-    if ([array isEqual:[NSNull null]]) {
-        return [NSMutableArray array];
-    } else if (array.count < 1 || [array.firstObject isKindOfClass:SDLSoftButton.class]) {
-        return array;
-    } else {
-        NSMutableArray *newList = [NSMutableArray arrayWithCapacity:[array count]];
-        for (NSDictionary *dict in array) {
-            [newList addObject:[[SDLSoftButton alloc] initWithDictionary:(NSMutableDictionary *)dict]];
-        }
-        return newList;
-    }
+- (nullable NSArray<SDLSoftButton *> *)softButtons {
+    return [parameters sdl_objectsForName:SDLRPCParameterNameSoftButtons ofClass:SDLSoftButton.class error:nil];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

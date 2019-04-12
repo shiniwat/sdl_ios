@@ -8,25 +8,12 @@
 
 #import "SDLPhoneCapability.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLPhoneCapability
-
-- (instancetype)init {
-    self = [super init];
-    if (!self) {
-        return nil;
-    }
-
-    return self;
-}
-
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
-}
 
 - (instancetype)initWithDialNumber:(BOOL)dialNumberEnabled {
     self = [self init];
@@ -39,16 +26,14 @@
     return self;
 }
 
-- (void)setDialNumberEnabled:(NSNumber *)dialNumberEnabled {
-    if (dialNumberEnabled != nil) {
-        store[NAMES_dialNumberEnabled] = dialNumberEnabled;
-    } else {
-        [store removeObjectForKey:NAMES_dialNumberEnabled];
-    }
+- (void)setDialNumberEnabled:(nullable NSNumber *)dialNumberEnabled {
+    [store sdl_setObject:dialNumberEnabled forName:SDLRPCParameterNameDialNumberEnabled];
 }
 
-- (NSNumber *)dialNumberEnabled {
-    return store[NAMES_dialNumberEnabled];
+- (nullable NSNumber *)dialNumberEnabled {
+    return [store sdl_objectForName:SDLRPCParameterNameDialNumberEnabled ofClass:NSNumber.class error:nil];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -4,67 +4,31 @@
 
 #import "SDLHMIPermissions.h"
 
-#import "SDLHMILevel.h"
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLHMIPermissions
 
-- (instancetype)init {
-    if (self = [super init]) {
-    }
-    return self;
+- (void)setAllowed:(NSArray<SDLHMILevel> *)allowed {
+    [store sdl_setObject:allowed forName:SDLRPCParameterNameAllowed];
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (NSArray<SDLHMILevel> *)allowed {
+    NSError *error = nil;
+    return [store sdl_enumsForName:SDLRPCParameterNameAllowed error:&error];
 }
 
-- (void)setAllowed:(NSMutableArray *)allowed {
-    if (allowed != nil) {
-        [store setObject:allowed forKey:NAMES_allowed];
-    } else {
-        [store removeObjectForKey:NAMES_allowed];
-    }
+- (void)setUserDisallowed:(NSArray<SDLHMILevel> *)userDisallowed {
+    [store sdl_setObject:userDisallowed forName:SDLRPCParameterNameUserDisallowed];
 }
 
-- (NSMutableArray *)allowed {
-    NSMutableArray *array = [store objectForKey:NAMES_allowed];
-    if ([array isEqual:[NSNull null]]) {
-        return [NSMutableArray array];
-    } else if (array.count < 1 || [array.firstObject isKindOfClass:SDLHMILevel.class]) {
-        return array;
-    } else {
-        NSMutableArray *newList = [NSMutableArray arrayWithCapacity:[array count]];
-        for (NSString *enumString in array) {
-            [newList addObject:[SDLHMILevel valueOf:enumString]];
-        }
-        return newList;
-    }
-}
-
-- (void)setUserDisallowed:(NSMutableArray *)userDisallowed {
-    if (userDisallowed != nil) {
-        [store setObject:userDisallowed forKey:NAMES_userDisallowed];
-    } else {
-        [store removeObjectForKey:NAMES_userDisallowed];
-    }
-}
-
-- (NSMutableArray *)userDisallowed {
-    NSMutableArray *array = [store objectForKey:NAMES_userDisallowed];
-    if ([array isEqual:[NSNull null]]) {
-        return [NSMutableArray array];
-    } else if (array.count < 1 || [array.firstObject isKindOfClass:SDLHMILevel.class]) {
-        return array;
-    } else {
-        NSMutableArray *newList = [NSMutableArray arrayWithCapacity:[array count]];
-        for (NSString *enumString in array) {
-            [newList addObject:[SDLHMILevel valueOf:enumString]];
-        }
-        return newList;
-    }
+- (NSArray<SDLHMILevel> *)userDisallowed {
+    NSError *error = nil;
+    return [store sdl_enumsForName:SDLRPCParameterNameUserDisallowed error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -4,68 +4,49 @@
 
 #import "SDLSoftButtonCapabilities.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLSoftButtonCapabilities
 
-- (instancetype)init {
-    if (self = [super init]) {
-    }
-    return self;
+- (void)setShortPressAvailable:(NSNumber<SDLBool> *)shortPressAvailable {
+    [store sdl_setObject:shortPressAvailable forName:SDLRPCParameterNameShortPressAvailable];
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (NSNumber<SDLBool> *)shortPressAvailable {
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNameShortPressAvailable ofClass:NSNumber.class error:&error];
 }
 
-- (void)setShortPressAvailable:(NSNumber *)shortPressAvailable {
-    if (shortPressAvailable != nil) {
-        [store setObject:shortPressAvailable forKey:NAMES_shortPressAvailable];
-    } else {
-        [store removeObjectForKey:NAMES_shortPressAvailable];
-    }
+- (void)setLongPressAvailable:(NSNumber<SDLBool> *)longPressAvailable {
+    [store sdl_setObject:longPressAvailable forName:SDLRPCParameterNameLongPressAvailable];
 }
 
-- (NSNumber *)shortPressAvailable {
-    return [store objectForKey:NAMES_shortPressAvailable];
+- (NSNumber<SDLBool> *)longPressAvailable {
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNameLongPressAvailable ofClass:NSNumber.class error:&error];
 }
 
-- (void)setLongPressAvailable:(NSNumber *)longPressAvailable {
-    if (longPressAvailable != nil) {
-        [store setObject:longPressAvailable forKey:NAMES_longPressAvailable];
-    } else {
-        [store removeObjectForKey:NAMES_longPressAvailable];
-    }
+- (void)setUpDownAvailable:(NSNumber<SDLBool> *)upDownAvailable {
+    [store sdl_setObject:upDownAvailable forName:SDLRPCParameterNameUpDownAvailable];
 }
 
-- (NSNumber *)longPressAvailable {
-    return [store objectForKey:NAMES_longPressAvailable];
+- (NSNumber<SDLBool> *)upDownAvailable {
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNameUpDownAvailable ofClass:NSNumber.class error:&error];
 }
 
-- (void)setUpDownAvailable:(NSNumber *)upDownAvailable {
-    if (upDownAvailable != nil) {
-        [store setObject:upDownAvailable forKey:NAMES_upDownAvailable];
-    } else {
-        [store removeObjectForKey:NAMES_upDownAvailable];
-    }
+- (void)setImageSupported:(NSNumber<SDLBool> *)imageSupported {
+    [store sdl_setObject:imageSupported forName:SDLRPCParameterNameImageSupported];
 }
 
-- (NSNumber *)upDownAvailable {
-    return [store objectForKey:NAMES_upDownAvailable];
-}
-
-- (void)setImageSupported:(NSNumber *)imageSupported {
-    if (imageSupported != nil) {
-        [store setObject:imageSupported forKey:NAMES_imageSupported];
-    } else {
-        [store removeObjectForKey:NAMES_imageSupported];
-    }
-}
-
-- (NSNumber *)imageSupported {
-    return [store objectForKey:NAMES_imageSupported];
+- (NSNumber<SDLBool> *)imageSupported {
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNameImageSupported ofClass:NSNumber.class error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -4,25 +4,22 @@
 
 #import "SDLUnsubscribeButton.h"
 
+#import "NSMutableDictionary+Store.h"
 #import "SDLButtonName.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLUnsubscribeButton
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_UnsubscribeButton]) {
+    if (self = [super initWithName:SDLRPCFunctionNameUnsubscribeButton]) {
     }
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
-}
-
-- (instancetype)initWithButtonName:(SDLButtonName *)buttonName {
+- (instancetype)initWithButtonName:(SDLButtonName)buttonName {
     self = [self init];
     if (!self) {
         return nil;
@@ -33,21 +30,15 @@
     return self;
 }
 
-- (void)setButtonName:(SDLButtonName *)buttonName {
-    if (buttonName != nil) {
-        [parameters setObject:buttonName forKey:NAMES_buttonName];
-    } else {
-        [parameters removeObjectForKey:NAMES_buttonName];
-    }
+- (void)setButtonName:(SDLButtonName)buttonName {
+    [parameters sdl_setObject:buttonName forName:SDLRPCParameterNameButtonName];
 }
 
-- (SDLButtonName *)buttonName {
-    NSObject *obj = [parameters objectForKey:NAMES_buttonName];
-    if (obj == nil || [obj isKindOfClass:SDLButtonName.class]) {
-        return (SDLButtonName *)obj;
-    } else {
-        return [SDLButtonName valueOf:(NSString *)obj];
-    }
+- (SDLButtonName)buttonName {
+    NSError *error = nil;
+    return [parameters sdl_enumForName:SDLRPCParameterNameButtonName error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

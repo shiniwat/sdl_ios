@@ -9,7 +9,7 @@
 #import <Nimble/Nimble.h>
 
 #import "SDLSoftButtonCapabilities.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
 
 QuickSpecBegin(SDLSoftButtonCapabilitiesSpec)
 
@@ -29,10 +29,10 @@ describe(@"Getter/Setter Tests", ^ {
     });
     
     it(@"Should get correctly when initialized", ^ {
-        NSMutableDictionary* dict = [@{NAMES_shortPressAvailable:@NO,
-                                       NAMES_longPressAvailable:@YES,
-                                       NAMES_upDownAvailable:@NO,
-                                       NAMES_imageSupported:@NO} mutableCopy];
+        NSMutableDictionary<NSString *, id> *dict = [@{SDLRPCParameterNameShortPressAvailable:@NO,
+                                                       SDLRPCParameterNameLongPressAvailable:@YES,
+                                                       SDLRPCParameterNameUpDownAvailable:@NO,
+                                                       SDLRPCParameterNameImageSupported:@NO} mutableCopy];
         SDLSoftButtonCapabilities* testStruct = [[SDLSoftButtonCapabilities alloc] initWithDictionary:dict];
         
         expect(testStruct.shortPressAvailable).to(equal(@NO));

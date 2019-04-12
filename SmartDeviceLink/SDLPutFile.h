@@ -3,85 +3,135 @@
 
 #import "SDLRPCRequest.h"
 
-@class SDLFileType;
-
+#import "SDLFileType.h"
 
 /**
- * Used to push a binary data onto the SDL module from a mobile device, such as
- * icons and album art
+ *  Used to push a binary data onto the SDL module from a mobile device, such as icons and album art.
  *
- * Since SmartDeviceLink 2.0
- * @see SDLDeleteFile
- * @see SDLListFiles
+ *  Since SmartDeviceLink 2.0
+ *  @see SDLDeleteFile, SDLListFiles
  */
-@interface SDLPutFile : SDLRPCRequest {
-}
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface SDLPutFile : SDLRPCRequest
 
 /**
- * Constructs a new SDLPutFile object
+ *  Init
+ *
+ *  @return A SDLPutFile object
  */
 - (instancetype)init;
 
 /**
- * Constructs a new SDLPutFile object indicated by the dictionary parameter
+ *  Convenience init for creating a putfile with a name and file format.
  *
- * @param dict The dictionary to use
+ *  @param fileName    The file's name
+ *  @param fileType    The file's format
+ *  @return            A SDLPutFile object
  */
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict;
-
-- (instancetype)initWithFileName:(NSString *)fileName fileType:(SDLFileType *)fileType;
-
-- (instancetype)initWithFileName:(NSString *)fileName fileType:(SDLFileType *)fileType persistentFile:(BOOL)persistentFile;
-
-// TODO: (Alex M.)[2016-12-1] Change from UInt64 ot UInt32
-- (instancetype)initWithFileName:(NSString *)fileName fileType:(SDLFileType *)fileType persistentFile:(BOOL)persistentFile systemFile:(BOOL)systemFile offset:(UInt64)offset length:(UInt64)length;
+- (instancetype)initWithFileName:(NSString *)fileName fileType:(SDLFileType)fileType;
 
 /**
- * A file reference name
+ *  Convenience init for creating a putfile with a name, file format, and persistance.
  *
- * Required, maxlength 255 characters
+ *  @param fileName         The file's name
+ *  @param fileType         The file's format
+ *  @param persistentFile   Whether or not the image should persist between ignition cycles
+ *  @return                 A SDLPutFile object
  */
-@property (strong) NSString *syncFileName;
+- (instancetype)initWithFileName:(NSString *)fileName fileType:(SDLFileType)fileType persistentFile:(BOOL)persistentFile;
 
 /**
- * A FileType value representing a selected file type
+ *  Convenience init for creating a putfile that is part of a multiple frame payload.
  *
- * Required
+ *  @param fileName         The file's name
+ *  @param fileType         The file's format
+ *  @param persistentFile   Whether or not the image should persist between ignition cycles
+ *  @param systemFile       Whether or not the file is meant to be passed through Core to elsewhere on the system
+ *  @param offset           Offset in bytes for resuming partial data chunks
+ *  @param length           Length in bytes for resuming partial data chunks
+ *  @return                 A SDLPutFile object
  */
-@property (strong) SDLFileType *fileType;
+- (instancetype)initWithFileName:(NSString *)fileName fileType:(SDLFileType)fileType persistentFile:(BOOL)persistentFile systemFile:(BOOL)systemFile offset:(UInt32)offset length:(UInt32)length __deprecated_msg("Use initWithFileName:fileType:persistentFile:systemFile:offset:length:crc: instead");
 
 /**
- * A value to indicates if the file is meant to persist between
- * sessions / ignition cycles. If set to TRUE, then the system will aim to
- * persist this file through session / cycles. While files with this
- * designation will have priority over others, they are subject to deletion
- * by the system at any time. In the event of automatic deletion by the
- * system, the app will receive a rejection and have to resend the file. If
- * omitted, the value will be set to false
+ *  Convenience init for creating a putfile that is part of a multiple frame payload.
  *
- * Boolean, Optional, default = NO
+ *  @param fileName         The file's name
+ *  @param fileType         The file's format
+ *  @param persistentFile   Whether or not the image should persist between ignition cycles
+ *  @param systemFile       Whether or not the file is meant to be passed through Core to elsewhere on the system
+ *  @param offset           Offset in bytes for resuming partial data chunks
+ *  @param length           Length in bytes for resuming partial data chunks
+ *  @param crc              Checksum of the bulk data. Used by Core to check data integrity
+ *  @return                 A SDLPutFile object
  */
-@property (strong) NSNumber *persistentFile;
+- (instancetype)initWithFileName:(NSString *)fileName fileType:(SDLFileType)fileType persistentFile:(BOOL)persistentFile systemFile:(BOOL)systemFile offset:(UInt32)offset length:(UInt32)length crc:(UInt64)crc;
 
 /**
- * Indicates if the file is meant to be passed through core to elsewhere on the system. If set to TRUE, then the system will instead pass the data thru as it arrives to a predetermined area outside of core.
+ *  Convenience init for creating a putfile that is part of a multiple frame payload. A CRC checksum is calculated for the bulk data.
  *
- * Boolean, Optional, default = NO
+ *  @param fileName         The file's name
+ *  @param fileType         The file's format
+ *  @param persistentFile   Whether or not the image should persist between ignition cycles
+ *  @param systemFile       Whether or not the file is meant to be passed through Core to elsewhere on the system
+ *  @param offset           Offset in bytes for resuming partial data chunks
+ *  @param length           Length in bytes for resuming partial data chunks
+ *  @param bulkData         Data being sent in the putfile
+ *  @return                 A SDLPutFile object
  */
-@property (strong) NSNumber *systemFile;
+- (instancetype)initWithFileName:(NSString *)fileName fileType:(SDLFileType)fileType persistentFile:(BOOL)persistentFile systemFile:(BOOL)systemFile offset:(UInt32)offset length:(UInt32)length bulkData:(NSData *)bulkData;
 
 /**
- * Offset in bytes for resuming partial data chunks.
+ *  File reference name
  *
- * Integer, Optional, 0 - 100,000,000,000
+ *  Required, max length 255 characters
  */
-@property (strong) NSNumber *offset;
+@property (strong, nonatomic) NSString *syncFileName;
 
 /**
- * Length in bytes for resuming partial data chunks. If offset is set to 0, then length is the total length of the file to be downloaded
+ *  A FileType value representing a selected file type
  *
- * Integer, Optional, 0 - 100,000,000,000
+ *  Required
  */
-@property (strong) NSNumber *length;
+@property (strong, nonatomic) SDLFileType fileType;
+
+/**
+ *  A value to indicates if the file is meant to persist between sessions / ignition cycles. If set to TRUE, then the system will aim to persist this file through session / cycles. While files with this designation will have priority over others, they are subject to deletion by the system at any time. In the event of automatic deletion by the system, the app will receive a rejection and have to resend the file. If omitted, the value will be set to false.
+ *
+ *  Boolean, Optional, default = NO
+ */
+@property (nullable, strong, nonatomic) NSNumber<SDLBool> *persistentFile;
+
+/**
+ *  Indicates if the file is meant to be passed through core to elsewhere on the system. If set to TRUE, then the system will instead pass the data thru as it arrives to a predetermined area outside of core.
+ *
+ *  Boolean, Optional, default = NO
+ */
+@property (nullable, strong, nonatomic) NSNumber<SDLBool> *systemFile;
+
+/**
+ *  Offset in bytes for resuming partial data chunks.
+ *
+ *  Integer, Optional, 0 - 100,000,000,000
+ */
+@property (nullable, strong, nonatomic) NSNumber<SDLUInt> *offset;
+
+/**
+ *  Length in bytes for resuming partial data chunks. If offset is set to 0, then length is the total length of the file to be downloaded
+ *
+ *  Integer, Optional, 0 - 100,000,000,000
+ */
+@property (nullable, strong, nonatomic) NSNumber<SDLUInt> *length;
+
+/**
+ *  Additional CRC32 checksum to protect data integrity up to 512 Mbits.
+ *
+ *  Integer, Optional, 0 - 4,294,967,295
+ */
+@property (nullable, strong, nonatomic) NSNumber<SDLUInt> *crc;
 
 @end
+
+NS_ASSUME_NONNULL_END

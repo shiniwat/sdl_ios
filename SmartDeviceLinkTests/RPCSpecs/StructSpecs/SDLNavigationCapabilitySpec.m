@@ -4,7 +4,7 @@
 #import <Nimble/Nimble.h>
 
 #import "SDLNavigationCapability.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
 
 QuickSpecBegin(SDLNavigationCapabilitySpec)
 
@@ -23,8 +23,8 @@ describe(@"Getter/Setter Tests", ^ {
 
 describe(@"Initialization tests", ^{
     it(@"Should get correctly when initialized with a dictionary", ^ {
-        NSMutableDictionary* dict = [@{NAMES_getWayPointsEnabled: @(YES),
-                                       NAMES_sendLocationEnabled: @(YES)} mutableCopy];
+        NSDictionary *dict = @{SDLRPCParameterNameGetWayPointsEnabled: @(YES),
+                                       SDLRPCParameterNameSendLocationEnabled: @(YES)};
         SDLNavigationCapability* testStruct = [[SDLNavigationCapability alloc] initWithDictionary:dict];
 
         expect(testStruct.getWayPointsEnabled).to(equal(YES));

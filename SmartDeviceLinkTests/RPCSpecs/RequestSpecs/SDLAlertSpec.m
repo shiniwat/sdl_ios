@@ -11,7 +11,8 @@
 #import "SDLAlert.h"
 #import "SDLTTSChunk.h"
 #import "SDLSoftButton.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 
 QuickSpecBegin(SDLAlertSpec)
 
@@ -42,17 +43,17 @@ describe(@"Getter/Setter Tests", ^ {
     });
     
     it(@"Should get correctly when initialized", ^ {
-        NSMutableDictionary* dict = [@{NAMES_request:
-                                           @{NAMES_parameters:
-                                                 @{NAMES_alertText1:@"alert#1",
-                                                   NAMES_alertText2:@"alert#2",
-                                                   NAMES_alertText3:@"alert#3",
-                                                   NAMES_ttsChunks:[@[tts] mutableCopy],
-                                                   NAMES_duration:@4357,
-                                                   NAMES_playTone:@YES,
-                                                   NAMES_progressIndicator:@NO,
-                                                   NAMES_softButtons:[@[button] mutableCopy]},
-                                             NAMES_operation_name:NAMES_Alert}} mutableCopy];
+        NSMutableDictionary<NSString *, id> *dict = [@{SDLRPCParameterNameRequest:
+                                                           @{SDLRPCParameterNameParameters:
+                                                                 @{SDLRPCParameterNameAlertText1:@"alert#1",
+                                                                   SDLRPCParameterNameAlertText2:@"alert#2",
+                                                                   SDLRPCParameterNameAlertText3:@"alert#3",
+                                                                   SDLRPCParameterNameTTSChunks:[@[tts] mutableCopy],
+                                                                   SDLRPCParameterNameDuration:@4357,
+                                                                   SDLRPCParameterNamePlayTone:@YES,
+                                                                   SDLRPCParameterNameProgressIndicator:@NO,
+                                                                   SDLRPCParameterNameSoftButtons:[@[button] mutableCopy]},
+                                                             SDLRPCParameterNameOperationName:SDLRPCFunctionNameAlert}} mutableCopy];
         SDLAlert* testRequest = [[SDLAlert alloc] initWithDictionary:dict];
         
         expect(testRequest.alertText1).to(equal(@"alert#1"));
@@ -66,20 +67,21 @@ describe(@"Getter/Setter Tests", ^ {
     });
 
     it(@"Should handle NSNull", ^{
-        NSMutableDictionary* dict = [@{NAMES_request:
-                                           @{NAMES_parameters:
-                                                 @{NAMES_alertText1:@"alert#1",
-                                                   NAMES_alertText2:@"alert#2",
-                                                   NAMES_alertText3:@"alert#3",
-                                                   NAMES_ttsChunks:[@[tts] mutableCopy],
-                                                   NAMES_duration:@4357,
-                                                   NAMES_playTone:@YES,
-                                                   NAMES_progressIndicator:@NO,
-                                                   NAMES_softButtons:[NSNull null]},
-                                             NAMES_operation_name:NAMES_Alert}} mutableCopy];
+        NSMutableDictionary* dict = [@{SDLRPCParameterNameRequest:
+                                           @{SDLRPCParameterNameParameters:
+                                                 @{SDLRPCParameterNameAlertText1:@"alert#1",
+                                                   SDLRPCParameterNameAlertText2:@"alert#2",
+                                                   SDLRPCParameterNameAlertText3:@"alert#3",
+                                                   SDLRPCParameterNameTTSChunks:[@[tts] mutableCopy],
+                                                   SDLRPCParameterNameDuration:@4357,
+                                                   SDLRPCParameterNamePlayTone:@YES,
+                                                   SDLRPCParameterNameProgressIndicator:@NO,
+                                                   SDLRPCParameterNameSoftButtons:[NSNull null]},
+                                             SDLRPCParameterNameOperationName:SDLRPCFunctionNameAlert}} mutableCopy];
         SDLAlert* testRequest = [[SDLAlert alloc] initWithDictionary:dict];
-
-        expect(testRequest.softButtons).to(beEmpty());
+        expectAction(^{
+            NSArray<SDLSoftButton *> *softButtons = testRequest.softButtons;
+        }).to(raiseException());
     });
     
     it(@"Should return nil if not set", ^ {

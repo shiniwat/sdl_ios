@@ -4,19 +4,21 @@
 
 #import "SDLSubscribeButton.h"
 
-#import "SDLButtonName.h"
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLSubscribeButton
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_SubscribeButton]) {
+    if (self = [super initWithName:SDLRPCFunctionNameSubscribeButton]) {
     }
     return self;
 }
 
-- (instancetype)initWithHandler:(SDLRPCNotificationHandler)handler {
+- (instancetype)initWithHandler:(nullable SDLRPCButtonNotificationHandler)handler {
     self = [self init];
     if (!self) {
         return nil;
@@ -27,13 +29,7 @@
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
-}
-
-- (instancetype)initWithButtonName:(SDLButtonName *)buttonName handler:(SDLRPCNotificationHandler)handler {
+- (instancetype)initWithButtonName:(SDLButtonName)buttonName handler:(nullable SDLRPCButtonNotificationHandler)handler {
     self = [self init];
     if (!self) {
         return nil;
@@ -45,21 +41,22 @@
     return self;
 }
 
-- (void)setButtonName:(SDLButtonName *)buttonName {
-    if (buttonName != nil) {
-        [parameters setObject:buttonName forKey:NAMES_buttonName];
-    } else {
-        [parameters removeObjectForKey:NAMES_buttonName];
-    }
+- (void)setButtonName:(SDLButtonName)buttonName {
+    [parameters sdl_setObject:buttonName forName:SDLRPCParameterNameButtonName];
 }
 
-- (SDLButtonName *)buttonName {
-    NSObject *obj = [parameters objectForKey:NAMES_buttonName];
-    if (obj == nil || [obj isKindOfClass:SDLButtonName.class]) {
-        return (SDLButtonName *)obj;
-    } else {
-        return [SDLButtonName valueOf:(NSString *)obj];
-    }
+- (SDLButtonName)buttonName {
+    NSError *error = nil;
+    return [parameters sdl_enumForName:SDLRPCParameterNameButtonName error:&error];
+}
+
+-(id)copyWithZone:(nullable NSZone *)zone {
+    SDLSubscribeButton *newButton = [super copyWithZone:zone];
+    newButton->_handler = self.handler;
+
+    return newButton;
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

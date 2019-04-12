@@ -4,21 +4,12 @@
 
 #import "SDLMenuParams.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLMenuParams
-
-- (instancetype)init {
-    if (self = [super init]) {
-    }
-    return self;
-}
-
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
-}
 
 - (instancetype)initWithMenuName:(NSString *)menuName parentId:(UInt32)parentId position:(UInt16)position {
     self = [self initWithMenuName:menuName];
@@ -43,40 +34,30 @@
     return self;
 }
 
-- (void)setParentID:(NSNumber *)parentID {
-    if (parentID != nil) {
-        [store setObject:parentID forKey:NAMES_parentID];
-    } else {
-        [store removeObjectForKey:NAMES_parentID];
-    }
+- (void)setParentID:(nullable NSNumber<SDLInt> *)parentID {
+    [store sdl_setObject:parentID forName:SDLRPCParameterNameParentId];
 }
 
-- (NSNumber *)parentID {
-    return [store objectForKey:NAMES_parentID];
+- (nullable NSNumber<SDLInt> *)parentID {
+    return [store sdl_objectForName:SDLRPCParameterNameParentId ofClass:NSNumber.class error:nil];
 }
 
-- (void)setPosition:(NSNumber *)position {
-    if (position != nil) {
-        [store setObject:position forKey:NAMES_position];
-    } else {
-        [store removeObjectForKey:NAMES_position];
-    }
+- (void)setPosition:(nullable NSNumber<SDLInt> *)position {
+    [store sdl_setObject:position forName:SDLRPCParameterNamePosition];
 }
 
-- (NSNumber *)position {
-    return [store objectForKey:NAMES_position];
+- (nullable NSNumber<SDLInt> *)position {
+    return [store sdl_objectForName:SDLRPCParameterNamePosition ofClass:NSNumber.class error:nil];
 }
 
 - (void)setMenuName:(NSString *)menuName {
-    if (menuName != nil) {
-        [store setObject:menuName forKey:NAMES_menuName];
-    } else {
-        [store removeObjectForKey:NAMES_menuName];
-    }
+    [store sdl_setObject:menuName forName:SDLRPCParameterNameMenuName];
 }
 
 - (NSString *)menuName {
-    return [store objectForKey:NAMES_menuName];
+    return [store sdl_objectForName:SDLRPCParameterNameMenuName ofClass:NSString.class error:nil];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

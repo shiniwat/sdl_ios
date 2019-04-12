@@ -11,7 +11,7 @@
 #import "SDLTireStatus.h"
 #import "SDLSingleTireStatus.h"
 #import "SDLWarningLightStatus.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
 
 QuickSpecBegin(SDLTireStatusSpec)
 
@@ -26,7 +26,7 @@ describe(@"Getter/Setter Tests", ^ {
     it(@"Should set and get correctly", ^ {
         SDLTireStatus* testStruct = [[SDLTireStatus alloc] init];
         
-        testStruct.pressureTelltale = [SDLWarningLightStatus OFF];
+        testStruct.pressureTelltale = SDLWarningLightStatusOff;
         testStruct.leftFront = tire1;
         testStruct.rightFront = tire2;
         testStruct.leftRear = tire3;
@@ -34,7 +34,7 @@ describe(@"Getter/Setter Tests", ^ {
         testStruct.innerLeftRear = tire5;
         testStruct.innerRightRear = tire6;
         
-        expect(testStruct.pressureTelltale).to(equal([SDLWarningLightStatus OFF]));
+        expect(testStruct.pressureTelltale).to(equal(SDLWarningLightStatusOff));
         expect(testStruct.leftFront).to(equal(tire1));
         expect(testStruct.rightFront).to(equal(tire2));
         expect(testStruct.leftRear).to(equal(tire3));
@@ -44,16 +44,16 @@ describe(@"Getter/Setter Tests", ^ {
     });
     
     it(@"Should get correctly when initialized", ^ {
-        NSMutableDictionary* dict = [@{NAMES_pressureTelltale:[SDLWarningLightStatus OFF],
-                                       NAMES_leftFront:tire1,
-                                       NAMES_rightFront:tire2,
-                                       NAMES_leftRear:tire3,
-                                       NAMES_rightRear:tire4,
-                                       NAMES_innerLeftRear:tire5,
-                                       NAMES_innerRightRear:tire6} mutableCopy];
+        NSMutableDictionary* dict = [@{SDLRPCParameterNamePressureTelltale:SDLWarningLightStatusOff,
+                                       SDLRPCParameterNameLeftFront:tire1,
+                                       SDLRPCParameterNameRightFront:tire2,
+                                       SDLRPCParameterNameLeftRear:tire3,
+                                       SDLRPCParameterNameRightRear:tire4,
+                                       SDLRPCParameterNameInnerLeftRear:tire5,
+                                       SDLRPCParameterNameInnerRightRear:tire6} mutableCopy];
         SDLTireStatus* testStruct = [[SDLTireStatus alloc] initWithDictionary:dict];
         
-        expect(testStruct.pressureTelltale).to(equal([SDLWarningLightStatus OFF]));
+        expect(testStruct.pressureTelltale).to(equal(SDLWarningLightStatusOff));
         expect(testStruct.leftFront).to(equal(tire1));
         expect(testStruct.rightFront).to(equal(tire2));
         expect(testStruct.leftRear).to(equal(tire3));

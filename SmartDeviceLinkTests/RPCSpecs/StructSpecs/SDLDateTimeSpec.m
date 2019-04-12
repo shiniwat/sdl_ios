@@ -12,7 +12,7 @@
 #import <Nimble/Nimble.h>
 
 #import "SDLDateTime.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
 
 QuickSpecBegin(SDLDateTimeSpec)
 
@@ -42,15 +42,15 @@ describe(@"Getter/Setter Tests", ^ {
     });
     
     it(@"Should get correctly when initialized with dictionary", ^{
-        NSMutableDictionary* dict = [@{NAMES_millisecond:@100,
-                                       NAMES_second:@4,
-                                       NAMES_minute:@12,
-                                       NAMES_hour:@20,
-                                       NAMES_day:@30,
-                                       NAMES_month:@1,
-                                       NAMES_year:@4000,
-                                       NAMES_timezoneMinuteOffset:@0,
-                                       NAMES_timezoneHourOffset:@1000} mutableCopy];
+        NSMutableDictionary* dict = [@{SDLRPCParameterNameMillisecond:@100,
+                                       SDLRPCParameterNameSecond:@4,
+                                       SDLRPCParameterNameMinute:@12,
+                                       SDLRPCParameterNameHour:@20,
+                                       SDLRPCParameterNameDay:@30,
+                                       SDLRPCParameterNameMonth:@1,
+                                       SDLRPCParameterNameYear:@4000,
+                                       SDLRPCParameterNameTimezoneMinuteOffset:@0,
+                                       SDLRPCParameterNameTimezoneHourOffset:@1000} mutableCopy];
         SDLDateTime* testStruct = [[SDLDateTime alloc] initWithDictionary:dict];
         
         expect(testStruct.millisecond).to(equal(@100));

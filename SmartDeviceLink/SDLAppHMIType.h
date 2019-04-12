@@ -9,95 +9,63 @@
  *
  * @since SDL 2.0
  */
-@interface SDLAppHMIType : SDLEnum {
-}
+typedef SDLEnum SDLAppHMIType SDL_SWIFT_ENUM;
 
 /**
- * @abstract Convert String to AppHMIType
- *
- * @param value The value of the string to get an object for
- *
- * @return SDLAppHMIType
+ * The App will have default rights.
  */
-+ (SDLAppHMIType *)valueOf:(NSString *)value;
+extern SDLAppHMIType const SDLAppHMITypeDefault;
 
 /**
- * @abstract Store the enumeration of all possible SDLAppHMIType
- *
- * @return an array that store all possible SDLAppHMIType
+ * Communication type of App
  */
-+ (NSArray *)values;
+extern SDLAppHMIType const SDLAppHMITypeCommunication;
 
 /**
- * @abstract The App will have default rights.
- *
- * @return SDLAppHMIType with value *DEFAULT*
+ * App dealing with Media
  */
-+ (SDLAppHMIType *)DEFAULT;
+extern SDLAppHMIType const SDLAppHMITypeMedia;
 
 /**
- * @abstract Communication type of App
- *
- * @return SDLAppHMIType with value *COMMUNICATION*
+ * Messaging App
  */
-+ (SDLAppHMIType *)COMMUNICATION;
+extern SDLAppHMIType const SDLAppHMITypeMessaging;
 
 /**
- * @abstract App dealing with Media
- *
- * @return SDLAppHMIType with value *MEDIA*
+ * Navigation App
  */
-+ (SDLAppHMIType *)MEDIA;
+extern SDLAppHMIType const SDLAppHMITypeNavigation;
 
 /**
- * @abstract Messaging App
- *
- * @return SDLAppHMIType with value *MESSAGING*
+ * Information App
  */
-+ (SDLAppHMIType *)MESSAGING;
+extern SDLAppHMIType const SDLAppHMITypeInformation;
 
 /**
- * @abstract Navigation App
- *
- * @return SDLAppHMIType with value *NAVIGATION*
+ * App dealing with social media
  */
-+ (SDLAppHMIType *)NAVIGATION;
+extern SDLAppHMIType const SDLAppHMITypeSocial;
 
 /**
- * @abstract Information App
- *
- * @return SDLAppHMIType with value *INFORMATION*
+ * App dealing with Mobile Projection applications
  */
-+ (SDLAppHMIType *)INFORMATION;
+extern SDLAppHMIType const SDLAppHMITypeProjection;
 
 /**
- * @abstract App dealing with social media
- *
- * @return SDLAppHMIType with value *SOCIAL*
+ * App designed for use in the background
  */
-+ (SDLAppHMIType *)SOCIAL;
+extern SDLAppHMIType const SDLAppHMITypeBackgroundProcess;
 
 /**
- * @abstract App dealing with Mobile Projection applications
- *
- * @return SDLAppHMIType with value *PROJECTION*
+ * App only for Testing purposes
  */
-+ (SDLAppHMIType *)PROJECTION;
-
-+ (SDLAppHMIType *)BACKGROUND_PROCESS;
+extern SDLAppHMIType const SDLAppHMITypeTesting;
 
 /**
- * @abstract App only for Testing purposes
- *
- * @return SDLAppHMIType with value *TESTING*
+ * System App
  */
-+ (SDLAppHMIType *)TESTING;
+extern SDLAppHMIType const SDLAppHMITypeSystem;
 
 /**
- * @abstract System App
- *
- * @return SDLAppHMIType with value *SYSTEM*
- */
-+ (SDLAppHMIType *)SYSTEM;
-
-@end
+ * Remote control */
+extern SDLAppHMIType const SDLAppHMITypeRemoteControl;

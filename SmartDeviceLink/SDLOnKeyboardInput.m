@@ -3,51 +3,37 @@
 
 #import "SDLOnKeyboardInput.h"
 
-#import "SDLKeyboardEvent.h"
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLOnKeyboardInput
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_OnKeyboardInput]) {
+    if (self = [super initWithName:SDLRPCFunctionNameOnKeyboardInput]) {
     }
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (void)setEvent:(SDLKeyboardEvent)event {
+    [parameters sdl_setObject:event forName:SDLRPCParameterNameEvent];
 }
 
-- (void)setEvent:(SDLKeyboardEvent *)event {
-    if (event != nil) {
-        [parameters setObject:event forKey:NAMES_event];
-    } else {
-        [parameters removeObjectForKey:NAMES_event];
-    }
+- (SDLKeyboardEvent)event {
+    NSError *error = nil;
+    return [parameters sdl_enumForName:SDLRPCParameterNameEvent error:&error];
 }
 
-- (SDLKeyboardEvent *)event {
-    NSObject *obj = [parameters objectForKey:NAMES_event];
-    if (obj == nil || [obj isKindOfClass:SDLKeyboardEvent.class]) {
-        return (SDLKeyboardEvent *)obj;
-    } else {
-        return [SDLKeyboardEvent valueOf:(NSString *)obj];
-    }
+- (void)setData:(nullable NSString *)data {
+    [parameters sdl_setObject:data forName:SDLRPCParameterNameData];
 }
 
-- (void)setData:(NSString *)data {
-    if (data != nil) {
-        [parameters setObject:data forKey:NAMES_data];
-    } else {
-        [parameters removeObjectForKey:NAMES_data];
-    }
-}
-
-- (NSString *)data {
-    return [parameters objectForKey:NAMES_data];
+- (nullable NSString *)data {
+    return [parameters sdl_objectForName:SDLRPCParameterNameData ofClass:NSString.class error:nil];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

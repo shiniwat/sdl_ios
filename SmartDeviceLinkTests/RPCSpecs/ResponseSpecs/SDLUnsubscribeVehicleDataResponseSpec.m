@@ -9,7 +9,8 @@
 #import <Nimble/Nimble.h>
 
 #import "SDLUnsubscribeVehicleDataResponse.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 #import "SDLVehicleDataResult.h"
 
 
@@ -26,6 +27,7 @@ describe(@"Getter/Setter Tests", ^ {
         testResponse.rpm = vehicleDataResult;
         testResponse.fuelLevel = vehicleDataResult;
         testResponse.fuelLevel_State = vehicleDataResult;
+        testResponse.fuelRange = vehicleDataResult;
         testResponse.instantFuelConsumption = vehicleDataResult;
         testResponse.externalTemperature = vehicleDataResult;
         testResponse.prndl = vehicleDataResult;
@@ -37,6 +39,7 @@ describe(@"Getter/Setter Tests", ^ {
         testResponse.driverBraking = vehicleDataResult;
         testResponse.wiperStatus = vehicleDataResult;
         testResponse.headLampStatus = vehicleDataResult;
+        testResponse.engineOilLife = vehicleDataResult;
         testResponse.engineTorque = vehicleDataResult;
         testResponse.accPedalPosition = vehicleDataResult;
         testResponse.steeringWheelAngle = vehicleDataResult;
@@ -45,12 +48,16 @@ describe(@"Getter/Setter Tests", ^ {
         testResponse.emergencyEvent = vehicleDataResult;
         testResponse.clusterModes = vehicleDataResult;
         testResponse.myKey = vehicleDataResult;
+        testResponse.electronicParkBrakeStatus = vehicleDataResult;
+        testResponse.turnSignal = vehicleDataResult;
+        testResponse.cloudAppVehicleID = vehicleDataResult;
         
         expect(testResponse.gps).to(equal(vehicleDataResult));
         expect(testResponse.speed).to(equal(vehicleDataResult));
         expect(testResponse.rpm).to(equal(vehicleDataResult));
         expect(testResponse.fuelLevel).to(equal(vehicleDataResult));
         expect(testResponse.fuelLevel_State).to(equal(vehicleDataResult));
+        expect(testResponse.fuelRange).to(equal(vehicleDataResult));
         expect(testResponse.instantFuelConsumption).to(equal(vehicleDataResult));
         expect(testResponse.externalTemperature).to(equal(vehicleDataResult));
         expect(testResponse.prndl).to(equal(vehicleDataResult));
@@ -62,6 +69,7 @@ describe(@"Getter/Setter Tests", ^ {
         expect(testResponse.driverBraking).to(equal(vehicleDataResult));
         expect(testResponse.wiperStatus).to(equal(vehicleDataResult));
         expect(testResponse.headLampStatus).to(equal(vehicleDataResult));
+        expect(testResponse.engineOilLife).to(equal(vehicleDataResult));
         expect(testResponse.engineTorque).to(equal(vehicleDataResult));
         expect(testResponse.accPedalPosition).to(equal(vehicleDataResult));
         expect(testResponse.steeringWheelAngle).to(equal(vehicleDataResult));
@@ -70,36 +78,45 @@ describe(@"Getter/Setter Tests", ^ {
         expect(testResponse.emergencyEvent).to(equal(vehicleDataResult));
         expect(testResponse.clusterModes).to(equal(vehicleDataResult));
         expect(testResponse.myKey).to(equal(vehicleDataResult));
+        expect(testResponse.electronicParkBrakeStatus).to(equal(vehicleDataResult));
+        expect(testResponse.turnSignal).to(equal(vehicleDataResult));
+        expect(testResponse.cloudAppVehicleID).to(equal(vehicleDataResult));
     });
     
     it(@"Should get correctly when initialized", ^ {
-        NSMutableDictionary* dict = [@{NAMES_response:
-                                           @{NAMES_parameters:
-                                                 @{NAMES_gps:vehicleDataResult,
-                                                   NAMES_speed:vehicleDataResult,
-                                                   NAMES_rpm:vehicleDataResult,
-                                                   NAMES_fuelLevel:vehicleDataResult,
-                                                   NAMES_fuelLevel_State:vehicleDataResult,
-                                                   NAMES_instantFuelConsumption:vehicleDataResult,
-                                                   NAMES_externalTemperature:vehicleDataResult,
-                                                   NAMES_prndl:vehicleDataResult,
-                                                   NAMES_tirePressure:vehicleDataResult,
-                                                   NAMES_odometer:vehicleDataResult,
-                                                   NAMES_beltStatus:vehicleDataResult,
-                                                   NAMES_bodyInformation:vehicleDataResult,
-                                                   NAMES_deviceStatus:vehicleDataResult,
-                                                   NAMES_driverBraking:vehicleDataResult,
-                                                   NAMES_wiperStatus:vehicleDataResult,
-                                                   NAMES_headLampStatus:vehicleDataResult,
-                                                   NAMES_engineTorque:vehicleDataResult,
-                                                   NAMES_accPedalPosition:vehicleDataResult,
-                                                   NAMES_steeringWheelAngle:vehicleDataResult,
-                                                   NAMES_eCallInfo:vehicleDataResult,
-                                                   NAMES_airbagStatus:vehicleDataResult,
-                                                   NAMES_emergencyEvent:vehicleDataResult,
-                                                   NAMES_clusterModes:vehicleDataResult,
-                                                   NAMES_myKey:vehicleDataResult},
-                                             NAMES_operation_name:NAMES_UnsubscribeVehicleData}} mutableCopy];
+        NSMutableDictionary<NSString *, id> *dict = [@{SDLRPCParameterNameResponse:
+                                                           @{SDLRPCParameterNameParameters:
+                                                                 @{SDLRPCParameterNameGPS:vehicleDataResult,
+                                                                   SDLRPCParameterNameSpeed:vehicleDataResult,
+                                                                   SDLRPCParameterNameRPM:vehicleDataResult,
+                                                                   SDLRPCParameterNameFuelLevel:vehicleDataResult,
+                                                                   SDLRPCParameterNameFuelLevelState:vehicleDataResult,
+                                                                   SDLRPCParameterNameFuelRange:vehicleDataResult,
+                                                                   SDLRPCParameterNameInstantFuelConsumption:vehicleDataResult,
+                                                                   SDLRPCParameterNameExternalTemperature:vehicleDataResult,
+                                                                   SDLRPCParameterNamePRNDL:vehicleDataResult,
+                                                                   SDLRPCParameterNameTirePressure:vehicleDataResult,
+                                                                   SDLRPCParameterNameOdometer:vehicleDataResult,
+                                                                   SDLRPCParameterNameBeltStatus:vehicleDataResult,
+                                                                   SDLRPCParameterNameBodyInformation:vehicleDataResult,
+                                                                   SDLRPCParameterNameDeviceStatus:vehicleDataResult,
+                                                                   SDLRPCParameterNameDriverBraking:vehicleDataResult,
+                                                                   SDLRPCParameterNameWiperStatus:vehicleDataResult,
+                                                                   SDLRPCParameterNameHeadLampStatus:vehicleDataResult,
+                                                                   SDLRPCParameterNameEngineOilLife:vehicleDataResult,
+                                                                   SDLRPCParameterNameEngineTorque:vehicleDataResult,
+                                                                   SDLRPCParameterNameAccelerationPedalPosition:vehicleDataResult,
+                                                                   SDLRPCParameterNameSteeringWheelAngle:vehicleDataResult,
+                                                                   SDLRPCParameterNameECallInfo:vehicleDataResult,
+                                                                   SDLRPCParameterNameAirbagStatus:vehicleDataResult,
+                                                                   SDLRPCParameterNameEmergencyEvent:vehicleDataResult,
+                                                                   SDLRPCParameterNameClusterModes:vehicleDataResult,
+                                                                   SDLRPCParameterNameMyKey:vehicleDataResult,
+                                                                   SDLRPCParameterNameElectronicParkBrakeStatus:vehicleDataResult,
+                                                                   SDLRPCParameterNameTurnSignal:vehicleDataResult,
+                                                                   SDLRPCParameterNameCloudAppVehicleID:vehicleDataResult
+                                                                   },
+                                                             SDLRPCParameterNameOperationName:SDLRPCFunctionNameUnsubscribeVehicleData}} mutableCopy];
         SDLUnsubscribeVehicleDataResponse* testResponse = [[SDLUnsubscribeVehicleDataResponse alloc] initWithDictionary:dict];
         
         expect(testResponse.gps).to(equal(vehicleDataResult));
@@ -107,6 +124,7 @@ describe(@"Getter/Setter Tests", ^ {
         expect(testResponse.rpm).to(equal(vehicleDataResult));
         expect(testResponse.fuelLevel).to(equal(vehicleDataResult));
         expect(testResponse.fuelLevel_State).to(equal(vehicleDataResult));
+        expect(testResponse.fuelRange).to(equal(vehicleDataResult));
         expect(testResponse.instantFuelConsumption).to(equal(vehicleDataResult));
         expect(testResponse.externalTemperature).to(equal(vehicleDataResult));
         expect(testResponse.prndl).to(equal(vehicleDataResult));
@@ -118,6 +136,7 @@ describe(@"Getter/Setter Tests", ^ {
         expect(testResponse.driverBraking).to(equal(vehicleDataResult));
         expect(testResponse.wiperStatus).to(equal(vehicleDataResult));
         expect(testResponse.headLampStatus).to(equal(vehicleDataResult));
+        expect(testResponse.engineOilLife).to(equal(vehicleDataResult));
         expect(testResponse.engineTorque).to(equal(vehicleDataResult));
         expect(testResponse.accPedalPosition).to(equal(vehicleDataResult));
         expect(testResponse.steeringWheelAngle).to(equal(vehicleDataResult));
@@ -126,6 +145,9 @@ describe(@"Getter/Setter Tests", ^ {
         expect(testResponse.emergencyEvent).to(equal(vehicleDataResult));
         expect(testResponse.clusterModes).to(equal(vehicleDataResult));
         expect(testResponse.myKey).to(equal(vehicleDataResult));
+        expect(testResponse.electronicParkBrakeStatus).to(equal(vehicleDataResult));
+        expect(testResponse.turnSignal).to(equal(vehicleDataResult));
+        expect(testResponse.cloudAppVehicleID).to(equal(vehicleDataResult));
     });
     
     it(@"Should return nil if not set", ^ {
@@ -136,6 +158,7 @@ describe(@"Getter/Setter Tests", ^ {
         expect(testResponse.rpm).to(beNil());
         expect(testResponse.fuelLevel).to(beNil());
         expect(testResponse.fuelLevel_State).to(beNil());
+        expect(testResponse.fuelRange).to(beNil());
         expect(testResponse.instantFuelConsumption).to(beNil());
         expect(testResponse.externalTemperature).to(beNil());
         expect(testResponse.prndl).to(beNil());
@@ -147,6 +170,7 @@ describe(@"Getter/Setter Tests", ^ {
         expect(testResponse.driverBraking).to(beNil());
         expect(testResponse.wiperStatus).to(beNil());
         expect(testResponse.headLampStatus).to(beNil());
+        expect(testResponse.engineOilLife).to(beNil());
         expect(testResponse.engineTorque).to(beNil());
         expect(testResponse.accPedalPosition).to(beNil());
         expect(testResponse.steeringWheelAngle).to(beNil());
@@ -155,6 +179,9 @@ describe(@"Getter/Setter Tests", ^ {
         expect(testResponse.emergencyEvent).to(beNil());
         expect(testResponse.clusterModes).to(beNil());
         expect(testResponse.myKey).to(beNil());
+        expect(testResponse.electronicParkBrakeStatus).to(beNil());
+        expect(testResponse.turnSignal).to(beNil());
+        expect(testResponse.cloudAppVehicleID).to(beNil());
     });
 });
 

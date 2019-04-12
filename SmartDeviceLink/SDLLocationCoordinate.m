@@ -2,32 +2,44 @@
 //
 
 #import "SDLLocationCoordinate.h"
-#import "SDLNames.h"
+
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLLocationCoordinate
 
-- (void)setLongitudeDegrees:(NSNumber<SDLFloat> *)longitudeDegrees {
-    if (longitudeDegrees != nil) {
-        store[NAMES_longitudeDegrees] = longitudeDegrees;
-    } else {
-        [store removeObjectForKey:NAMES_longitudeDegrees];
+- (instancetype)initWithLatitudeDegrees:(float)latitudeDegrees longitudeDegrees:(float)longitudeDegrees {
+    self = [self init];
+    if (!self) {
+        return nil;
     }
+
+    self.latitudeDegrees = @(latitudeDegrees);
+    self.longitudeDegrees = @(longitudeDegrees);
+
+    return self;
+}
+
+- (void)setLongitudeDegrees:(NSNumber<SDLFloat> *)longitudeDegrees {
+    [store sdl_setObject:longitudeDegrees forName:SDLRPCParameterNameLongitudeDegrees];
 }
 
 - (NSNumber<SDLFloat> *)longitudeDegrees {
-    return store[NAMES_longitudeDegrees];
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNameLongitudeDegrees ofClass:NSNumber.class error:&error];
 }
 
 - (void)setLatitudeDegrees:(NSNumber<SDLFloat> *)latitudeDegrees {
-    if (latitudeDegrees != nil) {
-        store[NAMES_latitudeDegrees] = latitudeDegrees;
-    } else {
-        [store removeObjectForKey:NAMES_latitudeDegrees];
-    }
+    [store sdl_setObject:latitudeDegrees forName:SDLRPCParameterNameLatitudeDegrees];
 }
 
 - (NSNumber<SDLFloat> *)latitudeDegrees {
-    return store[NAMES_latitudeDegrees];
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNameLatitudeDegrees ofClass:NSNumber.class error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

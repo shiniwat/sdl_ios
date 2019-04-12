@@ -9,21 +9,46 @@
 #import <Foundation/Foundation.h>
 
 #import "SDLRPCRequest.h"
+#import "SDLSystemCapabilityType.h"
 
-@class SDLSystemCapabilityType;
+NS_ASSUME_NONNULL_BEGIN
 
+/*
+ *  Request for expanded information about a supported system/HMI capability
+ */
 @interface SDLGetSystemCapability : SDLRPCRequest
 
-- (instancetype)init;
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict;
-
-- (instancetype)initWithType:(SDLSystemCapabilityType *)type;
+/**
+ *  Convenience init
+ *
+ *  @param type The type of system capability
+ *  @return     A SDLSystemCapabilityType object
+ */
+- (instancetype)initWithType:(SDLSystemCapabilityType)type;
 
 /**
- They type of capability you'd like to receive in the response.
-
- Mandatory
+ *  Convenience init
+ *
+ *  @param type         The type of system capability
+ *  @param subscribe    Whether or not to subscribe to updates of the supplied service capability type
+ *  @return             A SDLSystemCapabilityType object
  */
-@property (strong, nonatomic) SDLSystemCapabilityType *systemCapabilityType;
+- (instancetype)initWithType:(SDLSystemCapabilityType)type subscribe:(BOOL)subscribe;
+
+/**
+ *  The type of system capability to get more information on
+ *
+ *  SDLSystemCapabilityType, Required
+ */
+@property (strong, nonatomic) SDLSystemCapabilityType systemCapabilityType;
+
+/**
+ *  Flag to subscribe to updates of the supplied service capability type. If true, the requester will be subscribed. If false, the requester will not be subscribed and be removed as a subscriber if it was previously subscribed.
+ *
+ *  Boolean, Optional
+ */
+@property (nullable, strong, nonatomic) NSNumber<SDLBool> *subscribe;
 
 @end
+
+NS_ASSUME_NONNULL_END

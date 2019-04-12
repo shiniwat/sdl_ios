@@ -7,7 +7,7 @@
 #import <Nimble/Nimble.h>
 
 #import "SDLOasisAddress.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
 
 QuickSpecBegin(SDLOasisAddressSpec)
 
@@ -38,15 +38,15 @@ describe(@"Getter/Setter Tests", ^ {
     });
     
     it(@"Should get correctly when initialized", ^ {
-        NSMutableDictionary* dict = [@{NAMES_countryName:@"United States",
-                                       NAMES_countryCode:@"US",
-                                       NAMES_postalCode:@"123456",
-                                       NAMES_administrativeArea:@"CA",
-                                       NAMES_subAdministrativeArea:@"Santa Clara",
-                                       NAMES_locality:@"Palo Alto",
-                                       NAMES_subLocality:@"18",
-                                       NAMES_thoroughfare:@"Candy Lane",
-                                       NAMES_subThoroughfare:@"123"} mutableCopy];
+        NSMutableDictionary* dict = [@{SDLRPCParameterNameCountryName:@"United States",
+                                       SDLRPCParameterNameCountryCode:@"US",
+                                       SDLRPCParameterNamePostalCode:@"123456",
+                                       SDLRPCParameterNameAdministrativeArea:@"CA",
+                                       SDLRPCParameterNameSubAdministrativeArea:@"Santa Clara",
+                                       SDLRPCParameterNameLocality:@"Palo Alto",
+                                       SDLRPCParameterNameSubLocality:@"18",
+                                       SDLRPCParameterNameThoroughfare:@"Candy Lane",
+                                       SDLRPCParameterNameSubThoroughfare:@"123"} mutableCopy];
         SDLOasisAddress* testStruct = [[SDLOasisAddress alloc] initWithDictionary:dict];
         
         expect(testStruct.countryName).to(equal(@"United States"));

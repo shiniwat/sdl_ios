@@ -3,165 +3,92 @@
 
 #import "SDLDisplayCapabilities.h"
 
-#import "SDLDisplayType.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
 #import "SDLImageField.h"
-#import "SDLMediaClockFormat.h"
-#import "SDLNames.h"
 #import "SDLScreenParams.h"
 #import "SDLTextField.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLDisplayCapabilities
 
-- (instancetype)init {
-    if (self = [super init]) {
-    }
-    return self;
+- (void)setDisplayType:(SDLDisplayType)displayType {
+    [store sdl_setObject:displayType forName:SDLRPCParameterNameDisplayType];
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (SDLDisplayType)displayType {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNameDisplayType error:&error];
 }
 
-- (void)setDisplayType:(SDLDisplayType *)displayType {
-    if (displayType != nil) {
-        [store setObject:displayType forKey:NAMES_displayType];
-    } else {
-        [store removeObjectForKey:NAMES_displayType];
-    }
+- (void)setDisplayName:(nullable NSString *)displayName {
+    [store sdl_setObject:displayName forName:SDLRPCParameterNameDisplayName];
 }
 
-- (SDLDisplayType *)displayType {
-    NSObject *obj = [store objectForKey:NAMES_displayType];
-    if (obj == nil || [obj isKindOfClass:SDLDisplayType.class]) {
-        return (SDLDisplayType *)obj;
-    } else {
-        return [SDLDisplayType valueOf:(NSString *)obj];
-    }
+- (nullable NSString *)displayName {
+    return [store sdl_objectForName:SDLRPCParameterNameDisplayName ofClass:NSString.class error:nil];
 }
 
-- (void)setTextFields:(NSMutableArray *)textFields {
-    if (textFields != nil) {
-        [store setObject:textFields forKey:NAMES_textFields];
-    } else {
-        [store removeObjectForKey:NAMES_textFields];
-    }
+- (void)setTextFields:(NSArray<SDLTextField *> *)textFields {
+    [store sdl_setObject:textFields forName:SDLRPCParameterNameTextFields];
 }
 
-- (NSMutableArray *)textFields {
-    NSMutableArray *array = [store objectForKey:NAMES_textFields];
-    if ([array isEqual:[NSNull null]]) {
-        return [NSMutableArray array];
-    } else if (array.count < 1 || [array.firstObject isKindOfClass:SDLTextField.class]) {
-        return array;
-    } else {
-        NSMutableArray *newList = [NSMutableArray arrayWithCapacity:[array count]];
-        for (NSDictionary *dict in array) {
-            [newList addObject:[[SDLTextField alloc] initWithDictionary:(NSMutableDictionary *)dict]];
-        }
-        return newList;
-    }
+- (NSArray<SDLTextField *> *)textFields {
+    NSError *error = nil;
+    return [store sdl_objectsForName:SDLRPCParameterNameTextFields ofClass:SDLTextField.class error:&error];
 }
 
-- (void)setImageFields:(NSMutableArray *)imageFields {
-    if (imageFields != nil) {
-        [store setObject:imageFields forKey:NAMES_imageFields];
-    } else {
-        [store removeObjectForKey:NAMES_imageFields];
-    }
+- (void)setImageFields:(nullable NSArray<SDLImageField *> *)imageFields {
+    [store sdl_setObject:imageFields forName:SDLRPCParameterNameImageFields];
 }
 
-- (NSMutableArray *)imageFields {
-    NSMutableArray *array = [store objectForKey:NAMES_imageFields];
-    if ([array isEqual:[NSNull null]]) {
-        return [NSMutableArray array];
-    } else if (array.count < 1 || [array.firstObject isKindOfClass:SDLImageField.class]) {
-        return array;
-    } else {
-        NSMutableArray *newList = [NSMutableArray arrayWithCapacity:[array count]];
-        for (NSDictionary *dict in array) {
-            [newList addObject:[[SDLImageField alloc] initWithDictionary:(NSMutableDictionary *)dict]];
-        }
-        return newList;
-    }
+- (nullable NSArray<SDLImageField *> *)imageFields {
+    return [store sdl_objectsForName:SDLRPCParameterNameImageFields ofClass:SDLImageField.class error:nil];
 }
 
-- (void)setMediaClockFormats:(NSMutableArray *)mediaClockFormats {
-    if (mediaClockFormats != nil) {
-        [store setObject:mediaClockFormats forKey:NAMES_mediaClockFormats];
-    } else {
-        [store removeObjectForKey:NAMES_mediaClockFormats];
-    }
+- (void)setMediaClockFormats:(NSArray<SDLMediaClockFormat> *)mediaClockFormats {
+    [store sdl_setObject:mediaClockFormats forName:SDLRPCParameterNameMediaClockFormats];
 }
 
-- (NSMutableArray *)mediaClockFormats {
-    NSMutableArray *array = [store objectForKey:NAMES_mediaClockFormats];
-    if ([array isEqual:[NSNull null]]) {
-        return [NSMutableArray array];
-    } else if (array.count < 1 || [array.firstObject isKindOfClass:SDLMediaClockFormat.class]) {
-        return array;
-    } else {
-        NSMutableArray *newList = [NSMutableArray arrayWithCapacity:[array count]];
-        for (NSString *enumString in array) {
-            [newList addObject:[SDLMediaClockFormat valueOf:enumString]];
-        }
-        return newList;
-    }
+- (NSArray<SDLMediaClockFormat> *)mediaClockFormats {
+    NSError *error = nil;
+    return [store sdl_enumsForName:SDLRPCParameterNameMediaClockFormats error:&error];
 }
 
-- (void)setGraphicSupported:(NSNumber *)graphicSupported {
-    if (graphicSupported != nil) {
-        [store setObject:graphicSupported forKey:NAMES_graphicSupported];
-    } else {
-        [store removeObjectForKey:NAMES_graphicSupported];
-    }
+- (void)setGraphicSupported:(NSNumber<SDLBool> *)graphicSupported {
+    [store sdl_setObject:graphicSupported forName:SDLRPCParameterNameGraphicSupported];
 }
 
-- (NSNumber *)graphicSupported {
-    return [store objectForKey:NAMES_graphicSupported];
+- (NSNumber<SDLBool> *)graphicSupported {
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNameGraphicSupported ofClass:NSNumber.class error:&error];
 }
 
-- (void)setTemplatesAvailable:(NSMutableArray *)templatesAvailable {
-    if (templatesAvailable != nil) {
-        [store setObject:templatesAvailable forKey:NAMES_templatesAvailable];
-    } else {
-        [store removeObjectForKey:NAMES_templatesAvailable];
-    }
+- (void)setTemplatesAvailable:(nullable NSArray<NSString *> *)templatesAvailable {
+    [store sdl_setObject:templatesAvailable forName:SDLRPCParameterNameTemplatesAvailable];
 }
 
-- (NSMutableArray *)templatesAvailable {
-    return [store objectForKey:NAMES_templatesAvailable];
+- (nullable NSArray<NSString *> *)templatesAvailable {
+    return [store sdl_objectsForName:SDLRPCParameterNameTemplatesAvailable ofClass:NSString.class error:nil];
 }
 
-- (void)setScreenParams:(SDLScreenParams *)screenParams {
-    if (screenParams != nil) {
-        [store setObject:screenParams forKey:NAMES_screenParams];
-    } else {
-        [store removeObjectForKey:NAMES_screenParams];
-    }
+- (void)setScreenParams:(nullable SDLScreenParams *)screenParams {
+    [store sdl_setObject:screenParams forName:SDLRPCParameterNameScreenParams];
 }
 
-- (SDLScreenParams *)screenParams {
-    NSObject *obj = [store objectForKey:NAMES_screenParams];
-    if (obj == nil || [obj isKindOfClass:SDLScreenParams.class]) {
-        return (SDLScreenParams *)obj;
-    } else {
-        return [[SDLScreenParams alloc] initWithDictionary:(NSMutableDictionary *)obj];
-    }
+- (nullable SDLScreenParams *)screenParams {
+    return [store sdl_objectForName:SDLRPCParameterNameScreenParams ofClass:SDLScreenParams.class error:nil];
 }
 
-- (void)setNumCustomPresetsAvailable:(NSNumber *)numCustomPresetsAvailable {
-    if (numCustomPresetsAvailable != nil) {
-        [store setObject:numCustomPresetsAvailable forKey:NAMES_numCustomPresetsAvailable];
-    } else {
-        [store removeObjectForKey:NAMES_numCustomPresetsAvailable];
-    }
+- (void)setNumCustomPresetsAvailable:(nullable NSNumber<SDLInt> *)numCustomPresetsAvailable {
+    [store sdl_setObject:numCustomPresetsAvailable forName:SDLRPCParameterNameNumberCustomPresetsAvailable];
 }
 
-- (NSNumber *)numCustomPresetsAvailable {
-    return [store objectForKey:NAMES_numCustomPresetsAvailable];
+- (nullable NSNumber<SDLInt> *)numCustomPresetsAvailable {
+    return [store sdl_objectForName:SDLRPCParameterNameNumberCustomPresetsAvailable ofClass:NSNumber.class error:nil];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

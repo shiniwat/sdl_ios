@@ -5,68 +5,68 @@
 #import "SDLEnum.h"
 
 /**
- * Reflects the current primary audio source of SDL (if selected).
+ * Reflects the current primary audio source of SDL (if selected). Used in DeviceStatus.
  *
  * @since SDL 2.0
  */
-@interface SDLPrimaryAudioSource : SDLEnum {
-}
+typedef SDLEnum SDLPrimaryAudioSource SDL_SWIFT_ENUM;
 
 /**
- * @abstract get SDLPrimaryAudioSource according value string
- *
- * @param value String value to retrieve the object enum for
- *
- * @return SDLPrimaryAudioSource object
+ * Currently no source selected
  */
-+ (SDLPrimaryAudioSource *)valueOf:(NSString *)value;
+extern SDLPrimaryAudioSource const SDLPrimaryAudioSourceNoSourceSelected;
 
 /**
- * @abstract declare an array to store all possible SDLPrimaryAudioSource values
- * @return the array
+ * USB is current source
  */
-+ (NSArray *)values;
+extern SDLPrimaryAudioSource const SDLPrimaryAudioSourceUSB;
 
 /**
- * @abstract Currently no source selected
- * @return the current primary audio source: *NO_SOURCE_SELECTED*
+ * USB2 is current source
  */
-+ (SDLPrimaryAudioSource *)NO_SOURCE_SELECTED;
+extern SDLPrimaryAudioSource const SDLPrimaryAudioSourceUSB2;
 
 /**
- * @abstract USB is current source
- * @return the current primary audio source: *USB*
+ * Bluetooth Stereo is current source
  */
-+ (SDLPrimaryAudioSource *)USB;
+extern SDLPrimaryAudioSource const SDLPrimaryAudioSourceBluetoothStereo;
 
 /**
- * @abstract USB2 is current source
- * @return the current primary audio source: *USB2*
+ * Line in is current source
  */
-+ (SDLPrimaryAudioSource *)USB2;
+extern SDLPrimaryAudioSource const SDLPrimaryAudioSourceLineIn;
 
 /**
- * @abstract Bluetooth Stereo is current source
- * @return the current primary audio source: *BLUETOOTH_STEREO_BTST*
+ * iPod is current source
  */
-+ (SDLPrimaryAudioSource *)BLUETOOTH_STEREO_BTST;
+extern SDLPrimaryAudioSource const SDLPrimaryAudioSourceIpod;
 
 /**
- * @abstract Line in is current source
- * @return the current primary audio source: *LINE_IN*
+ * Mobile app is current source
  */
-+ (SDLPrimaryAudioSource *)LINE_IN;
+extern SDLPrimaryAudioSource const SDLPrimaryAudioSourceMobileApp;
 
 /**
- * @abstract iPod is current source
- * @return the current primary audio source: *IPOD*
+ * @abstract CD is current source
  */
-+ (SDLPrimaryAudioSource *)IPOD;
+extern SDLPrimaryAudioSource const SDLPrimaryAudioSourceCD;
 
 /**
- * @abstract Mobile app is current source
- * @return the current primary audio source: *MOBILE_APP*
+ * @abstract Radio frequency AM is current source
  */
-+ (SDLPrimaryAudioSource *)MOBILE_APP;
+extern SDLPrimaryAudioSource const SDLPrimaryAudioSourceAM;
 
-@end
+/**
+ * @abstract Radio frequency FM is current source
+ */
+extern SDLPrimaryAudioSource const SDLPrimaryAudioSourceFM;
+
+/**
+ * @abstract Radio frequency XM is current source
+ */
+extern SDLPrimaryAudioSource const SDLPrimaryAudioSourceXM;
+
+/**
+ * @abstract Radio frequency DAB is current source
+ */
+extern SDLPrimaryAudioSource const SDLPrimaryAudioSourceDAB;

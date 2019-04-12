@@ -16,117 +16,259 @@
  * @since SmartDeviceLink 2.0<br/>
  * See SDLSubscribeVehicleData SDLGetVehicleData
  */
-@interface SDLUnsubscribeVehicleData : SDLRPCRequest {
-}
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface SDLUnsubscribeVehicleData : SDLRPCRequest
 
 /**
- * @abstract Constructs a new SDLUnsubscribeVehicleData object
+ *  Convenience init for unsubscribing to all possible vehicle data items.
+ *
+ *  @param accelerationPedalPosition    Unsubscribe to accelerationPedalPosition
+ *  @param airbagStatus                 Unsubscribe to airbagStatus
+ *  @param beltStatus                   Unsubscribe to beltStatus
+ *  @param bodyInformation              Unsubscribe to bodyInformation
+ *  @param clusterModeStatus            Unsubscribe to clusterModeStatus
+ *  @param deviceStatus                 Unsubscribe to deviceStatus
+ *  @param driverBraking                Unsubscribe to driverBraking
+ *  @param eCallInfo                    Unsubscribe to eCallInfo
+ *  @param emergencyEvent               Unsubscribe to emergencyEvent
+ *  @param engineTorque                 Unsubscribe to engineTorque
+ *  @param externalTemperature          Unsubscribe to externalTemperature
+ *  @param fuelLevel                    Unsubscribe to fuelLevel
+ *  @param fuelLevelState               Unsubscribe to fuelLevelState
+ *  @param gps                          Unsubscribe to gps
+ *  @param headLampStatus               Unsubscribe to headLampStatus
+ *  @param instantFuelConsumption       Unsubscribe to instantFuelConsumption
+ *  @param myKey                        Unsubscribe to myKey
+ *  @param odometer                     Unsubscribe to odometer
+ *  @param prndl                        Unsubscribe to prndl
+ *  @param rpm                          Unsubscribe to rpm
+ *  @param speed                        Unsubscribe to speed
+ *  @param steeringWheelAngle           Unsubscribe to steeringWheelAngle
+ *  @param tirePressure                 Unsubscribe to tirePressure
+ *  @param wiperStatus                  Unsubscribe to wiperStatus
+ *  @return                             A SDLUnsubscribeVehicleData object
  */
-- (instancetype)init;
+- (instancetype)initWithAccelerationPedalPosition:(BOOL)accelerationPedalPosition airbagStatus:(BOOL)airbagStatus beltStatus:(BOOL)beltStatus bodyInformation:(BOOL)bodyInformation clusterModeStatus:(BOOL)clusterModeStatus deviceStatus:(BOOL)deviceStatus driverBraking:(BOOL)driverBraking eCallInfo:(BOOL)eCallInfo emergencyEvent:(BOOL)emergencyEvent engineTorque:(BOOL)engineTorque externalTemperature:(BOOL)externalTemperature fuelLevel:(BOOL)fuelLevel fuelLevelState:(BOOL)fuelLevelState gps:(BOOL)gps headLampStatus:(BOOL)headLampStatus instantFuelConsumption:(BOOL)instantFuelConsumption myKey:(BOOL)myKey odometer:(BOOL)odometer prndl:(BOOL)prndl rpm:(BOOL)rpm speed:(BOOL)speed steeringWheelAngle:(BOOL)steeringWheelAngle tirePressure:(BOOL)tirePressure wiperStatus:(BOOL)wiperStatus __deprecated_msg("Use initWithAccelerationPedalPosition:airbagStatus:beltStatus:bodyInformation:clusterModeStatus:deviceStatus:driverBraking:eCallInfo:electronicParkBrakeStatus:emergencyEvent:engineOilLife:engineTorque:externalTemperature:fuelLevel:fuelLevelState:fuelRange:gps:headLampStatus:instantFuelConsumption:myKey:odometer:prndl:rpm:speed:steeringWheelAngle:tirePressure:turnSignal:wiperStatus: instead");
 
 /**
- * @abstract Constructs a new SDLUnsubscribeVehicleData object indicated by the NSMutableDictionary
- * parameter
- * @param dict The dictionary to use
+ *  Convenience init for unsubscribing to all possible vehicle data items.
+ *
+ *  @param accelerationPedalPosition    Unsubscribe to accelerationPedalPosition
+ *  @param airbagStatus                 Unsubscribe to airbagStatus
+ *  @param beltStatus                   Unsubscribe to beltStatus
+ *  @param bodyInformation              Unsubscribe to bodyInformation
+ *  @param clusterModeStatus            Unsubscribe to clusterModeStatus
+ *  @param deviceStatus                 Unsubscribe to deviceStatus
+ *  @param driverBraking                Unsubscribe to driverBraking
+ *  @param eCallInfo                    Unsubscribe to eCallInfo
+ *  @param electronicParkBrakeStatus    Unsubscribe to electronicParkBrakeStatus
+ *  @param emergencyEvent               Unsubscribe to emergencyEvent
+ *  @param engineOilLife                Unsubscribe to engineOilLife
+ *  @param engineTorque                 Unsubscribe to engineTorque
+ *  @param externalTemperature          Unsubscribe to externalTemperature
+ *  @param fuelLevel                    Unsubscribe to fuelLevel
+ *  @param fuelLevelState               Unsubscribe to fuelLevelState
+ *  @param fuelRange                    Unsubscribe to fuelRange
+ *  @param gps                          Unsubscribe to gps
+ *  @param headLampStatus               Unsubscribe to headLampStatus
+ *  @param instantFuelConsumption       Unsubscribe to instantFuelConsumption
+ *  @param myKey                        Unsubscribe to myKey
+ *  @param odometer                     Unsubscribe to odometer
+ *  @param prndl                        Unsubscribe to prndl
+ *  @param rpm                          Unsubscribe to rpm
+ *  @param speed                        Unsubscribe to speed
+ *  @param steeringWheelAngle           Unsubscribe to steeringWheelAngle
+ *  @param tirePressure                 Unsubscribe to tirePressure
+ *  @param turnSignal                   Unsubscribe to turnSignal
+ *  @param wiperStatus                  Unsubscribe to wiperStatus
+ *  @return                             A SDLUnsubscribeVehicleData object
  */
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict;
-
-- (instancetype)initWithAccelerationPedalPosition:(BOOL)accelerationPedalPosition airbagStatus:(BOOL)airbagStatus beltStatus:(BOOL)beltStatus bodyInformation:(BOOL)bodyInformation clusterModeStatus:(BOOL)clusterModeStatus deviceStatus:(BOOL)deviceStatus driverBraking:(BOOL)driverBraking eCallInfo:(BOOL)eCallInfo emergencyEvent:(BOOL)emergencyEvent engineTorque:(BOOL)engineTorque externalTemperature:(BOOL)externalTemperature fuelLevel:(BOOL)fuelLevel fuelLevelState:(BOOL)fuelLevelState gps:(BOOL)gps headLampStatus:(BOOL)headLampStatus instantFuelConsumption:(BOOL)instantFuelConsumption myKey:(BOOL)myKey odometer:(BOOL)odometer prndl:(BOOL)prndl rpm:(BOOL)rpm speed:(BOOL)speed steeringWheelAngle:(BOOL)steeringWheelAngle tirePressure:(BOOL)tirePressure wiperStatus:(BOOL)wiperStatus;
-
-/**
- * @abstract A boolean value. If true, unsubscribes Gps data
- */
-@property (strong) NSNumber *gps;
-
-/**
- * @abstract A boolean value. If true, unsubscribes speed data
- */
-@property (strong) NSNumber *speed;
-
-/**
- * @abstract A boolean value. If true, unsubscribe data
- */
-@property (strong) NSNumber *rpm;
-
-/**
- * @abstract A boolean value. If true, unsubscribes FuelLevel data
- */
-@property (strong) NSNumber *fuelLevel;
-
-/**
- * @abstract A boolean value. If true, unsubscribes fuelLevel_State data
- */
-@property (strong) NSNumber *fuelLevel_State;
-
-/**
- * @abstract A boolean value. If true, unsubscribes instantFuelConsumption data
- */
-@property (strong) NSNumber *instantFuelConsumption;
+- (instancetype)initWithAccelerationPedalPosition:(BOOL)accelerationPedalPosition airbagStatus:(BOOL)airbagStatus beltStatus:(BOOL)beltStatus bodyInformation:(BOOL)bodyInformation clusterModeStatus:(BOOL)clusterModeStatus deviceStatus:(BOOL)deviceStatus driverBraking:(BOOL)driverBraking eCallInfo:(BOOL)eCallInfo electronicParkBrakeStatus:(BOOL)electronicParkBrakeStatus emergencyEvent:(BOOL)emergencyEvent engineOilLife:(BOOL)engineOilLife engineTorque:(BOOL)engineTorque externalTemperature:(BOOL)externalTemperature fuelLevel:(BOOL)fuelLevel fuelLevelState:(BOOL)fuelLevelState fuelRange:(BOOL)fuelRange gps:(BOOL)gps headLampStatus:(BOOL)headLampStatus instantFuelConsumption:(BOOL)instantFuelConsumption myKey:(BOOL)myKey odometer:(BOOL)odometer prndl:(BOOL)prndl rpm:(BOOL)rpm speed:(BOOL)speed steeringWheelAngle:(BOOL)steeringWheelAngle tirePressure:(BOOL)tirePressure turnSignal:(BOOL)turnSignal wiperStatus:(BOOL)wiperStatus __deprecated_msg("Use initWithAccelerationPedalPosition:airbagStatus:beltStatus:bodyInformation:cloudAppVehicleID:clusterModeStatus:deviceStatus:driverBraking:eCallInfo:electronicParkBrakeStatus:emergencyEvent:engineOilLife:engineTorque:externalTemperature:fuelLevel:fuelLevelState:fuelRange:gps:headLampStatus:instantFuelConsumption:myKey:odometer:prndl:rpm:speed:steeringWheelAngle:tirePressure:turnSignal:wiperStatus: instead");
 
 /**
- * @abstract A boolean value. If true, unsubscribes externalTemperature data
+ *  Convenience init for unsubscribing to all possible vehicle data items.
+ *
+ *  @param accelerationPedalPosition    Unsubscribe to accelerationPedalPosition
+ *  @param airbagStatus                 Unsubscribe to airbagStatus
+ *  @param beltStatus                   Unsubscribe to beltStatus
+ *  @param bodyInformation              Unsubscribe to bodyInformation
+ *  @param cloudAppVehicleID            Unsubscribe to cloudAppVehicleID
+ *  @param clusterModeStatus            Unsubscribe to clusterModeStatus
+ *  @param deviceStatus                 Unsubscribe to deviceStatus
+ *  @param driverBraking                Unsubscribe to driverBraking
+ *  @param eCallInfo                    Unsubscribe to eCallInfo
+ *  @param electronicParkBrakeStatus    Unsubscribe to electronicParkBrakeStatus
+ *  @param emergencyEvent               Unsubscribe to emergencyEvent
+ *  @param engineOilLife                Unsubscribe to engineOilLife
+ *  @param engineTorque                 Unsubscribe to engineTorque
+ *  @param externalTemperature          Unsubscribe to externalTemperature
+ *  @param fuelLevel                    Unsubscribe to fuelLevel
+ *  @param fuelLevelState               Unsubscribe to fuelLevelState
+ *  @param fuelRange                    Unsubscribe to fuelRange
+ *  @param gps                          Unsubscribe to gps
+ *  @param headLampStatus               Unsubscribe to headLampStatus
+ *  @param instantFuelConsumption       Unsubscribe to instantFuelConsumption
+ *  @param myKey                        Unsubscribe to myKey
+ *  @param odometer                     Unsubscribe to odometer
+ *  @param prndl                        Unsubscribe to prndl
+ *  @param rpm                          Unsubscribe to rpm
+ *  @param speed                        Unsubscribe to speed
+ *  @param steeringWheelAngle           Unsubscribe to steeringWheelAngle
+ *  @param tirePressure                 Unsubscribe to tirePressure
+ *  @param turnSignal                   Unsubscribe to turnSignal
+ *  @param wiperStatus                  Unsubscribe to wiperStatus
+ *  @return                             A SDLUnsubscribeVehicleData object
  */
-@property (strong) NSNumber *externalTemperature;
+- (instancetype)initWithAccelerationPedalPosition:(BOOL)accelerationPedalPosition airbagStatus:(BOOL)airbagStatus beltStatus:(BOOL)beltStatus bodyInformation:(BOOL)bodyInformation  cloudAppVehicleID:(BOOL)cloudAppVehicleID clusterModeStatus:(BOOL)clusterModeStatus deviceStatus:(BOOL)deviceStatus driverBraking:(BOOL)driverBraking eCallInfo:(BOOL)eCallInfo electronicParkBrakeStatus:(BOOL)electronicParkBrakeStatus emergencyEvent:(BOOL)emergencyEvent engineOilLife:(BOOL)engineOilLife engineTorque:(BOOL)engineTorque externalTemperature:(BOOL)externalTemperature fuelLevel:(BOOL)fuelLevel fuelLevelState:(BOOL)fuelLevelState fuelRange:(BOOL)fuelRange gps:(BOOL)gps headLampStatus:(BOOL)headLampStatus instantFuelConsumption:(BOOL)instantFuelConsumption myKey:(BOOL)myKey odometer:(BOOL)odometer prndl:(BOOL)prndl rpm:(BOOL)rpm speed:(BOOL)speed steeringWheelAngle:(BOOL)steeringWheelAngle tirePressure:(BOOL)tirePressure turnSignal:(BOOL)turnSignal wiperStatus:(BOOL)wiperStatus;
 
 /**
- * @abstract A boolean value. If true, unsubscribes Currently selected gear data
+ * If true, unsubscribes from GPS
  */
-@property (strong) NSNumber *prndl;
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *gps;
 
 /**
- * @abstract A boolean value. If true, unsubscribes tire pressure status data
+ * If true, unsubscribes from Speed
  */
-@property (strong) NSNumber *tirePressure;
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *speed;
 
 /**
- * @abstract A boolean value. If true, unsubscribes odometer data
+ * If true, unsubscribes from RPM
  */
-@property (strong) NSNumber *odometer;
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *rpm;
 
 /**
- * @abstract A boolean value. If true, unsubscribes belt Status data
+ * If true, unsubscribes from Fuel Level
  */
-@property (strong) NSNumber *beltStatus;
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *fuelLevel;
 
 /**
- * @abstract A boolean value. If true, unsubscribes body Information data
+ * If true, unsubscribes from Fuel Level State
  */
-@property (strong) NSNumber *bodyInformation;
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *fuelLevel_State;
 
 /**
- * @abstract A boolean value. If true, unsubscribes device Status data
+ * If true, unsubscribes from Fuel Range
  */
-@property (strong) NSNumber *deviceStatus;
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *fuelRange;
 
 /**
- * @abstract A boolean value. If true, unsubscribes driver Braking data
+ * If true, unsubscribes from Instant Fuel Consumption
  */
-@property (strong) NSNumber *driverBraking;
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *instantFuelConsumption;
 
 /**
- * @abstract A boolean value. If true, unsubscribes wiper Status data
+ * If true, unsubscribes from External Temperature
  */
-@property (strong) NSNumber *wiperStatus;
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *externalTemperature;
 
 /**
- * @abstract A boolean value. If true, unsubscribes Head Lamp Status data
+ * If true, unsubscribes from PRNDL
  */
-@property (strong) NSNumber *headLampStatus;
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *prndl;
 
 /**
- * @abstract A boolean value. If true, unsubscribes Engine Torque data
+ * If true, unsubscribes from Tire Pressure
  */
-@property (strong) NSNumber *engineTorque;
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *tirePressure;
 
 /**
- * @abstract A boolean value. If true, unsubscribes accPedalPosition data
+ * If true, unsubscribes from Odometer
  */
-@property (strong) NSNumber *accPedalPosition;
-@property (strong) NSNumber *steeringWheelAngle;
-@property (strong) NSNumber *eCallInfo;
-@property (strong) NSNumber *airbagStatus;
-@property (strong) NSNumber *emergencyEvent;
-@property (strong) NSNumber *clusterModeStatus;
-@property (strong) NSNumber *myKey;
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *odometer;
+
+/**
+ * If true, unsubscribes from Belt Status
+ */
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *beltStatus;
+
+/**
+ * If true, unsubscribes from Body Information
+ */
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *bodyInformation;
+
+/**
+ * If true, unsubscribes from Device Status
+ */
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *deviceStatus;
+
+/**
+ * If true, unsubscribes from Driver Braking
+ */
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *driverBraking;
+
+/**
+ * If true, unsubscribes from Wiper Status
+ */
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *wiperStatus;
+
+/**
+ * If true, unsubscribes from Head Lamp Status
+ */
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *headLampStatus;
+
+/**
+ * If true, unsubscribes from Engine Oil Life
+ */
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *engineOilLife;
+
+/**
+ * If true, unsubscribes from Engine Torque
+ */
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *engineTorque;
+
+/**
+ * If true, unsubscribes from Acc Pedal Position
+ */
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *accPedalPosition;
+
+/**
+ * If true, unsubscribes from Steering Wheel Angle data
+ */
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *steeringWheelAngle;
+
+/**
+ * If true, unsubscribes from eCallInfo
+ */
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *eCallInfo;
+
+/**
+ * If true, unsubscribes from Airbag Status
+ */
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *airbagStatus;
+
+/**
+ * If true, unsubscribes from Emergency Event
+ */
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *emergencyEvent;
+
+/**
+ * If true, unsubscribes from Cluster Mode Status
+ */
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *clusterModeStatus;
+
+/**
+ * If true, unsubscribes from My Key
+ */
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *myKey;
+
+/**
+ A boolean value. If true, unsubscribes to the Electronic Parking Brake Status
+ */
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *electronicParkBrakeStatus;
+
+/**
+ A boolean value. If true, unsubscribes to the Turn Signal
+ */
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *turnSignal;
+
+/**
+ A boolean value. If true, unsubscribes to the Cloud App Vehicle ID
+ */
+@property (strong, nonatomic, nullable) NSNumber<SDLBool> *cloudAppVehicleID;
+
 
 @end
+
+NS_ASSUME_NONNULL_END

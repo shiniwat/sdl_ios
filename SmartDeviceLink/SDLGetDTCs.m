@@ -4,18 +4,16 @@
 
 #import "SDLGetDTCs.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLGetDTCs
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_GetDTCs]) {
-    }
-    return self;
-}
-
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
+    if (self = [super initWithName:SDLRPCFunctionNameGetDTCs]) {
     }
     return self;
 }
@@ -42,28 +40,23 @@
     return self;
 }
 
-- (void)setEcuName:(NSNumber *)ecuName {
-    if (ecuName != nil) {
-        [parameters setObject:ecuName forKey:NAMES_ecuName];
-    } else {
-        [parameters removeObjectForKey:NAMES_ecuName];
-    }
+- (void)setEcuName:(NSNumber<SDLInt> *)ecuName {
+    [parameters sdl_setObject:ecuName forName:SDLRPCParameterNameECUName];
 }
 
-- (NSNumber *)ecuName {
-    return [parameters objectForKey:NAMES_ecuName];
+- (NSNumber<SDLInt> *)ecuName {
+    NSError *error = nil;
+    return [parameters sdl_objectForName:SDLRPCParameterNameECUName ofClass:NSNumber.class error:&error];
 }
 
-- (void)setDtcMask:(NSNumber *)dtcMask {
-    if (dtcMask != nil) {
-        [parameters setObject:dtcMask forKey:NAMES_dtcMask];
-    } else {
-        [parameters removeObjectForKey:NAMES_dtcMask];
-    }
+- (void)setDtcMask:(nullable NSNumber<SDLInt> *)dtcMask {
+    [parameters sdl_setObject:dtcMask forName:SDLRPCParameterNameDTCMask];
 }
 
-- (NSNumber *)dtcMask {
-    return [parameters objectForKey:NAMES_dtcMask];
+- (nullable NSNumber<SDLInt> *)dtcMask {
+    return [parameters sdl_objectForName:SDLRPCParameterNameDTCMask ofClass:NSNumber.class error:nil];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

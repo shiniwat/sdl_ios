@@ -3,277 +3,149 @@
 
 #import "SDLBeltStatus.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
 #import "SDLVehicleDataEventStatus.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLBeltStatus
 
-- (instancetype)init {
-    if (self = [super init]) {
-    }
-    return self;
+- (void)setDriverBeltDeployed:(SDLVehicleDataEventStatus)driverBeltDeployed {
+    [store sdl_setObject:driverBeltDeployed forName:SDLRPCParameterNameDriverBeltDeployed];
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (SDLVehicleDataEventStatus)driverBeltDeployed {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNameDriverBeltDeployed error:&error];
 }
 
-- (void)setDriverBeltDeployed:(SDLVehicleDataEventStatus *)driverBeltDeployed {
-    if (driverBeltDeployed != nil) {
-        [store setObject:driverBeltDeployed forKey:NAMES_driverBeltDeployed];
-    } else {
-        [store removeObjectForKey:NAMES_driverBeltDeployed];
-    }
+- (void)setPassengerBeltDeployed:(SDLVehicleDataEventStatus)passengerBeltDeployed {
+    [store sdl_setObject:passengerBeltDeployed forName:SDLRPCParameterNamePassengerBeltDeployed];
 }
 
-- (SDLVehicleDataEventStatus *)driverBeltDeployed {
-    NSObject *obj = [store objectForKey:NAMES_driverBeltDeployed];
-    if (obj == nil || [obj isKindOfClass:SDLVehicleDataEventStatus.class]) {
-        return (SDLVehicleDataEventStatus *)obj;
-    } else {
-        return [SDLVehicleDataEventStatus valueOf:(NSString *)obj];
-    }
+- (SDLVehicleDataEventStatus)passengerBeltDeployed {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNamePassengerBeltDeployed error:&error];
 }
 
-- (void)setPassengerBeltDeployed:(SDLVehicleDataEventStatus *)passengerBeltDeployed {
-    if (passengerBeltDeployed != nil) {
-        [store setObject:passengerBeltDeployed forKey:NAMES_passengerBeltDeployed];
-    } else {
-        [store removeObjectForKey:NAMES_passengerBeltDeployed];
-    }
+- (void)setPassengerBuckleBelted:(SDLVehicleDataEventStatus)passengerBuckleBelted {
+    [store sdl_setObject:passengerBuckleBelted forName:SDLRPCParameterNamePassengerBuckleBelted];
 }
 
-- (SDLVehicleDataEventStatus *)passengerBeltDeployed {
-    NSObject *obj = [store objectForKey:NAMES_passengerBeltDeployed];
-    if (obj == nil || [obj isKindOfClass:SDLVehicleDataEventStatus.class]) {
-        return (SDLVehicleDataEventStatus *)obj;
-    } else {
-        return [SDLVehicleDataEventStatus valueOf:(NSString *)obj];
-    }
+- (SDLVehicleDataEventStatus)passengerBuckleBelted {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNamePassengerBuckleBelted error:&error];
 }
 
-- (void)setPassengerBuckleBelted:(SDLVehicleDataEventStatus *)passengerBuckleBelted {
-    if (passengerBuckleBelted != nil) {
-        [store setObject:passengerBuckleBelted forKey:NAMES_passengerBuckleBelted];
-    } else {
-        [store removeObjectForKey:NAMES_passengerBuckleBelted];
-    }
+- (void)setDriverBuckleBelted:(SDLVehicleDataEventStatus)driverBuckleBelted {
+    [store sdl_setObject:driverBuckleBelted forName:SDLRPCParameterNameDriverBuckleBelted];
 }
 
-- (SDLVehicleDataEventStatus *)passengerBuckleBelted {
-    NSObject *obj = [store objectForKey:NAMES_passengerBuckleBelted];
-    if (obj == nil || [obj isKindOfClass:SDLVehicleDataEventStatus.class]) {
-        return (SDLVehicleDataEventStatus *)obj;
-    } else {
-        return [SDLVehicleDataEventStatus valueOf:(NSString *)obj];
-    }
+- (SDLVehicleDataEventStatus)driverBuckleBelted {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNameDriverBuckleBelted error:&error];
 }
 
-- (void)setDriverBuckleBelted:(SDLVehicleDataEventStatus *)driverBuckleBelted {
-    if (driverBuckleBelted != nil) {
-        [store setObject:driverBuckleBelted forKey:NAMES_driverBuckleBelted];
-    } else {
-        [store removeObjectForKey:NAMES_driverBuckleBelted];
-    }
+- (void)setLeftRow2BuckleBelted:(SDLVehicleDataEventStatus)leftRow2BuckleBelted {
+    [store sdl_setObject:leftRow2BuckleBelted forName:SDLRPCParameterNameLeftRow2BuckleBelted];
 }
 
-- (SDLVehicleDataEventStatus *)driverBuckleBelted {
-    NSObject *obj = [store objectForKey:NAMES_driverBuckleBelted];
-    if (obj == nil || [obj isKindOfClass:SDLVehicleDataEventStatus.class]) {
-        return (SDLVehicleDataEventStatus *)obj;
-    } else {
-        return [SDLVehicleDataEventStatus valueOf:(NSString *)obj];
-    }
+- (SDLVehicleDataEventStatus)leftRow2BuckleBelted {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNameLeftRow2BuckleBelted error:&error];
 }
 
-- (void)setLeftRow2BuckleBelted:(SDLVehicleDataEventStatus *)leftRow2BuckleBelted {
-    if (leftRow2BuckleBelted != nil) {
-        [store setObject:leftRow2BuckleBelted forKey:NAMES_leftRow2BuckleBelted];
-    } else {
-        [store removeObjectForKey:NAMES_leftRow2BuckleBelted];
-    }
+- (void)setPassengerChildDetected:(SDLVehicleDataEventStatus)passengerChildDetected {
+    [store sdl_setObject:passengerChildDetected forName:SDLRPCParameterNamePassengerChildDetected];
 }
 
-- (SDLVehicleDataEventStatus *)leftRow2BuckleBelted {
-    NSObject *obj = [store objectForKey:NAMES_leftRow2BuckleBelted];
-    if (obj == nil || [obj isKindOfClass:SDLVehicleDataEventStatus.class]) {
-        return (SDLVehicleDataEventStatus *)obj;
-    } else {
-        return [SDLVehicleDataEventStatus valueOf:(NSString *)obj];
-    }
+- (SDLVehicleDataEventStatus)passengerChildDetected {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNamePassengerChildDetected error:&error];
 }
 
-- (void)setPassengerChildDetected:(SDLVehicleDataEventStatus *)passengerChildDetected {
-    if (passengerChildDetected != nil) {
-        [store setObject:passengerChildDetected forKey:NAMES_passengerChildDetected];
-    } else {
-        [store removeObjectForKey:NAMES_passengerChildDetected];
-    }
+- (void)setRightRow2BuckleBelted:(SDLVehicleDataEventStatus)rightRow2BuckleBelted {
+    [store sdl_setObject:rightRow2BuckleBelted forName:SDLRPCParameterNameRightRow2BuckleBelted];
 }
 
-- (SDLVehicleDataEventStatus *)passengerChildDetected {
-    NSObject *obj = [store objectForKey:NAMES_passengerChildDetected];
-    if (obj == nil || [obj isKindOfClass:SDLVehicleDataEventStatus.class]) {
-        return (SDLVehicleDataEventStatus *)obj;
-    } else {
-        return [SDLVehicleDataEventStatus valueOf:(NSString *)obj];
-    }
+- (SDLVehicleDataEventStatus)rightRow2BuckleBelted {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNameRightRow2BuckleBelted error:&error];
 }
 
-- (void)setRightRow2BuckleBelted:(SDLVehicleDataEventStatus *)rightRow2BuckleBelted {
-    if (rightRow2BuckleBelted != nil) {
-        [store setObject:rightRow2BuckleBelted forKey:NAMES_rightRow2BuckleBelted];
-    } else {
-        [store removeObjectForKey:NAMES_rightRow2BuckleBelted];
-    }
+- (void)setMiddleRow2BuckleBelted:(SDLVehicleDataEventStatus)middleRow2BuckleBelted {
+    [store sdl_setObject:middleRow2BuckleBelted forName:SDLRPCParameterNameMiddleRow2BuckleBelted];
 }
 
-- (SDLVehicleDataEventStatus *)rightRow2BuckleBelted {
-    NSObject *obj = [store objectForKey:NAMES_rightRow2BuckleBelted];
-    if (obj == nil || [obj isKindOfClass:SDLVehicleDataEventStatus.class]) {
-        return (SDLVehicleDataEventStatus *)obj;
-    } else {
-        return [SDLVehicleDataEventStatus valueOf:(NSString *)obj];
-    }
+- (SDLVehicleDataEventStatus)middleRow2BuckleBelted {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNameMiddleRow2BuckleBelted error:&error];
 }
 
-- (void)setMiddleRow2BuckleBelted:(SDLVehicleDataEventStatus *)middleRow2BuckleBelted {
-    if (middleRow2BuckleBelted != nil) {
-        [store setObject:middleRow2BuckleBelted forKey:NAMES_middleRow2BuckleBelted];
-    } else {
-        [store removeObjectForKey:NAMES_middleRow2BuckleBelted];
-    }
+- (void)setMiddleRow3BuckleBelted:(SDLVehicleDataEventStatus)middleRow3BuckleBelted {
+    [store sdl_setObject:middleRow3BuckleBelted forName:SDLRPCParameterNameMiddleRow3BuckleBelted];
 }
 
-- (SDLVehicleDataEventStatus *)middleRow2BuckleBelted {
-    NSObject *obj = [store objectForKey:NAMES_middleRow2BuckleBelted];
-    if (obj == nil || [obj isKindOfClass:SDLVehicleDataEventStatus.class]) {
-        return (SDLVehicleDataEventStatus *)obj;
-    } else {
-        return [SDLVehicleDataEventStatus valueOf:(NSString *)obj];
-    }
+- (SDLVehicleDataEventStatus)middleRow3BuckleBelted {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNameMiddleRow3BuckleBelted error:&error];
 }
 
-- (void)setMiddleRow3BuckleBelted:(SDLVehicleDataEventStatus *)middleRow3BuckleBelted {
-    if (middleRow3BuckleBelted != nil) {
-        [store setObject:middleRow3BuckleBelted forKey:NAMES_middleRow3BuckleBelted];
-    } else {
-        [store removeObjectForKey:NAMES_middleRow3BuckleBelted];
-    }
+- (void)setLeftRow3BuckleBelted:(SDLVehicleDataEventStatus)leftRow3BuckleBelted {
+    [store sdl_setObject:leftRow3BuckleBelted forName:SDLRPCParameterNameLeftRow3BuckleBelted];
 }
 
-- (SDLVehicleDataEventStatus *)middleRow3BuckleBelted {
-    NSObject *obj = [store objectForKey:NAMES_middleRow3BuckleBelted];
-    if (obj == nil || [obj isKindOfClass:SDLVehicleDataEventStatus.class]) {
-        return (SDLVehicleDataEventStatus *)obj;
-    } else {
-        return [SDLVehicleDataEventStatus valueOf:(NSString *)obj];
-    }
+- (SDLVehicleDataEventStatus)leftRow3BuckleBelted {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNameLeftRow3BuckleBelted error:&error];
 }
 
-- (void)setLeftRow3BuckleBelted:(SDLVehicleDataEventStatus *)leftRow3BuckleBelted {
-    if (leftRow3BuckleBelted != nil) {
-        [store setObject:leftRow3BuckleBelted forKey:NAMES_leftRow3BuckleBelted];
-    } else {
-        [store removeObjectForKey:NAMES_leftRow3BuckleBelted];
-    }
+- (void)setRightRow3BuckleBelted:(SDLVehicleDataEventStatus)rightRow3BuckleBelted {
+    [store sdl_setObject:rightRow3BuckleBelted forName:SDLRPCParameterNameRightRow3BuckleBelted];
 }
 
-- (SDLVehicleDataEventStatus *)leftRow3BuckleBelted {
-    NSObject *obj = [store objectForKey:NAMES_leftRow3BuckleBelted];
-    if (obj == nil || [obj isKindOfClass:SDLVehicleDataEventStatus.class]) {
-        return (SDLVehicleDataEventStatus *)obj;
-    } else {
-        return [SDLVehicleDataEventStatus valueOf:(NSString *)obj];
-    }
+- (SDLVehicleDataEventStatus)rightRow3BuckleBelted {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNameRightRow3BuckleBelted error:&error];
 }
 
-- (void)setRightRow3BuckleBelted:(SDLVehicleDataEventStatus *)rightRow3BuckleBelted {
-    if (rightRow3BuckleBelted != nil) {
-        [store setObject:rightRow3BuckleBelted forKey:NAMES_rightRow3BuckleBelted];
-    } else {
-        [store removeObjectForKey:NAMES_rightRow3BuckleBelted];
-    }
+- (void)setLeftRearInflatableBelted:(SDLVehicleDataEventStatus)leftRearInflatableBelted {
+    [store sdl_setObject:leftRearInflatableBelted forName:SDLRPCParameterNameLeftRearInflatableBelted];
 }
 
-- (SDLVehicleDataEventStatus *)rightRow3BuckleBelted {
-    NSObject *obj = [store objectForKey:NAMES_rightRow3BuckleBelted];
-    if (obj == nil || [obj isKindOfClass:SDLVehicleDataEventStatus.class]) {
-        return (SDLVehicleDataEventStatus *)obj;
-    } else {
-        return [SDLVehicleDataEventStatus valueOf:(NSString *)obj];
-    }
+- (SDLVehicleDataEventStatus)leftRearInflatableBelted {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNameLeftRearInflatableBelted error:&error];
 }
 
-- (void)setLeftRearInflatableBelted:(SDLVehicleDataEventStatus *)leftRearInflatableBelted {
-    if (leftRearInflatableBelted != nil) {
-        [store setObject:leftRearInflatableBelted forKey:NAMES_leftRearInflatableBelted];
-    } else {
-        [store removeObjectForKey:NAMES_leftRearInflatableBelted];
-    }
+- (void)setRightRearInflatableBelted:(SDLVehicleDataEventStatus)rightRearInflatableBelted {
+    [store sdl_setObject:rightRearInflatableBelted forName:SDLRPCParameterNameRightRearInflatableBelted];
 }
 
-- (SDLVehicleDataEventStatus *)leftRearInflatableBelted {
-    NSObject *obj = [store objectForKey:NAMES_leftRearInflatableBelted];
-    if (obj == nil || [obj isKindOfClass:SDLVehicleDataEventStatus.class]) {
-        return (SDLVehicleDataEventStatus *)obj;
-    } else {
-        return [SDLVehicleDataEventStatus valueOf:(NSString *)obj];
-    }
+- (SDLVehicleDataEventStatus)rightRearInflatableBelted {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNameRightRearInflatableBelted error:&error];
 }
 
-- (void)setRightRearInflatableBelted:(SDLVehicleDataEventStatus *)rightRearInflatableBelted {
-    if (rightRearInflatableBelted != nil) {
-        [store setObject:rightRearInflatableBelted forKey:NAMES_rightRearInflatableBelted];
-    } else {
-        [store removeObjectForKey:NAMES_rightRearInflatableBelted];
-    }
+- (void)setMiddleRow1BeltDeployed:(SDLVehicleDataEventStatus)middleRow1BeltDeployed {
+    [store sdl_setObject:middleRow1BeltDeployed forName:SDLRPCParameterNameMiddleRow1BeltDeployed];
 }
 
-- (SDLVehicleDataEventStatus *)rightRearInflatableBelted {
-    NSObject *obj = [store objectForKey:NAMES_rightRearInflatableBelted];
-    if (obj == nil || [obj isKindOfClass:SDLVehicleDataEventStatus.class]) {
-        return (SDLVehicleDataEventStatus *)obj;
-    } else {
-        return [SDLVehicleDataEventStatus valueOf:(NSString *)obj];
-    }
+- (SDLVehicleDataEventStatus)middleRow1BeltDeployed {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNameMiddleRow1BeltDeployed error:&error];
 }
 
-- (void)setMiddleRow1BeltDeployed:(SDLVehicleDataEventStatus *)middleRow1BeltDeployed {
-    if (middleRow1BeltDeployed != nil) {
-        [store setObject:middleRow1BeltDeployed forKey:NAMES_middleRow1BeltDeployed];
-    } else {
-        [store removeObjectForKey:NAMES_middleRow1BeltDeployed];
-    }
+- (void)setMiddleRow1BuckleBelted:(SDLVehicleDataEventStatus)middleRow1BuckleBelted {
+    [store sdl_setObject:middleRow1BuckleBelted forName:SDLRPCParameterNameMiddleRow1BuckleBelted];
 }
 
-- (SDLVehicleDataEventStatus *)middleRow1BeltDeployed {
-    NSObject *obj = [store objectForKey:NAMES_middleRow1BeltDeployed];
-    if (obj == nil || [obj isKindOfClass:SDLVehicleDataEventStatus.class]) {
-        return (SDLVehicleDataEventStatus *)obj;
-    } else {
-        return [SDLVehicleDataEventStatus valueOf:(NSString *)obj];
-    }
-}
-
-- (void)setMiddleRow1BuckleBelted:(SDLVehicleDataEventStatus *)middleRow1BuckleBelted {
-    if (middleRow1BuckleBelted != nil) {
-        [store setObject:middleRow1BuckleBelted forKey:NAMES_middleRow1BuckleBelted];
-    } else {
-        [store removeObjectForKey:NAMES_middleRow1BuckleBelted];
-    }
-}
-
-- (SDLVehicleDataEventStatus *)middleRow1BuckleBelted {
-    NSObject *obj = [store objectForKey:NAMES_middleRow1BuckleBelted];
-    if (obj == nil || [obj isKindOfClass:SDLVehicleDataEventStatus.class]) {
-        return (SDLVehicleDataEventStatus *)obj;
-    } else {
-        return [SDLVehicleDataEventStatus valueOf:(NSString *)obj];
-    }
+- (SDLVehicleDataEventStatus)middleRow1BuckleBelted {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNameMiddleRow1BuckleBelted error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

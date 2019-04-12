@@ -4,79 +4,76 @@
 
 #import "SDLEnum.h"
 
-/** The name that identifies the filed.
- *
- *
- * @since SmartDeviceLink 3.0
+/**
+ The name that identifies the filed. Used in DisplayCapabilities.
+
+ @since SmartDeviceLink 3.0
+ */
+typedef SDLEnum SDLImageFieldName SDL_SWIFT_ENUM;
+
+/**
+ The image field for SoftButton
+ */
+extern SDLImageFieldName const SDLImageFieldNameSoftButtonImage;
+
+/**
+ The first image field for Choice.
+ */
+extern SDLImageFieldName const SDLImageFieldNameChoiceImage;
+
+/**
+ The scondary image field for Choice.
+ */
+extern SDLImageFieldName const SDLImageFieldNameChoiceSecondaryImage;
+
+/**
+ The image field for vrHelpItem.
+ */
+extern SDLImageFieldName const SDLImageFieldNameVoiceRecognitionHelpItem;
+
+/**
+ The image field for Turn.
+ */
+extern SDLImageFieldName const SDLImageFieldNameTurnIcon;
+
+/**
+ The image field for the menu icon in SetGlobalProperties.
+ */
+extern SDLImageFieldName const SDLImageFieldNameMenuIcon;
+
+/** The image field for AddCommand.
  *
  */
-@interface SDLImageFieldName : SDLEnum {
-}
+extern SDLImageFieldName const SDLImageFieldNameCommandIcon;
 
-+ (SDLImageFieldName *)valueOf:(NSString *)value;
-+ (NSArray *)values;
+/**
+ The image field for the app icon (set by setAppIcon).
+ */
+extern SDLImageFieldName const SDLImageFieldNameAppIcon;
 
-/** The image field for SoftButton
+/** The primary image field for Show.
  *
  */
-+ (SDLImageFieldName *)softButtonImage;
+extern SDLImageFieldName const SDLImageFieldNameGraphic;
 
-/** The first image field for Choice.
+/** The secondary image field for Show.
  *
  */
-+ (SDLImageFieldName *)choiceImage;
-
-/** The scondary image field for Choice.
- *
- */
-+ (SDLImageFieldName *)choiceSecondaryImage;
-
-/** The image field for vrHelpItem.
- *
- */
-+ (SDLImageFieldName *)vrHelpItem;
-
-/** The image field for Turn.
- *
- */
-
-+ (SDLImageFieldName *)turnIcon;
-
-/** The image field for the menu icon in SetGlobalProperties.
- *
- */
-+ (SDLImageFieldName *)menuIcon;
-
-/** The image filed for AddCommand.
- *
- */
-
-+ (SDLImageFieldName *)cmdIcon;
-
-/** The iamage field for the app icon ( set by setAppIcon).
- *
- */
-+ (SDLImageFieldName *)appIcon;
-
-/** The image filed for Show.
- *
- */
-+ (SDLImageFieldName *)graphic;
+extern SDLImageFieldName const SDLImageFieldNameSecondaryGraphic;
 
 /** The primary image field for ShowConstant TBT.
  *
  */
-+ (SDLImageFieldName *)showConstantTBTIcon;
-
-/** The secondary image field for ShowConstant TBT.
- *
- */
-+ (SDLImageFieldName *)showConstantTBTNextTurnIcon;
+extern SDLImageFieldName const SDLImageFieldNameShowConstantTBTIcon;
 
 /**
- * The optional image of a destination / location
- * @since SDL 4.0
+ The secondary image field for ShowConstant TBT.
  */
-+ (SDLImageFieldName *)locationImage;
+extern SDLImageFieldName const SDLImageFieldNameShowConstantTBTNextTurnIcon;
 
-@end
+/**
+ The optional image of a destination / location
+
+ @since SDL 4.0
+ */
+extern SDLImageFieldName const SDLImageFieldNameLocationImage;

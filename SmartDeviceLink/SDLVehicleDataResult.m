@@ -3,57 +3,31 @@
 
 #import "SDLVehicleDataResult.h"
 
-#import "SDLNames.h"
-#import "SDLVehicleDataResultCode.h"
-#import "SDLVehicleDataType.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLVehicleDataResult
 
-- (instancetype)init {
-    if (self = [super init]) {
-    }
-    return self;
+- (void)setDataType:(SDLVehicleDataType)dataType {
+    [store sdl_setObject:dataType forName:SDLRPCParameterNameDataType];
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (SDLVehicleDataType)dataType {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNameDataType error:&error];
 }
 
-- (void)setDataType:(SDLVehicleDataType *)dataType {
-    if (dataType != nil) {
-        [store setObject:dataType forKey:NAMES_dataType];
-    } else {
-        [store removeObjectForKey:NAMES_dataType];
-    }
+- (void)setResultCode:(SDLVehicleDataResultCode)resultCode {
+    [store sdl_setObject:resultCode forName:SDLRPCParameterNameResultCode];
 }
 
-- (SDLVehicleDataType *)dataType {
-    NSObject *obj = [store objectForKey:NAMES_dataType];
-    if (obj == nil || [obj isKindOfClass:SDLVehicleDataType.class]) {
-        return (SDLVehicleDataType *)obj;
-    } else {
-        return [SDLVehicleDataType valueOf:(NSString *)obj];
-    }
-}
-
-- (void)setResultCode:(SDLVehicleDataResultCode *)resultCode {
-    if (resultCode != nil) {
-        [store setObject:resultCode forKey:NAMES_resultCode];
-    } else {
-        [store removeObjectForKey:NAMES_resultCode];
-    }
-}
-
-- (SDLVehicleDataResultCode *)resultCode {
-    NSObject *obj = [store objectForKey:NAMES_resultCode];
-    if (obj == nil || [obj isKindOfClass:SDLVehicleDataResultCode.class]) {
-        return (SDLVehicleDataResultCode *)obj;
-    } else {
-        return [SDLVehicleDataResultCode valueOf:(NSString *)obj];
-    }
+- (SDLVehicleDataResultCode)resultCode {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNameResultCode error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

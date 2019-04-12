@@ -4,37 +4,126 @@
 
 #import "SDLFunctionID.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCFunctionNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface SDLFunctionID ()
+
+@property (nonatomic, strong, nonnull) NSDictionary* functionIds;
+
+@end
 
 @implementation SDLFunctionID
 
++ (instancetype)sharedInstance {
+    static SDLFunctionID* functionId = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        functionId = [[SDLFunctionID alloc] init];
+    });
+    return functionId;
+}
+
 - (instancetype)init {
-    if (self = [super init]) {
-        functionIDs = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        NAMES_reserved, @"0", NAMES_RegisterAppInterface, @"1", NAMES_UnregisterAppInterface, @"2", NAMES_SetGlobalProperties, @"3", NAMES_ResetGlobalProperties, @"4", NAMES_AddCommand, @"5", NAMES_DeleteCommand, @"6", NAMES_AddSubMenu, @"7", NAMES_DeleteSubMenu, @"8", NAMES_CreateInteractionChoiceSet, @"9", NAMES_PerformInteraction, @"10", NAMES_DeleteInteractionChoiceSet, @"11", NAMES_Alert, @"12", NAMES_Show, @"13", NAMES_Speak, @"14", NAMES_SetMediaClockTimer, @"15", NAMES_PerformAudioPassThru, @"16", NAMES_EndAudioPassThru, @"17", NAMES_SubscribeButton, @"18", NAMES_UnsubscribeButton, @"19", NAMES_SubscribeVehicleData, @"20", NAMES_UnsubscribeVehicleData, @"21", NAMES_GetVehicleData, @"22", NAMES_ReadDID, @"23", NAMES_GetDTCs, @"24", NAMES_ScrollableMessage, @"25", NAMES_Slider, @"26", NAMES_ShowConstantTBT, @"27", NAMES_AlertManeuver, @"28", NAMES_UpdateTurnList, @"29", NAMES_ChangeRegistration, @"30", NAMES_GenericResponse, @"31", NAMES_PutFile, @"32", NAMES_DeleteFile, @"33", NAMES_ListFiles, @"34", NAMES_SetAppIcon, @"35", NAMES_SetDisplayLayout, @"36", NAMES_DiagnosticMessage, @"37", NAMES_SystemRequest, @"38", NAMES_SendLocation, @"39", NAMES_DialNumber, @"40", NAMES_GetWaypoints, @"45", NAMES_SubscribeWaypoints, @"46", NAMES_UnsubscribeWaypoints, @"47", NAMES_GetSystemCapability, @"48", NAMES_SendHapticData, @"49", NAMES_OnHMIStatus, @"32768", NAMES_OnAppInterfaceUnregistered, @"32769", NAMES_OnButtonEvent, @"32770", NAMES_OnButtonPress, @"32771", NAMES_OnVehicleData, @"32772", NAMES_OnCommand, @"32773", NAMES_OnTBTClientState, @"32774", NAMES_OnDriverDistraction, @"32775", NAMES_OnPermissionsChange, @"32776", NAMES_OnAudioPassThru, @"32777", NAMES_OnLanguageChange, @"32778", NAMES_OnKeyboardInput, @"32779", NAMES_OnTouchEvent, @"32780", NAMES_OnSystemRequest, @"32781", NAMES_OnHashChange, @"32782", NAMES_OnWaypointChange, @"32784",
-
-                                        NAMES_EncodedSyncPData,
-                                        @"65536",
-                                        NAMES_SyncPData,
-                                        @"65537",
-
-                                        NAMES_OnEncodedSyncPData,
-                                        @"98304",
-                                        NAMES_OnSyncPData,
-                                        @"98305",
-                                        nil];
+    self = [super init];
+    if (!self) {
+        return nil;
     }
+
+    self.functionIds = @{
+                         @0: SDLRPCFunctionNameReserved,
+                         @1: SDLRPCFunctionNameRegisterAppInterface,
+                         @2: SDLRPCFunctionNameUnregisterAppInterface,
+                         @3: SDLRPCFunctionNameSetGlobalProperties,
+                         @4: SDLRPCFunctionNameResetGlobalProperties,
+                         @5: SDLRPCFunctionNameAddCommand,
+                         @6: SDLRPCFunctionNameDeleteCommand,
+                         @7: SDLRPCFunctionNameAddSubMenu,
+                         @8: SDLRPCFunctionNameDeleteSubMenu,
+                         @9: SDLRPCFunctionNameCreateInteractionChoiceSet,
+                         @10: SDLRPCFunctionNamePerformInteraction,
+                         @11: SDLRPCFunctionNameDeleteInteractionChoiceSet,
+                         @12: SDLRPCFunctionNameAlert,
+                         @13: SDLRPCFunctionNameShow,
+                         @14: SDLRPCFunctionNameSpeak,
+                         @15: SDLRPCFunctionNameSetMediaClockTimer,
+                         @16: SDLRPCFunctionNamePerformAudioPassThru,
+                         @17: SDLRPCFunctionNameEndAudioPassThru,
+                         @18: SDLRPCFunctionNameSubscribeButton,
+                         @19: SDLRPCFunctionNameUnsubscribeButton,
+                         @20: SDLRPCFunctionNameSubscribeVehicleData,
+                         @21: SDLRPCFunctionNameUnsubscribeVehicleData,
+                         @22: SDLRPCFunctionNameGetVehicleData,
+                         @23: SDLRPCFunctionNameReadDID,
+                         @24: SDLRPCFunctionNameGetDTCs,
+                         @25: SDLRPCFunctionNameScrollableMessage,
+                         @26: SDLRPCFunctionNameSlider,
+                         @27: SDLRPCFunctionNameShowConstantTBT,
+                         @28: SDLRPCFunctionNameAlertManeuver,
+                         @29: SDLRPCFunctionNameUpdateTurnList,
+                         @30: SDLRPCFunctionNameChangeRegistration,
+                         @31: SDLRPCFunctionNameGenericResponse,
+                         @32: SDLRPCFunctionNamePutFile,
+                         @33: SDLRPCFunctionNameDeleteFile,
+                         @34: SDLRPCFunctionNameListFiles,
+                         @35: SDLRPCFunctionNameSetAppIcon,
+                         @36: SDLRPCFunctionNameSetDisplayLayout,
+                         @37: SDLRPCFunctionNameDiagnosticMessage,
+                         @38: SDLRPCFunctionNameSystemRequest,
+                         @39: SDLRPCFunctionNameSendLocation,
+                         @40: SDLRPCFunctionNameDialNumber,
+                         @41: SDLRPCFunctionNameButtonPress,
+                         @43: SDLRPCFunctionNameGetInteriorVehicleData,
+                         @44: SDLRPCFunctionNameSetInteriorVehicleData,
+                         @45: SDLRPCFunctionNameGetWayPoints,
+                         @46: SDLRPCFunctionNameSubscribeWayPoints,
+                         @47: SDLRPCFunctionNameUnsubscribeWayPoints,
+                         @48: SDLRPCFunctionNameGetSystemCapability,
+                         @49: SDLRPCFunctionNameSendHapticData,
+                         @50: SDLRPCFunctionNameSetCloudAppProperties,
+                         @51: SDLRPCFunctionNameGetCloudAppProperties,
+                         @52: SDLRPCFunctionNamePublishAppService,
+                         @53: SDLRPCFunctionNameGetAppServiceData,
+                         @54: SDLRPCFunctionNameGetFile,
+                         @55: SDLRPCFunctionNamePerformAppServiceInteraction,
+                         @32768: SDLRPCFunctionNameOnHMIStatus,
+                         @32769: SDLRPCFunctionNameOnAppInterfaceUnregistered,
+                         @32770: SDLRPCFunctionNameOnButtonEvent,
+                         @32771: SDLRPCFunctionNameOnButtonPress,
+                         @32772: SDLRPCFunctionNameOnVehicleData,
+                         @32773: SDLRPCFunctionNameOnCommand,
+                         @32774: SDLRPCFunctionNameOnTBTClientState,
+                         @32775: SDLRPCFunctionNameOnDriverDistraction,
+                         @32776: SDLRPCFunctionNameOnPermissionsChange,
+                         @32777: SDLRPCFunctionNameOnAudioPassThru,
+                         @32778: SDLRPCFunctionNameOnLanguageChange,
+                         @32779: SDLRPCFunctionNameOnKeyboardInput,
+                         @32780: SDLRPCFunctionNameOnTouchEvent,
+                         @32781: SDLRPCFunctionNameOnSystemRequest,
+                         @32782: SDLRPCFunctionNameOnHashChange,
+                         @32783: SDLRPCFunctionNameOnInteriorVehicleData,
+                         @32784: SDLRPCFunctionNameOnWayPointChange,
+                         @32785: SDLRPCFunctionNameOnRCStatus,
+                         @32786: SDLRPCFunctionNameOnAppServiceData,
+                         @32787: SDLRPCFunctionNameOnSystemCapabilityUpdated,
+                         @65536: SDLRPCFunctionNameEncodedSyncPData,
+                         @65537: SDLRPCFunctionNameSyncPData,
+                         @98304: SDLRPCFunctionNameOnEncodedSyncPData,
+                         @98305: SDLRPCFunctionNameOnSyncPData
+                         };
     return self;
 }
 
-- (NSString *)getFunctionName:(int)functionID {
-    return [functionIDs objectForKey:[NSString stringWithFormat:@"%d", functionID]];
+- (nullable SDLRPCFunctionName)functionNameForId:(UInt32)functionID {
+    return self.functionIds[@(functionID)];
 }
 
-
-- (NSNumber *)getFunctionID:(NSString *)functionName {
-    return [NSNumber numberWithInt:[[[functionIDs allKeysForObject:functionName] objectAtIndex:0] intValue]];
+- (nullable NSNumber<SDLInt> *)functionIdForName:(SDLRPCFunctionName)functionName {
+    return [[self.functionIds allKeysForObject:functionName] firstObject];
 }
-
 
 @end
+
+NS_ASSUME_NONNULL_END

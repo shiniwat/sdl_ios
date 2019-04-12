@@ -4,19 +4,23 @@
 
 #import "SDLStartTime.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLStartTime
 
-- (instancetype)init {
-    if (self = [super init]) {
-    }
-    return self;
-}
+- (instancetype)initWithTimeInterval:(NSTimeInterval)timeInterval {
+    self = [self init];
+    if (!self) { return nil; }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
+    // https://stackoverflow.com/a/15304826/1221798
+    long seconds = lround(timeInterval);
+    self.hours = @(seconds / 3600);
+    self.minutes = @((seconds % 3600) / 60);
+    self.seconds = @(seconds % 60);
+
     return self;
 }
 
@@ -33,40 +37,33 @@
     return self;
 }
 
-- (void)setHours:(NSNumber *)hours {
-    if (hours != nil) {
-        [store setObject:hours forKey:NAMES_hours];
-    } else {
-        [store removeObjectForKey:NAMES_hours];
-    }
+- (void)setHours:(NSNumber<SDLInt> *)hours {
+    [store sdl_setObject:hours forName:SDLRPCParameterNameHours];
 }
 
-- (NSNumber *)hours {
-    return [store objectForKey:NAMES_hours];
+- (NSNumber<SDLInt> *)hours {
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNameHours ofClass:NSNumber.class error:&error];
 }
 
-- (void)setMinutes:(NSNumber *)minutes {
-    if (minutes != nil) {
-        [store setObject:minutes forKey:NAMES_minutes];
-    } else {
-        [store removeObjectForKey:NAMES_minutes];
-    }
+- (void)setMinutes:(NSNumber<SDLInt> *)minutes {
+    [store sdl_setObject:minutes forName:SDLRPCParameterNameMinutes];
 }
 
-- (NSNumber *)minutes {
-    return [store objectForKey:NAMES_minutes];
+- (NSNumber<SDLInt> *)minutes {
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNameMinutes ofClass:NSNumber.class error:&error];
 }
 
-- (void)setSeconds:(NSNumber *)seconds {
-    if (seconds != nil) {
-        [store setObject:seconds forKey:NAMES_seconds];
-    } else {
-        [store removeObjectForKey:NAMES_seconds];
-    }
+- (void)setSeconds:(NSNumber<SDLInt> *)seconds {
+    [store sdl_setObject:seconds forName:SDLRPCParameterNameSeconds];
 }
 
-- (NSNumber *)seconds {
-    return [store objectForKey:NAMES_seconds];
+- (NSNumber<SDLInt> *)seconds {
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNameSeconds ofClass:NSNumber.class error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

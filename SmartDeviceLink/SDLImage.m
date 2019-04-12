@@ -3,25 +3,14 @@
 
 #import "SDLImage.h"
 
-#import "SDLImageType.h"
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLImage
 
-- (instancetype)init {
-    if (self = [super init]) {
-    }
-    return self;
-}
-
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
-}
-
-- (instancetype)initWithName:(NSString *)name ofType:(SDLImageType *)imageType {
+- (instancetype)initWithName:(NSString *)name ofType:(SDLImageType)imageType {
     self = [self init];
     if (!self) {
         return nil;
@@ -29,37 +18,70 @@
 
     self.value = name;
     self.imageType = imageType;
+    self.isTemplate = @NO;
 
     return self;
 }
 
-- (void)setValue:(NSString *)value {
-    if (value != nil) {
-        [store setObject:value forKey:NAMES_value];
-    } else {
-        [store removeObjectForKey:NAMES_value];
+- (instancetype)initWithName:(NSString *)name ofType:(SDLImageType)imageType isTemplate:(BOOL)isTemplate {
+    self = [self init];
+    if (!self) {
+        return nil;
     }
+
+    self.value = name;
+    self.imageType = imageType;
+    self.isTemplate = @(isTemplate);
+
+    return self;
+}
+
+- (instancetype)initWithName:(NSString *)name {
+    return [self initWithName:name ofType:SDLImageTypeDynamic];
+}
+
+- (instancetype)initWithName:(NSString *)name isTemplate:(BOOL)isTemplate {
+    return [self initWithName:name ofType:SDLImageTypeDynamic isTemplate:isTemplate];
+}
+
+- (instancetype)initWithStaticImageValue:(UInt16)staticImageValue {
+    NSString *value = [NSString stringWithFormat:@"%hu", staticImageValue];
+    // All static images are templated by default
+    return [self initWithName:value ofType:SDLImageTypeStatic isTemplate:YES];
+}
+
+- (instancetype)initWithStaticIconName:(SDLStaticIconName)staticIconName {
+    return [self initWithName:staticIconName ofType:SDLImageTypeStatic isTemplate:YES];
+}
+
+#pragma mark - Getters / Setters
+
+- (void)setValue:(NSString *)value {
+    [store sdl_setObject:value forName:SDLRPCParameterNameValue];
 }
 
 - (NSString *)value {
-    return [store objectForKey:NAMES_value];
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNameValue ofClass:NSString.class error:&error];
 }
 
-- (void)setImageType:(SDLImageType *)imageType {
-    if (imageType != nil) {
-        [store setObject:imageType forKey:NAMES_imageType];
-    } else {
-        [store removeObjectForKey:NAMES_imageType];
-    }
+- (void)setImageType:(SDLImageType)imageType {
+    [store sdl_setObject:imageType forName:SDLRPCParameterNameImageType];
 }
 
-- (SDLImageType *)imageType {
-    NSObject *obj = [store objectForKey:NAMES_imageType];
-    if (obj == nil || [obj isKindOfClass:SDLImageType.class]) {
-        return (SDLImageType *)obj;
-    } else {
-        return [SDLImageType valueOf:(NSString *)obj];
-    }
+- (SDLImageType)imageType {
+    return [store sdl_enumForName:SDLRPCParameterNameImageType error:nil];
+}
+
+- (void)setIsTemplate:(NSNumber<SDLBool> *)isTemplate {
+    [store sdl_setObject:isTemplate forName:SDLRPCParameterNameImageTemplate];
+}
+
+- (NSNumber<SDLBool> *)isTemplate {
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNameImageTemplate ofClass:NSNumber.class error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

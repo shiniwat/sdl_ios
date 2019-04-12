@@ -3,32 +3,29 @@
 
 #import "SDLDiagnosticMessageResponse.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLDiagnosticMessageResponse
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_DiagnosticMessage]) {
+    if (self = [super initWithName:SDLRPCFunctionNameDiagnosticMessage]) {
     }
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (void)setMessageDataResult:(NSArray<NSNumber<SDLInt> *> *)messageDataResult {
+    [parameters sdl_setObject:messageDataResult forName:SDLRPCParameterNameMessageDataResult];
 }
 
-- (void)setMessageDataResult:(NSMutableArray *)messageDataResult {
-    if (messageDataResult != nil) {
-        [parameters setObject:messageDataResult forKey:NAMES_messageDataResult];
-    } else {
-        [parameters removeObjectForKey:NAMES_messageDataResult];
-    }
-}
-
-- (NSMutableArray *)messageDataResult {
-    return [parameters objectForKey:NAMES_messageDataResult];
+- (NSArray<NSNumber<SDLInt> *> *)messageDataResult {
+    NSError *error = nil;
+    return [parameters sdl_objectsForName:SDLRPCParameterNameMessageDataResult ofClass:NSNumber.class error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

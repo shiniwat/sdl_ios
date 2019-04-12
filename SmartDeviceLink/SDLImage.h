@@ -3,42 +3,90 @@
 
 #import "SDLRPCMessage.h"
 
-@class SDLImageType;
-
+#import "SDLImageType.h"
+#import "SDLStaticIconName.h"
 
 /**
- *Specifies, which image shall be used, e.g. in SDLAlerts or on SDLSoftbuttons provided the display supports it.
+ * Specifies which image shall be used e.g. in SDLAlerts or on SDLSoftbuttons provided the display supports it.
  * 
  * @since SDL 2.0
  */
-@interface SDLImage : SDLRPCStruct {
-}
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface SDLImage : SDLRPCStruct
 
 /**
- * Constructs a newly allocated SDLImage object
- */
-- (instancetype)init;
-
-/**
- * Constructs a newly allocated SDLImage object indicated by the dictionary parameter
- * @param dict The dictionary to use
- */
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict;
-
-- (instancetype)initWithName:(NSString *)name ofType:(SDLImageType *)imageType;
-
-/**
- * @abstract The static hex icon value or the binary image file name identifier (sent by SDLPutFile)
+ *  Convenience init for displaying a dynamic image. The image must be uploaded to SDL Core before being displayed.
  *
- * Required, max length = 65535
+ *  @param name        The unique name used to upload the image to SDL Core
+ *  @param imageType   Describes whether the image is static or dynamic
+ *  @return            A SDLImage object
  */
-@property (strong) NSString *value;
+- (instancetype)initWithName:(NSString *)name ofType:(SDLImageType)imageType __deprecated_msg("Use initWithName:ofType:isTemplate: instead");
 
 /**
- * @abstract Describes, whether it is a static or dynamic image
+ *  Convenience init for displaying a dynamic image. The image must be uploaded to SDL Core before being displayed.
  *
- * Required
+ *  @param name        The unique name used to upload the image to SDL Core
+ *  @param imageType   Describes whether the image is static or dynamic
+ *  @param isTemplate  Whether or not the image is a template that can be (re)colored by the SDL HMI. Static images are templates by default.
+ *  @return            A SDLImage object
  */
-@property (strong) SDLImageType *imageType;
+- (instancetype)initWithName:(NSString *)name ofType:(SDLImageType)imageType isTemplate:(BOOL)isTemplate;
+
+/**
+ *  Convenience init for displaying a dynamic image. The image must be uploaded to SDL Core before being displayed.
+ *
+ *  @param name        The unique name used to upload the image to SDL Core
+ *  @return            A SDLImage object
+ */
+- (instancetype)initWithName:(NSString *)name __deprecated_msg("Use initWithName:isTemplate: instead");
+
+/**
+ *  Convenience init for displaying a dynamic image. The image must be uploaded to SDL Core before being displayed.
+ *
+ *  @param name        The unique name used to upload the image to SDL Core
+ *  @param isTemplate  Whether or not the image is a template that can be (re)colored by the SDL HMI
+ *  @return            A SDLImage object
+ */
+- (instancetype)initWithName:(NSString *)name isTemplate:(BOOL)isTemplate;
+
+/**
+ *  Convenience init for displaying a static image. Static images are already on-board SDL Core and can be used by providing the image's value.
+ *
+ *  @param staticImageValue    The image value assigned to the static image
+ *  @return                    A SDLImage object
+ */
+- (instancetype)initWithStaticImageValue:(UInt16)staticImageValue;
+
+/**
+ *  Convenience init for displaying a static image. Static images are already on-board SDL Core and can be used by providing the image's value.
+ *
+ *  @param staticIconName      A SDLStaticIconName value
+ *  @return                    A SDLImage object
+ */
+- (instancetype)initWithStaticIconName:(SDLStaticIconName)staticIconName;
+
+/**
+ *  The static hex icon value or the binary image file name identifier (sent by SDLPutFile)
+ *
+ *  Required, max length = 65535
+ */
+@property (strong, nonatomic) NSString *value;
+
+/**
+ *  Describes whether the image is static or dynamic
+ *
+ *  Required
+ */
+@property (strong, nonatomic) SDLImageType imageType;
+
+/**
+ *  Indicates that this image can be (re)colored by the HMI to best fit the current color scheme.
+ */
+@property (assign, nonatomic) NSNumber<SDLBool> *isTemplate;
 
 @end
+
+NS_ASSUME_NONNULL_END

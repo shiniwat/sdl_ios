@@ -3,39 +3,29 @@
 
 #import "SDLOnTBTClientState.h"
 
-#import "SDLNames.h"
-#import "SDLTBTState.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLOnTBTClientState
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_OnTBTClientState]) {
+    if (self = [super initWithName:SDLRPCFunctionNameOnTBTClientState]) {
     }
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (void)setState:(SDLTBTState)state {
+    [parameters sdl_setObject:state forName:SDLRPCParameterNameState];
 }
 
-- (void)setState:(SDLTBTState *)state {
-    if (state != nil) {
-        [parameters setObject:state forKey:NAMES_state];
-    } else {
-        [parameters removeObjectForKey:NAMES_state];
-    }
-}
-
-- (SDLTBTState *)state {
-    NSObject *obj = [parameters objectForKey:NAMES_state];
-    if (obj == nil || [obj isKindOfClass:SDLTBTState.class]) {
-        return (SDLTBTState *)obj;
-    } else {
-        return [SDLTBTState valueOf:(NSString *)obj];
-    }
+- (SDLTBTState)state {
+    NSError *error = nil;
+    return [parameters sdl_enumForName:SDLRPCParameterNameState error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

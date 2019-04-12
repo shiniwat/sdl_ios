@@ -4,23 +4,21 @@
 
 #import "SDLDiagnosticMessage.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLDiagnosticMessage
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_DiagnosticMessage]) {
+    if (self = [super initWithName:SDLRPCFunctionNameDiagnosticMessage]) {
     }
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
-}
-
-- (instancetype)initWithTargetId:(UInt16)targetId length:(UInt16)length data:(NSArray<NSNumber<SDLUInt> *> *)data {
+- (instancetype)initWithTargetId:(UInt16)targetId length:(UInt16)length data:(NSArray<NSData *> *)data {
     self = [self init];
     if (!self) {
         return nil;
@@ -33,40 +31,33 @@
     return self;
 }
 
-- (void)setTargetID:(NSNumber *)targetID {
-    if (targetID != nil) {
-        [parameters setObject:targetID forKey:NAMES_targetID];
-    } else {
-        [parameters removeObjectForKey:NAMES_targetID];
-    }
+- (void)setTargetID:(NSNumber<SDLInt> *)targetID {
+    [parameters sdl_setObject:targetID forName:SDLRPCParameterNameTargetId];
 }
 
-- (NSNumber *)targetID {
-    return [parameters objectForKey:NAMES_targetID];
+- (NSNumber<SDLInt> *)targetID {
+    NSError *error = nil;
+    return [parameters sdl_objectForName:SDLRPCParameterNameTargetId ofClass:NSNumber.class error:&error];
 }
 
-- (void)setMessageLength:(NSNumber *)messageLength {
-    if (messageLength != nil) {
-        [parameters setObject:messageLength forKey:NAMES_messageLength];
-    } else {
-        [parameters removeObjectForKey:NAMES_messageLength];
-    }
+- (void)setMessageLength:(NSNumber<SDLInt> *)messageLength {
+    [parameters sdl_setObject:messageLength forName:SDLRPCParameterNameMessageLength];
 }
 
-- (NSNumber *)messageLength {
-    return [parameters objectForKey:NAMES_messageLength];
+- (NSNumber<SDLInt> *)messageLength {
+    NSError *error = nil;
+    return [parameters sdl_objectForName:SDLRPCParameterNameMessageLength ofClass:NSNumber.class error:&error];
 }
 
-- (void)setMessageData:(NSMutableArray *)messageData {
-    if (messageData != nil) {
-        [parameters setObject:messageData forKey:NAMES_messageData];
-    } else {
-        [parameters removeObjectForKey:NAMES_messageData];
-    }
+- (void)setMessageData:(NSArray<NSNumber<SDLInt> *> *)messageData {
+    [parameters sdl_setObject:messageData forName:SDLRPCParameterNameMessageData];
 }
 
-- (NSMutableArray *)messageData {
-    return [parameters objectForKey:NAMES_messageData];
+- (NSArray<NSNumber<SDLInt> *> *)messageData {
+    NSError *error = nil;
+    return [parameters sdl_objectsForName:SDLRPCParameterNameMessageData ofClass:NSNumber.class error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

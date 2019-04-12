@@ -3,39 +3,39 @@
 
 #import "SDLSingleTireStatus.h"
 
-#import "SDLComponentVolumeStatus.h"
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "NSNumber+NumberType.h"
+#import "SDLRPCParameterNames.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLSingleTireStatus
 
-- (instancetype)init {
-    if (self = [super init]) {
-    }
-    return self;
+- (void)setStatus:(SDLComponentVolumeStatus)status {
+    [store sdl_setObject:status forName:SDLRPCParameterNameStatus];
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (SDLComponentVolumeStatus)status {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNameStatus error:&error];
 }
 
-- (void)setStatus:(SDLComponentVolumeStatus *)status {
-    if (status != nil) {
-        [store setObject:status forKey:NAMES_status];
-    } else {
-        [store removeObjectForKey:NAMES_status];
-    }
+- (void)setMonitoringSystemStatus:(nullable SDLTPMS)monitoringSystemStatus {
+    [store sdl_setObject:monitoringSystemStatus forName:SDLRPCParameterNameTPMS];
 }
 
-- (SDLComponentVolumeStatus *)status {
-    NSObject *obj = [store objectForKey:NAMES_status];
-    if (obj == nil || [obj isKindOfClass:SDLComponentVolumeStatus.class]) {
-        return (SDLComponentVolumeStatus *)obj;
-    } else {
-        return [SDLComponentVolumeStatus valueOf:(NSString *)obj];
-    }
+- (nullable SDLTPMS)monitoringSystemStatus {
+    return [store sdl_enumForName:SDLRPCParameterNameTPMS error:nil];
+}
+
+- (void)setPressure:(nullable NSNumber<SDLFloat> *)pressure {
+    [store sdl_setObject:pressure forName:SDLRPCParameterNamePressure];
+}
+
+- (nullable NSNumber<SDLFloat> *)pressure {
+    return [store sdl_objectForName:SDLRPCParameterNamePressure ofClass:NSNumber.class error:nil];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -3,39 +3,23 @@
 
 #import "SDLMyKey.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
 #import "SDLVehicleDataStatus.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLMyKey
 
-- (instancetype)init {
-    if (self = [super init]) {
-    }
-    return self;
+- (void)setE911Override:(SDLVehicleDataStatus)e911Override {
+    [store sdl_setObject:e911Override forName:SDLRPCParameterNameE911Override];
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
-}
-
-- (void)setE911Override:(SDLVehicleDataStatus *)e911Override {
-    if (e911Override != nil) {
-        [store setObject:e911Override forKey:NAMES_e911Override];
-    } else {
-        [store removeObjectForKey:NAMES_e911Override];
-    }
-}
-
-- (SDLVehicleDataStatus *)e911Override {
-    NSObject *obj = [store objectForKey:NAMES_e911Override];
-    if (obj == nil || [obj isKindOfClass:SDLVehicleDataStatus.class]) {
-        return (SDLVehicleDataStatus *)obj;
-    } else {
-        return [SDLVehicleDataStatus valueOf:(NSString *)obj];
-    }
+- (SDLVehicleDataStatus)e911Override {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNameE911Override error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

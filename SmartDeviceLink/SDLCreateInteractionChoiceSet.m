@@ -4,24 +4,22 @@
 
 #import "SDLCreateInteractionChoiceSet.h"
 
+#import "NSMutableDictionary+Store.h"
 #import "SDLChoice.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLCreateInteractionChoiceSet
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_CreateInteractionChoiceSet]) {
+    if (self = [super initWithName:SDLRPCFunctionNameCreateInteractionChoiceSet]) {
     }
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
-}
-
-- (instancetype)initWithId:(UInt32)choiceId choiceSet:(NSArray *)choiceSet {
+- (instancetype)initWithId:(UInt32)choiceId choiceSet:(NSArray<SDLChoice *> *)choiceSet {
     self = [self init];
     if (!self) {
         return nil;
@@ -32,39 +30,24 @@
     return self;
 }
 
-- (void)setInteractionChoiceSetID:(NSNumber *)interactionChoiceSetID {
-    if (interactionChoiceSetID != nil) {
-        [parameters setObject:interactionChoiceSetID forKey:NAMES_interactionChoiceSetID];
-    } else {
-        [parameters removeObjectForKey:NAMES_interactionChoiceSetID];
-    }
+- (void)setInteractionChoiceSetID:(NSNumber<SDLInt> *)interactionChoiceSetID {
+    [parameters sdl_setObject:interactionChoiceSetID forName:SDLRPCParameterNameInteractionChoiceSetId];
 }
 
-- (NSNumber *)interactionChoiceSetID {
-    return [parameters objectForKey:NAMES_interactionChoiceSetID];
+- (NSNumber<SDLInt> *)interactionChoiceSetID {
+    NSError *error = nil;
+    return [parameters sdl_objectForName:SDLRPCParameterNameInteractionChoiceSetId ofClass:NSNumber.class error:&error];
 }
 
-- (void)setChoiceSet:(NSMutableArray *)choiceSet {
-    if (choiceSet != nil) {
-        [parameters setObject:choiceSet forKey:NAMES_choiceSet];
-    } else {
-        [parameters removeObjectForKey:NAMES_choiceSet];
-    }
+- (void)setChoiceSet:(NSArray<SDLChoice *> *)choiceSet {
+    [parameters sdl_setObject:choiceSet forName:SDLRPCParameterNameChoiceSet];
 }
 
-- (NSMutableArray *)choiceSet {
-    NSMutableArray *array = [parameters objectForKey:NAMES_choiceSet];
-    if ([array isEqual:[NSNull null]]) {
-        return [NSMutableArray array];
-    } else if (array.count < 1 || [array.firstObject isKindOfClass:SDLChoice.class]) {
-        return array;
-    } else {
-        NSMutableArray *newList = [NSMutableArray arrayWithCapacity:[array count]];
-        for (NSDictionary *dict in array) {
-            [newList addObject:[[SDLChoice alloc] initWithDictionary:(NSMutableDictionary *)dict]];
-        }
-        return newList;
-    }
+- (NSArray<SDLChoice *> *)choiceSet {
+    NSError *error = nil;
+    return [parameters sdl_objectsForName:SDLRPCParameterNameChoiceSet ofClass:SDLChoice.class error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

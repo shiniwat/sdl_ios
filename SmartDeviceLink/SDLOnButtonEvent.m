@@ -3,69 +3,46 @@
 
 #import "SDLOnButtonEvent.h"
 
-#import "SDLButtonEventMode.h"
-#import "SDLButtonName.h"
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLOnButtonEvent
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_OnButtonEvent]) {
+    if (self = [super initWithName:SDLRPCFunctionNameOnButtonEvent]) {
     }
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (void)setButtonName:(SDLButtonName)buttonName {
+    [parameters sdl_setObject:buttonName forName:SDLRPCParameterNameButtonName];
 }
 
-- (void)setButtonName:(SDLButtonName *)buttonName {
-    if (buttonName != nil) {
-        [parameters setObject:buttonName forKey:NAMES_buttonName];
-    } else {
-        [parameters removeObjectForKey:NAMES_buttonName];
-    }
+- (SDLButtonName)buttonName {
+    NSError *error = nil;
+    return [parameters sdl_enumForName:SDLRPCParameterNameButtonName error:&error];
 }
 
-- (SDLButtonName *)buttonName {
-    NSObject *obj = [parameters objectForKey:NAMES_buttonName];
-    if (obj == nil || [obj isKindOfClass:SDLButtonName.class]) {
-        return (SDLButtonName *)obj;
-    } else {
-        return [SDLButtonName valueOf:(NSString *)obj];
-    }
+- (void)setButtonEventMode:(SDLButtonEventMode)buttonEventMode {
+    [parameters sdl_setObject:buttonEventMode forName:SDLRPCParameterNameButtonEventMode];
 }
 
-- (void)setButtonEventMode:(SDLButtonEventMode *)buttonEventMode {
-    if (buttonEventMode != nil) {
-        [parameters setObject:buttonEventMode forKey:NAMES_buttonEventMode];
-    } else {
-        [parameters removeObjectForKey:NAMES_buttonEventMode];
-    }
+- (SDLButtonEventMode)buttonEventMode {
+    NSError *error = nil;
+    return [parameters sdl_enumForName:SDLRPCParameterNameButtonEventMode error:&error];
 }
 
-- (SDLButtonEventMode *)buttonEventMode {
-    NSObject *obj = [parameters objectForKey:NAMES_buttonEventMode];
-    if (obj == nil || [obj isKindOfClass:SDLButtonEventMode.class]) {
-        return (SDLButtonEventMode *)obj;
-    } else {
-        return [SDLButtonEventMode valueOf:(NSString *)obj];
-    }
+- (void)setCustomButtonID:(nullable NSNumber<SDLInt> *)customButtonID {
+    [parameters sdl_setObject:customButtonID forName:SDLRPCParameterNameCustomButtonId];
 }
 
-- (void)setCustomButtonID:(NSNumber *)customButtonID {
-    if (customButtonID != nil) {
-        [parameters setObject:customButtonID forKey:NAMES_customButtonID];
-    } else {
-        [parameters removeObjectForKey:NAMES_customButtonID];
-    }
-}
-
-- (NSNumber *)customButtonID {
-    return [parameters objectForKey:NAMES_customButtonID];
+- (nullable NSNumber<SDLInt> *)customButtonID {
+    return [parameters sdl_objectForName:SDLRPCParameterNameCustomButtonId ofClass:NSNumber.class error:nil];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

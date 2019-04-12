@@ -4,44 +4,38 @@
 
 #import "SDLGetDTCsResponse.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLGetDTCsResponse
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_GetDTCs]) {
+    if (self = [super initWithName:SDLRPCFunctionNameGetDTCs]) {
     }
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (void)setEcuHeader:(NSNumber<SDLInt> *)ecuHeader {
+    [parameters sdl_setObject:ecuHeader forName:SDLRPCParameterNameECUHeader];
 }
 
-- (void)setEcuHeader:(NSNumber *)ecuHeader {
-    if (ecuHeader != nil) {
-        [parameters setObject:ecuHeader forKey:NAMES_ecuHeader];
-    } else {
-        [parameters removeObjectForKey:NAMES_ecuHeader];
-    }
+- (NSNumber<SDLInt> *)ecuHeader {
+    NSError *error = nil;
+    return [parameters sdl_objectForName:SDLRPCParameterNameECUHeader ofClass:NSNumber.class error:&error];
 }
 
-- (NSNumber *)ecuHeader {
-    return [parameters objectForKey:NAMES_ecuHeader];
+- (void)setDtc:(NSArray<NSString *> *)dtc {
+    [parameters sdl_setObject:dtc forName:SDLRPCParameterNameDTC];
 }
 
-- (void)setDtc:(NSMutableArray *)dtc {
-    if (dtc != nil) {
-        [parameters setObject:dtc forKey:NAMES_dtc];
-    } else {
-        [parameters removeObjectForKey:NAMES_dtc];
-    }
-}
-
-- (NSMutableArray *)dtc {
-    return [parameters objectForKey:NAMES_dtc];
+- (NSArray<NSString *> *)dtc {
+    NSError *error = nil;
+    return [parameters sdl_objectsForName:SDLRPCParameterNameDTC ofClass:NSString.class error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

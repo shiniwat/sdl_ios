@@ -8,24 +8,22 @@
 
 #import "SDLGetSystemCapability.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 #import "SDLSystemCapabilityType.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLGetSystemCapability
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_GetSystemCapability]) {
+    if (self = [super initWithName:SDLRPCFunctionNameGetSystemCapability]) {
     }
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
-}
-
-- (instancetype)initWithType:(SDLSystemCapabilityType *)type {
+- (instancetype)initWithType:(SDLSystemCapabilityType)type {
     self = [self init];
     if (!self) {
         return nil;
@@ -36,21 +34,34 @@
     return self;
 }
 
-- (void)setSystemCapabilityType:(SDLSystemCapabilityType *)type {
-    if (type != nil) {
-        [parameters setObject:type forKey:NAMES_systemCapabilityType];
-    } else {
-        [parameters removeObjectForKey:NAMES_systemCapabilityType];
+- (instancetype)initWithType:(SDLSystemCapabilityType)type subscribe:(BOOL)subscribe {
+    self = [self initWithType:type];
+    if (!self) {
+        return nil;
     }
+
+    self.subscribe = @(subscribe);
+
+    return self;
 }
 
-- (SDLSystemCapabilityType *)systemCapabilityType {
-    id obj = parameters[NAMES_systemCapabilityType];
-    if (obj == nil || [obj isKindOfClass:SDLSystemCapabilityType.class]) {
-        return (SDLSystemCapabilityType *)obj;
-    } else {
-        return [SDLSystemCapabilityType valueOf:(NSString *)obj];
-    }
+- (void)setSystemCapabilityType:(SDLSystemCapabilityType)type {
+    [parameters sdl_setObject:type forName:SDLRPCParameterNameSystemCapabilityType];
+}
+
+- (SDLSystemCapabilityType)systemCapabilityType {
+    NSError *error = nil;
+    return [parameters sdl_enumForName:SDLRPCParameterNameSystemCapabilityType error:&error];
+}
+
+- (void)setSubscribe:(nullable NSNumber<SDLBool> *)subscribe {
+    [parameters sdl_setObject:subscribe forName:SDLRPCParameterNameSubscribe];
+}
+
+- (nullable NSNumber<SDLBool> *)subscribe {
+    return [parameters sdl_objectForName:SDLRPCParameterNameSubscribe ofClass:NSNumber.class error:nil];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

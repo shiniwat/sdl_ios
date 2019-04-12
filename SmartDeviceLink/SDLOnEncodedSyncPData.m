@@ -3,57 +3,45 @@
 
 #import "SDLOnEncodedSyncPData.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLOnEncodedSyncPData
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_OnEncodedSyncPData]) {
+    if (self = [super initWithName:SDLRPCFunctionNameOnEncodedSyncPData]) {
     }
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (void)setData:(NSArray<NSString *> *)data {
+    [parameters sdl_setObject:data forName:SDLRPCParameterNameData];
 }
 
-- (void)setData:(NSMutableArray *)data {
-    if (data != nil) {
-        [parameters setObject:data forKey:NAMES_data];
-    } else {
-        [parameters removeObjectForKey:NAMES_data];
-    }
+- (NSArray<NSString *> *)data {
+    NSError *error = nil;
+    return [parameters sdl_objectsForName:SDLRPCParameterNameData ofClass:NSString.class error:&error];
 }
 
-- (NSMutableArray *)data {
-    return [parameters objectForKey:NAMES_data];
+- (void)setURL:(nullable NSString *)URL {
+    [parameters sdl_setObject:URL forName:SDLRPCParameterNameURLUppercase];
 }
 
-- (void)setURL:(NSString *)URL {
-    if (URL != nil) {
-        [parameters setObject:URL forKey:NAMES_URL];
-    } else {
-        [parameters removeObjectForKey:NAMES_URL];
-    }
+- (nullable NSString *)URL {
+    return [parameters sdl_objectForName:SDLRPCParameterNameURLUppercase ofClass:NSString.class error:nil];
 }
 
-- (NSString *)URL {
-    return [parameters objectForKey:NAMES_URL];
+- (void)setTimeout:(nullable NSNumber<SDLInt> *)Timeout {
+    [parameters sdl_setObject:Timeout forName:SDLRPCParameterNameTimeoutCapitalized];
 }
 
-- (void)setTimeout:(NSNumber *)Timeout {
-    if (Timeout != nil) {
-        [parameters setObject:Timeout forKey:NAMES_Timeout];
-    } else {
-        [parameters removeObjectForKey:NAMES_Timeout];
-    }
-}
-
-- (NSNumber *)Timeout {
-    return [parameters objectForKey:NAMES_Timeout];
+- (nullable NSNumber<SDLInt> *)Timeout {
+    return [parameters sdl_objectForName:SDLRPCParameterNameTimeoutCapitalized ofClass:NSNumber.class error:nil];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

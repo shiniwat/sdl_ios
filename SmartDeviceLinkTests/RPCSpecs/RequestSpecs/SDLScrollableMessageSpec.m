@@ -10,7 +10,8 @@
 
 #import "SDLScrollableMessage.h"
 #import "SDLSoftButton.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 
 QuickSpecBegin(SDLScrollableMessageSpec)
 
@@ -30,12 +31,12 @@ describe(@"Getter/Setter Tests", ^ {
     });
     
     it(@"Should get correctly when initialized", ^ {
-        NSMutableDictionary* dict = [@{NAMES_request:
-                                           @{NAMES_parameters:
-                                                 @{NAMES_scrollableMessageBody:@"thatmessagebody",
-                                                   NAMES_timeout:@9182,
-                                                   NAMES_softButtons:[@[button] mutableCopy]},
-                                             NAMES_operation_name:NAMES_ScrollableMessage}} mutableCopy];
+        NSMutableDictionary<NSString *, id> *dict = [@{SDLRPCParameterNameRequest:
+                                                           @{SDLRPCParameterNameParameters:
+                                                                 @{SDLRPCParameterNameScrollableMessageBody:@"thatmessagebody",
+                                                                   SDLRPCParameterNameTimeout:@9182,
+                                                                   SDLRPCParameterNameSoftButtons:[@[button] mutableCopy]},
+                                                             SDLRPCParameterNameOperationName:SDLRPCFunctionNameScrollableMessage}} mutableCopy];
         SDLScrollableMessage* testRequest = [[SDLScrollableMessage alloc] initWithDictionary:dict];
         
         expect(testRequest.scrollableMessageBody).to(equal(@"thatmessagebody"));

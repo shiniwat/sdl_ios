@@ -10,7 +10,8 @@
 
 #import "SDLImage.h"
 #import "SDLKeyboardProperties.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 #import "SDLSetGlobalProperties.h"
 #import "SDLTTSChunk.h"
 #import "SDLVrHelpItem.h"
@@ -46,16 +47,16 @@ describe(@"Getter/Setter Tests", ^ {
     });
     
     it(@"Should get correctly when initialized", ^ {
-        NSMutableDictionary* dict = [@{NAMES_request:
-                                           @{NAMES_parameters:
-                                                 @{NAMES_helpPrompt:[@[chunk1] mutableCopy],
-                                                   NAMES_timeoutPrompt:[@[chunk2] mutableCopy],
-                                                   NAMES_vrHelpTitle:@"vr",
-                                                   NAMES_vrHelp:[@[help] mutableCopy],
-                                                   NAMES_menuTitle:@"TheNewMenu",
-                                                   NAMES_menuIcon:image,
-                                                   NAMES_keyboardProperties:keyboard},
-                                             NAMES_operation_name:NAMES_SetGlobalProperties}} mutableCopy];
+        NSMutableDictionary<NSString *, id> *dict = [@{SDLRPCParameterNameRequest:
+                                                           @{SDLRPCParameterNameParameters:
+                                                                 @{SDLRPCParameterNameHelpPrompt:[@[chunk1] mutableCopy],
+                                                                   SDLRPCParameterNameTimeoutPrompt:[@[chunk2] mutableCopy],
+                                                                   SDLRPCParameterNameVRHelpTitle:@"vr",
+                                                                   SDLRPCParameterNameVRHelp:[@[help] mutableCopy],
+                                                                   SDLRPCParameterNameMenuTitle:@"TheNewMenu",
+                                                                   SDLRPCParameterNameMenuIcon:image,
+                                                                   SDLRPCParameterNameKeyboardProperties:keyboard},
+                                                             SDLRPCParameterNameOperationName:SDLRPCFunctionNameSetGlobalProperties}} mutableCopy];
         SDLSetGlobalProperties* testRequest = [[SDLSetGlobalProperties alloc] initWithDictionary:dict];
         
         expect(testRequest.helpPrompt).to(equal([@[chunk1] mutableCopy]));

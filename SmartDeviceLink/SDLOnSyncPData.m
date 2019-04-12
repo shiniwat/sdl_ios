@@ -4,44 +4,37 @@
 
 #import "SDLOnSyncPData.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
+
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLOnSyncPData
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_OnSyncPData]) {
+    if (self = [super initWithName:SDLRPCFunctionNameOnSyncPData]) {
     }
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (void)setURL:(nullable NSString *)URL {
+    [parameters sdl_setObject:URL forName:SDLRPCParameterNameURLUppercase];
 }
 
-- (void)setURL:(NSString *)URL {
-    if (URL != nil) {
-        [parameters setObject:URL forKey:NAMES_URL];
-    } else {
-        [parameters removeObjectForKey:NAMES_URL];
-    }
+- (nullable NSString *)URL {
+    return [parameters sdl_objectForName:SDLRPCParameterNameURLUppercase ofClass:NSString.class error:nil];
 }
 
-- (NSString *)URL {
-    return [parameters objectForKey:NAMES_URL];
+- (void)setTimeout:(nullable NSNumber<SDLInt> *)Timeout {
+    [parameters sdl_setObject:Timeout forName:SDLRPCParameterNameTimeoutCapitalized];
 }
 
-- (void)setTimeout:(NSNumber *)Timeout {
-    if (Timeout != nil) {
-        [parameters setObject:Timeout forKey:NAMES_Timeout];
-    } else {
-        [parameters removeObjectForKey:NAMES_Timeout];
-    }
-}
-
-- (NSNumber *)Timeout {
-    return [parameters objectForKey:NAMES_Timeout];
+- (nullable NSNumber<SDLInt> *)Timeout {
+    return [parameters sdl_objectForName:SDLRPCParameterNameTimeoutCapitalized ofClass:NSNumber.class error:nil];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

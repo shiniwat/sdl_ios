@@ -4,68 +4,45 @@
 
 #import "SDLVehicleType.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLVehicleType
 
-- (instancetype)init {
-    if (self = [super init]) {
-    }
-    return self;
+- (void)setMake:(nullable NSString *)make {
+    [store sdl_setObject:make forName:SDLRPCParameterNameMake];
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (nullable NSString *)make {
+    return [store sdl_objectForName:SDLRPCParameterNameMake ofClass:NSString.class error:nil];
 }
 
-- (void)setMake:(NSString *)make {
-    if (make != nil) {
-        [store setObject:make forKey:NAMES_make];
-    } else {
-        [store removeObjectForKey:NAMES_make];
-    }
+- (void)setModel:(nullable NSString *)model {
+    [store sdl_setObject:model forName:SDLRPCParameterNameModel];
 }
 
-- (NSString *)make {
-    return [store objectForKey:NAMES_make];
+- (nullable NSString *)model {
+    return [store sdl_objectForName:SDLRPCParameterNameModel ofClass:NSString.class error:nil];
 }
 
-- (void)setModel:(NSString *)model {
-    if (model != nil) {
-        [store setObject:model forKey:NAMES_model];
-    } else {
-        [store removeObjectForKey:NAMES_model];
-    }
+- (void)setModelYear:(nullable NSString *)modelYear {
+    [store sdl_setObject:modelYear forName:SDLRPCParameterNameModelYear];
 }
 
-- (NSString *)model {
-    return [store objectForKey:NAMES_model];
+- (nullable NSString *)modelYear {
+    return [store sdl_objectForName:SDLRPCParameterNameModelYear ofClass:NSString.class error:nil];
 }
 
-- (void)setModelYear:(NSString *)modelYear {
-    if (modelYear != nil) {
-        [store setObject:modelYear forKey:NAMES_modelYear];
-    } else {
-        [store removeObjectForKey:NAMES_modelYear];
-    }
+- (void)setTrim:(nullable NSString *)trim {
+    [store sdl_setObject:trim forName:SDLRPCParameterNameTrim];
 }
 
-- (NSString *)modelYear {
-    return [store objectForKey:NAMES_modelYear];
-}
-
-- (void)setTrim:(NSString *)trim {
-    if (trim != nil) {
-        [store setObject:trim forKey:NAMES_trim];
-    } else {
-        [store removeObjectForKey:NAMES_trim];
-    }
-}
-
-- (NSString *)trim {
-    return [store objectForKey:NAMES_trim];
+- (nullable NSString *)trim {
+    return [store sdl_objectForName:SDLRPCParameterNameTrim ofClass:NSString.class error:nil];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

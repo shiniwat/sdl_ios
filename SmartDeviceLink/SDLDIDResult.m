@@ -3,63 +3,39 @@
 
 #import "SDLDIDResult.h"
 
-#import "SDLNames.h"
-#import "SDLVehicleDataResultCode.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLDIDResult
 
-- (instancetype)init {
-    if (self = [super init]) {
-    }
-    return self;
+- (void)setResultCode:(SDLVehicleDataResultCode)resultCode {
+    [store sdl_setObject:resultCode forName:SDLRPCParameterNameResultCode];
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (SDLVehicleDataResultCode)resultCode {
+    NSError *error = nil;
+    return [store sdl_enumForName:SDLRPCParameterNameResultCode error:&error];
 }
 
-- (void)setResultCode:(SDLVehicleDataResultCode *)resultCode {
-    if (resultCode != nil) {
-        [store setObject:resultCode forKey:NAMES_resultCode];
-    } else {
-        [store removeObjectForKey:NAMES_resultCode];
-    }
+- (void)setDidLocation:(NSNumber<SDLInt> *)didLocation {
+    [store sdl_setObject:didLocation forName:SDLRPCParameterNameDIDLocation];
 }
 
-- (SDLVehicleDataResultCode *)resultCode {
-    NSObject *obj = [store objectForKey:NAMES_resultCode];
-    if (obj == nil || [obj isKindOfClass:SDLVehicleDataResultCode.class]) {
-        return (SDLVehicleDataResultCode *)obj;
-    } else {
-        return [SDLVehicleDataResultCode valueOf:(NSString *)obj];
-    }
+- (NSNumber<SDLInt> *)didLocation {
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNameDIDLocation ofClass:NSNumber.class error:&error];
 }
 
-- (void)setDidLocation:(NSNumber *)didLocation {
-    if (didLocation != nil) {
-        [store setObject:didLocation forKey:NAMES_didLocation];
-    } else {
-        [store removeObjectForKey:NAMES_didLocation];
-    }
+- (void)setData:(nullable NSString *)data {
+    [store sdl_setObject:data forName:SDLRPCParameterNameData];
 }
 
-- (NSNumber *)didLocation {
-    return [store objectForKey:NAMES_didLocation];
-}
-
-- (void)setData:(NSString *)data {
-    if (data != nil) {
-        [store setObject:data forKey:NAMES_data];
-    } else {
-        [store removeObjectForKey:NAMES_data];
-    }
-}
-
-- (NSString *)data {
-    return [store objectForKey:NAMES_data];
+- (nullable NSString *)data {
+    return [store sdl_objectForName:SDLRPCParameterNameData ofClass:NSString.class error:nil];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

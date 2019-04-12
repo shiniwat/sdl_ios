@@ -1,4 +1,4 @@
-//  SDLOnWaypointChangeSpec.m
+//  SDLOnWayPointChangeSpec.m
 //
 
 #import <Foundation/Foundation.h>
@@ -6,15 +6,16 @@
 #import <Quick/Quick.h>
 #import <Nimble/Nimble.h>
 
-#import "SDLOnWaypointChange.h"
+#import "SDLOnWayPointChange.h"
 
 #import "SDLImage.h"
 #import "SDLLocationCoordinate.h"
 #import "SDLLocationDetails.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 #import "SDLOasisAddress.h"
 
-QuickSpecBegin(SDLOnWaypointChangeSpec)
+QuickSpecBegin(SDLOnWayPointChangeSpec)
 
 describe(@"Getter/Setter Tests", ^ {
     __block SDLOnWayPointChange* testNotification = nil;
@@ -63,12 +64,12 @@ describe(@"Getter/Setter Tests", ^ {
                 
                 someWaypoints = @[someLocation];
                 
-                NSDictionary *initDict = @{NAMES_notification : @{
-                                                   NAMES_parameters: @{
-                                                           NAMES_waypoints: someWaypoints
+                NSDictionary *initDict = @{SDLRPCParameterNameNotification : @{
+                                                   SDLRPCParameterNameParameters: @{
+                                                           SDLRPCParameterNameWayPoints: someWaypoints
                                                            }
                                                    },
-                                           NAMES_operation_name:NAMES_OnWaypointChange
+                                           SDLRPCParameterNameOperationName:SDLRPCFunctionNameOnWayPointChange
                                            };
                 
                 testNotification = [[SDLOnWayPointChange alloc] initWithDictionary:[NSMutableDictionary dictionaryWithDictionary:initDict]];
@@ -84,8 +85,8 @@ describe(@"Getter/Setter Tests", ^ {
         context(@"when parameters are not set", ^{
             beforeEach(^{
                 NSDictionary *initDict = @{
-                                           NAMES_request: @{
-                                                   NAMES_parameters: @{}
+                                           SDLRPCParameterNameNotification: @{
+                                                   SDLRPCParameterNameParameters: @{}
                                                    }
                                            };
                 

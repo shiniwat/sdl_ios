@@ -3,51 +3,38 @@
 
 #import "SDLOnCommand.h"
 
-#import "SDLNames.h"
-#import "SDLTriggerSource.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLOnCommand
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_OnCommand]) {
+    if (self = [super initWithName:SDLRPCFunctionNameOnCommand]) {
     }
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (void)setCmdID:(NSNumber<SDLInt> *)cmdID {
+    [parameters sdl_setObject:cmdID forName:SDLRPCParameterNameCommandId];
 }
 
-- (void)setCmdID:(NSNumber *)cmdID {
-    if (cmdID != nil) {
-        [parameters setObject:cmdID forKey:NAMES_cmdID];
-    } else {
-        [parameters removeObjectForKey:NAMES_cmdID];
-    }
+- (NSNumber<SDLInt> *)cmdID {
+    NSError *error = nil;
+    return [parameters sdl_objectForName:SDLRPCParameterNameCommandId ofClass:NSNumber.class error:&error];
 }
 
-- (NSNumber *)cmdID {
-    return [parameters objectForKey:NAMES_cmdID];
+- (void)setTriggerSource:(SDLTriggerSource)triggerSource {
+    [parameters sdl_setObject:triggerSource forName:SDLRPCParameterNameTriggerSource];
 }
 
-- (void)setTriggerSource:(SDLTriggerSource *)triggerSource {
-    if (triggerSource != nil) {
-        [parameters setObject:triggerSource forKey:NAMES_triggerSource];
-    } else {
-        [parameters removeObjectForKey:NAMES_triggerSource];
-    }
-}
-
-- (SDLTriggerSource *)triggerSource {
-    NSObject *obj = [parameters objectForKey:NAMES_triggerSource];
-    if (obj == nil || [obj isKindOfClass:SDLTriggerSource.class]) {
-        return (SDLTriggerSource *)obj;
-    } else {
-        return [SDLTriggerSource valueOf:(NSString *)obj];
-    }
+- (SDLTriggerSource)triggerSource {
+    NSError *error = nil;
+    return [parameters sdl_enumForName:SDLRPCParameterNameTriggerSource error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -4,32 +4,28 @@
 
 #import "SDLDeleteFileResponse.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLDeleteFileResponse
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_DeleteFile]) {
+    if (self = [super initWithName:SDLRPCFunctionNameDeleteFile]) {
     }
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (void)setSpaceAvailable:(nullable NSNumber<SDLInt> *)spaceAvailable {
+    [parameters sdl_setObject:spaceAvailable forName:SDLRPCParameterNameSpaceAvailable];
 }
 
-- (void)setSpaceAvailable:(NSNumber *)spaceAvailable {
-    if (spaceAvailable != nil) {
-        [parameters setObject:spaceAvailable forKey:NAMES_spaceAvailable];
-    } else {
-        [parameters removeObjectForKey:NAMES_spaceAvailable];
-    }
-}
-
-- (NSNumber *)spaceAvailable {
-    return [parameters objectForKey:NAMES_spaceAvailable];
+- (nullable NSNumber<SDLInt> *)spaceAvailable {
+    return [parameters sdl_objectForName:SDLRPCParameterNameSpaceAvailable ofClass:NSNumber.class error:nil];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

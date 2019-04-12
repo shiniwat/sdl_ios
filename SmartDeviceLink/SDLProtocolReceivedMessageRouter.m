@@ -4,15 +4,15 @@
 //  This class gets handed the SDLProtocol messages as they are received and decides what happens to them and where they are sent on to.
 
 #import "SDLProtocolReceivedMessageRouter.h"
-#import "SDLDebugTool.h"
+#import "SDLLogMacros.h"
 #import "SDLProtocolMessage.h"
 #import "SDLProtocolMessageAssembler.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @interface SDLProtocolReceivedMessageRouter ()
 
-@property (assign) BOOL alreadyDestructed;
-@property (strong) NSMutableDictionary *messageAssemblers;
+@property (strong, nonatomic) NSMutableDictionary<NSNumber *, SDLProtocolMessageAssembler *> *messageAssemblers;
 
 @end
 
@@ -21,7 +21,6 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        _alreadyDestructed = NO;
         self.messageAssemblers = [NSMutableDictionary dictionaryWithCapacity:2];
     }
     return self;
@@ -31,14 +30,14 @@
     SDLFrameType frameType = message.header.frameType;
 
     switch (frameType) {
-        case SDLFrameType_Single: {
+        case SDLFrameTypeSingle: {
             [self sdl_dispatchProtocolMessage:message];
         } break;
-        case SDLFrameType_Control: {
+        case SDLFrameTypeControl: {
             [self sdl_dispatchControlMessage:message];
         } break;
-        case SDLFrameType_First: // fallthrough
-        case SDLFrameType_Consecutive: {
+        case SDLFrameTypeFirst: // fallthrough
+        case SDLFrameTypeConsecutive: {
             [self sdl_dispatchMultiPartMessage:message];
         } break;
         default: break;
@@ -53,34 +52,49 @@
 
 - (void)sdl_dispatchControlMessage:(SDLProtocolMessage *)message {
     switch (message.header.frameData) {
-        case SDLFrameData_StartSessionACK: {
+        case SDLFrameInfoStartServiceACK: {
             if ([self.delegate respondsToSelector:@selector(handleProtocolStartServiceACKMessage:)]) {
                 [self.delegate handleProtocolStartServiceACKMessage:message];
             }
         } break;
-        case SDLFrameData_StartSessionNACK: {
+        case SDLFrameInfoStartServiceNACK: {
             if ([self.delegate respondsToSelector:@selector(handleProtocolStartServiceNAKMessage:)]) {
                 [self.delegate handleProtocolStartServiceNAKMessage:message];
             }
         } break;
-        case SDLFrameData_EndSessionACK: {
+        case SDLFrameInfoEndServiceACK: {
             if ([self.delegate respondsToSelector:@selector(handleProtocolEndServiceACKMessage:)]) {
                 [self.delegate handleProtocolEndServiceACKMessage:message];
             }
         } break;
-        case SDLFrameData_EndSessionNACK: {
+        case SDLFrameInfoEndServiceNACK: {
             if ([self.delegate respondsToSelector:@selector(handleProtocolStartServiceNAKMessage:)]) {
                 [self.delegate handleProtocolEndServiceNAKMessage:message];
             }
         } break;
-        case SDLFrameData_Heartbeat: {
+        case SDLFrameInfoRegisterSecondaryTransportACK: {
+            if ([self.delegate respondsToSelector:@selector(handleProtocolRegisterSecondaryTransportACKMessage:)]) {
+                [self.delegate handleProtocolRegisterSecondaryTransportACKMessage:message];
+            }
+        } break;
+        case SDLFrameInfoRegisterSecondaryTransportNACK: {
+            if ([self.delegate respondsToSelector:@selector(handleProtocolRegisterSecondaryTransportNAKMessage:)]) {
+                [self.delegate handleProtocolRegisterSecondaryTransportNAKMessage:message];
+            }
+        } break;
+        case SDLFrameInfoHeartbeat: {
             if ([self.delegate respondsToSelector:@selector(handleHeartbeatForSession:)]) {
                 [self.delegate handleHeartbeatForSession:message.header.sessionID];
             }
         } break;
-        case SDLFrameData_HeartbeatACK: {
+        case SDLFrameInfoHeartbeatACK: {
             if ([self.delegate respondsToSelector:@selector(handleHeartbeatACK)]) {
                 [self.delegate handleHeartbeatACK];
+            }
+        } break;
+        case SDLFrameInfoTransportEventUpdate: {
+            if ([self.delegate respondsToSelector:@selector(handleTransportEventUpdateMessage:)]) {
+                [self.delegate handleTransportEventUpdateMessage:message];
             }
         } break;
         default: break; // Other frame data is possible, but we don't care about them
@@ -105,22 +119,6 @@
     [assembler handleMessage:message withCompletionHandler:completionHandler];
 }
 
-
-#pragma mark - Lifecycle
-
-- (void)sdl_destructObjects {
-    if (!self.alreadyDestructed) {
-        self.alreadyDestructed = YES;
-        self.delegate = nil;
-    }
-}
-
-- (void)sdl_dispose {
-    [self sdl_destructObjects];
-}
-
-- (void)dealloc {
-    [self sdl_destructObjects];
-}
-
 @end
+
+NS_ASSUME_NONNULL_END

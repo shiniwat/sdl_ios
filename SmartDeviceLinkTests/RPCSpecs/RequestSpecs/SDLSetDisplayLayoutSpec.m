@@ -2,40 +2,76 @@
 //  SDLSetDisplayLayoutSpec.m
 //  SmartDeviceLink
 
-
-#import <Foundation/Foundation.h>
-
 #import <Quick/Quick.h>
 #import <Nimble/Nimble.h>
 
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 #import "SDLSetDisplayLayout.h"
-#import "SDLNames.h"
+#import "SDLTemplateColorScheme.h"
 
 QuickSpecBegin(SDLSetDisplayLayoutSpec)
 
-describe(@"Getter/Setter Tests", ^ {
-    it(@"Should set and get correctly", ^ {
-        SDLSetDisplayLayout* testRequest = [[SDLSetDisplayLayout alloc] init];
-        
-        testRequest.displayLayout = @"wat";
-        
-        expect(testRequest.displayLayout).to(equal(@"wat"));
+describe(@"SetDisplayLayout Tests", ^ {
+    __block SDLPredefinedLayout predefinedLayout = SDLPredefinedLayoutMedia;
+    __block NSString *otherLayout = @"test123";
+    __block SDLTemplateColorScheme *dayScheme = [[SDLTemplateColorScheme alloc] initWithPrimaryColor:[UIColor blueColor] secondaryColor:[UIColor blackColor] backgroundColor:[UIColor whiteColor]];
+    __block SDLTemplateColorScheme *nightScheme = [[SDLTemplateColorScheme alloc] initWithPrimaryColor:[UIColor blueColor] secondaryColor:[UIColor purpleColor] backgroundColor:[UIColor blackColor]];
+
+    describe(@"initializer tests", ^{
+        it(@"should initialize with initWithPredefinedLayout:", ^{
+            SDLSetDisplayLayout *testRequest = [[SDLSetDisplayLayout alloc] initWithPredefinedLayout:predefinedLayout];
+
+            expect(testRequest.displayLayout).to(equal(predefinedLayout));
+            expect(testRequest.dayColorScheme).to(beNil());
+            expect(testRequest.nightColorScheme).to(beNil());
+        });
+
+        it(@"should initialize with initWithLayout:", ^{
+            SDLSetDisplayLayout *testRequest = [[SDLSetDisplayLayout alloc] initWithLayout:otherLayout];
+
+            expect(testRequest.displayLayout).to(equal(otherLayout));
+            expect(testRequest.dayColorScheme).to(beNil());
+            expect(testRequest.nightColorScheme).to(beNil());
+        });
+
+        it(@"should initialize with initWithPredefinedLayout:dayColorScheme:nightColorScheme:", ^{
+            SDLSetDisplayLayout *testRequest = [[SDLSetDisplayLayout alloc] initWithPredefinedLayout:predefinedLayout dayColorScheme:dayScheme nightColorScheme:nightScheme];
+
+            expect(testRequest.displayLayout).to(equal(predefinedLayout));
+            expect(testRequest.dayColorScheme).to(equal(dayScheme));
+            expect(testRequest.nightColorScheme).to(equal(nightScheme));
+        });
+
+        it(@"Should get correctly when initialized", ^ {
+            NSMutableDictionary<NSString *, id> *dict = [@{SDLRPCParameterNameRequest:
+                                                               @{SDLRPCParameterNameParameters:
+                                                                     @{SDLRPCParameterNameDisplayLayout:@"wat"},
+                                                                 SDLRPCParameterNameOperationName:SDLRPCFunctionNameSetDisplayLayout}} mutableCopy];
+            SDLSetDisplayLayout* testRequest = [[SDLSetDisplayLayout alloc] initWithDictionary:dict];
+
+            expect(testRequest.displayLayout).to(equal(@"wat"));
+        });
+
+        it(@"Should return nil if not set", ^ {
+            SDLSetDisplayLayout* testRequest = [[SDLSetDisplayLayout alloc] init];
+
+            expect(testRequest.displayLayout).to(beNil());
+        });
     });
-    
-    it(@"Should get correctly when initialized", ^ {
-        NSMutableDictionary* dict = [@{NAMES_request:
-                                           @{NAMES_parameters:
-                                                 @{NAMES_displayLayout:@"wat"},
-                                             NAMES_operation_name:NAMES_SetDisplayLayout}} mutableCopy];
-        SDLSetDisplayLayout* testRequest = [[SDLSetDisplayLayout alloc] initWithDictionary:dict];
-        
-        expect(testRequest.displayLayout).to(equal(@"wat"));
-    });
-    
-    it(@"Should return nil if not set", ^ {
-        SDLSetDisplayLayout* testRequest = [[SDLSetDisplayLayout alloc] init];
-        
-        expect(testRequest.displayLayout).to(beNil());
+
+    describe(@"getters/setter", ^{
+        it(@"Should set and get correctly", ^ {
+            SDLSetDisplayLayout* testRequest = [[SDLSetDisplayLayout alloc] init];
+
+            testRequest.displayLayout = otherLayout;
+            testRequest.dayColorScheme = dayScheme;
+            testRequest.nightColorScheme = nightScheme;
+
+            expect(testRequest.displayLayout).to(equal(otherLayout));
+            expect(testRequest.dayColorScheme).to(equal(dayScheme));
+            expect(testRequest.nightColorScheme).to(equal(nightScheme));
+        });
     });
 });
 

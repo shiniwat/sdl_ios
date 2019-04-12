@@ -4,56 +4,40 @@
 
 #import "SDLTouchEventCapabilities.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLTouchEventCapabilities
 
-- (instancetype)init {
-    if (self = [super init]) {
-    }
-    return self;
+- (void)setPressAvailable:(NSNumber<SDLBool> *)pressAvailable {
+    [store sdl_setObject:pressAvailable forName:SDLRPCParameterNamePressAvailable];
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (NSNumber<SDLBool> *)pressAvailable {
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNamePressAvailable ofClass:NSNumber.class error:&error];
 }
 
-- (void)setPressAvailable:(NSNumber *)pressAvailable {
-    if (pressAvailable != nil) {
-        [store setObject:pressAvailable forKey:NAMES_pressAvailable];
-    } else {
-        [store removeObjectForKey:NAMES_pressAvailable];
-    }
+- (void)setMultiTouchAvailable:(NSNumber<SDLBool> *)multiTouchAvailable {
+    [store sdl_setObject:multiTouchAvailable forName:SDLRPCParameterNameMultiTouchAvailable];
 }
 
-- (NSNumber *)pressAvailable {
-    return [store objectForKey:NAMES_pressAvailable];
+- (NSNumber<SDLBool> *)multiTouchAvailable {
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNameMultiTouchAvailable ofClass:NSNumber.class error:&error];
 }
 
-- (void)setMultiTouchAvailable:(NSNumber *)multiTouchAvailable {
-    if (multiTouchAvailable != nil) {
-        [store setObject:multiTouchAvailable forKey:NAMES_multiTouchAvailable];
-    } else {
-        [store removeObjectForKey:NAMES_multiTouchAvailable];
-    }
+- (void)setDoublePressAvailable:(NSNumber<SDLBool> *)doublePressAvailable {
+    [store sdl_setObject:doublePressAvailable forName:SDLRPCParameterNameDoublePressAvailable];
 }
 
-- (NSNumber *)multiTouchAvailable {
-    return [store objectForKey:NAMES_multiTouchAvailable];
-}
-
-- (void)setDoublePressAvailable:(NSNumber *)doublePressAvailable {
-    if (doublePressAvailable != nil) {
-        [store setObject:doublePressAvailable forKey:NAMES_doublePressAvailable];
-    } else {
-        [store removeObjectForKey:NAMES_doublePressAvailable];
-    }
-}
-
-- (NSNumber *)doublePressAvailable {
-    return [store objectForKey:NAMES_doublePressAvailable];
+- (NSNumber<SDLBool> *)doublePressAvailable {
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNameDoublePressAvailable ofClass:NSNumber.class error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

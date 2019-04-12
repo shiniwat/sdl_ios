@@ -4,44 +4,31 @@
 
 #import "SDLTouchCoord.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLTouchCoord
 
-- (instancetype)init {
-    if (self = [super init]) {
-    }
-    return self;
+- (void)setX:(NSNumber<SDLFloat> *)x {
+    [store sdl_setObject:x forName:SDLRPCParameterNameX];
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (NSNumber<SDLFloat> *)x {
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNameX ofClass:NSNumber.class error:&error];
 }
 
-- (void)setX:(NSNumber *)x {
-    if (x != nil) {
-        [store setObject:x forKey:NAMES_x];
-    } else {
-        [store removeObjectForKey:NAMES_x];
-    }
+- (void)setY:(NSNumber<SDLFloat> *)y {
+    [store sdl_setObject:y forName:SDLRPCParameterNameY];
 }
 
-- (NSNumber *)x {
-    return [store objectForKey:NAMES_x];
-}
-
-- (void)setY:(NSNumber *)y {
-    if (y != nil) {
-        [store setObject:y forKey:NAMES_y];
-    } else {
-        [store removeObjectForKey:NAMES_y];
-    }
-}
-
-- (NSNumber *)y {
-    return [store objectForKey:NAMES_y];
+- (NSNumber<SDLFloat> *)y {
+    NSError *error = nil;
+    return [store sdl_objectForName:SDLRPCParameterNameY ofClass:NSNumber.class error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -4,18 +4,16 @@
 
 #import "SDLDeleteCommand.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLDeleteCommand
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_DeleteCommand]) {
-    }
-    return self;
-}
-
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
+    if (self = [super initWithName:SDLRPCFunctionNameDeleteCommand]) {
     }
     return self;
 }
@@ -31,16 +29,15 @@
     return self;
 }
 
-- (void)setCmdID:(NSNumber *)cmdID {
-    if (cmdID != nil) {
-        [parameters setObject:cmdID forKey:NAMES_cmdID];
-    } else {
-        [parameters removeObjectForKey:NAMES_cmdID];
-    }
+- (void)setCmdID:(NSNumber<SDLInt> *)cmdID {
+    [parameters sdl_setObject:cmdID forName:SDLRPCParameterNameCommandId];
 }
 
-- (NSNumber *)cmdID {
-    return [parameters objectForKey:NAMES_cmdID];
+- (NSNumber<SDLInt> *)cmdID {
+    NSError *error = nil;
+    return [parameters sdl_objectForName:SDLRPCParameterNameCommandId ofClass:NSNumber.class error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

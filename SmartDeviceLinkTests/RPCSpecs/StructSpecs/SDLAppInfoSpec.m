@@ -10,7 +10,7 @@
 #import <Nimble/Nimble.h>
 
 #import "SDLAppInfo.h"
-#import "SDLNames.h"
+#import "SDLRPCParameterNames.h"
 
 QuickSpecBegin(SDLAppInfoSpec)
 
@@ -28,9 +28,9 @@ describe(@"Getter/Setter Tests", ^ {
     });
     
     it(@"Should get correctly when initialized", ^ {
-        NSMutableDictionary* dict = [@{NAMES_appDisplayName:@"display name",
-                                       NAMES_appVersion:@"1.2.3.4",
-                                       NAMES_appBundleID:@"com.app.bundle"} mutableCopy];
+        NSMutableDictionary<NSString *, id> *dict = [@{SDLRPCParameterNameAppDisplayName:@"display name",
+                                                       SDLRPCParameterNameAppVersion:@"1.2.3.4",
+                                                       SDLRPCParameterNameAppBundleId:@"com.app.bundle"} mutableCopy];
         SDLAppInfo* testStruct = [[SDLAppInfo alloc] initWithDictionary:dict];
         
         expect(testStruct.appDisplayName).to(equal(@"display name"));

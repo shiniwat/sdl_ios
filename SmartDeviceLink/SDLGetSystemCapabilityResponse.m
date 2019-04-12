@@ -8,39 +8,34 @@
 
 #import "SDLGetSystemCapabilityResponse.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 #import "SDLSystemCapability.h"
 
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLGetSystemCapabilityResponse
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_GetSystemCapability]) {
+    self = [super initWithName:SDLRPCFunctionNameGetSystemCapability];
+    if (!self) {
+        return nil;
     }
-    return self;
-}
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
     return self;
 }
 
 - (void)setSystemCapability:(SDLSystemCapability *)systemCapability {
-    if (systemCapability != nil) {
-        parameters[NAMES_systemCapability] = systemCapability;
-    } else {
-        [parameters removeObjectForKey:NAMES_systemCapability];
-    }
+    [parameters sdl_setObject:systemCapability forName:SDLRPCParameterNameSystemCapability];
 }
 
 - (SDLSystemCapability *)systemCapability {
-    NSObject *obj = [parameters objectForKey:NAMES_systemCapability];
-    if (obj == nil || [obj isKindOfClass:SDLSystemCapability.class]) {
-        return (SDLSystemCapability *)obj;
-    } else {
-        return [[SDLSystemCapability alloc] initWithDictionary:(NSMutableDictionary *)obj];
-    }
+    NSError *error = nil;
+    return [parameters sdl_objectForName:SDLRPCParameterNameSystemCapability ofClass:SDLSystemCapability.class error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

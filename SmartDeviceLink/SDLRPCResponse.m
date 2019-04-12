@@ -4,8 +4,11 @@
 
 #import "SDLRPCResponse.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
 #import "SDLResult.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLRPCResponse
 
@@ -15,75 +18,59 @@
         return nil;
     }
 
-    messageType = NAMES_response;
-    [store setObject:function forKey:messageType];
+    messageType = SDLRPCParameterNameResponse;
+    [store sdl_setObject:function forName:messageType];
 
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
+- (instancetype)initWithDictionary:(NSMutableDictionary<NSString *, id> *)dict {
     self = [super initWithDictionary:dict];
     if (!self) {
         return nil;
     }
 
-    messageType = NAMES_response;
-    [store setObject:function forKey:messageType];
-
+    messageType = SDLRPCParameterNameResponse;
+    [store sdl_setObject:function forName:messageType];
+    
     return self;
 }
 
-- (NSNumber *)correlationID {
-    return [function objectForKey:NAMES_correlationID];
+- (NSNumber<SDLInt> *)correlationID {
+    NSError *error = nil;
+    return [function sdl_objectForName:SDLRPCParameterNameCorrelationId ofClass:NSNumber.class error:&error];
 }
 
-- (void)setCorrelationID:(NSNumber *)corrID {
-    if (corrID != nil) {
-        [function setObject:corrID forKey:NAMES_correlationID];
-    } else {
-        [function removeObjectForKey:NAMES_correlationID];
-    }
+- (void)setCorrelationID:(NSNumber<SDLInt> *)corrID {
+    [function sdl_setObject:corrID forName:SDLRPCParameterNameCorrelationId];
 }
 
-- (void)setSuccess:(NSNumber *)success {
-    if (success != nil) {
-        [parameters setObject:success forKey:NAMES_success];
-    } else {
-        [parameters removeObjectForKey:NAMES_success];
-    }
+- (void)setSuccess:(NSNumber<SDLBool> *)success {
+    [parameters sdl_setObject:success forName:SDLRPCParameterNameSuccess];
 }
 
-- (NSNumber *)success {
-    return [parameters objectForKey:NAMES_success];
+- (NSNumber<SDLBool> *)success {
+    NSError *error = nil;
+    return [parameters sdl_objectForName:SDLRPCParameterNameSuccess ofClass:NSNumber.class error:&error];
 }
 
-- (void)setResultCode:(SDLResult *)resultCode {
-    if (resultCode != nil) {
-        [parameters setObject:resultCode forKey:NAMES_resultCode];
-    } else {
-        [parameters removeObjectForKey:NAMES_resultCode];
-    }
+- (void)setResultCode:(SDLResult)resultCode {
+    [parameters sdl_setObject:resultCode forName:SDLRPCParameterNameResultCode];
 }
 
-- (SDLResult *)resultCode {
-    NSObject *obj = [parameters objectForKey:NAMES_resultCode];
-    if (obj == nil || [obj isKindOfClass:SDLResult.class]) {
-        return (SDLResult *)obj;
-    } else {
-        return [SDLResult valueOf:(NSString *)obj];
-    }
+- (SDLResult)resultCode {
+    NSError *error = nil;
+    return [parameters sdl_enumForName:SDLRPCParameterNameResultCode error:&error];
 }
 
-- (void)setInfo:(NSString *)info {
-    if (info != nil) {
-        [parameters setObject:info forKey:NAMES_info];
-    } else {
-        [parameters removeObjectForKey:NAMES_info];
-    }
+- (void)setInfo:(nullable NSString *)info {
+    [parameters sdl_setObject:info forName:SDLRPCParameterNameInfo];
 }
 
-- (NSString *)info {
-    return [parameters objectForKey:NAMES_info];
+- (nullable NSString *)info {
+    return [parameters sdl_objectForName:SDLRPCParameterNameInfo ofClass:NSString.class error:nil];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -3,32 +3,27 @@
 
 #import "SDLAlertResponse.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLAlertResponse
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_Alert]) {
+    if (self = [super initWithName:SDLRPCFunctionNameAlert]) {
     }
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
-}
+- (void)setTryAgainTime:(nullable NSNumber<SDLInt> *)tryAgainTime {
+    [parameters sdl_setObject:tryAgainTime forName:SDLRPCParameterNameTryAgainTime];}
 
-- (void)setTryAgainTime:(NSNumber *)tryAgainTime {
-    if (tryAgainTime != nil) {
-        [parameters setObject:tryAgainTime forKey:NAMES_tryAgainTime];
-    } else {
-        [parameters removeObjectForKey:NAMES_tryAgainTime];
-    }
-}
-
-- (NSNumber *)tryAgainTime {
-    return [parameters objectForKey:NAMES_tryAgainTime];
+- (nullable NSNumber<SDLInt> *)tryAgainTime {
+    return [parameters sdl_objectForName:SDLRPCParameterNameTryAgainTime ofClass:NSNumber.class error:nil];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

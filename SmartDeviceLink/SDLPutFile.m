@@ -3,25 +3,46 @@
 
 #import "SDLPutFile.h"
 
-#import "SDLFileType.h"
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 
+#import <zlib.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLPutFile
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_PutFile]) {
+    if (self = [super initWithName:SDLRPCFunctionNamePutFile]) {
     }
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
+- (instancetype)initWithFileName:(NSString *)fileName fileType:(SDLFileType)fileType {
+    self = [self init];
+    if (!self) {
+        return nil;
     }
+
+    self.syncFileName = fileName;
+    self.fileType = fileType;
+
     return self;
 }
 
-- (instancetype)initWithFileName:(NSString *)fileName fileType:(SDLFileType *)fileType persistentFile:(BOOL)persistentFile systemFile:(BOOL)systemFile offset:(UInt64)offset length:(UInt64)length {
+- (instancetype)initWithFileName:(NSString *)fileName fileType:(SDLFileType)fileType persistentFile:(BOOL)persistentFile {
+    self = [self initWithFileName:fileName fileType:fileType];
+    if (!self) {
+        return nil;
+    }
+
+    self.persistentFile = @(persistentFile);
+
+    return self;
+}
+
+- (instancetype)initWithFileName:(NSString *)fileName fileType:(SDLFileType)fileType persistentFile:(BOOL)persistentFile systemFile:(BOOL)systemFile offset:(UInt32)offset length:(UInt32)length {
     self = [self initWithFileName:fileName fileType:fileType persistentFile:persistentFile];
     if (!self) {
         return nil;
@@ -34,104 +55,102 @@
     return self;
 }
 
-- (instancetype)initWithFileName:(NSString *)fileName fileType:(SDLFileType *)fileType persistentFile:(BOOL)persistentFile {
-    self = [self initWithFileName:fileName fileType:fileType];
+- (instancetype)initWithFileName:(NSString *)fileName fileType:(SDLFileType)fileType persistentFile:(BOOL)persistentFile systemFile:(BOOL)systemFile offset:(UInt32)offset length:(UInt32)length crc:(UInt64)crc {
+    self = [self initWithFileName:fileName fileType:fileType persistentFile:persistentFile];
     if (!self) {
         return nil;
     }
 
-    self.persistentFile = @(persistentFile);
+    self.systemFile = @(systemFile);
+    self.offset = @(offset);
+    self.length = @(length);
+    self.crc = crc == 0 ? nil : @(crc);
 
     return self;
 }
 
-- (instancetype)initWithFileName:(NSString *)fileName fileType:(SDLFileType *)fileType {
-    self = [self init];
+- (instancetype)initWithFileName:(NSString *)fileName fileType:(SDLFileType)fileType persistentFile:(BOOL)persistentFile systemFile:(BOOL)systemFile offset:(UInt32)offset length:(UInt32)length bulkData:(NSData *)bulkData {
+
+    self = [self initWithFileName:fileName fileType:fileType persistentFile:persistentFile systemFile:systemFile offset:offset length:length crc:[self.class sdl_getCRC32ChecksumForBulkData:bulkData]];
     if (!self) {
         return nil;
     }
 
-    self.syncFileName = fileName;
-    self.fileType = fileType;
+    self.bulkData = bulkData;
 
     return self;
 }
+
+#pragma mark - Getters and Setters
 
 - (void)setSyncFileName:(NSString *)syncFileName {
-    if (syncFileName != nil) {
-        [parameters setObject:syncFileName forKey:NAMES_syncFileName];
-    } else {
-        [parameters removeObjectForKey:NAMES_syncFileName];
-    }
+    [parameters sdl_setObject:syncFileName forName:SDLRPCParameterNameSyncFileName];
 }
 
 - (NSString *)syncFileName {
-    return [parameters objectForKey:NAMES_syncFileName];
+    NSError *error = nil;
+    return [parameters sdl_objectForName:SDLRPCParameterNameSyncFileName ofClass:NSString.class error:&error];
 }
 
-- (void)setFileType:(SDLFileType *)fileType {
-    if (fileType != nil) {
-        [parameters setObject:fileType forKey:NAMES_fileType];
-    } else {
-        [parameters removeObjectForKey:NAMES_fileType];
+- (void)setFileType:(SDLFileType)fileType {
+    [parameters sdl_setObject:fileType forName:SDLRPCParameterNameFileType];
+}
+
+- (SDLFileType)fileType {
+    NSError *error = nil;
+    return [parameters sdl_enumForName:SDLRPCParameterNameFileType error:&error];
+}
+
+- (void)setPersistentFile:(nullable NSNumber<SDLBool> *)persistentFile {
+    [parameters sdl_setObject:persistentFile forName:SDLRPCParameterNamePersistentFile];
+}
+
+- (nullable NSNumber<SDLBool> *)persistentFile {
+    return [parameters sdl_objectForName:SDLRPCParameterNamePersistentFile ofClass:NSNumber.class error:nil];
+}
+
+- (void)setSystemFile:(nullable NSNumber<SDLBool> *)systemFile {
+    [parameters sdl_setObject:systemFile forName:SDLRPCParameterNameSystemFile];
+}
+
+- (nullable NSNumber<SDLBool> *)systemFile {
+    return [parameters sdl_objectForName:SDLRPCParameterNameSystemFile ofClass:NSNumber.class error:nil];
+}
+
+- (void)setOffset:(nullable NSNumber<SDLUInt> *)offset {
+    [parameters sdl_setObject:offset forName:SDLRPCParameterNameOffset];
+}
+
+- (nullable NSNumber<SDLUInt> *)offset {
+    return [parameters sdl_objectForName:SDLRPCParameterNameOffset ofClass:NSNumber.class error:nil];
+}
+
+- (void)setLength:(nullable NSNumber<SDLUInt> *)length {
+    [parameters sdl_setObject:length forName:SDLRPCParameterNameLength];
+}
+
+- (nullable NSNumber<SDLUInt> *)length {
+    return [parameters sdl_objectForName:SDLRPCParameterNameLength ofClass:NSNumber.class error:nil];
+}
+
+- (void)setCrc:(nullable NSNumber<SDLUInt> *)crc {
+    [parameters sdl_setObject:crc forName:SDLRPCParameterNameCRC];
+}
+
+- (nullable NSNumber<SDLUInt> *)crc {
+    return [parameters sdl_objectForName:SDLRPCParameterNameCRC ofClass:NSNumber.class error:nil];
+}
+
+#pragma mark - Helpers
+
++ (unsigned long)sdl_getCRC32ChecksumForBulkData:(NSData *)data {
+    if (data.length == 0) {
+        return 0;
     }
-}
 
-- (SDLFileType *)fileType {
-    NSObject *obj = [parameters objectForKey:NAMES_fileType];
-    if (obj == nil || [obj isKindOfClass:SDLFileType.class]) {
-        return (SDLFileType *)obj;
-    } else {
-        return [SDLFileType valueOf:(NSString *)obj];
-    }
-}
-
-- (void)setPersistentFile:(NSNumber *)persistentFile {
-    if (persistentFile != nil) {
-        [parameters setObject:persistentFile forKey:NAMES_persistentFile];
-    } else {
-        [parameters removeObjectForKey:NAMES_persistentFile];
-    }
-}
-
-- (NSNumber *)persistentFile {
-    return [parameters objectForKey:NAMES_persistentFile];
-}
-
-- (void)setSystemFile:(NSNumber *)systemFile {
-    if (systemFile != nil) {
-        [parameters setObject:systemFile forKey:NAMES_systemFile];
-    } else {
-        [parameters removeObjectForKey:NAMES_systemFile];
-    }
-}
-
-- (NSNumber *)systemFile {
-    return [parameters objectForKey:NAMES_systemFile];
-}
-
-- (void)setOffset:(NSNumber *)offset {
-    if (offset != nil) {
-        [parameters setObject:offset forKey:NAMES_offset];
-    } else {
-        [parameters removeObjectForKey:NAMES_offset];
-    }
-}
-
-- (NSNumber *)offset {
-    return [parameters objectForKey:NAMES_offset];
-}
-
-- (void)setLength:(NSNumber *)length {
-    if (length != nil) {
-        [parameters setObject:length forKey:NAMES_length];
-    } else {
-        [parameters removeObjectForKey:NAMES_length];
-    }
-}
-
-- (NSNumber *)length {
-    return [parameters objectForKey:NAMES_length];
+    return crc32(0, data.bytes, (uInt)data.length);
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

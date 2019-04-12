@@ -4,44 +4,31 @@
 
 #import "SDLParameterPermissions.h"
 
-#import "SDLNames.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLParameterPermissions
 
-- (instancetype)init {
-    if (self = [super init]) {
-    }
-    return self;
+- (void)setAllowed:(NSArray<NSString *> *)allowed {
+    [store sdl_setObject:allowed forName:SDLRPCParameterNameAllowed];
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (NSArray<NSString *> *)allowed {
+    NSError *error = nil;
+    return [store sdl_objectsForName:SDLRPCParameterNameAllowed ofClass:NSString.class error:&error];
 }
 
-- (void)setAllowed:(NSMutableArray *)allowed {
-    if (allowed != nil) {
-        [store setObject:allowed forKey:NAMES_allowed];
-    } else {
-        [store removeObjectForKey:NAMES_allowed];
-    }
+- (void)setUserDisallowed:(NSArray<NSString *> *)userDisallowed {
+    [store sdl_setObject:userDisallowed forName:SDLRPCParameterNameUserDisallowed];
 }
 
-- (NSMutableArray *)allowed {
-    return [store objectForKey:NAMES_allowed];
-}
-
-- (void)setUserDisallowed:(NSMutableArray *)userDisallowed {
-    if (userDisallowed != nil) {
-        [store setObject:userDisallowed forKey:NAMES_userDisallowed];
-    } else {
-        [store removeObjectForKey:NAMES_userDisallowed];
-    }
-}
-
-- (NSMutableArray *)userDisallowed {
-    return [store objectForKey:NAMES_userDisallowed];
+- (NSArray<NSString *> *)userDisallowed {
+    NSError *error = nil;
+    return [store sdl_objectsForName:SDLRPCParameterNameUserDisallowed ofClass:NSString.class error:&error];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

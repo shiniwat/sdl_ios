@@ -3,105 +3,77 @@
 
 #import "SDLOnSystemRequest.h"
 
-#import "SDLFileType.h"
-#import "SDLNames.h"
-#import "SDLRequestType.h"
+#import "NSMutableDictionary+Store.h"
+#import "SDLRPCParameterNames.h"
+#import "SDLRPCFunctionNames.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLOnSystemRequest
 
 - (instancetype)init {
-    if (self = [super initWithName:NAMES_OnSystemRequest]) {
+    if (self = [super initWithName:SDLRPCFunctionNameOnSystemRequest]) {
     }
     return self;
 }
 
-- (instancetype)initWithDictionary:(NSMutableDictionary *)dict {
-    if (self = [super initWithDictionary:dict]) {
-    }
-    return self;
+- (void)setRequestType:(SDLRequestType)requestType {
+    [parameters sdl_setObject:requestType forName:SDLRPCParameterNameRequestType];
 }
 
-- (void)setRequestType:(SDLRequestType *)requestType {
-    if (requestType != nil) {
-        [parameters setObject:requestType forKey:NAMES_requestType];
-    } else {
-        [parameters removeObjectForKey:NAMES_requestType];
-    }
+- (SDLRequestType)requestType {
+    NSError *error = nil;
+    return [parameters sdl_enumForName:SDLRPCParameterNameRequestType error:&error];
 }
 
-- (SDLRequestType *)requestType {
-    NSObject *obj = [parameters objectForKey:NAMES_requestType];
-    if (obj == nil || [obj isKindOfClass:SDLRequestType.class]) {
-        return (SDLRequestType *)obj;
-    } else {
-        return [SDLRequestType valueOf:(NSString *)obj];
-    }
+- (void)setRequestSubType:(nullable NSString *)requestSubType {
+    [parameters sdl_setObject:requestSubType forName:SDLRPCParameterNameRequestSubType];
 }
 
-- (void)setUrl:(NSString *)url {
-    if (url != nil) {
-        [parameters setObject:url forKey:NAMES_url];
-    } else {
-        [parameters removeObjectForKey:NAMES_url];
-    }
+- (nullable NSString *)requestSubType {
+    return [parameters sdl_objectForName:SDLRPCParameterNameRequestSubType ofClass:NSString.class error:nil];
 }
 
-- (NSString *)url {
-    return [parameters objectForKey:NAMES_url];
+- (void)setUrl:(nullable NSString *)url {
+    [parameters sdl_setObject:url forName:SDLRPCParameterNameURL];
 }
 
-- (void)setTimeout:(NSNumber *)timeout {
-    if (timeout != nil) {
-        [parameters setObject:timeout forKey:NAMES_timeout];
-    } else {
-        [parameters removeObjectForKey:NAMES_timeout];
-    }
+- (nullable NSString *)url {
+    return [parameters sdl_objectForName:SDLRPCParameterNameURL ofClass:NSString.class error:nil];
 }
 
-- (NSNumber *)timeout {
-    return [parameters objectForKey:NAMES_timeout];
+- (void)setTimeout:(nullable NSNumber<SDLInt> *)timeout {
+    [parameters sdl_setObject:timeout forName:SDLRPCParameterNameTimeout];
 }
 
-- (void)setFileType:(SDLFileType *)fileType {
-    if (fileType != nil) {
-        [parameters setObject:fileType forKey:NAMES_fileType];
-    } else {
-        [parameters removeObjectForKey:NAMES_fileType];
-    }
+- (nullable NSNumber<SDLInt> *)timeout {
+    return [parameters sdl_objectForName:SDLRPCParameterNameTimeout ofClass:NSNumber.class error:nil];
 }
 
-- (SDLFileType *)fileType {
-    NSObject *obj = [parameters objectForKey:NAMES_fileType];
-    if (obj == nil || [obj isKindOfClass:SDLFileType.class]) {
-        return (SDLFileType *)obj;
-    } else {
-        return [SDLFileType valueOf:(NSString *)obj];
-    }
+- (void)setFileType:(nullable SDLFileType)fileType {
+    [parameters sdl_setObject:fileType forName:SDLRPCParameterNameFileType];
 }
 
-- (void)setOffset:(NSNumber *)offset {
-    if (offset != nil) {
-        [parameters setObject:offset forKey:NAMES_offset];
-    } else {
-        [parameters removeObjectForKey:NAMES_offset];
-    }
+- (nullable SDLFileType)fileType {
+    return [parameters sdl_enumForName:SDLRPCParameterNameFileType error:nil];
 }
 
-- (NSNumber *)offset {
-    return [parameters objectForKey:NAMES_offset];
+- (void)setOffset:(nullable NSNumber<SDLInt> *)offset {
+    [parameters sdl_setObject:offset forName:SDLRPCParameterNameOffset];
 }
 
-- (void)setLength:(NSNumber *)length {
-    if (length != nil) {
-        [parameters setObject:length forKey:NAMES_length];
-    } else {
-        [parameters removeObjectForKey:NAMES_length];
-    }
+- (nullable NSNumber<SDLInt> *)offset {
+    return [parameters sdl_objectForName:SDLRPCParameterNameOffset ofClass:NSNumber.class error:nil];
 }
 
-- (NSNumber *)length {
-    return [parameters objectForKey:NAMES_length];
+- (void)setLength:(nullable NSNumber<SDLInt> *)length {
+    [parameters sdl_setObject:length forName:SDLRPCParameterNameLength];
+}
+
+- (nullable NSNumber<SDLInt> *)length {
+    return [parameters sdl_objectForName:SDLRPCParameterNameLength ofClass:NSNumber.class error:nil];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END
