@@ -12,11 +12,14 @@
 #import "SDLRPCFunctionNames.h"
 #import "SDLSubscribeVehicleDataResponse.h"
 #import "SDLVehicleDataResult.h"
+#import "SDLVehicleDataResultCode.h"
 
 
 QuickSpecBegin(SDLSubscribeVehicleDataResponseSpec)
 
 SDLVehicleDataResult* vehicleDataResult = [[SDLVehicleDataResult alloc] init];
+SDLVehicleDataResult* customOEMvehicleDataResult = [[SDLVehicleDataResult alloc] initWithCustomOEMDataType:@"customOEMVehicleData" resultCode:SDLVehicleDataResultCodeSuccess];
+
 
 describe(@"Getter/Setter Tests", ^ {
     it(@"Should set and get correctly", ^ {
@@ -116,7 +119,10 @@ describe(@"Getter/Setter Tests", ^ {
                                                                    SDLRPCParameterNameTurnSignal:vehicleDataResult,
                                                                    SDLRPCParameterNameWiperStatus:vehicleDataResult},
                                                              SDLRPCParameterNameOperationName:SDLRPCFunctionNameSubscribeVehicleData}};
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         SDLSubscribeVehicleDataResponse* testResponse = [[SDLSubscribeVehicleDataResponse alloc] initWithDictionary:dict];
+#pragma clang diagnostic pop
         
         expect(testResponse.accPedalPosition).to(equal(vehicleDataResult));
         expect(testResponse.airbagStatus).to(equal(vehicleDataResult));
@@ -181,6 +187,14 @@ describe(@"Getter/Setter Tests", ^ {
         expect(testResponse.tirePressure).to(beNil());
         expect(testResponse.turnSignal).to(beNil());
         expect(testResponse.wiperStatus).to(beNil());
+    });
+
+    it(@"Should set and get Generic Network Signal Data", ^{
+        SDLSubscribeVehicleDataResponse *testRequest = [[SDLSubscribeVehicleDataResponse alloc] init];
+
+        [testRequest setOEMCustomVehicleData:@"customOEMVehicleData" withVehicleDataState:customOEMvehicleDataResult];
+
+        expect([testRequest getOEMCustomVehicleData:@"customOEMVehicleData"]).to(equal(customOEMvehicleDataResult));
     });
 });
 

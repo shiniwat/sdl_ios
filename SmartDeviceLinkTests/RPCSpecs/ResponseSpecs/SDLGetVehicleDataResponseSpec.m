@@ -149,7 +149,10 @@ describe(@"Getter/Setter Tests", ^ {
                                                      SDLRPCParameterNameVIN:vin,
                                                      SDLRPCParameterNameWiperStatus:SDLWiperStatusAutomaticHigh},
                                              SDLRPCParameterNameOperationName:SDLRPCFunctionNameGetVehicleData}} mutableCopy];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         SDLGetVehicleDataResponse* testResponse = [[SDLGetVehicleDataResponse alloc] initWithDictionary:dict];
+#pragma clang diagnostic pop
 
         expect(testResponse.accPedalPosition).to(equal(@0));
         expect(testResponse.airbagStatus).to(equal(airbag));
@@ -216,6 +219,14 @@ describe(@"Getter/Setter Tests", ^ {
         expect(testResponse.turnSignal).to(beNil());
         expect(testResponse.vin).to(beNil());
         expect(testResponse.wiperStatus).to(beNil());
+    });
+
+    it(@"Should set and get Generic Network Signal Data", ^{
+        SDLGetVehicleDataResponse *testRequest = [[SDLGetVehicleDataResponse alloc] init];
+
+        [testRequest setOEMCustomVehicleData:@"customVehicleData" withVehicleDataState:@"oemVehicleData"];
+        
+        expect([testRequest getOEMCustomVehicleData:@"customVehicleData"]).to(equal(@"oemVehicleData"));
     });
 });
 

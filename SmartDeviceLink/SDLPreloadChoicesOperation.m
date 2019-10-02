@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SDLPreloadChoicesOperation()
 
+@property (strong, nonatomic) NSUUID *operationId;
 @property (strong, nonatomic) NSMutableSet<SDLChoiceCell *> *cellsToUpload;
 @property (strong, nonatomic) SDLDisplayCapabilities *displayCapabilities;
 @property (assign, nonatomic, getter=isVROptional) BOOL vrOptional;
@@ -51,6 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
     _displayCapabilities = displayCapabilities;
     _vrOptional = isVROptional;
     _cellsToUpload = [cells mutableCopy];
+    _operationId = [NSUUID UUID];
 
     _currentState = SDLPreloadChoicesOperationStateWaitingToStart;
 
@@ -59,6 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)start {
     [super start];
+    if (self.isCancelled) { return; }
 
     [self sdl_preloadCellArtworksWithCompletionHandler:^(NSError * _Nullable error) {
         self.internalError = error;
@@ -157,8 +160,15 @@ NS_ASSUME_NONNULL_BEGIN
     } else {
         vrCommands = cell.voiceCommands;
     }
-    
-    NSString *menuName = [self.displayCapabilities hasTextFieldOfName:SDLTextFieldNameMenuName] ? cell.text : nil;
+
+    NSString *menuName = nil;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    if ([self.displayCapabilities.displayType isEqualToEnum:SDLDisplayTypeGen38Inch] || [self.displayCapabilities hasTextFieldOfName:SDLTextFieldNameMenuName]) {
+        menuName = cell.text;
+    }
+#pragma clang diagnostic pop
+
     if(!menuName) {
         SDLLogE(@"Could not convert SDLChoiceCell to SDLCreateInteractionChoiceSet. It will not be shown. Cell: %@", cell);
         return nil;
@@ -184,7 +194,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable NSString *)name {
-    return @"com.sdl.choicesetmanager.preloadChoices";
+    return [NSString stringWithFormat:@"%@ - %@", self.class, self.operationId];
 }
 
 - (NSOperationQueuePriority)queuePriority {

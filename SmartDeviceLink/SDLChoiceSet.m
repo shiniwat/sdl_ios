@@ -15,6 +15,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface SDLChoiceSet()
+
+@property (nullable, copy, nonatomic) SDLChoiceSetCanceledHandler canceledHandler;
+
+@end
+
 @implementation SDLChoiceSet
 
 static NSTimeInterval _defaultTimeout = 10.0;
@@ -57,7 +63,7 @@ static SDLChoiceSetLayout _defaultLayout = SDLChoiceSetLayoutList;
     }
 
     if (title.length == 0 || title.length > 500) {
-        SDLLogW(@"Attempted to create a choice set with a %lu length. Only 500 characters are supported", (unsigned long)title.length);
+        SDLLogW(@"Attempted to create a choice set title with a %lu length. Only 500 characters are supported", (unsigned long)title.length);
         return nil;
     }
 
@@ -105,6 +111,13 @@ static SDLChoiceSetLayout _defaultLayout = SDLChoiceSetLayoutList;
     return self;
 }
 
+#pragma mark - Cancel
+
+- (void)cancel {
+    if (self.canceledHandler == nil) { return; }
+    self.canceledHandler();
+}
+
 #pragma mark - Getters / Setters
 
 + (NSTimeInterval)defaultTimeout {
@@ -121,6 +134,14 @@ static SDLChoiceSetLayout _defaultLayout = SDLChoiceSetLayoutList;
 
 + (void)setDefaultLayout:(SDLChoiceSetLayout)defaultLayout {
     _defaultLayout = defaultLayout;
+}
+
+- (void)setHelpList:(nullable NSArray<SDLVRHelpItem *> *)helpList {
+    _helpList = helpList;
+
+    for (NSUInteger i = 0; i < _helpList.count; i++) {
+        _helpList[i].position = @(i + 1);
+    }
 }
 
 #pragma mark - Etc.

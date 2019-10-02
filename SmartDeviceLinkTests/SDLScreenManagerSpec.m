@@ -11,13 +11,16 @@
 #import "SDLSoftButtonState.h"
 #import "SDLTextAndGraphicManager.h"
 #import "TestConnectionManager.h"
+#import "SDLVersion.h"
+#import "SDLGlobals.h"
+#import "SDLMenuCell.h"
+#import "SDLMenuManager.h"
 
 @interface SDLSoftButtonManager()
 
 @property (weak, nonatomic) id<SDLConnectionManagerType> connectionManager;
 @property (weak, nonatomic) SDLFileManager *fileManager;
-
-@property (strong, nonatomic, nullable) SDLShow *inProgressUpdate;
+@property (strong, nonatomic) NSOperationQueue *transactionQueue;
 @property (copy, nonatomic, nullable) SDLHMILevel currentLevel;
 
 @end
@@ -36,6 +39,7 @@
 
 @property (strong, nonatomic) SDLTextAndGraphicManager *textAndGraphicManager;
 @property (strong, nonatomic) SDLSoftButtonManager *softButtonManager;
+@property (strong, nonatomic) SDLMenuManager *menuManager;
 
 @end
 
@@ -100,7 +104,7 @@ describe(@"screen manager", ^{
 
             it(@"should have in progress updates", ^{
                 expect(testScreenManager.textAndGraphicManager.inProgressUpdate).toNot(beNil());
-                expect(testScreenManager.softButtonManager.inProgressUpdate).toNot(beNil());
+                expect(testScreenManager.softButtonManager.transactionQueue.operationCount).to(equal(1));
 
                 expect(testScreenManager.textAndGraphicManager.batchUpdates).to(beFalse());
                 expect(testScreenManager.softButtonManager.batchUpdates).to(beFalse());

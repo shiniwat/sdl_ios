@@ -31,6 +31,7 @@
 #import "SDLOnHMIStatus.h"
 #import "SDLProtocol.h"
 #import "SDLProtocolMessage.h"
+#import "SDLPredefinedWindows.h"
 #import "SDLRegisterAppInterfaceResponse.h"
 #import "SDLRPCNotificationNotification.h"
 #import "SDLRPCResponseNotification.h"
@@ -43,6 +44,7 @@
 #import "SDLVehicleType.h"
 #import "SDLVideoEncoderDelegate.h"
 #import "SDLVideoStreamingCapability.h"
+#import "SDLVersion.h"
 
 static NSUInteger const FramesToSendOnBackground = 30;
 
@@ -122,6 +124,8 @@ typedef void(^SDLVideoCapabilityResponseHandler)(SDLVideoStreamingCapability *_N
     _useDisplayLink = configuration.streamingMediaConfig.enableForcedFramerateSync;
     _screenSize = SDLDefaultScreenSize;
     _backgroundingPixelBuffer = NULL;
+    _showVideoBackgroundDisplay = YES;
+    _allowOverrideEncoderSettings = configuration.streamingMediaConfig.allowOverrideEncoderSettings;
     _preferredFormatIndex = 0;
     _preferredResolutionIndex = 0;
 
@@ -272,7 +276,9 @@ typedef void(^SDLVideoCapabilityResponseHandler)(SDLVideoStreamingCapability *_N
     SDLLogD(@"App became inactive");
     if (!self.protocol) { return; }
 
-    [self sdl_sendBackgroundFrames];
+    if (_showVideoBackgroundDisplay) {
+        [self sdl_sendBackgroundFrames];
+    }
     [self.touchManager cancelPendingTouches];
 
     if (self.isVideoConnected) {
@@ -340,6 +346,14 @@ typedef void(^SDLVideoCapabilityResponseHandler)(SDLVideoStreamingCapability *_N
             // If we got a response, get the head unit's preferred formats and resolutions
             weakSelf.preferredFormats = capability.supportedFormats;
             weakSelf.preferredResolutions = @[capability.preferredResolution];
+
+            if (weakSelf.allowOverrideEncoderSettings && capability.maxBitrate != nil) {
+                NSNumber *bitrate = [[NSNumber alloc] initWithUnsignedLongLong:(capability.maxBitrate.unsignedLongLongValue * 1000)];
+                NSMutableDictionary *settings = [[NSMutableDictionary alloc] init];
+                [settings addEntriesFromDictionary: self.videoEncoderSettings];
+                [settings setObject:bitrate forKey:(__bridge NSString *)kVTCompressionPropertyKey_AverageBitRate];
+                weakSelf.videoEncoderSettings = settings;
+            }
 
             if (weakSelf.dataSource != nil) {
                 SDLLogV(@"Calling data source for modified preferred formats");
@@ -548,14 +562,22 @@ typedef void(^SDLVideoCapabilityResponseHandler)(SDLVideoStreamingCapability *_N
     SDLRegisterAppInterfaceResponse* registerResponse = (SDLRegisterAppInterfaceResponse*)notification.response;
 
     SDLLogV(@"Determining whether streaming is supported");
-    _streamingSupported = registerResponse.hmiCapabilities.videoStreaming ? registerResponse.hmiCapabilities.videoStreaming.boolValue : registerResponse.displayCapabilities.graphicSupported.boolValue;
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated"
+    if ([SDLGlobals.sharedGlobals.rpcVersion isGreaterThanOrEqualToVersion:[[SDLVersion alloc] initWithMajor:4 minor:5 patch:0]]) {
+        _streamingSupported = registerResponse.hmiCapabilities.videoStreaming.boolValue;
+    } else {
+        _streamingSupported = YES;
+    }
+#pragma clang diagnostic pop
     if (!self.isStreamingSupported) {
         SDLLogE(@"Graphics are not supported on this head unit. We are are assuming screen size is also unavailable and exiting.");
         return;
     }
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated"
     SDLImageResolution* resolution = registerResponse.displayCapabilities.screenParams.resolution;
+#pragma clang diagnostic pop
     if (resolution != nil) {
         _screenSize = CGSizeMake(resolution.resolutionWidth.floatValue,
                                  resolution.resolutionHeight.floatValue);
@@ -575,6 +597,9 @@ typedef void(^SDLVideoCapabilityResponseHandler)(SDLVideoStreamingCapability *_N
     }
 
     SDLOnHMIStatus *hmiStatus = (SDLOnHMIStatus*)notification.notification;
+    if (hmiStatus.windowID != nil && hmiStatus.windowID.integerValue != SDLPredefinedWindowsDefaultWindow) {
+        return;
+    }
     self.hmiLevel = hmiStatus.hmiLevel;
 
     SDLVideoStreamingState newState = hmiStatus.videoStreamingState ?: SDLVideoStreamingStateStreamable;

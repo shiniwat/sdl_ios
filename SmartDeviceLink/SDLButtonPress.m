@@ -11,13 +11,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation SDLButtonPress
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 - (instancetype)init {
     if (self = [super initWithName:SDLRPCFunctionNameButtonPress]) {
     }
     return self;
 }
+#pragma clang diagnostic pop
 
-- (instancetype)initWithButtonName:(SDLButtonName) buttonName moduleType:(SDLModuleType) moduleType {
+- (instancetype)initWithButtonName:(SDLButtonName) buttonName moduleType:(SDLModuleType)moduleType {
     self = [self init];
     if (!self) {
         return nil;
@@ -29,31 +32,53 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
+- (instancetype)initWithButtonName:(SDLButtonName)buttonName moduleType:(SDLModuleType)moduleType moduleId:(nullable NSString *)moduleId {
+    self = [self init];
+    if (!self) {
+        return nil;
+    }
+    
+    self.buttonName = buttonName;
+    self.moduleType = moduleType;
+    self.moduleId = moduleId;
+    
+    return self;
+}
+
 - (void)setModuleType:(SDLModuleType)moduleType {
-    [parameters sdl_setObject:moduleType forName:SDLRPCParameterNameModuleType];
+    [self.parameters sdl_setObject:moduleType forName:SDLRPCParameterNameModuleType];
 }
 
 - (SDLModuleType)moduleType {
     NSError *error = nil;
-    return [parameters sdl_enumForName:SDLRPCParameterNameModuleType error:&error];
+    return [self.parameters sdl_enumForName:SDLRPCParameterNameModuleType error:&error];
 }
 
 - (void)setButtonName:(SDLButtonName)buttonName {
-    [parameters sdl_setObject:buttonName forName:SDLRPCParameterNameButtonName];
+    [self.parameters sdl_setObject:buttonName forName:SDLRPCParameterNameButtonName];
 }
 
 - (SDLButtonName)buttonName {
     NSError *error = nil;
-    return [parameters sdl_enumForName:SDLRPCParameterNameButtonName error:&error];
+    return [self.parameters sdl_enumForName:SDLRPCParameterNameButtonName error:&error];
 }
 
 - (void)setButtonPressMode:(SDLButtonPressMode)buttonPressMode {
-    [parameters sdl_setObject:buttonPressMode forName:SDLRPCParameterNameButtonPressMode];
+    [self.parameters sdl_setObject:buttonPressMode forName:SDLRPCParameterNameButtonPressMode];
 }
 
 - (SDLButtonPressMode)buttonPressMode {
     NSError *error = nil;
-    return [parameters sdl_enumForName:SDLRPCParameterNameButtonPressMode error:&error];
+    return [self.parameters sdl_enumForName:SDLRPCParameterNameButtonPressMode error:&error];
+}
+
+- (void)setModuleId:(nullable NSString *)moduleId {
+    [self.parameters sdl_setObject:moduleId forName:SDLRPCParameterNameModuleId];
+}
+
+- (nullable NSString *)moduleId {
+    NSError *error = nil;
+    return [self.parameters sdl_objectForName:SDLRPCParameterNameModuleId ofClass:NSString.class error:&error];
 }
 
 @end

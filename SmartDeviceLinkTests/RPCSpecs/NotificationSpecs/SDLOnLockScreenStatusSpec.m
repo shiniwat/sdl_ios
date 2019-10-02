@@ -18,8 +18,11 @@ QuickSpecBegin(SDLOnLockScreenStatusSpec)
 
 describe(@"Getter/Setter Tests", ^ {
     it(@"Should set and get correctly", ^ {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         SDLOnLockScreenStatus* testNotification = [[SDLOnLockScreenStatus alloc] init];
-        
+#pragma clang diagnostic pop
+
         testNotification.driverDistractionStatus = @NO;
         testNotification.userSelected = @3;
         testNotification.lockScreenStatus = SDLLockScreenStatusRequired;
@@ -39,7 +42,10 @@ describe(@"Getter/Setter Tests", ^ {
                                                    @"OnLockScreenStatus":SDLLockScreenStatusRequired,
                                                    @"hmiLevel":SDLHMILevelNone},
                                              SDLRPCParameterNameOperationName:@"OnLockScreenStatus"}} mutableCopy];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         SDLOnLockScreenStatus* testNotification = [[SDLOnLockScreenStatus alloc] initWithDictionary:dict];
+#pragma clang diagnostic pop
         
         expect(testNotification.driverDistractionStatus).to(equal(@NO));
         expect(testNotification.userSelected).to(equal(@3));
@@ -48,8 +54,11 @@ describe(@"Getter/Setter Tests", ^ {
     });
     
     it(@"Should return nil if not set", ^ {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         SDLOnLockScreenStatus* testNotification = [[SDLOnLockScreenStatus alloc] init];
-        
+#pragma clang diagnostic pop
+
         expect(testNotification.driverDistractionStatus).to(beNil());
         expect(testNotification.userSelected).to(beNil());
         expect(testNotification.lockScreenStatus).to(beNil());

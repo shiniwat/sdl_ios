@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SDLListFilesOperation ()
 
+@property (strong, nonatomic) NSUUID *operationId;
 @property (weak, nonatomic) id<SDLConnectionManagerType> connectionManager;
 @property (copy, nonatomic, nullable) SDLFileManagerListFilesCompletionHandler completionHandler;
 
@@ -31,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
         return nil;
     }
 
+    _operationId = [NSUUID UUID];
     _connectionManager = connectionManager;
     _completionHandler = completionHandler;
 
@@ -39,6 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)start {
     [super start];
+    if (self.isCancelled) { return; }
 
     [self sdl_listFiles];
 }
@@ -67,7 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark Property Overrides
 
 - (nullable NSString *)name {
-    return @"List Files";
+    return [NSString stringWithFormat:@"%@ - %@", self.class, self.operationId];
 }
 
 - (NSOperationQueuePriority)queuePriority {

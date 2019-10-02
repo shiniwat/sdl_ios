@@ -112,7 +112,10 @@ describe(@"Getter/Setter Tests", ^ {
                                                            SDLRPCParameterNameTurnSignal:@NO,
                                                            SDLRPCParameterNameWiperStatus:@NO},
                                                      SDLRPCParameterNameOperationName:SDLRPCFunctionNameSubscribeVehicleData}};
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         SDLSubscribeVehicleData* testRequest = [[SDLSubscribeVehicleData alloc] initWithDictionary:dict];
+#pragma clang diagnostic pop
         
         expect(testRequest.accPedalPosition).to(equal(@YES));
         expect(testRequest.airbagStatus).to(equal(@YES));
@@ -286,6 +289,17 @@ describe(@"initializers", ^{
         expect(testRequest.turnSignal).to(equal(@NO));
         expect(testRequest.wiperStatus).to(equal(@YES));
         #pragma clang diagnostic pop
+    });
+
+    context(@"Should set and get Generic Network Signal Data", ^{
+        SDLSubscribeVehicleData *testRequest = [[SDLSubscribeVehicleData alloc] init];
+
+        [testRequest setOEMCustomVehicleData:@"customVehicleData" withVehicleDataState:NO];
+        [testRequest setOEMCustomVehicleData:@"customVehicleData1" withVehicleDataState:YES];
+
+        expect([testRequest getOEMCustomVehicleData:@"customVehicleData"]).to(beFalse());
+        expect([testRequest getOEMCustomVehicleData:@"customVehicleData1"]).to(beTrue());
+
     });
 });
 

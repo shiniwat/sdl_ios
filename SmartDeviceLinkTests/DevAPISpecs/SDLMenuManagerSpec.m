@@ -2,22 +2,12 @@
 #import <Nimble/Nimble.h>
 #import <OCMock/OCMock.h>
 
-#import "SDLAddCommand.h"
-#import "SDLAddSubMenu.h"
-#import "SDLDeleteCommand.h"
-#import "SDLDisplayCapabilities.h"
-#import "SDLFileManager.h"
-#import "SDLHMILevel.h"
-#import "SDLImage.h"
-#import "SDLImageField.h"
-#import "SDLImageFieldName.h"
-#import "SDLMenuCell.h"
+#import <SmartDeviceLink/SmartDeviceLink.h>
+
 #import "SDLMenuManager.h"
-#import "SDLOnCommand.h"
-#import "SDLOnHMIStatus.h"
-#import "SDLRPCNotificationNotification.h"
-#import "SDLSystemContext.h"
 #import "TestConnectionManager.h"
+#import "SDLGlobals.h"
+
 
 @interface SDLMenuCell()
 
@@ -51,11 +41,14 @@ describe(@"menu manager", ^{
     __block SDLMenuManager *testManager = nil;
     __block TestConnectionManager *mockConnectionManager = nil;
     __block SDLFileManager *mockFileManager = nil;
-
+    __block SDLSetDisplayLayoutResponse *testSetDisplayLayoutResponse = nil;
+    __block SDLDisplayCapabilities *testDisplayCapabilities = nil;
+    __block SDLRegisterAppInterfaceResponse *testRegisterAppInterfaceResponse = nil;
     __block SDLArtwork *testArtwork = nil;
     __block SDLArtwork *testArtwork2 = nil;
 
     __block SDLMenuCell *textOnlyCell = nil;
+    __block SDLMenuCell *textOnlyCell2 = nil;
     __block SDLMenuCell *textAndImageCell = nil;
     __block SDLMenuCell *submenuCell = nil;
     __block SDLMenuCell *submenuImageCell = nil;
@@ -68,6 +61,8 @@ describe(@"menu manager", ^{
         textAndImageCell = [[SDLMenuCell alloc] initWithTitle:@"Test 2" icon:testArtwork voiceCommands:nil handler:^(SDLTriggerSource  _Nonnull triggerSource) {}];
         submenuCell = [[SDLMenuCell alloc] initWithTitle:@"Test 3" icon:nil subCells:@[textOnlyCell, textAndImageCell]];
         submenuImageCell = [[SDLMenuCell alloc] initWithTitle:@"Test 4" icon:testArtwork2 subCells:@[textOnlyCell]];
+        textOnlyCell2 = [[SDLMenuCell alloc] initWithTitle:@"Test 5" icon:nil voiceCommands:nil handler:^(SDLTriggerSource  _Nonnull triggerSource) {}];
+
 
         mockConnectionManager = [[TestConnectionManager alloc] init];
         mockFileManager = OCMClassMock([SDLFileManager class]);
@@ -154,6 +149,37 @@ describe(@"menu manager", ^{
         });
     });
 
+    describe(@"Notification Responses", ^{
+        it(@"should set display capabilities when SDLDidReceiveSetDisplayLayoutResponse is received", ^{
+            testDisplayCapabilities = [[SDLDisplayCapabilities alloc] init];
+
+            testSetDisplayLayoutResponse = [[SDLSetDisplayLayoutResponse alloc] init];
+            testSetDisplayLayoutResponse.success = @YES;
+            testSetDisplayLayoutResponse.displayCapabilities = testDisplayCapabilities;
+
+            SDLRPCResponseNotification *notification = [[SDLRPCResponseNotification alloc] initWithName:SDLDidReceiveSetDisplayLayoutRequest object:self rpcResponse:testSetDisplayLayoutResponse];
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+
+            expect(testManager.displayCapabilities).withTimeout(3).toEventually(equal(testDisplayCapabilities));
+        });
+
+        it(@"should set display capabilities when SDLDidReceiveRegisterAppInterfaceResponse is received", ^{
+            testDisplayCapabilities = [[SDLDisplayCapabilities alloc] init];
+
+            testRegisterAppInterfaceResponse = [[SDLRegisterAppInterfaceResponse alloc] init];
+            testRegisterAppInterfaceResponse.success = @YES;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated"
+            testRegisterAppInterfaceResponse.displayCapabilities = testDisplayCapabilities;
+#pragma clang diagnostic pop
+
+            SDLRPCResponseNotification *notification = [[SDLRPCResponseNotification alloc] initWithName:SDLDidReceiveSetDisplayLayoutResponse object:self rpcResponse:testRegisterAppInterfaceResponse];
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+
+            expect(testManager.displayCapabilities).to(equal(testDisplayCapabilities));
+        });
+    });
+
     describe(@"updating menu cells", ^{
         beforeEach(^{
             testManager.currentHMILevel = SDLHMILevelFull;
@@ -196,6 +222,7 @@ describe(@"menu manager", ^{
         });
 
         it(@"should properly update with subcells", ^{
+            OCMStub([mockFileManager uploadArtworks:[OCMArg any] completionHandler:[OCMArg invokeBlock]]);
             testManager.menuCells = @[submenuCell];
             [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
 
@@ -233,12 +260,14 @@ describe(@"menu manager", ^{
                 });
             });
 
+            // No longer a valid unit test
             context(@"when the image is not on the head unit", ^{
                 beforeEach(^{
-                    OCMStub([mockFileManager hasUploadedFile:[OCMArg isNotNil]]).andReturn(NO);
+                    testManager.dynamicMenuUpdatesMode = SDLDynamicMenuUpdatesModeForceOff;
+                    OCMStub([mockFileManager uploadArtworks:[OCMArg any] completionHandler:[OCMArg invokeBlock]]);
                 });
 
-                it(@"should immediately attempt to update without the image", ^{
+                it(@"should wait till image is on head unit and attempt to update without the image", ^{
                     testManager.menuCells = @[textAndImageCell, submenuImageCell];
                     
                     NSPredicate *addCommandPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass: %@", [SDLAddCommand class]];
@@ -257,17 +286,21 @@ describe(@"menu manager", ^{
             });
         });
 
-        describe(@"updating when a menu already exists", ^{
+        describe(@"updating when a menu already exists with dynamic updates on", ^{
             beforeEach(^{
+                testManager.dynamicMenuUpdatesMode = SDLDynamicMenuUpdatesModeForceOn;
+                OCMStub([mockFileManager uploadArtworks:[OCMArg any] completionHandler:[OCMArg invokeBlock]]);
+            });
+            
+            it(@"should send deletes first", ^{
                 testManager.menuCells = @[textOnlyCell];
-                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES]; // Adds
-                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES]; // Submenu
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
 
                 testManager.menuCells = @[textAndImageCell];
-                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES]; // Deletes
-            });
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
 
-            it(@"should send deletes first", ^{
                 NSPredicate *deleteCommandPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass:%@", [SDLDeleteCommand class]];
                 NSArray *deletes = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:deleteCommandPredicate];
 
@@ -276,6 +309,218 @@ describe(@"menu manager", ^{
 
                 expect(deletes).to(haveCount(1));
                 expect(adds).to(haveCount(2));
+            });
+
+            it(@"should send dynamic deletes first then dynamic adds case with 2 submenu cells", ^{
+                testManager.menuCells = @[textOnlyCell, submenuCell, submenuImageCell];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+
+                testManager.menuCells = @[submenuCell, submenuImageCell, textOnlyCell];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+
+                NSPredicate *deleteCommandPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass:%@", [SDLDeleteCommand class]];
+                NSArray *deletes = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:deleteCommandPredicate];
+
+                NSPredicate *addCommandPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass:%@", [SDLAddCommand class]];
+                NSArray *adds = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:addCommandPredicate];
+
+                NSPredicate *addSubmenuPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass: %@", [SDLAddSubMenu class]];
+                NSArray *submenu = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:addSubmenuPredicate];
+
+                expect(deletes).to(haveCount(1));
+                expect(adds).to(haveCount(5));
+                expect(submenu).to(haveCount(2));
+            });
+
+            it(@"should send dynamic deletes first then dynamic adds when removing one submenu cell", ^{
+                testManager.menuCells = @[textOnlyCell, textAndImageCell, submenuCell, submenuImageCell];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+
+                testManager.menuCells = @[textOnlyCell, textAndImageCell, submenuCell];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+
+                NSPredicate *deleteCommandPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass:%@", [SDLDeleteCommand class]];
+                NSArray *deletes = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:deleteCommandPredicate];
+
+                NSPredicate *deleteSubCommandPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass:%@", [SDLDeleteSubMenu class]];
+                NSArray *subDeletes = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:deleteSubCommandPredicate];
+
+                NSPredicate *addCommandPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass:%@", [SDLAddCommand class]];
+                NSArray *adds = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:addCommandPredicate];
+
+                NSPredicate *addSubmenuPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass: %@", [SDLAddSubMenu class]];
+                NSArray *submenu = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:addSubmenuPredicate];
+
+                expect(deletes).to(haveCount(0));
+                expect(subDeletes).to(haveCount(1));
+                expect(adds).to(haveCount(5));
+                expect(submenu).to(haveCount(2));
+            });
+
+            it(@"should send dynamic deletes first then dynamic adds when adding one new cell", ^{
+                testManager.menuCells = @[textOnlyCell, textAndImageCell, submenuCell, submenuImageCell];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+
+                testManager.menuCells = @[textOnlyCell, textAndImageCell, submenuCell, submenuImageCell, textOnlyCell2];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+                
+                NSPredicate *deleteCommandPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass:%@", [SDLDeleteCommand class]];
+                NSArray *deletes = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:deleteCommandPredicate];
+
+                NSPredicate *addCommandPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass:%@", [SDLAddCommand class]];
+                NSArray *adds = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:addCommandPredicate];
+
+                NSPredicate *addSubmenuPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass: %@", [SDLAddSubMenu class]];
+                NSArray *submenu = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:addSubmenuPredicate];
+
+                expect(deletes).to(haveCount(0));
+                expect(adds).to(haveCount(6));
+                expect(submenu).to(haveCount(2));
+            });
+
+            it(@"should send dynamic deletes first then dynamic adds when cells stay the same", ^{
+                testManager.menuCells = @[textOnlyCell, textOnlyCell2, textAndImageCell];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+
+                testManager.menuCells = @[textOnlyCell, textOnlyCell2, textAndImageCell];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+
+                NSPredicate *deleteCommandPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass:%@", [SDLDeleteCommand class]];
+                NSArray *deletes = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:deleteCommandPredicate];
+
+                NSPredicate *addCommandPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass:%@", [SDLAddCommand class]];
+                NSArray *adds = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:addCommandPredicate];
+
+                expect(deletes).to(haveCount(0));
+                expect(adds).to(haveCount(3));
+            });
+        });
+
+        describe(@"updating when a menu already exists with dynamic updates off", ^{
+            beforeEach(^{
+                 testManager.dynamicMenuUpdatesMode = SDLDynamicMenuUpdatesModeForceOff;
+                 OCMStub([mockFileManager uploadArtworks:[OCMArg any] completionHandler:[OCMArg invokeBlock]]);
+            });
+
+            it(@"should send deletes first", ^{
+                testManager.menuCells = @[textOnlyCell];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+
+                testManager.menuCells = @[textAndImageCell];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+
+                NSPredicate *deleteCommandPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass:%@", [SDLDeleteCommand class]];
+                NSArray *deletes = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:deleteCommandPredicate];
+
+                NSPredicate *addCommandPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass:%@", [SDLAddCommand class]];
+                NSArray *adds = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:addCommandPredicate];
+
+                expect(deletes).to(haveCount(1));
+                expect(adds).to(haveCount(2));
+            });
+
+            it(@"should deletes first case 2", ^{
+                testManager.menuCells = @[textOnlyCell, textAndImageCell];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+
+                testManager.menuCells = @[textAndImageCell, textOnlyCell];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+
+                NSPredicate *deleteCommandPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass:%@", [SDLDeleteCommand class]];
+                NSArray *deletes = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:deleteCommandPredicate];
+
+                NSPredicate *addCommandPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass:%@", [SDLAddCommand class]];
+                NSArray *adds = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:addCommandPredicate];
+
+                expect(deletes).to(haveCount(2));
+                expect(adds).to(haveCount(4));
+            });
+
+            it(@"should send deletes first case 3", ^{
+                testManager.menuCells = @[textOnlyCell, textAndImageCell, submenuCell, submenuImageCell];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+
+                testManager.menuCells = @[textOnlyCell, textAndImageCell, submenuCell];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+
+                NSPredicate *deleteCommandPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass:%@", [SDLDeleteCommand class]];
+                NSArray *deletes = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:deleteCommandPredicate];
+
+                NSPredicate *deleteSubCommandPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass:%@", [SDLDeleteSubMenu class]];
+                NSArray *subDeletes = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:deleteSubCommandPredicate];
+
+                NSPredicate *addCommandPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass:%@", [SDLAddCommand class]];
+                NSArray *adds = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:addCommandPredicate];
+
+                NSPredicate *addSubmenuPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass: %@", [SDLAddSubMenu class]];
+                NSArray *submenu = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:addSubmenuPredicate];
+
+                expect(deletes).to(haveCount(2));
+                expect(subDeletes).to(haveCount(2));
+                expect(adds).to(haveCount(9));
+                expect(submenu).to(haveCount(3));
+            });
+
+            it(@"should send deletes first case 4", ^{
+                testManager.menuCells = @[textOnlyCell, textAndImageCell, submenuCell];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+
+                testManager.menuCells = @[textOnlyCell, textAndImageCell, submenuCell, textOnlyCell2];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+
+
+                NSPredicate *deleteCommandPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass:%@", [SDLDeleteCommand class]];
+                NSArray *deletes = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:deleteCommandPredicate];
+
+                NSPredicate *addCommandPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass:%@", [SDLAddCommand class]];
+                NSArray *adds = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:addCommandPredicate];
+
+                NSPredicate *addSubmenuPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass: %@", [SDLAddSubMenu class]];
+                NSArray *submenu = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:addSubmenuPredicate];
+
+                NSPredicate *deleteSubCommandPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass:%@", [SDLDeleteSubMenu class]];
+                NSArray *subDeletes = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:deleteSubCommandPredicate];
+
+                expect(deletes).to(haveCount(2));
+                expect(adds).to(haveCount(9));
+                expect(submenu).to(haveCount(2));
+                expect(subDeletes).to(haveCount(1));
+            });
+
+            it(@"should deletes first case 5", ^{
+                testManager.menuCells = @[textOnlyCell, textOnlyCell2, textAndImageCell];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+
+                testManager.menuCells = @[textOnlyCell, textOnlyCell2, textAndImageCell];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+
+                NSPredicate *deleteCommandPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass:%@", [SDLDeleteCommand class]];
+                NSArray *deletes = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:deleteCommandPredicate];
+
+                NSPredicate *addCommandPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass:%@", [SDLAddCommand class]];
+                NSArray *adds = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:addCommandPredicate];
+
+                expect(deletes).to(haveCount(3));
+                expect(adds).to(haveCount(6));
             });
         });
     });
@@ -366,6 +611,91 @@ describe(@"menu manager", ^{
             expect(testManager.lastMenuId).to(equal(1));
             expect(testManager.oldMenuCells).to(beEmpty());
             expect(testManager.waitingUpdateMenuCells).to(beEmpty());
+        });
+    });
+
+    describe(@"ShowMenu RPC", ^{
+        beforeEach(^{
+            testManager.currentHMILevel = SDLHMILevelFull;
+            testManager.currentSystemContext = SDLSystemContextMain;
+            testManager.displayCapabilities = [[SDLDisplayCapabilities alloc] init];
+        });
+
+        context(@"when open menu RPC can be sent", ^{
+            beforeEach(^{
+                SDLVersion *oldVersion = [SDLVersion versionWithMajor:6 minor:0 patch:0];
+                id globalMock = OCMPartialMock([SDLGlobals sharedGlobals]);
+                OCMStub([globalMock rpcVersion]).andReturn(oldVersion);
+            });
+
+            it(@"should send showAppMenu RPC", ^{
+                BOOL canSendRPC = [testManager openMenu];
+
+                NSPredicate *showMenu = [NSPredicate predicateWithFormat:@"self isMemberOfClass: %@", [SDLShowAppMenu class]];
+                NSArray *openMenu = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:showMenu];
+
+                expect(mockConnectionManager.receivedRequests).toNot(beEmpty());
+                expect(openMenu).to(haveCount(1));
+                expect(canSendRPC).to(equal(YES));
+           });
+
+            it(@"should send showAppMenu RPC with cellID", ^ {
+                testManager.menuCells = @[submenuCell];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+                [mockConnectionManager respondToLastMultipleRequestsWithSuccess:YES];
+
+                BOOL canSendRPC = [testManager openSubmenu:submenuCell];
+
+                NSPredicate *addSubmenuPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass: %@", [SDLShowAppMenu class]];
+                NSArray *openMenu = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:addSubmenuPredicate];
+
+                expect(mockConnectionManager.receivedRequests).toNot(beEmpty());
+                expect(openMenu).to(haveCount(1));
+                expect(canSendRPC).to(equal(YES));
+            });
+        });
+
+        context(@"when open menu RPC can not be sent", ^{
+            it(@"should not send a showAppMenu RPC when cell has no subcells", ^ {
+                BOOL canSendRPC = [testManager openSubmenu:textOnlyCell];
+
+                NSPredicate *addSubmenuPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass: %@", [SDLShowAppMenu class]];
+                NSArray *openMenu = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:addSubmenuPredicate];
+
+                expect(mockConnectionManager.receivedRequests).to(beEmpty());
+                expect(openMenu).to(haveCount(0));
+                expect(canSendRPC).to(equal(NO));
+            });
+
+            it(@"should not send a showAppMenu RPC when RPC verison is not at least 6.0.0", ^ {
+                SDLVersion *oldVersion = [SDLVersion versionWithMajor:5 minor:0 patch:0];
+                id globalMock = OCMPartialMock([SDLGlobals sharedGlobals]);
+                OCMStub([globalMock rpcVersion]).andReturn(oldVersion);
+
+                BOOL canSendRPC = [testManager openSubmenu:submenuCell];
+
+                NSPredicate *addSubmenuPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass: %@", [SDLShowAppMenu class]];
+                NSArray *openMenu = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:addSubmenuPredicate];
+
+                expect(mockConnectionManager.receivedRequests).to(beEmpty());
+                expect(openMenu).to(haveCount(0));
+                expect(canSendRPC).to(equal(NO));
+            });
+
+            it(@"should not send a showAppMenu RPC when the cell is not in the menu array", ^ {
+                SDLVersion *oldVersion = [SDLVersion versionWithMajor:6 minor:0 patch:0];
+                id globalMock = OCMPartialMock([SDLGlobals sharedGlobals]);
+                OCMStub([globalMock rpcVersion]).andReturn(oldVersion);
+
+                BOOL canSendRPC = [testManager openSubmenu:submenuCell];
+
+                NSPredicate *addSubmenuPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass: %@", [SDLShowAppMenu class]];
+                NSArray *openMenu = [[mockConnectionManager.receivedRequests copy] filteredArrayUsingPredicate:addSubmenuPredicate];
+
+                expect(mockConnectionManager.receivedRequests).to(beEmpty());
+                expect(openMenu).to(haveCount(0));
+                expect(canSendRPC).to(equal(NO));
+            });
         });
     });
 

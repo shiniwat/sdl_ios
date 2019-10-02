@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+#import "NSNumber+NumberType.h"
 #import "SDLInteractionMode.h"
 #import "SDLMetadataType.h"
 #import "SDLTextAlignment.h"
+#import "SDLMenuManagerConstants.h"
 
 @class SDLArtwork;
 @class SDLChoiceCell;
@@ -105,6 +107,11 @@ typedef void(^SDLPreloadChoiceCompletionHandler)(NSError *__nullable error);
  */
 @property (copy, nonatomic, nullable) SDLMetadataType textField4Type;
 
+/**
+ The title of the current template layout.
+ */
+@property (copy, nonatomic, nullable) NSString *title;
+
 #pragma mark Soft Buttons
 
 /**
@@ -118,6 +125,17 @@ typedef void(^SDLPreloadChoiceCompletionHandler)(NSError *__nullable error);
  The current list of menu cells displayed in the app's menu.
  */
 @property (copy, nonatomic) NSArray<SDLMenuCell *> *menu;
+
+/**
+Change the mode of the dynamic menu updater to be enabled, disabled, or enabled on known compatible head units.
+
+The current status for dynamic menu updates. A dynamic menu update allows for smarter building of menu changes. If this status is set to `SDLDynamicMenuUpdatesModeForceOn`, menu updates will only create add commands for new items and delete commands for items no longer appearing in the menu. This helps reduce possible RPCs failures as there will be significantly less commands sent to the HMI.
+
+If set to `SDLDynamicMenuUpdatesModeForceOff`, menu updates will work the legacy way. This means when a new menu is set the entire old menu is deleted and add commands are created for every item regarldess if the item appears in both the old and new menu. This method is RPCs heavy and may cause some failures when creating and updating large menus.
+
+ We recommend using either `SDLDynamicMenuUpdatesModeOnWithCompatibility` or `SDLDynamicMenuUpdatesModeForceOn`. `SDLDynamicMenuUpdatesModeOnWithCompatibility` turns dynamic updates off for head units that we know have poor compatibility with dynamic updates (e.g. they have bugs that cause menu items to not be placed correctly).
+ */
+@property (assign, nonatomic) SDLDynamicMenuUpdatesMode dynamicMenuUpdatesMode;
 
 /**
  The current list of voice commands available for the user to speak and be recognized by the IVI's voice recognition engine.
@@ -262,8 +280,32 @@ typedef void(^SDLPreloadChoiceCompletionHandler)(NSError *__nullable error);
 
  @param initialText The initial text within the keyboard input field. It will disappear once the user selects the field in order to enter text
  @param delegate The keyboard delegate called when the user interacts with the keyboard
+ @return A unique cancelID that can be used to cancel this keyboard
  */
-- (void)presentKeyboardWithInitialText:(NSString *)initialText delegate:(id<SDLKeyboardDelegate>)delegate;
+- (nullable NSNumber<SDLInt> *)presentKeyboardWithInitialText:(NSString *)initialText delegate:(id<SDLKeyboardDelegate>)delegate;
+
+/**
+ Cancels the keyboard-only interface if it is currently showing. If the keyboard has not yet been sent to Core, it will not be sent.
+
+ This will only dismiss an already presented keyboard if connected to head units running SDL 6.0+.
+
+ @param cancelID The unique ID assigned to the keyboard, passed as the return value from `presentKeyboardWithInitialText:keyboardDelegate:`
+ */
+- (void)dismissKeyboardWithCancelID:(NSNumber<SDLInt> *)cancelID;
+
+#pragma mark Menu
+
+/**
+ Present the top-level of your application menu. This method should be called if the menu needs to be opened programmatically because the built in menu button is hidden.
+ */
+- (BOOL)openMenu;
+
+/**
+ Present the application menu. This method should be called if the menu needs to be opened programmatically because the built in menu button is hidden. You must update the menu with the proper cells before calling this method. This RPC will fail if the cell does not contain a sub menu, or is not in the menu array.
+
+@param cell The submenu cell that should be opened as a sub menu, with its sub cells as the options.
+ */
+- (BOOL)openSubmenu:(SDLMenuCell *)cell;
 
 @end
 

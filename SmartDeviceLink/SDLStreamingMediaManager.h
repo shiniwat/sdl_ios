@@ -109,6 +109,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (assign, nonatomic) SDLStreamingEncryptionFlag requestedEncryptionType;
 
+/**
+ When YES, the StreamingMediaManager will send a black screen with "Video Backgrounded String". Defaults to YES.
+ */
+@property (assign, nonatomic) BOOL showVideoBackgroundDisplay;
+
 - (instancetype)init NS_UNAVAILABLE;
 
 /**
@@ -170,7 +175,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)sendVideoData:(CVImageBufferRef)imageBuffer presentationTimestamp:(CMTime)presentationTimestamp;
 
 /**
- *  This method receives PCM audio data and will attempt to send that data across to the head unit for immediate playback
+ *  This method receives PCM audio data and will attempt to send that data across to the head unit for immediate playback.
+ *
+ *  NOTE: See the `.audioManager` (SDLAudioStreamManager) `pushWithData:` method for a more modern API.
  *
  *  @param audioData The data in PCM audio format, to be played
  *

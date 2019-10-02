@@ -1,13 +1,13 @@
 Pod::Spec.new do |s|
 
 s.name         = "SmartDeviceLink-iOS"
-s.version      = "6.1.2"
+s.version      = "6.3.1"
 s.summary      = "Connect your app with cars!"
 s.homepage     = "https://github.com/smartdevicelink/SmartDeviceLink-iOS"
 s.license      = { :type => "New BSD", :file => "LICENSE" }
 s.author       = { "SmartDeviceLink Team" => "developer@smartdevicelink.com" }
 s.platform     = :ios, "8.0"
-s.dependency     'BiSON', '~> 1.1.1'
+s.dependency     'BiSON', '~> 1.2.0'
 s.source       = { :git => "https://github.com/smartdevicelink/sdl_ios.git", :tag => s.version.to_s }
 s.requires_arc = true
 s.resource_bundles = { 'SmartDeviceLink' => ['SmartDeviceLink/Assets/**/*'] }
@@ -42,6 +42,7 @@ ss.public_header_files = [
 'SmartDeviceLink/SDLArtwork.h',
 'SmartDeviceLink/SDLAudioControlData.h',
 'SmartDeviceLink/SDLAudioControlCapabilities.h',
+'SmartDeviceLink/SDLAudioFile.h',
 'SmartDeviceLink/SDLAudioPassThruCapabilities.h',
 'SmartDeviceLink/SDLAudioStreamingState.h',
 'SmartDeviceLink/SDLAudioStreamingIndicator.h',
@@ -57,6 +58,8 @@ ss.public_header_files = [
 'SmartDeviceLink/SDLButtonName.h',
 'SmartDeviceLink/SDLButtonPress.h',
 'SmartDeviceLink/SDLButtonPressMode.h',
+'SmartDeviceLink/SDLCancelInteraction.h',
+'SmartDeviceLink/SDLCancelInteractionResponse.h',
 'SmartDeviceLink/SDLCarModeStatus.h',
 'SmartDeviceLink/SDLCarWindowViewController.h',
 'SmartDeviceLink/SDLChangeRegistration.h',
@@ -68,6 +71,8 @@ ss.public_header_files = [
 'SmartDeviceLink/SDLChoiceSetDelegate.h',
 'SmartDeviceLink/SDLClimateControlCapabilities.h',
 'SmartDeviceLink/SDLClimateControlData.h',
+'SmartDeviceLink/SDLCloseApplication.h',
+'SmartDeviceLink/SDLCloseApplicationResponse.h',
 'SmartDeviceLink/SDLCloudAppProperties.h',
 'SmartDeviceLink/SDLClusterModeStatus.h',
 'SmartDeviceLink/SDLCompassDirection.h',
@@ -75,6 +80,8 @@ ss.public_header_files = [
 'SmartDeviceLink/SDLConfiguration.h',
 'SmartDeviceLink/SDLCreateInteractionChoiceSet.h',
 'SmartDeviceLink/SDLCreateInteractionChoiceSetResponse.h',
+'SmartDeviceLink/SDLCreateWindow.h',
+'SmartDeviceLink/SDLCreateWindowResponse.h',
 'SmartDeviceLink/SDLDateTime.h',
 'SmartDeviceLink/SDLDefrostZone.h',
 'SmartDeviceLink/SDLDeleteCommand.h',
@@ -85,6 +92,8 @@ ss.public_header_files = [
 'SmartDeviceLink/SDLDeleteInteractionChoiceSetResponse.h',
 'SmartDeviceLink/SDLDeleteSubMenu.h',
 'SmartDeviceLink/SDLDeleteSubMenuResponse.h',
+'SmartDeviceLink/SDLDeleteWindow.h',
+'SmartDeviceLink/SDLDeleteWindowResponse.h',
 'SmartDeviceLink/SDLDeliveryMode.h',
 'SmartDeviceLink/SDLDeviceInfo.h',
 'SmartDeviceLink/SDLDeviceLevelStatus.h',
@@ -95,6 +104,7 @@ ss.public_header_files = [
 'SmartDeviceLink/SDLDialNumberResponse.h',
 'SmartDeviceLink/SDLDIDResult.h',
 'SmartDeviceLink/SDLDimension.h',
+'SmartDeviceLink/SDLDisplayCapability.h',
 'SmartDeviceLink/SDLDisplayCapabilities.h',
 'SmartDeviceLink/SDLDisplayMode.h',
 'SmartDeviceLink/SDLDisplayType.h',
@@ -132,6 +142,8 @@ ss.public_header_files = [
 'SmartDeviceLink/SDLGetFile.h',
 'SmartDeviceLink/SDLGetFileResponse.h',
 'SmartDeviceLink/SDLGetInteriorVehicleData.h',
+'SmartDeviceLink/SDLGetInteriorVehicleDataConsent.h',
+'SmartDeviceLink/SDLGetInteriorVehicleDataConsentResponse.h',
 'SmartDeviceLink/SDLGetInteriorVehicleDataResponse.h',
 'SmartDeviceLink/SDLGetSystemCapability.h',
 'SmartDeviceLink/SDLGetSystemCapabilityResponse.h',
@@ -141,6 +153,7 @@ ss.public_header_files = [
 'SmartDeviceLink/SDLGetWaypointsResponse.h',
 'SmartDeviceLink/SDLGlobalProperty.h',
 'SmartDeviceLink/SDLGPSData.h',
+'SmartDeviceLink/SDLGrid.h',
 'SmartDeviceLink/SDLHapticRect.h',
 'SmartDeviceLink/SDLHeadLampStatus.h',
 'SmartDeviceLink/SDLHMICapabilities.h',
@@ -204,10 +217,12 @@ ss.public_header_files = [
 'SmartDeviceLink/SDLMediaServiceManifest.h',
 'SmartDeviceLink/SDLMediaType.h',
 'SmartDeviceLink/SDLMenuCell.h',
+'SmartDeviceLink/SDLMenuManagerConstants.h',
 'SmartDeviceLink/SDLMenuParams.h',
 'SmartDeviceLink/SDLMetadataTags.h',
 'SmartDeviceLink/SDLMetadataType.h',
 'SmartDeviceLink/SDLModuleData.h',
+'SmartDeviceLink/SDLModuleInfo.h',
 'SmartDeviceLink/SDLModuleType.h',
 'SmartDeviceLink/SDLMyKey.h',
 'SmartDeviceLink/SDLNavigationAction.h',
@@ -257,6 +272,7 @@ ss.public_header_files = [
 'SmartDeviceLink/SDLPowerModeQualificationStatus.h',
 'SmartDeviceLink/SDLPowerModeStatus.h',
 'SmartDeviceLink/SDLPredefinedLayout.h',
+'SmartDeviceLink/SDLPredefinedWindows.h',
 'SmartDeviceLink/SDLPrerecordedSpeech.h',
 'SmartDeviceLink/SDLPresetBankCapabilities.h',
 'SmartDeviceLink/SDLPrimaryAudioSource.h',
@@ -277,6 +293,8 @@ ss.public_header_files = [
 'SmartDeviceLink/SDLRegisterAppInterface.h',
 'SmartDeviceLink/SDLRegisterAppInterfaceResponse.h',
 'SmartDeviceLink/SDLRemoteControlCapabilities.h',
+'SmartDeviceLink/SDLReleaseInteriorVehicleDataModule.h',
+'SmartDeviceLink/SDLReleaseInteriorVehicleDataModuleResponse.h',
 'SmartDeviceLink/SDLRequestType.h',
 'SmartDeviceLink/SDLResetGlobalProperties.h',
 'SmartDeviceLink/SDLResetGlobalPropertiesResponse.h',
@@ -299,6 +317,8 @@ ss.public_header_files = [
 'SmartDeviceLink/SDLScrollableMessageResponse.h',
 'SmartDeviceLink/SDLSeatControlCapabilities.h',
 'SmartDeviceLink/SDLSeatControlData.h',
+'SmartDeviceLink/SDLSeatLocation.h',
+'SmartDeviceLink/SDLSeatLocationCapability.h',
 'SmartDeviceLink/SDLSeatMemoryAction.h',
 'SmartDeviceLink/SDLSeatMemoryActionType.h',
 'SmartDeviceLink/SDLSupportedSeat.h',
@@ -321,6 +341,8 @@ ss.public_header_files = [
 'SmartDeviceLink/SDLSetMediaClockTimer.h',
 'SmartDeviceLink/SDLSetMediaClockTimerResponse.h',
 'SmartDeviceLink/SDLShow.h',
+'SmartDeviceLink/SDLShowAppMenu.h',
+'SmartDeviceLink/SDLShowAppMenuResponse.h',
 'SmartDeviceLink/SDLShowConstantTBT.h',
 'SmartDeviceLink/SDLShowConstantTBTResponse.h',
 'SmartDeviceLink/SDLShowResponse.h',
@@ -350,6 +372,7 @@ ss.public_header_files = [
 'SmartDeviceLink/SDLSubscribeWaypoints.h',
 'SmartDeviceLink/SDLSubscribeWaypointsResponse.h',
 'SmartDeviceLink/SDLSyncMsgVersion.h',
+'SmartDeviceLink/SDLMsgVersion.h',
 'SmartDeviceLink/SDLSyncPData.h',
 'SmartDeviceLink/SDLSyncPDataResponse.h',
 'SmartDeviceLink/SDLSystemAction.h',
@@ -361,6 +384,7 @@ ss.public_header_files = [
 'SmartDeviceLink/SDLTBTState.h',
 'SmartDeviceLink/SDLTemperature.h',
 'SmartDeviceLink/SDLTemperatureUnit.h',
+'SmartDeviceLink/SDLTemplateConfiguration.h',
 'SmartDeviceLink/SDLTemplateColorScheme.h',
 'SmartDeviceLink/SDLTextAlignment.h',
 'SmartDeviceLink/SDLTextField.h',
@@ -379,6 +403,8 @@ ss.public_header_files = [
 'SmartDeviceLink/SDLTTSChunk.h',
 'SmartDeviceLink/SDLTurn.h',
 'SmartDeviceLink/SDLTurnSignal.h',
+'SmartDeviceLink/SDLUnpublishAppService.h',
+'SmartDeviceLink/SDLUnpublishAppServiceResponse.h',
 'SmartDeviceLink/SDLUnregisterAppInterface.h',
 'SmartDeviceLink/SDLUnregisterAppInterfaceResponse.h',
 'SmartDeviceLink/SDLUnsubscribeButton.h',
@@ -415,6 +441,9 @@ ss.public_header_files = [
 'SmartDeviceLink/SDLWeatherServiceData.h',
 'SmartDeviceLink/SDLWeatherServiceManifest.h',
 'SmartDeviceLink/SDLWiperStatus.h',
+'SmartDeviceLink/SDLWindowCapability.h',
+'SmartDeviceLink/SDLWindowType.h',
+'SmartDeviceLink/SDLWindowTypeCapabilities.h',
 'SmartDeviceLink/SmartDeviceLink.h',
 ]
 end

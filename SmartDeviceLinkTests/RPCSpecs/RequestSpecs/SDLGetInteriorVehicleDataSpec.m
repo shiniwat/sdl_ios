@@ -20,27 +20,35 @@ describe(@"Getter/Setter Tests", ^ {
         SDLGetInteriorVehicleData* testRequest = [[SDLGetInteriorVehicleData alloc] init];
         testRequest.moduleType = SDLModuleTypeRadio;
         testRequest.subscribe = @YES;
+        testRequest.moduleId = @"123";
 
         expect(testRequest.moduleType).to(equal(SDLModuleTypeRadio));
         expect(testRequest.subscribe).to(equal(@YES));
+        expect(testRequest.moduleId).to(equal(@"123"));
     });
 
     it(@"Should get correctly when initialized with a dictionary", ^ {
         NSMutableDictionary<NSString *, id> *dict = [@{SDLRPCParameterNameRequest:
                                                            @{SDLRPCParameterNameParameters:
                                                                  @{SDLRPCParameterNameModuleType : SDLModuleTypeRadio,
+                                                                   SDLRPCParameterNameModuleId: @"123",
                                                                    SDLRPCParameterNameSubscribe : @YES},
                                                              SDLRPCParameterNameOperationName:SDLRPCFunctionNameGetInteriorVehicleData}} mutableCopy];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         SDLGetInteriorVehicleData* testRequest = [[SDLGetInteriorVehicleData alloc] initWithDictionary:dict];
+#pragma clang diagnostic pop
 
         expect(testRequest.moduleType).to(equal(SDLModuleTypeRadio));
         expect(testRequest.subscribe).to(equal(@YES));
+        expect(testRequest.moduleId).to(equal(@"123"));
     });
 
     it(@"Should get correctly when initialized with module type", ^ {
         SDLGetInteriorVehicleData* testRequest = [[SDLGetInteriorVehicleData alloc] initWithModuleType:SDLModuleTypeRadio];
 
         expect(testRequest.moduleType).to(equal(SDLModuleTypeRadio));
+        expect(testRequest.moduleId).to(beNil());
     });
 
     it(@"Should get correctly when initialized with module type and subscribe", ^ {
@@ -48,6 +56,7 @@ describe(@"Getter/Setter Tests", ^ {
 
         expect(testRequest.moduleType).to(equal(SDLModuleTypeRadio));
         expect(testRequest.subscribe).to(equal(@YES));
+        expect(testRequest.moduleId).to(beNil());
     });
 
     it(@"Should get correctly when initialized with module type and unsubscribe", ^ {
@@ -55,6 +64,7 @@ describe(@"Getter/Setter Tests", ^ {
 
         expect(testRequest.moduleType).to(equal(SDLModuleTypeRadio));
         expect(testRequest.subscribe).to(equal(@NO));
+        expect(testRequest.moduleId).to(beNil());
     });
 
 
@@ -63,6 +73,7 @@ describe(@"Getter/Setter Tests", ^ {
 
         expect(testRequest.moduleType).to(beNil());
         expect(testRequest.subscribe).to(beNil());
+        expect(testRequest.moduleId).to(beNil());
     });
 });
 

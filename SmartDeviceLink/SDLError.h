@@ -68,6 +68,7 @@ extern SDLErrorDomain *const SDLErrorDomainRPCStore;
 + (NSError *)sdl_choiceSetManager_choiceDeletionFailed:(NSDictionary *)userInfo;
 + (NSError *)sdl_choiceSetManager_choiceUploadFailed:(NSDictionary *)userInfo;
 + (NSError *)sdl_choiceSetManager_failedToCreateMenuItems;
++ (NSError *)sdl_choiceSetManager_incorrectState:(NSString *)state;
 
 #pragma mark Transport
 
@@ -89,6 +90,8 @@ extern SDLErrorDomain *const SDLErrorDomainRPCStore;
 + (NSException *)sdl_missingFilesException;
 + (NSException *)sdl_invalidSoftButtonStateException;
 + (NSException *)sdl_carWindowOrientationException;
++ (NSException *)sdl_invalidLockscreenSetupException;
++ (NSException *)sdl_invalidSelectorExceptionWithSelector:(SEL)selector;
 
 @end
 

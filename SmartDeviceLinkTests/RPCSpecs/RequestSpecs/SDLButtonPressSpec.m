@@ -22,10 +22,12 @@ describe(@"Getter/Setter Tests", ^ {
         SDLButtonPress* testRequest = [[SDLButtonPress alloc] init];
         
         testRequest.moduleType = SDLModuleTypeClimate;
+        testRequest.moduleId = @"123";
         testRequest.buttonName = SDLButtonNameAC;
         testRequest.buttonPressMode = SDLButtonPressModeShort;
         
         expect(testRequest.moduleType).to(equal(SDLModuleTypeClimate));
+        expect(testRequest.moduleId).to(equal(@"123"));
         expect(testRequest.buttonName).to(equal(SDLButtonNameAC));
         expect(testRequest.buttonPressMode).to(equal(SDLButtonPressModeShort));
 
@@ -36,11 +38,17 @@ describe(@"Getter/Setter Tests", ^ {
                                                            @{SDLRPCParameterNameParameters:
                                                                  @{SDLRPCParameterNameModuleType : SDLModuleTypeClimate,
                                                                    SDLRPCParameterNameButtonName : SDLButtonNameAC,
-                                                                   SDLRPCParameterNameButtonPressMode : SDLButtonPressModeShort},
+                                                                   SDLRPCParameterNameButtonPressMode : SDLButtonPressModeShort,
+                                                                   SDLRPCParameterNameModuleId:@"123"
+                                                                   },
                                                              SDLRPCParameterNameOperationName:SDLRPCFunctionNameButtonPress}} mutableCopy];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         SDLButtonPress* testRequest = [[SDLButtonPress alloc] initWithDictionary:dict];
+#pragma clang diagnostic pop
 
         expect(testRequest.moduleType).to(equal(SDLModuleTypeClimate));
+        expect(testRequest.moduleId).to(equal(@"123"));
         expect(testRequest.buttonName).to(equal(SDLButtonNameAC));
         expect(testRequest.buttonPressMode).to(equal(SDLButtonPressModeShort));
     });
@@ -50,12 +58,14 @@ describe(@"Getter/Setter Tests", ^ {
 
         expect(testRequest.buttonName).to(equal(SDLButtonNameAC));
         expect(testRequest.moduleType).to(equal(SDLModuleTypeClimate));
+        expect(testRequest.moduleId).to(beNil());
     });
 
     it(@"Should return nil if not set", ^ {
         SDLButtonPress* testRequest = [[SDLButtonPress alloc] init];
         
         expect(testRequest.moduleType).to(beNil());
+        expect(testRequest.moduleId).to(beNil());
         expect(testRequest.buttonName).to(beNil());
         expect(testRequest.buttonPressMode).to(beNil());
     });

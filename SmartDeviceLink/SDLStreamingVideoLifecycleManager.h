@@ -130,6 +130,18 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (assign, nonatomic) SDLStreamingEncryptionFlag requestedEncryptionType;
 
+/**
+ When YES, the StreamingMediaManager will send a black screen with "Video Backgrounded String". Defaults to YES.
+ */
+@property (assign, nonatomic) BOOL showVideoBackgroundDisplay;
+
+
+/**
+  When YES, the StreamingMediaManager will override encoder settings by the capability values returned from HMI. Defaults to YES.
+ */
+@property (assign, nonatomic) BOOL allowOverrideEncoderSettings;
+
+
 - (instancetype)init NS_UNAVAILABLE;
 
 /**

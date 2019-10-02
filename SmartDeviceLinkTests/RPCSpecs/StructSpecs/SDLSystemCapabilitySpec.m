@@ -16,6 +16,7 @@
 #import "SDLVideoStreamingCodec.h"
 #import "SDLVideoStreamingFormat.h"
 #import "SDLVideoStreamingProtocol.h"
+#import "SDLSeatLocationCapability.h"
 
 #import "SDLRPCParameterNames.h"
 
@@ -27,6 +28,7 @@ describe(@"Getter/Setter Tests", ^ {
     __block SDLPhoneCapability *testPhoneCapability = nil;
     __block SDLRemoteControlCapabilities *testRemoteControlCapabilities = nil;
     __block SDLVideoStreamingCapability *testVideoStreamingCapability = nil;
+    __block SDLSeatLocationCapability *testSeatLocationCapability = nil;
 
     beforeEach(^{
         testAppServicesCapabilities = [[SDLAppServicesCapabilities alloc] initWithAppServices:nil];
@@ -34,6 +36,7 @@ describe(@"Getter/Setter Tests", ^ {
         testPhoneCapability = [[SDLPhoneCapability alloc] initWithDialNumber:YES];
         testRemoteControlCapabilities = [[SDLRemoteControlCapabilities alloc] initWithClimateControlCapabilities:nil radioControlCapabilities:nil buttonCapabilities:nil seatControlCapabilities:nil audioControlCapabilities:nil hmiSettingsControlCapabilities:nil lightControlCapabilities:nil];
         testVideoStreamingCapability = [[SDLVideoStreamingCapability alloc] initWithPreferredResolution:[[SDLImageResolution alloc] initWithWidth:50 height:50] maxBitrate:5 supportedFormats:@[] hapticDataSupported:false];
+        testSeatLocationCapability = [[SDLSeatLocationCapability alloc] init];
     });
 
     it(@"Should set and get correctly", ^ {
@@ -44,6 +47,7 @@ describe(@"Getter/Setter Tests", ^ {
         testStruct.phoneCapability = testPhoneCapability;
         testStruct.videoStreamingCapability = testVideoStreamingCapability;
         testStruct.remoteControlCapability = testRemoteControlCapabilities;
+        testStruct.seatLocationCapability = testSeatLocationCapability;
 
         expect(testStruct.systemCapabilityType).to(equal(SDLSystemCapabilityTypeNavigation));
         expect(testStruct.appServicesCapabilities).to(equal(testAppServicesCapabilities));
@@ -51,6 +55,7 @@ describe(@"Getter/Setter Tests", ^ {
         expect(testStruct.phoneCapability).to(equal(testPhoneCapability));
         expect(testStruct.videoStreamingCapability).to(equal(testVideoStreamingCapability));
         expect(testStruct.remoteControlCapability).to(equal(testRemoteControlCapabilities));
+        expect(testStruct.seatLocationCapability).to(equal(testSeatLocationCapability));
     });
 
     it(@"Should get correctly when initialized with a dictionary", ^ {
@@ -60,9 +65,13 @@ describe(@"Getter/Setter Tests", ^ {
                                SDLRPCParameterNameNavigationCapability:testNavigationCapability,
                                SDLRPCParameterNamePhoneCapability:testPhoneCapability,
                                SDLRPCParameterNameRemoteControlCapability:testRemoteControlCapabilities,
-                               SDLRPCParameterNameVideoStreamingCapability:testVideoStreamingCapability
+                               SDLRPCParameterNameVideoStreamingCapability:testVideoStreamingCapability,
+                               SDLRPCParameterNameSeatLocationCapability:testSeatLocationCapability
                                };
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         SDLSystemCapability *testStruct = [[SDLSystemCapability alloc] initWithDictionary:dict];
+#pragma clang diagnostic pop
 
         expect(testStruct.systemCapabilityType).to(equal(SDLSystemCapabilityTypeNavigation));
         expect(testStruct.appServicesCapabilities).to(equal(testAppServicesCapabilities));
@@ -70,6 +79,7 @@ describe(@"Getter/Setter Tests", ^ {
         expect(testStruct.phoneCapability).to(equal(testPhoneCapability));
         expect(testStruct.remoteControlCapability).to(equal(testRemoteControlCapabilities));
         expect(testStruct.videoStreamingCapability).to(equal(testVideoStreamingCapability));
+        expect(testStruct.seatLocationCapability).to(equal(testSeatLocationCapability));
     });
 
     it(@"Should return nil if not set", ^ {
@@ -81,6 +91,7 @@ describe(@"Getter/Setter Tests", ^ {
         expect(testStruct.phoneCapability).to(beNil());
         expect(testStruct.videoStreamingCapability).to(beNil());
         expect(testStruct.remoteControlCapability).to(beNil());
+        expect(testStruct.seatLocationCapability).to(beNil());
     });
 
     it(@"should initialize correctly with initWithAppServicesCapabilities:", ^{
@@ -92,6 +103,7 @@ describe(@"Getter/Setter Tests", ^ {
         expect(testStruct.phoneCapability).to(beNil());
         expect(testStruct.remoteControlCapability).to(beNil());
         expect(testStruct.videoStreamingCapability).to(beNil());
+        expect(testStruct.seatLocationCapability).to(beNil());
     });
 
     it(@"should initialize correctly with initWithPhoneCapability:", ^{
@@ -104,6 +116,7 @@ describe(@"Getter/Setter Tests", ^ {
         expect(testStruct.phoneCapability).to(equal(testPhoneStruct));
         expect(testStruct.remoteControlCapability).to(beNil());
         expect(testStruct.videoStreamingCapability).to(beNil());
+        expect(testStruct.seatLocationCapability).to(beNil());
     });
 
     it(@"should initialize correctly with initWithNavigationCapability:", ^{
@@ -116,6 +129,7 @@ describe(@"Getter/Setter Tests", ^ {
         expect(testStruct.phoneCapability).to(beNil());
         expect(testStruct.remoteControlCapability).to(beNil());
         expect(testStruct.videoStreamingCapability).to(beNil());
+        expect(testStruct.seatLocationCapability).to(beNil());
     });
 
     it(@"should initialize correctly with initWithVideoStreamingCapability:", ^{
@@ -124,7 +138,7 @@ describe(@"Getter/Setter Tests", ^ {
         resolution.resolutionHeight = @500;
 
         int32_t maxBitrate = 100;
-        NSNumber *hapticDataSupported = @YES;
+        BOOL hapticDataSupported = YES;
 
         SDLVideoStreamingFormat *format1 = [[SDLVideoStreamingFormat alloc] init];
         format1.codec = SDLVideoStreamingCodecH264;
@@ -145,6 +159,7 @@ describe(@"Getter/Setter Tests", ^ {
         expect(testStruct.phoneCapability).to(beNil());
         expect(testStruct.remoteControlCapability).to(beNil());
         expect(testStruct.videoStreamingCapability).to(equal(testVidStruct));
+        expect(testStruct.seatLocationCapability).to(beNil());
     });
     
     it(@"should initialize correctly with initWithRemoteControlCapability:", ^{
@@ -156,6 +171,19 @@ describe(@"Getter/Setter Tests", ^ {
         expect(testStruct.phoneCapability).to(beNil());
         expect(testStruct.remoteControlCapability).to(equal(testRemoteControlCapabilities));
         expect(testStruct.videoStreamingCapability).to(beNil());
+        expect(testStruct.seatLocationCapability).to(beNil());
+    });
+    
+    it(@"should initialize correctly with initWithSeatLocationCapability:", ^{
+        SDLSystemCapability *testStruct = [[SDLSystemCapability alloc] initWithSeatLocationCapability:testSeatLocationCapability];
+        
+        expect(testStruct.systemCapabilityType).to(equal(SDLSystemCapabilityTypeSeatLocation));
+        expect(testStruct.appServicesCapabilities).to(beNil());
+        expect(testStruct.navigationCapability).to(beNil());
+        expect(testStruct.phoneCapability).to(beNil());
+        expect(testStruct.remoteControlCapability).to(beNil());
+        expect(testStruct.videoStreamingCapability).to(beNil());
+        expect(testStruct.seatLocationCapability).to(equal(testSeatLocationCapability));
     });
 });
 

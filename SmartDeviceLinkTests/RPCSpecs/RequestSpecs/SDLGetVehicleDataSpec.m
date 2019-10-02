@@ -112,7 +112,10 @@ describe(@"Getter/Setter Tests", ^ {
                                                                    SDLRPCParameterNameTurnSignal:@NO,
                                                                    SDLRPCParameterNameWiperStatus:@YES},
                                                              SDLRPCParameterNameOperationName:SDLRPCFunctionNameGetVehicleData}};
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         SDLGetVehicleData* testRequest = [[SDLGetVehicleData alloc] initWithDictionary:dict];
+#pragma clang diagnostic pop
         
         expect(testRequest.accPedalPosition).to(equal(@YES));
         expect(testRequest.airbagStatus).to(equal(@YES));
@@ -287,6 +290,18 @@ describe(@"initializers", ^{
         expect(testRequest.turnSignal).to(equal(@YES));
         expect(testRequest.wiperStatus).to(equal(@YES));
     });
+
+    context(@"Should set and get Generic Network Signal Data", ^{
+        SDLGetVehicleData *testRequest = [[SDLGetVehicleData alloc] init];
+
+        [testRequest setOEMCustomVehicleData:@"OEMCustomVehicleData" withVehicleDataState:NO];
+        [testRequest setOEMCustomVehicleData:@"OEMCustomVehicleData1" withVehicleDataState:YES];
+
+        expect([testRequest getOEMCustomVehicleData:@"OEMCustomVehicleData"]).to(beFalse());
+        expect([testRequest getOEMCustomVehicleData:@"OEMCustomVehicleData1"]).to(beTrue());
+
+    });
+
 });
 
 QuickSpecEnd

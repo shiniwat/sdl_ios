@@ -7,14 +7,12 @@
 //
 
 #import "SDLScreenManager.h"
-
 #import "SDLArtwork.h"
 #import "SDLChoiceSetManager.h"
 #import "SDLMenuManager.h"
 #import "SDLSoftButtonManager.h"
 #import "SDLTextAndGraphicManager.h"
 #import "SDLVoiceCommandManager.h"
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SDLScreenManager()
@@ -127,6 +125,10 @@ NS_ASSUME_NONNULL_BEGIN
     self.textAndGraphicManager.textField4Type = textField4Type;
 }
 
+- (void)setTitle:(nullable NSString *)title {
+    self.textAndGraphicManager.title = title;
+}
+
 - (void)setSoftButtonObjects:(NSArray<SDLSoftButtonObject *> *)softButtonObjects {
     self.softButtonManager.softButtonObjects = softButtonObjects;
 }
@@ -141,6 +143,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setKeyboardConfiguration:(nullable SDLKeyboardProperties *)keyboardConfiguration {
     self.choiceSetManager.keyboardConfiguration = keyboardConfiguration;
+}
+
+- (void)setDynamicMenuUpdatesMode:(SDLDynamicMenuUpdatesMode)dynamicMenuUpdatesMode {
+    self.menuManager.dynamicMenuUpdatesMode = dynamicMenuUpdatesMode;
 }
 
 #pragma mark - Getters
@@ -237,7 +243,6 @@ NS_ASSUME_NONNULL_BEGIN
     self.textAndGraphicManager.batchUpdates = NO;
 
     [self.textAndGraphicManager updateWithCompletionHandler:handler];
-    [self.softButtonManager updateWithCompletionHandler:handler];
 }
 
 #pragma mark - Choice Sets
@@ -258,8 +263,22 @@ NS_ASSUME_NONNULL_BEGIN
     [self.choiceSetManager presentChoiceSet:choiceSet mode:mode withKeyboardDelegate:delegate];
 }
 
-- (void)presentKeyboardWithInitialText:(NSString *)initialText delegate:(id<SDLKeyboardDelegate>)delegate {
-    [self.choiceSetManager presentKeyboardWithInitialText:initialText delegate:delegate];
+- (nullable NSNumber<SDLInt> *)presentKeyboardWithInitialText:(NSString *)initialText delegate:(id<SDLKeyboardDelegate>)delegate {
+    return [self.choiceSetManager presentKeyboardWithInitialText:initialText delegate:delegate];
+}
+
+- (void)dismissKeyboardWithCancelID:(NSNumber<SDLInt> *)cancelID{
+    [self.choiceSetManager dismissKeyboardWithCancelID:cancelID];
+}
+
+#pragma mark - Menu
+
+- (BOOL)openMenu {
+   return [self.menuManager openMenu];
+}
+
+- (BOOL)openSubmenu:(SDLMenuCell *)cell {
+  return [self.menuManager openSubmenu:cell];
 }
 
 @end
