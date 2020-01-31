@@ -3,10 +3,10 @@
 
 #import <UIKit/UIKit.h>
 
-//! Project version number for SmartDeviceLink.
+/// Project version number for SmartDeviceLink.
 FOUNDATION_EXPORT double SmartDeviceLinkVersionNumber;
 
-//! Project version string for SmartDeviceLink.
+/// Project version string for SmartDeviceLink.
 FOUNDATION_EXPORT const unsigned char SmartDeviceLinkVersionString[];
 
 /***** RPCs *****/
@@ -335,6 +335,7 @@ FOUNDATION_EXPORT const unsigned char SmartDeviceLinkVersionString[];
 #import "SDLMassageZone.h"
 #import "SDLMediaClockFormat.h"
 #import "SDLMediaType.h"
+#import "SDLMenuLayout.h"
 #import "SDLMenuManagerConstants.h"
 #import "SDLMetadataType.h"
 #import "SDLModuleType.h"
@@ -392,11 +393,16 @@ FOUNDATION_EXPORT const unsigned char SmartDeviceLinkVersionString[];
 // Developer API
 // Configurations
 #import "SDLConfiguration.h"
+#import "SDLEncryptionConfiguration.h"
 #import "SDLFileManagerConfiguration.h"
 #import "SDLLifecycleConfiguration.h"
 #import "SDLLifecycleConfigurationUpdate.h"
 #import "SDLLockScreenConfiguration.h"
 #import "SDLStreamingMediaConfiguration.h"
+
+// Encryption
+#import "SDLProtocolConstants.h"
+#import "SDLServiceEncryptionDelegate.h"
 
 // Streaming
 #import "SDLAudioFile.h"
@@ -409,6 +415,7 @@ FOUNDATION_EXPORT const unsigned char SmartDeviceLinkVersionString[];
 #import "SDLTouchManagerDelegate.h"
 #import "SDLSecurityType.h"
 #import "SDLStreamingMediaManagerDataSource.h"
+#import "SDLStreamingVideoScaleManager.h"
 
 // Files
 #import "SDLArtwork.h"
@@ -436,6 +443,7 @@ FOUNDATION_EXPORT const unsigned char SmartDeviceLinkVersionString[];
 #import "SDLSoftButtonState.h"
 
 #import "SDLMenuCell.h"
+#import "SDLMenuConfiguration.h"
 #import "SDLVoiceCommand.h"
 
 #import "SDLChoiceCell.h"

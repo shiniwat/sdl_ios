@@ -20,7 +20,9 @@
 @class SDLFileManager;
 @class SDLKeyboardProperties;
 @class SDLMenuCell;
+@class SDLMenuConfiguration;
 @class SDLSoftButtonObject;
+@class SDLSystemCapabilityManager;
 @class SDLVoiceCommand;
 
 @protocol SDLConnectionManagerType;
@@ -43,6 +45,7 @@ typedef void(^SDLScreenManagerUpdateCompletionHandler)(NSError *__nullable error
  */
 typedef void(^SDLPreloadChoiceCompletionHandler)(NSError *__nullable error);
 
+/// The SDLScreenManager is a manager to control SDL UI features. Use the screen manager for setting up the UI of the template, creating a menu for your users, creating softbuttons, setting textfields, etc..
 @interface SDLScreenManager : NSObject
 
 #pragma mark Text and Graphics
@@ -122,6 +125,17 @@ typedef void(^SDLPreloadChoiceCompletionHandler)(NSError *__nullable error);
 #pragma mark Menu
 
 /**
+ Configures the layout of the menu and sub-menus. If set after a menu already exists, the existing main menu layout will be updated.
+
+ If set menu layouts don't match available menu layouts in WindowCapability, an error log will be emitted and the layout will not be set.
+
+ Setting this parameter will send a message to the remote system. This value will be set immediately, but if that message is rejected, the original value will be re-set and an error log will be emitted.
+
+ This only works on head units supporting RPC spec version 6.0 and newer. If the connected head unit does not support this feature, a warning log will be emitted and nothing will be set.
+ */
+@property (strong, nonatomic) SDLMenuConfiguration *menuConfiguration;
+
+/**
  The current list of menu cells displayed in the app's menu.
  */
 @property (copy, nonatomic) NSArray<SDLMenuCell *> *menu;
@@ -166,10 +180,10 @@ If set to `SDLDynamicMenuUpdatesModeForceOff`, menu updates will work the legacy
 
  @param connectionManager The connection manager used to send RPCs
  @param fileManager The file manager used to upload files
+ @param systemCapabilityManager The system capability manager object for reading window capabilities
  @return The screen manager
  */
-
-- (instancetype)initWithConnectionManager:(id<SDLConnectionManagerType>)connectionManager fileManager:(SDLFileManager *)fileManager;
+- (instancetype)initWithConnectionManager:(id<SDLConnectionManagerType>)connectionManager fileManager:(SDLFileManager *)fileManager systemCapabilityManager:(SDLSystemCapabilityManager *)systemCapabilityManager;
 
 /**
  Starts the manager and all sub-managers
@@ -229,6 +243,8 @@ If set to `SDLDynamicMenuUpdatesModeForceOff`, menu updates will work the legacy
 
 #pragma mark Soft Button
 
+/// Retrieve a SoftButtonObject based on its name.
+/// @param name The name of the button
 - (nullable SDLSoftButtonObject *)softButtonObjectNamed:(NSString *)name;
 
 #pragma mark Choice Sets

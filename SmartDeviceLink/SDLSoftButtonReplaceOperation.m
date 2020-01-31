@@ -10,7 +10,6 @@
 
 #import "SDLArtwork.h"
 #import "SDLConnectionManagerType.h"
-#import "SDLDisplayCapabilities+ShowManagerExtensions.h"
 #import "SDLFileManager.h"
 #import "SDLLogMacros.h"
 #import "SDLShow.h"
@@ -61,8 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
         [self sdl_sendCurrentStateTextOnlySoftButtonsWithCompletionHandler:^(BOOL success) {
             if (!success) {
                 SDLLogE(@"Head unit does not support images and some of the soft buttons do not have text, so none of the buttons will be sent.");
-                [weakself finishOperation];
             }
+            [weakself finishOperation];
         }];
     } else if ([self sdl_currentStateHasImages] && ![self sdl_allCurrentStateImagesAreUploaded]) {
         // If there are images that aren't uploaded

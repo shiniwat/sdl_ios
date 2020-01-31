@@ -157,6 +157,22 @@ describe(@"uploading / deleting single files with the file manager", ^{
             });
         });
 
+        describe(@"after receiving a ListFiles error with a resultCode DISALLOWED", ^{
+            beforeEach(^{
+                SDLListFilesOperation *operation = testFileManager.pendingTransactions.firstObject;
+                NSMutableDictionary *userInfo = [[NSError sdl_fileManager_unableToStartError].userInfo mutableCopy];
+                userInfo[@"resultCode"] = SDLResultDisallowed;
+                NSError *errorWithResultCode = [NSError errorWithDomain:[NSError sdl_fileManager_unableToStartError].domain code:[NSError sdl_fileManager_unableToStartError].code userInfo:userInfo];
+                operation.completionHandler(NO, initialSpaceAvailable, testInitialFileNames, errorWithResultCode);
+            });
+
+            it(@"should handle the error properly", ^{
+                expect(testFileManager.currentState).to(match(SDLFileManagerStateReady));
+                expect(testFileManager.remoteFileNames).to(beEmpty());
+                expect(@(testFileManager.bytesAvailable)).to(equal(initialSpaceAvailable));
+            });
+        });
+
         describe(@"after receiving a ListFiles response", ^{
             beforeEach(^{
                 SDLListFilesOperation *operation = testFileManager.pendingTransactions.firstObject;
@@ -875,7 +891,7 @@ describe(@"uploading/deleting multiple files in the file manager", ^{
                     [testFileManager uploadArtworks:testArtworks progressHandler:^BOOL(NSString * _Nonnull artworkName, float uploadPercentage, NSError * _Nullable error) {
                         artworksDone++;
                         expect(artworkName).to(equal(expectedArtworkNames[artworksDone - 1]));
-                        expect(uploadPercentage).to(beCloseTo((float)artworksDone / 200.0).within(0.1));
+                        expect(uploadPercentage).to(beCloseTo((float)artworksDone / 200.0).within(0.01));
                         expect(error).to(beNil());
                         return YES;
                     } completionHandler:^(NSArray<NSString *> * _Nonnull artworkNames, NSError * _Nullable error) {

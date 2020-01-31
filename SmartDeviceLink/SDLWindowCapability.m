@@ -45,6 +45,14 @@
     return [self.store sdl_enumsForName:SDLRPCParameterNameImageTypeSupported error:nil];
 }
 
+- (void)setTemplatesAvailable:(nullable NSArray<NSString *> *)templatesAvailable {
+    [self.store sdl_setObject:templatesAvailable forName:SDLRPCParameterNameTemplatesAvailable];
+}
+
+- (nullable NSArray<NSString *> *)templatesAvailable {
+    return [self.store sdl_objectsForName:SDLRPCParameterNameTemplatesAvailable ofClass:NSString.class error:nil];
+}
+
 - (void)setNumCustomPresetsAvailable:(nullable NSNumber<SDLInt> *)numCustomPresetsAvailable {
     [self.store sdl_setObject:numCustomPresetsAvailable forName:SDLRPCParameterNameNumberCustomPresetsAvailable];
 }
@@ -68,6 +76,14 @@
 
 - (nullable NSArray<SDLSoftButtonCapabilities *> *)softButtonCapabilities {
     return [self.store sdl_objectsForName:SDLRPCParameterNameSoftButtonCapabilities ofClass:SDLSoftButtonCapabilities.class error:nil];
+}
+
+- (void)setMenuLayoutsAvailable:(nullable NSArray<SDLMenuLayout> *)menuLayoutsAvailable {
+    [self.store sdl_setObject:menuLayoutsAvailable forName:SDLRPCParameterNameMenuLayoutsAvailable];
+}
+
+- (nullable NSArray<SDLMenuLayout> *)menuLayoutsAvailable {
+    return [self.store sdl_enumsForName:SDLRPCParameterNameMenuLayoutsAvailable error:nil];
 }
 
 @end

@@ -18,7 +18,7 @@
 
 <p>Specifies what is to be spoken. This can be simply a text phrase, which SDL will speak according to its own rules. It can also be phonemes from either the Microsoft SAPI phoneme set, or from the LHPLUS phoneme set. It can also be a pre-recorded sound in WAV format (either developer-defined, or provided by the SDL platform).</p>
 
-<p>In SDL, words, and therefore sentences, can be built up from phonemes and are used to explicitly provide the proper pronounciation to the TTS engine. For example, to have SDL pronounce the word <q>read</q> as <q>red</q>, rather than as when it is pronounced like <q>reed</q>, the developer would use phonemes to express this desired pronounciation.</p>
+<p>In SDL, words, and therefore sentences, can be built up from phonemes and are used to explicitly provide the proper pronounciation to the TTS engine. For example, to have SDL pronounce the word &ldquo;read&rdquo; as &ldquo;red&rdquo;, rather than as when it is pronounced like &ldquo;reed&rdquo;, the developer would use phonemes to express this desired pronounciation.</p>
 
 <p>For more information about phonemes, see <a href="http://en.wikipedia.org/wiki/Phoneme"><a href="http://en.wikipedia.org/wiki/Phoneme">http://en.wikipedia.org/wiki/Phoneme</a></a>.</p>
 
@@ -36,11 +36,11 @@
   
   <h4>Objective-C</h4>
   <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span><span class="nf">initWithText</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">text</span>
-                                <span class="nf">type</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Type Definitions.html#/c:SDLSpeechCapabilities.h@T@SDLSpeechCapabilities">SDLSpeechCapabilities</a></span><span class="p">)</span><span class="nv">type</span><span class="p">;</span></code></pre>
+                                <span class="nf">type</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLSpeechCapabilities.h@T@SDLSpeechCapabilities">SDLSpeechCapabilities</a></span><span class="p">)</span><span class="nv">type</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
-  <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">type</span><span class="p">:</span> <span class="kt"><a href="../Type Definitions.html#/c:SDLSpeechCapabilities.h@T@SDLSpeechCapabilities">SDLSpeechCapabilities</a></span><span class="p">)</span></code></pre>
+  <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">type</span><span class="p">:</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLSpeechCapabilities.h@T@SDLSpeechCapabilities">SDLSpeechCapabilities</a></span><span class="p">)</span></code></pre>
 
   
   
@@ -194,7 +194,7 @@
       +fileChunksWithName:
   </h3>
   
-  <p>Create <q>TTS</q> to play an audio file previously uploaded to the system.</p>
+  <p>Create &ldquo;TTS&rdquo; to play an audio file previously uploaded to the system.</p>
 
   
   
@@ -222,7 +222,7 @@
       text
   </h3>
   
-  <p>Text to be spoken, a phoneme specification, or the name of a pre-recorded / pre-uploaded sound. The contents of this field are indicated by the <q>type</q> field.</p>
+  <p>Text to be spoken, a phoneme specification, or the name of a pre-recorded / pre-uploaded sound. The contents of this field are indicated by the &ldquo;type&rdquo; field.</p>
 
 <p>Required, Max length 500</p>
 
@@ -242,18 +242,18 @@
       type
   </h3>
   
-  <p>The type of information in the <q>text</q> field (e.g. phrase to be spoken, phoneme specification, name of pre-recorded sound).</p>
+  <p>The type of information in the &ldquo;text&rdquo; field (e.g. phrase to be spoken, phoneme specification, name of pre-recorded sound).</p>
 
 <p>Required</p>
 
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n"><a href="../Type Definitions.html#/c:SDLSpeechCapabilities.h@T@SDLSpeechCapabilities">SDLSpeechCapabilities</a></span> <span class="n">_Nonnull</span> <span class="n">type</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLSpeechCapabilities.h@T@SDLSpeechCapabilities">SDLSpeechCapabilities</a></span> <span class="n">_Nonnull</span> <span class="n">type</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
-  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">type</span><span class="p">:</span> <span class="kt"><a href="../Type Definitions.html#/c:SDLSpeechCapabilities.h@T@SDLSpeechCapabilities">SDLSpeechCapabilities</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">type</span><span class="p">:</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLSpeechCapabilities.h@T@SDLSpeechCapabilities">SDLSpeechCapabilities</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
   
   

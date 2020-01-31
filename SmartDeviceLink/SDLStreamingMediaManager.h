@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Interface
 
+/// Manager to help control streaming media services.
 @interface SDLStreamingMediaManager : NSObject <SDLStreamingAudioManagerType>
 
 /**
@@ -80,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic, readonly, getter=isVideoStreamingPaused) BOOL videoStreamingPaused;
 
 /**
- *  This is the current screen size of a connected display. This will be the size the video encoder uses to encode the raw image data.
+ *  The current screen resolution of the connected display in pixels.
  */
 @property (assign, nonatomic, readonly) CGSize screenSize;
 
@@ -114,6 +115,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (assign, nonatomic) BOOL showVideoBackgroundDisplay;
 
+/// Initializer unavailable
 - (instancetype)init NS_UNAVAILABLE;
 
 /**

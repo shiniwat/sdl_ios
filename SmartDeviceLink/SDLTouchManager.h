@@ -14,12 +14,17 @@
 @protocol SDLTouchManagerDelegate;
 
 @class SDLTouch;
+@class SDLStreamingVideoScaleManager;
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// Handler for touch events
+///
+/// @param touch Describes a touch location
+/// @param type The type of touch
 typedef void(^SDLTouchEventHandler)(SDLTouch *touch, SDLTouchType type);
 
-
+/// Touch Manager responsible for processing touch event notifications.
 @interface SDLTouchManager : NSObject
 
 /**
@@ -86,6 +91,7 @@ typedef void(^SDLTouchEventHandler)(SDLTouch *touch, SDLTouchType type);
  */
 - (void)cancelPendingTouches;
 
+/// Initializer unavailable
 - (instancetype)init NS_UNAVAILABLE;
 
 /**
@@ -94,7 +100,16 @@ typedef void(^SDLTouchEventHandler)(SDLTouch *touch, SDLTouchType type);
  @param hitTester The hit tester to be used to correlate a point with a view
  @return The initialized touch manager
  */
-- (instancetype)initWithHitTester:(nullable id<SDLFocusableItemHitTester>)hitTester;
+- (instancetype)initWithHitTester:(nullable id<SDLFocusableItemHitTester>)hitTester __deprecated_msg("Use initWithHitTester:hitTester videoScaleManager: instead");
+
+/**
+ Initialize a touch manager with a hit tester and a video scale manager.
+
+ @param hitTester The hit tester to be used to correlate a point with a view
+ @param videoScaleManager The scale manager that scales from the display screen coordinate system to the app's viewport coordinate system
+ @return The initialized touch manager
+ */
+- (instancetype)initWithHitTester:(nullable id<SDLFocusableItemHitTester>)hitTester videoScaleManager:(SDLStreamingVideoScaleManager *)videoScaleManager;
 
 /**
  Called by SDLStreamingMediaManager in sync with the streaming framerate. This helps to moderate panning gestures by allowing the UI to be modified in time with the framerate.

@@ -6,6 +6,7 @@
   <li><a href="#section-SDLArtworkImageFormat">SDLArtworkImageFormat</a></li>
   <li><a href="#section-SDLAudioStreamManagerError">SDLAudioStreamManagerError</a></li>
   <li><a href="#section-SDLChoiceSetLayout">SDLChoiceSetLayout</a></li>
+  <li><a href="#section-SDLEncryptionLifecycleManagerError">SDLEncryptionLifecycleManagerError</a></li>
   <li><a href="#section-SDLManagerError">SDLManagerError</a></li>
   <li><a href="#section-SDLFileManagerError">SDLFileManagerError</a></li>
   <li><a href="#section-SDLTextAndGraphicManagerError">SDLTextAndGraphicManagerError</a></li>
@@ -14,6 +15,8 @@
   <li><a href="#section-SDLChoiceSetManagerError">SDLChoiceSetManagerError</a></li>
   <li><a href="#section-SDLTransportError">SDLTransportError</a></li>
   <li><a href="#section-SDLRPCStoreError">SDLRPCStoreError</a></li>
+  <li><a href="#section-SDLSecondaryTransports">SDLSecondaryTransports</a></li>
+  <li><a href="#section-SDLLockScreenConfigurationDisplayMode">SDLLockScreenConfigurationDisplayMode</a></li>
   <li><a href="#section-SDLLogBytesDirection">SDLLogBytesDirection</a></li>
   <li><a href="#section-SDLLogFlag">SDLLogFlag</a></li>
   <li><a href="#section-SDLLogLevel">SDLLogLevel</a></li>
@@ -22,6 +25,10 @@
   <li><a href="#section-MenuCellState">MenuCellState</a></li>
   <li><a href="#section-SDLPermissionGroupType">SDLPermissionGroupType</a></li>
   <li><a href="#section-SDLPermissionGroupStatus">SDLPermissionGroupStatus</a></li>
+  <li><a href="#section-SDLPredefinedWindows">SDLPredefinedWindows</a></li>
+  <li><a href="#section-SDLFrameType">SDLFrameType</a></li>
+  <li><a href="#section-SDLServiceType">SDLServiceType</a></li>
+  <li><a href="#section-SDLFrameInfo">SDLFrameInfo</a></li>
   <li><a href="#section-SDLRPCMessageType">SDLRPCMessageType</a></li>
   <li><a href="#section-SDLCarWindowRenderingType">SDLCarWindowRenderingType</a></li>
   <li><a href="#section-SDLStreamingEncryptionFlag">SDLStreamingEncryptionFlag</a></li>
@@ -37,16 +44,13 @@
       SDLArtworkImageFormat
   </h3>
   
-  <p>Undocumented</p>
+  <p>Image format of an artwork file</p>
 
   <a href="Enums/SDLArtworkImageFormat.html" class="slightly-smaller">See more</a>
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="n">NS_ENUM</span><span class="p">(</span><span class="n">NSUInteger</span><span class="p">,</span> <span class="n">SDLArtworkImageFormat</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">SDLArtworkImageFormatPNG</span><span class="p">,</span>
-    <span class="n">SDLArtworkImageFormatJPG</span>
-<span class="p">}</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">enum</span> <span class="n">SDLArtworkImageFormat</span> <span class="p">{}</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -59,16 +63,13 @@
       SDLAudioStreamManagerError
   </h3>
   
-  <p>Undocumented</p>
+  <p>AudioStreamManager errors</p>
 
   <a href="Enums/SDLAudioStreamManagerError.html" class="slightly-smaller">See more</a>
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="n">NS_ENUM</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">,</span> <span class="n">SDLAudioStreamManagerError</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">SDLAudioStreamManagerErrorNotConnected</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">SDLAudioStreamManagerErrorNoQueuedAudio</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span>
-<span class="p">}</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">enum</span> <span class="n">SDLAudioStreamManagerError</span> <span class="p">{}</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -81,20 +82,36 @@
       SDLChoiceSetLayout
   </h3>
   
-  <p>Undocumented</p>
+  <p>The layout to use when a choice set is displayed</p>
 
   <a href="Enums/SDLChoiceSetLayout.html" class="slightly-smaller">See more</a>
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="n">NS_ENUM</span><span class="p">(</span><span class="n">NSUInteger</span><span class="p">,</span> <span class="n">SDLChoiceSetLayout</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">SDLChoiceSetLayoutList</span><span class="p">,</span>
-    <span class="n">SDLChoiceSetLayoutTiles</span><span class="p">,</span>
-<span class="p">}</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">enum</span> <span class="n">SDLChoiceSetLayout</span> <span class="p">{}</span></code></pre>
 
   
   <h4>Swift</h4>
   <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">SDLChoiceSetLayout</span> <span class="p">:</span> <span class="kt">UInt</span></code></pre>
+
+  
+  
+  
+  <h3 id="section-SDLEncryptionLifecycleManagerError">
+      SDLEncryptionLifecycleManagerError
+  </h3>
+  
+  <p>Errors associated with the SDLManager class.</p>
+
+  <a href="Enums/SDLEncryptionLifecycleManagerError.html" class="slightly-smaller">See more</a>
+  
+  
+  <h4>Objective-C</h4>
+  <pre class="highlight objective_c"><code><span class="k">enum</span> <span class="n">SDLEncryptionLifecycleManagerError</span> <span class="p">{}</span></code></pre>
+
+  
+  <h4>Swift</h4>
+  <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">SDLEncryptionLifecycleManagerError</span> <span class="p">:</span> <span class="kt">Int</span></code></pre>
 
   
   
@@ -143,10 +160,6 @@
   
   <p>Errors associated with the ScreenManager class</p>
 
-<ul>
-<li>SDLTextAndGraphicManagerErrorPendingUpdateSuperseded: A pending update was superseded by a newer requested update. The old update will not be sent</li>
-</ul>
-
   <a href="Enums/SDLTextAndGraphicManagerError.html" class="slightly-smaller">See more</a>
   
   
@@ -165,10 +178,6 @@
   </h3>
   
   <p>Errors associated with the ScreenManager class</p>
-
-<ul>
-<li>SDLSoftButtonManagerErrorPendingUpdateSuperseded: A pending update was superseded by a newer requested update. The old update will not be sent</li>
-</ul>
 
   <a href="Enums/SDLSoftButtonManagerError.html" class="slightly-smaller">See more</a>
   
@@ -189,10 +198,6 @@
   
   <p>Errors associated with the ScreenManager class</p>
 
-<ul>
-<li>SDLMenuManagerErrorRPCsFailed: Sending menu-related RPCs returned an error from the remote system</li>
-</ul>
-
   <a href="Enums/SDLMenuManagerError.html" class="slightly-smaller">See more</a>
   
   
@@ -210,19 +215,13 @@
       SDLChoiceSetManagerError
   </h3>
   
-  <p>Undocumented</p>
+  <p>Errors associated with Choice Set class</p>
 
   <a href="Enums/SDLChoiceSetManagerError.html" class="slightly-smaller">See more</a>
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="n">NS_ENUM</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">,</span> <span class="n">SDLChoiceSetManagerError</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">SDLChoiceSetManagerErrorPendingPresentationDeleted</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">SDLChoiceSetManagerErrorDeletionFailed</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>
-    <span class="n">SDLChoiceSetManagerErrorUploadFailed</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span>
-    <span class="n">SDLChoiceSetManagerErrorFailedToCreateMenuItems</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span>
-    <span class="n">SDLChoiceSetManagerErrorInvalidState</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span>
-<span class="p">}</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">enum</span> <span class="n">SDLChoiceSetManagerError</span> <span class="p">{}</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -269,20 +268,55 @@
   
   
   
+  <h3 id="section-SDLSecondaryTransports">
+      SDLSecondaryTransports
+  </h3>
+  
+  <p>List of secondary transports</p>
+
+  <a href="Enums/SDLSecondaryTransports.html" class="slightly-smaller">See more</a>
+  
+  
+  <h4>Objective-C</h4>
+  <pre class="highlight objective_c"><code><span class="k">enum</span> <span class="n">SDLSecondaryTransports</span> <span class="p">{}</span></code></pre>
+
+  
+  <h4>Swift</h4>
+  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">SDLSecondaryTransports</span> <span class="p">:</span> <span class="kt">OptionSet</span></code></pre>
+
+  
+  
+  
+  <h3 id="section-SDLLockScreenConfigurationDisplayMode">
+      SDLLockScreenConfigurationDisplayMode
+  </h3>
+  
+  <p>Describes when the lock screen should be shown.</p>
+
+  <a href="Enums/SDLLockScreenConfigurationDisplayMode.html" class="slightly-smaller">See more</a>
+  
+  
+  <h4>Objective-C</h4>
+  <pre class="highlight objective_c"><code><span class="k">enum</span> <span class="n">SDLLockScreenConfigurationDisplayMode</span> <span class="p">{}</span></code></pre>
+
+  
+  <h4>Swift</h4>
+  <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">SDLLockScreenConfigurationDisplayMode</span> <span class="p">:</span> <span class="kt">UInt</span></code></pre>
+
+  
+  
+  
   <h3 id="section-SDLLogBytesDirection">
       SDLLogBytesDirection
   </h3>
   
-  <p>Undocumented</p>
+  <p>An enum describing log bytes direction</p>
 
   <a href="Enums/SDLLogBytesDirection.html" class="slightly-smaller">See more</a>
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="n">NS_ENUM</span><span class="p">(</span><span class="n">NSUInteger</span><span class="p">,</span> <span class="n">SDLLogBytesDirection</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">SDLLogBytesDirectionTransmit</span><span class="p">,</span>
-    <span class="n">SDLLogBytesDirectionReceive</span>
-<span class="p">}</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">enum</span> <span class="n">SDLLogBytesDirection</span> <span class="p">{}</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -296,13 +330,6 @@
   </h3>
   
   <p>Flags used for SDLLogLevel to provide correct enum values. This is purely for internal use.</p>
-
-<ul>
-<li>SDLLogFlagVerbose:   Verbose level logging</li>
-<li>SDLLogFlagDebug:     Debug level logging</li>
-<li>SDLLogFlagWarning:   Warning level logging</li>
-<li>SDLLogFlagError:     Error level logging.</li>
-</ul>
 
   <a href="Enums/SDLLogFlag.html" class="slightly-smaller">See more</a>
   
@@ -323,15 +350,6 @@
   
   <p>An enum describing a level of logging.</p>
 
-<ul>
-<li>SDLLogLevelDefault:  This is used to describe that a <q>specific</q> logging will instead use the global log level, for example, a module may use the global log level instead of its own by specifying this level.</li>
-<li>SDLLogLevelOff:      This is used to describe a level that involves absolutely no logs being output.</li>
-<li>SDLLogLevelError:    Only error level logs will be output.</li>
-<li>SDLLogLevelWarning:  Both error and warning level logs will be output.</li>
-<li>SDLLogLevelDebug:    Error, warning, and debug level logs will be output. This level will never be output in RELEASE environments.</li>
-<li>SDLLogLevelVerbose:  All level logs will be output. This level will never be output in RELEASE environments.</li>
-</ul>
-
   <a href="Enums/SDLLogLevel.html" class="slightly-smaller">See more</a>
   
   
@@ -350,12 +368,6 @@
   </h3>
   
   <p>The output format of logs; how they will appear when printed out into a string.</p>
-
-<ul>
-<li>SDLLogFormatTypeSimple:      A bare-bones log format: <code>09:52:07:324 🔹 (SDL)Protocol – a random test i guess</code></li>
-<li>SDLLogFormatTypeDefault:     A middle detail default log format: <code>09:52:07:324 🔹 (SDL)Protocol:SDLV2ProtocolHeader:25 – Some log message</code></li>
-<li>SDLLogFormatTypeDetailed:    A very detailed log format: <code>09:52:07:324 🔹 DEBUG com.apple.main-thread:(SDL)Protocol:[SDLV2ProtocolHeader parse:]:74 – Some log message</code></li>
-</ul>
 
   <a href="Enums/SDLLogFormatType.html" class="slightly-smaller">See more</a>
   
@@ -376,11 +388,7 @@
   
   <p>Dynamic Menu Manager Mode</p>
 
-<ul>
-<li>SDLDynamicMenuUpdatesModeForceOn: Forces on compatibility mode. This will force the menu manager to delete and re-add each menu item for every menu update. This mode is generally not advised due to performance issues.</li>
-<li>SDLDynamicMenuUpdatesModeForceOn: This mode forces the menu manager to always dynamically update menu items for each menu update. This will provide the best performance but may cause ordering issues on some SYNC Gen 3 head units.</li>
-<li>SDLDynamicMenuUpdatesModeForceOff: This mode checks whether the phone is connected to a SYNC Gen 3 head unit, which has known menu ordering issues. If it is, it will always delete and re-add every menu item, if not, it will dynamically update the menus.</li>
-</ul>
+<p>When on this feature will smart arrange a new menu comparing it to the old menu if one exists.</p>
 
   <a href="Enums/SDLDynamicMenuUpdatesMode.html" class="slightly-smaller">See more</a>
   
@@ -399,17 +407,15 @@
       MenuCellState
   </h3>
   
-  <p>Undocumented</p>
+  <p>Menu cell state</p>
+
+<p>Cell state that tells the menu manager what it should do with a given SDLMenuCell</p>
 
   <a href="Enums/MenuCellState.html" class="slightly-smaller">See more</a>
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="n">NS_ENUM</span><span class="p">(</span><span class="n">NSUInteger</span><span class="p">,</span> <span class="n">MenuCellState</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">MenuCellStateDelete</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="n">MenuCellStateAdd</span><span class="p">,</span>
-    <span class="n">MenuCellStateKeep</span>
-<span class="p">}</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">enum</span> <span class="n">MenuCellState</span> <span class="p">{}</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -456,17 +462,89 @@
   
   
   
+  <h3 id="section-SDLPredefinedWindows">
+      SDLPredefinedWindows
+  </h3>
+  
+  <p>Specifies which windows and IDs are predefined and pre-created on behalf of the app. The default window is always available and represents the app window on the main display. It&rsquo;s an equivalent to today&rsquo;s app window. For backward compatibility, this will ensure the app always has at least the default window on the main display. The app can choose to use this predefined enum element to specifically address app&rsquo;s main window or to duplicate window content. It is not possible to duplicate another window to the default window. The primary widget is a special widget, that can be associated with a service type, which is used by the HMI whenever a single widget needs to represent the whole app. The primary widget should be named as the app and can be pre-created by the HMI.</p>
+
+<p>@since SDL 6.0</p>
+
+  <a href="Enums/SDLPredefinedWindows.html" class="slightly-smaller">See more</a>
+  
+  
+  <h4>Objective-C</h4>
+  <pre class="highlight objective_c"><code><span class="k">enum</span> <span class="n">SDLPredefinedWindows</span> <span class="p">{}</span></code></pre>
+
+  
+  <h4>Swift</h4>
+  <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">SDLPredefinedWindows</span> <span class="p">:</span> <span class="kt">UInt</span></code></pre>
+
+  
+  
+  
+  <h3 id="section-SDLFrameType">
+      SDLFrameType
+  </h3>
+  
+  <p>The data packet&rsquo;s header and payload combination.</p>
+
+  <a href="Enums/SDLFrameType.html" class="slightly-smaller">See more</a>
+  
+  
+  <h4>Objective-C</h4>
+  <pre class="highlight objective_c"><code><span class="k">enum</span> <span class="n">SDLFrameType</span> <span class="p">{}</span></code></pre>
+
+  
+  <h4>Swift</h4>
+  <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">SDLFrameType</span> <span class="p">:</span> <span class="kt">UInt8</span></code></pre>
+
+  
+  
+  
+  <h3 id="section-SDLServiceType">
+      SDLServiceType
+  </h3>
+  
+  <p>The data packet&rsquo;s format and priority.</p>
+
+  <a href="Enums/SDLServiceType.html" class="slightly-smaller">See more</a>
+  
+  
+  <h4>Objective-C</h4>
+  <pre class="highlight objective_c"><code><span class="k">enum</span> <span class="n">SDLServiceType</span> <span class="p">{}</span></code></pre>
+
+  
+  <h4>Swift</h4>
+  <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">SDLServiceType</span> <span class="p">:</span> <span class="kt">UInt8</span></code></pre>
+
+  
+  
+  
+  <h3 id="section-SDLFrameInfo">
+      SDLFrameInfo
+  </h3>
+  
+  <p>The data packet&rsquo;s available data.</p>
+
+  <a href="Enums/SDLFrameInfo.html" class="slightly-smaller">See more</a>
+  
+  
+  <h4>Objective-C</h4>
+  <pre class="highlight objective_c"><code><span class="k">enum</span> <span class="n">SDLFrameInfo</span> <span class="p">{}</span></code></pre>
+
+  
+  <h4>Swift</h4>
+  <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">SDLFrameInfo</span> <span class="p">:</span> <span class="kt">UInt8</span></code></pre>
+
+  
+  
+  
   <h3 id="section-SDLRPCMessageType">
       SDLRPCMessageType
   </h3>
   
   <p>The type of RPC message</p>
-
-<ul>
-<li>SDLRPCMessageTypeRequest: A request from the app to the IVI system</li>
-<li>SDLRPCMessageTypeResponse: A response from the IVI system to the app</li>
-<li>SDLRPCMessageTypeNotification: A notification from the IVI system to the app</li>
-</ul>
 
   <a href="Enums/SDLRPCMessageType.html" class="slightly-smaller">See more</a>
   
@@ -487,12 +565,6 @@
   
   <p>The type of rendering that CarWindow will perform. Depending on your app, you may need to try different ones for best performance</p>
 
-<ul>
-<li>SDLCarWindowRenderingTypeLayer: Instead of rendering your UIViewController&rsquo;s view, this will render the layer using <code>renderInContext</code></li>
-<li>SDLCarWindowRenderingTypeViewAfterScreenUpdates: Renders your UIViewController&rsquo;s view using <code>drawViewHierarchyInRect:bounds afterScreenUpdates:YES</code></li>
-<li>SDLCarWindowRenderingTypeViewBeforeScreenUpdates: Renders your UIViewController&rsquo;s view using <code>drawViewHierarchyInRect:bounds afterScreenUpdates:NO</code></li>
-</ul>
-
   <a href="Enums/SDLCarWindowRenderingType.html" class="slightly-smaller">See more</a>
   
   
@@ -511,12 +583,6 @@
   </h3>
   
   <p>A flag determining how video and audio streaming should be encrypted</p>
-
-<ul>
-<li>SDLStreamingEncryptionFlagNone: It should not be encrypted at all</li>
-<li>SDLStreamingEncryptionFlagAuthenticateOnly: It should use SSL/TLS only to authenticate</li>
-<li>SDLStreamingEncryptionFlagAuthenticateAndEncrypt: All data on these services should be encrypted using SSL/TLS</li>
-</ul>
 
   <a href="Enums/SDLStreamingEncryptionFlag.html" class="slightly-smaller">See more</a>
   

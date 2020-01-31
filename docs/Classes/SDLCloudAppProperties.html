@@ -16,7 +16,7 @@
 
 <h3>Overview</h3>
 
-<p>Undocumented</p>
+<p>The cloud application properties.</p>
 
 
 <section class="section task-group-section">
@@ -62,12 +62,12 @@
                             <span class="nf">authToken</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">authToken</span>
                    <span class="nf">cloudTransportType</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">cloudTransportType</span>
                   <span class="nf">hybridAppPreference</span><span class="p">:</span>
-                      <span class="p">(</span><span class="n">nullable</span> <span class="n"><a href="../Type Definitions.html#/c:SDLHybridAppPreference.h@T@SDLHybridAppPreference">SDLHybridAppPreference</a></span><span class="p">)</span><span class="nv">hybridAppPreference</span>
+                      <span class="p">(</span><span class="n">nullable</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLHybridAppPreference.h@T@SDLHybridAppPreference">SDLHybridAppPreference</a></span><span class="p">)</span><span class="nv">hybridAppPreference</span>
                              <span class="nf">endpoint</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">endpoint</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
-  <pre class="highlight swift"><code><span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">appID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">nicknames</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?,</span> <span class="nv">enabled</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">authToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">cloudTransportType</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">hybridAppPreference</span><span class="p">:</span> <span class="kt"><a href="../Type Definitions.html#/c:SDLHybridAppPreference.h@T@SDLHybridAppPreference">SDLHybridAppPreference</a></span><span class="p">?,</span> <span class="nv">endpoint</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span></code></pre>
+  <pre class="highlight swift"><code><span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">appID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">nicknames</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?,</span> <span class="nv">enabled</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">authToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">cloudTransportType</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">hybridAppPreference</span><span class="p">:</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLHybridAppPreference.h@T@SDLHybridAppPreference">SDLHybridAppPreference</a></span><span class="p">?,</span> <span class="nv">endpoint</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span></code></pre>
 
   
   
@@ -97,9 +97,9 @@
       nicknames
   </h3>
   
-  <p>An array of app names a cloud app is allowed to register with. If included in a <code>SetCloudAppProperties</code> request, this value will overwrite the existing <q>nicknames</q> field in the app policies section of the policy table.</p>
+  <p>An array of app names a cloud app is allowed to register with. If included in a <code>SetCloudAppProperties</code> request, this value will overwrite the existing &ldquo;nicknames&rdquo; field in the app policies section of the policy table.</p>
 
-<p>Array of Strings, Optional, String length: minlength=<q>0</q> maxlength=<q>100</q>, Array size: minsize=<q>0</q> maxsize=<q>100</q></p>
+<p>Array of Strings, Optional, String length: minlength=&ldquo;0&rdquo; maxlength=&ldquo;100&rdquo;, Array size: minsize=&ldquo;0&rdquo; maxsize=&ldquo;100&rdquo;</p>
 
   
   
@@ -120,7 +120,7 @@
   
   <p>The id of the cloud app.</p>
 
-<p>String, Required, maxlength=<q>100</q></p>
+<p>String, Required, maxlength=&ldquo;100&rdquo;</p>
 
   
   
@@ -160,7 +160,7 @@
   
   <p>Used to authenticate websocket connection on app activation.</p>
 
-<p>String, Optional, maxlength=<q>65535</q></p>
+<p>String, Optional, maxlength=&ldquo;65535&rdquo;</p>
 
   
   
@@ -180,7 +180,7 @@
   
   <p>Specifies the connection type Core should use. Currently the ones that work in SDL Core are <code>WS</code> or <code>WSS</code>, but an OEM can implement their own transport adapter to handle different values.</p>
 
-<p>String, Optional, maxlength=<q>100</q></p>
+<p>String, Optional, maxlength=&ldquo;100&rdquo;</p>
 
   
   
@@ -206,11 +206,11 @@
   
   <h4>Objective-C</h4>
   <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span>
-    <span class="n"><a href="../Type Definitions.html#/c:SDLHybridAppPreference.h@T@SDLHybridAppPreference">SDLHybridAppPreference</a></span> <span class="n">hybridAppPreference</span><span class="p">;</span></code></pre>
+    <span class="n"><a href="../Type%20Definitions.html#/c:SDLHybridAppPreference.h@T@SDLHybridAppPreference">SDLHybridAppPreference</a></span> <span class="n">hybridAppPreference</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
-  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">hybridAppPreference</span><span class="p">:</span> <span class="kt"><a href="../Type Definitions.html#/c:SDLHybridAppPreference.h@T@SDLHybridAppPreference">SDLHybridAppPreference</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">hybridAppPreference</span><span class="p">:</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLHybridAppPreference.h@T@SDLHybridAppPreference">SDLHybridAppPreference</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
   
   
@@ -221,7 +221,7 @@
   
   <p>The websocket endpoint.</p>
 
-<p>String, Optional, maxlength=<q>65535</q></p>
+<p>String, Optional, maxlength=&ldquo;65535&rdquo;</p>
 
   
   

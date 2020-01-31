@@ -12,7 +12,6 @@
 #import "SDLLifecycleManager.h"
 #import "SDLLockScreenConfiguration.h"
 #import "SDLLockScreenManager.h"
-#import "SDLLockScreenPresenter.h"
 #import "SDLLogConfiguration.h"
 #import "SDLManagerDelegate.h"
 #import "SDLNotificationDispatcher.h"
@@ -65,6 +64,9 @@ NS_ASSUME_NONNULL_BEGIN
     [self.lifecycleManager stop];
 }
 
+- (void)startRPCEncryption {
+    [self.lifecycleManager startRPCEncryption];
+}
 
 #pragma mark - Passthrough getters / setters
 

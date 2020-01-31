@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
         [submenuItems addObject:cell];
     }
 
-    return [[SDLMenuCell alloc] initWithTitle:ACGetAllVehicleDataMenuName icon:[SDLArtwork artworkWithImage:[[UIImage imageNamed:CarBWIconImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] asImageFormat:SDLArtworkImageFormatPNG] subCells:submenuItems];
+    return [[SDLMenuCell alloc] initWithTitle:ACGetAllVehicleDataMenuName icon:[SDLArtwork artworkWithImage:[[UIImage imageNamed:CarBWIconImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] asImageFormat:SDLArtworkImageFormatPNG] submenuLayout:SDLMenuLayoutTiles subCells:submenuItems];
 }
 
 + (NSArray<NSString *> *)sdlex_allVehicleDataTypes {
@@ -99,7 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
     SDLMenuCell *cell = [[SDLMenuCell alloc] initWithTitle:@"Non - Media (Default)" icon:nil voiceCommands:nil handler:^(SDLTriggerSource  _Nonnull triggerSource) {
         SDLSetDisplayLayout* display = [[SDLSetDisplayLayout alloc] initWithPredefinedLayout:SDLPredefinedLayoutNonMedia];
         [manager sendRequest:display withResponseHandler:^(SDLRPCRequest *request, SDLRPCResponse *response, NSError *error) {
-            if (![response.resultCode isEqualToEnum:SDLResultSuccess]) {
+            if (!response.success) {
                 [manager sendRequest:[AlertManager alertWithMessageAndCloseButton:errorMessage textField2:nil iconName:nil]];
             }
         }];
@@ -110,14 +110,14 @@ NS_ASSUME_NONNULL_BEGIN
     SDLMenuCell *cell2 = [[SDLMenuCell alloc] initWithTitle:@"Graphic With Text" icon:nil voiceCommands:nil handler:^(SDLTriggerSource  _Nonnull triggerSource) {
         SDLSetDisplayLayout* display = [[SDLSetDisplayLayout alloc] initWithPredefinedLayout:SDLPredefinedLayoutGraphicWithText];
         [manager sendRequest:display withResponseHandler:^(SDLRPCRequest *request, SDLRPCResponse *response, NSError *error) {
-            if (![response.resultCode isEqualToEnum:SDLResultSuccess]) {
+            if (!response.success) {
                 [manager sendRequest:[AlertManager alertWithMessageAndCloseButton:errorMessage textField2:nil iconName:nil]];
             }
         }];
     }];
     [submenuItems addObject:cell2];
     
-    return [[SDLMenuCell alloc] initWithTitle:ACSubmenuTemplateMenuName icon:nil subCells:[submenuItems copy]];
+    return [[SDLMenuCell alloc] initWithTitle:ACSubmenuTemplateMenuName icon:nil submenuLayout:SDLMenuLayoutList subCells:[submenuItems copy]];
 }
 
 + (SDLMenuCell *)sdlex_menuCellWithSubmenuWithManager:(SDLManager *)manager {
@@ -129,7 +129,7 @@ NS_ASSUME_NONNULL_BEGIN
         [submenuItems addObject:cell];
     }
 
-    return [[SDLMenuCell alloc] initWithTitle:ACSubmenuMenuName icon:[SDLArtwork artworkWithImage:[[UIImage imageNamed:MenuBWIconImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] asImageFormat:SDLArtworkImageFormatPNG] subCells:[submenuItems copy]];
+    return [[SDLMenuCell alloc] initWithTitle:ACSubmenuMenuName icon:[SDLArtwork artworkWithImage:[[UIImage imageNamed:MenuBWIconImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] asImageFormat:SDLArtworkImageFormatPNG] submenuLayout:SDLMenuLayoutList subCells:[submenuItems copy]];
 }
 
 + (SDLMenuCell *)sdlex_sliderMenuCellWithManager:(SDLManager *)manager {
@@ -145,7 +145,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (SDLMenuCell *)sdlex_scrollableMessageMenuCellWithManager:(SDLManager *)manager {
     return [[SDLMenuCell alloc] initWithTitle:ACScrollableMessageMenuName icon:nil voiceCommands:@[ACScrollableMessageMenuName] handler:^(SDLTriggerSource  _Nonnull triggerSource) {
-        SDLScrollableMessage *messageRPC = [[SDLScrollableMessage alloc] initWithMessage:@"This is a scrollable message\nIt can contain many lines" timeout:10000 softButtons:nil cancelID:5];
+        SDLScrollableMessage *messageRPC = [[SDLScrollableMessage alloc] initWithMessage:@"This is a scrollable message\nIt can contain many lines"];
         [manager sendRequest:messageRPC withResponseHandler:^(__kindof SDLRPCRequest * _Nullable request, __kindof SDLRPCResponse * _Nullable response, NSError * _Nullable error) {
            if(![response.resultCode isEqualToEnum:SDLResultSuccess]) {
                 [manager sendRequest:[AlertManager alertWithMessageAndCloseButton:@"Scrollable Message could not be displayed" textField2:nil iconName:nil]];

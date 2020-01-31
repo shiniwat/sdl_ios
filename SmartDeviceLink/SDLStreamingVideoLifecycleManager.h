@@ -21,6 +21,7 @@
 @class SDLProtocol;
 @class SDLStateMachine;
 @class SDLStreamingMediaConfiguration;
+@class SDLStreamingVideoScaleManager;
 @class SDLTouchManager;
 
 @protocol SDLConnectionManagerType;
@@ -81,9 +82,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic, readonly, getter=isVideoStreamingPaused) BOOL videoStreamingPaused;
 
 /**
- *  This is the current screen size of a connected display. This will be the size the video encoder uses to encode the raw image data.
+ Handles the logic of scaling between the view controller's coordinate system and the display's coordinate system
  */
-@property (assign, nonatomic, readonly) CGSize screenSize;
+@property (strong, nonatomic, readonly) SDLStreamingVideoScaleManager *videoScaleManager;
 
 /**
  This is the agreed upon format of video encoder that is in use, or nil if not currently connected.
@@ -134,12 +135,6 @@ NS_ASSUME_NONNULL_BEGIN
  When YES, the StreamingMediaManager will send a black screen with "Video Backgrounded String". Defaults to YES.
  */
 @property (assign, nonatomic) BOOL showVideoBackgroundDisplay;
-
-
-/**
-  When YES, the StreamingMediaManager will override encoder settings by the capability values returned from HMI. Defaults to YES.
- */
-@property (assign, nonatomic) BOOL allowOverrideEncoderSettings;
 
 
 - (instancetype)init NS_UNAVAILABLE;

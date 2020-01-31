@@ -28,6 +28,7 @@
   <li><a href="#section-nightColorScheme">nightColorScheme</a></li>
   <li><a href="#section-minimumProtocolVersion">minimumProtocolVersion</a></li>
   <li><a href="#section-minimumRPCVersion">minimumRPCVersion</a></li>
+  <li><a href="#section-allowedSecondaryTransports">allowedSecondaryTransports</a></li>
 </ul>
 
 <h3>Overview</h3>
@@ -40,12 +41,12 @@
       -init
   </h3>
   
-  <p>Undocumented</p>
+  <p>Initializer unavailable</p>
 
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="n">init</span> <span class="n">NS_UNAVAILABLE</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span><span class="n">init</span><span class="p">;</span></code></pre>
 
   
   
@@ -293,7 +294,7 @@
 
 <p>Optional</p>
 
-<p>@discussion  The <code>fullAppId</code> is used to authenticate apps that connect with head units that implement SDL Core v.5.0 and newer. If connecting with older head units, the <code>fullAppId</code> can be truncated to create the required <code><a href="../Classes/SDLLifecycleConfiguration.html#/c:objc(cs)SDLLifecycleConfiguration(py)appId">appId</a></code> needed to register the app. The <code><a href="../Classes/SDLLifecycleConfiguration.html#/c:objc(cs)SDLLifecycleConfiguration(py)appId">appId</a></code> is the first 10 non-dash (<q>-</q>) characters of the <code>fullAppId</code> (e.g. if you have a <code>fullAppId</code> of 123e4567-e89b-12d3-a456-426655440000, the <code><a href="../Classes/SDLLifecycleConfiguration.html#/c:objc(cs)SDLLifecycleConfiguration(py)appId">appId</a></code> will be 123e4567e8).</p>
+<p>@discussion  The <code>fullAppId</code> is used to authenticate apps that connect with head units that implement SDL Core v.5.0 and newer. If connecting with older head units, the <code>fullAppId</code> can be truncated to create the required <code><a href="../Classes/SDLLifecycleConfiguration.html#/c:objc(cs)SDLLifecycleConfiguration(py)appId">appId</a></code> needed to register the app. The <code><a href="../Classes/SDLLifecycleConfiguration.html#/c:objc(cs)SDLLifecycleConfiguration(py)appId">appId</a></code> is the first 10 non-dash (&ldquo;-&rdquo;) characters of the <code>fullAppId</code> (e.g. if you have a <code>fullAppId</code> of 123e4567-e89b-12d3-a456-426655440000, the <code><a href="../Classes/SDLLifecycleConfiguration.html#/c:objc(cs)SDLLifecycleConfiguration(py)appId">appId</a></code> will be 123e4567e8).</p>
 
   
   
@@ -352,11 +353,11 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">null_resettable</span><span class="p">)</span> <span class="n"><a href="../Type Definitions.html#/c:SDLAppHMIType.h@T@SDLAppHMIType">SDLAppHMIType</a></span> <span class="n">appType</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">null_resettable</span><span class="p">)</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLAppHMIType.h@T@SDLAppHMIType">SDLAppHMIType</a></span> <span class="n">appType</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
-  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">appType</span><span class="p">:</span> <span class="kt"><a href="../Type Definitions.html#/c:SDLAppHMIType.h@T@SDLAppHMIType">SDLAppHMIType</a></span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">appType</span><span class="p">:</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLAppHMIType.h@T@SDLAppHMIType">SDLAppHMIType</a></span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
   
   
@@ -371,11 +372,11 @@
   
   <h4>Objective-C</h4>
   <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span>
-    <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Type Definitions.html#/c:SDLAppHMIType.h@T@SDLAppHMIType">SDLAppHMIType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">additionalAppTypes</span><span class="p">;</span></code></pre>
+    <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Type%20Definitions.html#/c:SDLAppHMIType.h@T@SDLAppHMIType">SDLAppHMIType</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">additionalAppTypes</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
-  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">additionalAppTypes</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Type Definitions.html#/c:SDLAppHMIType.h@T@SDLAppHMIType">SDLAppHMIType</a></span><span class="p">]?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">additionalAppTypes</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Type%20Definitions.html#/c:SDLAppHMIType.h@T@SDLAppHMIType">SDLAppHMIType</a></span><span class="p">]?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
   
   
@@ -389,11 +390,11 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n"><a href="../Type Definitions.html#/c:SDLLanguage.h@T@SDLLanguage">SDLLanguage</a></span> <span class="n">_Nonnull</span> <span class="n">language</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLLanguage.h@T@SDLLanguage">SDLLanguage</a></span> <span class="n">_Nonnull</span> <span class="n">language</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
-  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">language</span><span class="p">:</span> <span class="kt"><a href="../Type Definitions.html#/c:SDLLanguage.h@T@SDLLanguage">SDLLanguage</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">language</span><span class="p">:</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLLanguage.h@T@SDLLanguage">SDLLanguage</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
   
   
@@ -408,11 +409,11 @@
   
   <h4>Objective-C</h4>
   <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span>
-    <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Type Definitions.html#/c:SDLLanguage.h@T@SDLLanguage">SDLLanguage</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">languagesSupported</span><span class="p">;</span></code></pre>
+    <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Type%20Definitions.html#/c:SDLLanguage.h@T@SDLLanguage">SDLLanguage</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">languagesSupported</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
-  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">languagesSupported</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Type Definitions.html#/c:SDLLanguage.h@T@SDLLanguage">SDLLanguage</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">languagesSupported</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Type%20Definitions.html#/c:SDLLanguage.h@T@SDLLanguage">SDLLanguage</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
   
   
@@ -561,6 +562,29 @@
   
   <h4>Swift</h4>
   <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">minimumRPCVersion</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLVersion.html">SDLVersion</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+  
+  
+  
+  <h3 id="section-allowedSecondaryTransports">
+      allowedSecondaryTransports
+  </h3>
+  
+  <p>Which transports are permitted to be used as secondary transports. A secondary transport is a transport that is connected as an alternate, higher bandwidth transport for situations when a low-bandwidth primary transport (such as Bluetooth) will restrict certain features (such as video streaming navigation).</p>
+
+<p>The only currently available secondary transport is TCP over WiFi. This is set to permit TCP by default, but it can be disabled by using SDLSecondaryTransportsNone instead.</p>
+
+<p>This will only affect apps that have high-bandwidth requirements; currently that is only video streaming navigation apps.</p>
+
+  
+  
+  <h4>Objective-C</h4>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span>
+    <span class="n"><a href="../Enums/SDLSecondaryTransports.html">SDLSecondaryTransports</a></span> <span class="n">allowedSecondaryTransports</span><span class="p">;</span></code></pre>
+
+  
+  <h4>Swift</h4>
+  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">allowedSecondaryTransports</span><span class="p">:</span> <span class="kt"><a href="../Enums/SDLSecondaryTransports.html">SDLSecondaryTransports</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
   
   

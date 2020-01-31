@@ -9,7 +9,6 @@
 #import "SDLChoiceSet.h"
 #import "SDLChoiceSetDelegate.h"
 #import "SDLDeleteChoicesOperation.h"
-#import "SDLDisplayCapabilities.h"
 #import "SDLFileManager.h"
 #import "SDLHMILevel.h"
 #import "SDLKeyboardDelegate.h"
@@ -20,6 +19,7 @@
 #import "SDLGlobals.h"
 #import "SDLStateMachine.h"
 #import "SDLSystemContext.h"
+#import "SDLSystemCapabilityManager.h"
 #import "TestConnectionManager.h"
 #import "SDLVersion.h"
 
@@ -43,7 +43,6 @@
 
 @property (copy, nonatomic, nullable) SDLHMILevel currentHMILevel;
 @property (copy, nonatomic, nullable) SDLSystemContext currentSystemContext;
-@property (strong, nonatomic, nullable) SDLDisplayCapabilities *displayCapabilities;
 
 @property (strong, nonatomic) NSMutableSet<SDLChoiceCell *> *preloadedMutableChoices;
 @property (strong, nonatomic, readonly) NSSet<SDLChoiceCell *> *pendingPreloadChoices;
@@ -62,6 +61,7 @@ describe(@"choice set manager tests", ^{
 
     __block TestConnectionManager *testConnectionManager = nil;
     __block SDLFileManager *testFileManager = nil;
+    __block SDLSystemCapabilityManager *testSystemCapabilityManager = nil;
 
     __block SDLChoiceCell *testCell1 = nil;
     __block SDLChoiceCell *testCell2 = nil;
@@ -70,8 +70,9 @@ describe(@"choice set manager tests", ^{
     beforeEach(^{
         testConnectionManager = [[TestConnectionManager alloc] init];
         testFileManager = OCMClassMock([SDLFileManager class]);
+        testSystemCapabilityManager = OCMClassMock([SDLSystemCapabilityManager class]);
 
-        testManager = [[SDLChoiceSetManager alloc] initWithConnectionManager:testConnectionManager fileManager:testFileManager];
+        testManager = [[SDLChoiceSetManager alloc] initWithConnectionManager:testConnectionManager fileManager:testFileManager systemCapabilityManager:testSystemCapabilityManager];
 
         testCell1 = [[SDLChoiceCell alloc] initWithText:@"test1"];
         testCell2 = [[SDLChoiceCell alloc] initWithText:@"test2"];
@@ -221,8 +222,7 @@ describe(@"choice set manager tests", ^{
 
                 beforeEach(^{
                     pendingPreloadOp = [[SDLPreloadChoicesOperation alloc] init];
-                    OCMPartialMock(pendingPreloadOp);
-                    OCMStub([pendingPreloadOp removeChoicesFromUpload:[OCMArg any]]);
+
                     [testManager.transactionQueue addOperation:pendingPreloadOp];
 
                     testManager.pendingMutablePreloadChoices = [NSMutableSet setWithObject:testCell1];
@@ -231,11 +231,6 @@ describe(@"choice set manager tests", ^{
                 });
 
                 it(@"should properly start the deletion", ^{
-                    OCMStub([pendingPreloadOp removeChoicesFromUpload:[OCMArg checkWithBlock:^BOOL(id obj) {
-                        NSArray<SDLChoiceCell *> *choices = (NSArray<SDLChoiceCell *> *)obj;
-                        return (choices.count == 1) && ([choices.firstObject isEqual:testCell1]);
-                    }]]);
-
                     expect(testManager.pendingPreloadChoices).to(beEmpty());
                     expect(testManager.transactionQueue.operationCount).to(equal(1)); // No delete operation
                 });

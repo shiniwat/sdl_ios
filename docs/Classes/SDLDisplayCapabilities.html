@@ -33,11 +33,11 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n"><a href="../Type Definitions.html#/c:SDLDisplayType.h@T@SDLDisplayType">SDLDisplayType</a></span> <span class="n">_Nonnull</span> <span class="n">displayType</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLDisplayType.h@T@SDLDisplayType">SDLDisplayType</a></span> <span class="n">_Nonnull</span> <span class="n">displayType</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
-  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">displayType</span><span class="p">:</span> <span class="kt"><a href="../Type Definitions.html#/c:SDLDisplayType.h@T@SDLDisplayType">SDLDisplayType</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">displayType</span><span class="p">:</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLDisplayType.h@T@SDLDisplayType">SDLDisplayType</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
   
   
@@ -135,11 +135,11 @@
   
   <h4>Objective-C</h4>
   <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span>
-    <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Type Definitions.html#/c:SDLMediaClockFormat.h@T@SDLMediaClockFormat">SDLMediaClockFormat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">mediaClockFormats</span><span class="p">;</span></code></pre>
+    <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Type%20Definitions.html#/c:SDLMediaClockFormat.h@T@SDLMediaClockFormat">SDLMediaClockFormat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">mediaClockFormats</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
-  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">mediaClockFormats</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Type Definitions.html#/c:SDLMediaClockFormat.h@T@SDLMediaClockFormat">SDLMediaClockFormat</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">mediaClockFormats</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Type%20Definitions.html#/c:SDLMediaClockFormat.h@T@SDLMediaClockFormat">SDLMediaClockFormat</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
   
   
@@ -171,11 +171,11 @@
       templatesAvailable
   </h3>
   
-  <p>Number of presets the screen supports</p>
+  <p>An array of all predefined persistent display templates available on the head unit.</p>
 
-<p>@discussion The number of on-screen custom presets available (if any)</p>
+<p>Optional, Array of String, max string size 100, 0 - 100 objects, since SDL 3.0</p>
 
-<p>Optional, Array of String, max string size 100, 0 - 100 objects</p>
+<p>See SDLPredefinedLayout</p>
 
   
   

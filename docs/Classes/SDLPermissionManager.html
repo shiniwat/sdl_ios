@@ -3,6 +3,7 @@
 <h3>Section Contents</h3>
 
 <ul>
+  <li><a href="#section-requiresEncryption">requiresEncryption</a></li>
   <li><a href="#section--startWithCompletionHandler:">-startWithCompletionHandler:</a></li>
   <li><a href="#section--stop">-stop</a></li>
   <li><a href="#section--isRPCAllowed:">-isRPCAllowed:</a></li>
@@ -11,14 +12,33 @@
   <li><a href="#section--addObserverForRPCs:groupType:withHandler:">-addObserverForRPCs:groupType:withHandler:</a></li>
   <li><a href="#section--removeAllObservers">-removeAllObservers</a></li>
   <li><a href="#section--removeObserverForIdentifier:">-removeObserverForIdentifier:</a></li>
+  <li><a href="#section--rpcRequiresEncryption:">-rpcRequiresEncryption:</a></li>
 </ul>
 
 <h3>Overview</h3>
 
-<p>Undocumented</p>
+<p>The permission manager monitoring RPC permissions.</p>
 
 
 <section class="section task-group-section">
+  <h3 id="section-requiresEncryption">
+      requiresEncryption
+  </h3>
+  
+  <p>Flag indicating if the app requires an encryption service to be active.</p>
+
+  
+  
+  <h4>Objective-C</h4>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">assign</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">requiresEncryption</span><span class="p">;</span></code></pre>
+
+  
+  <h4>Swift</h4>
+  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">requiresEncryption</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+  
+  
+  
   <h3 id="section--startWithCompletionHandler:">
       -startWithCompletionHandler:
   </h3>
@@ -70,7 +90,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">isRPCAllowed</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Type Definitions.html#/c:SDLPermissionConstants.h@T@SDLPermissionRPCName">SDLPermissionRPCName</a></span><span class="p">)</span><span class="nv">rpcName</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">isRPCAllowed</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLPermissionConstants.h@T@SDLPermissionRPCName">SDLPermissionRPCName</a></span><span class="p">)</span><span class="nv">rpcName</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -98,7 +118,7 @@
   
   <h4>Objective-C</h4>
   <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n"><a href="../Enums/SDLPermissionGroupStatus.html">SDLPermissionGroupStatus</a></span><span class="p">)</span><span class="nf">groupStatusOfRPCs</span><span class="p">:</span>
-    <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Type Definitions.html#/c:SDLPermissionConstants.h@T@SDLPermissionRPCName">SDLPermissionRPCName</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">rpcNames</span><span class="p">;</span></code></pre>
+    <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Type%20Definitions.html#/c:SDLPermissionConstants.h@T@SDLPermissionRPCName">SDLPermissionRPCName</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">rpcNames</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -125,8 +145,8 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSDictionary</span><span class="o">&lt;</span><span class="n"><a href="../Type Definitions.html#/c:SDLPermissionConstants.h@T@SDLPermissionRPCName">SDLPermissionRPCName</a></span><span class="p">,</span> <span class="n">NSNumber</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nf">statusOfRPCs</span><span class="p">:</span>
-    <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Type Definitions.html#/c:SDLPermissionConstants.h@T@SDLPermissionRPCName">SDLPermissionRPCName</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">rpcNames</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSDictionary</span><span class="o">&lt;</span><span class="n"><a href="../Type%20Definitions.html#/c:SDLPermissionConstants.h@T@SDLPermissionRPCName">SDLPermissionRPCName</a></span><span class="p">,</span> <span class="n">NSNumber</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nf">statusOfRPCs</span><span class="p">:</span>
+    <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Type%20Definitions.html#/c:SDLPermissionConstants.h@T@SDLPermissionRPCName">SDLPermissionRPCName</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">rpcNames</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -153,8 +173,7 @@
     <p class="aside-title">Warning</p>
     <p>This block will be captured by the SDLPermissionsManager, be sure to use <a href="http://www.logicsector.com/ios/avoiding-objc-retain-cycles-with-weakself-and-strongself-the-easy-way/">weakself/strongself</a> if you are referencing self within your observer block.</p>
 
-</div>
-<div class="aside aside-warning">
+</div><div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     <p>The observer may be called before this method returns, do not attempt to remove the observer from within the observer. That could send <code>nil</code> to removeObserverForIdentifier:. If you want functionality like that, call groupStatusOfRPCs: instead.</p>
 
@@ -163,14 +182,14 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Type Definitions.html#/c:SDLPermissionConstants.h@T@SDLPermissionObserverIdentifier">SDLPermissionObserverIdentifier</a></span><span class="p">)</span>
-    <span class="nf">addObserverForRPCs</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Type Definitions.html#/c:SDLPermissionConstants.h@T@SDLPermissionRPCName">SDLPermissionRPCName</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">rpcNames</span>
+  <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLPermissionConstants.h@T@SDLPermissionObserverIdentifier">SDLPermissionObserverIdentifier</a></span><span class="p">)</span>
+    <span class="nf">addObserverForRPCs</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Type%20Definitions.html#/c:SDLPermissionConstants.h@T@SDLPermissionRPCName">SDLPermissionRPCName</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">rpcNames</span>
              <span class="nf">groupType</span><span class="p">:(</span><span class="n"><a href="../Enums/SDLPermissionGroupType.html">SDLPermissionGroupType</a></span><span class="p">)</span><span class="nv">groupType</span>
-           <span class="nf">withHandler</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Type Definitions.html#/c:SDLPermissionConstants.h@T@SDLPermissionsChangedHandler">SDLPermissionsChangedHandler</a></span><span class="p">)</span><span class="nv">handler</span><span class="p">;</span></code></pre>
+           <span class="nf">withHandler</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLPermissionConstants.h@T@SDLPermissionsChangedHandler">SDLPermissionsChangedHandler</a></span><span class="p">)</span><span class="nv">handler</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
-  <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">addObserver</span><span class="p">(</span><span class="n">forRPCs</span> <span class="nv">rpcNames</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">groupType</span><span class="p">:</span> <span class="kt"><a href="../Enums/SDLPermissionGroupType.html">SDLPermissionGroupType</a></span><span class="p">,</span> <span class="n">withHandler</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Type Definitions.html#/c:SDLPermissionConstants.h@T@SDLPermissionsChangedHandler">SDLPermissionsChangedHandler</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UUID</span></code></pre>
+  <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">addObserver</span><span class="p">(</span><span class="n">forRPCs</span> <span class="nv">rpcNames</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">groupType</span><span class="p">:</span> <span class="kt"><a href="../Enums/SDLPermissionGroupType.html">SDLPermissionGroupType</a></span><span class="p">,</span> <span class="n">withHandler</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLPermissionConstants.h@T@SDLPermissionsChangedHandler">SDLPermissionsChangedHandler</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UUID</span></code></pre>
 
   
   
@@ -216,7 +235,7 @@
   
   <h4>Objective-C</h4>
   <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">removeObserverForIdentifier</span><span class="p">:</span>
-    <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Type Definitions.html#/c:SDLPermissionConstants.h@T@SDLPermissionObserverIdentifier">SDLPermissionObserverIdentifier</a></span><span class="p">)</span><span class="nv">identifier</span><span class="p">;</span></code></pre>
+    <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLPermissionConstants.h@T@SDLPermissionObserverIdentifier">SDLPermissionObserverIdentifier</a></span><span class="p">)</span><span class="nv">identifier</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -229,5 +248,23 @@
       <dt>identifier</dt>
       <dd><p>The identifier specifying which observer to remove</p></dd>
   </dl>
+  
+  <h3 id="section--rpcRequiresEncryption:">
+      -rpcRequiresEncryption:
+  </h3>
+  
+  <p>Check whether or not an RPC needs encryption.</p>
+
+  
+  
+  <h4>Objective-C</h4>
+  <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">rpcRequiresEncryption</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLPermissionConstants.h@T@SDLPermissionRPCName">SDLPermissionRPCName</a></span><span class="p">)</span><span class="nv">rpcName</span><span class="p">;</span></code></pre>
+
+  
+  <h4>Swift</h4>
+  <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">rpcRequiresEncryption</span><span class="p">(</span><span class="n">_</span> <span class="nv">rpcName</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+  
+  
   
 </section>
