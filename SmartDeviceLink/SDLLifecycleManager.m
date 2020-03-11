@@ -244,8 +244,14 @@ NSString *const BackgroundTaskTransportName = @"com.sdl.transport.backgroundTask
     } else if (self.configuration.lifecycleConfig.allowedSecondaryTransports == SDLSecondaryTransportsNone) {
         self.proxy = [SDLProxy iapProxyWithListener:self.notificationDispatcher secondaryTransportManager:nil encryptionLifecycleManager:self.encryptionLifecycleManager];
     } else {
-        // We reuse our queue to run secondary transport manager's state machine
-        self.secondaryTransportManager = [[SDLSecondaryTransportManager alloc] initWithStreamingProtocolDelegate:self serialQueue:self.lifecycleQueue];
+        if([self.configuration.lifecycleConfig.appType isEqualToEnum:SDLAppHMITypeNavigation] ||
+           [self.configuration.lifecycleConfig.appType isEqualToEnum:SDLAppHMITypeProjection] ||
+           [self.configuration.lifecycleConfig.additionalAppTypes containsObject:SDLAppHMITypeNavigation] ||
+           [self.configuration.lifecycleConfig.additionalAppTypes containsObject:SDLAppHMITypeProjection]) {
+            // We reuse our queue to run secondary transport manager's state machine
+            self.secondaryTransportManager = [[SDLSecondaryTransportManager alloc] initWithStreamingProtocolDelegate:self serialQueue:self.lifecycleQueue];
+        }
+
         self.proxy = [SDLProxy iapProxyWithListener:self.notificationDispatcher secondaryTransportManager:self.secondaryTransportManager encryptionLifecycleManager:self.encryptionLifecycleManager];
     }
 #pragma clang diagnostic pop
@@ -284,6 +290,7 @@ NSString *const BackgroundTaskTransportName = @"com.sdl.transport.backgroundTask
     self.lastCorrelationId = 0;
     self.hmiLevel = nil;
     self.audioStreamingState = nil;
+    self.videoStreamingState = nil;
     self.systemContext = nil;
 
     // Due to a race condition internally with EAStream, we cannot immediately attempt to restart the proxy, as we will randomly crash.
@@ -335,7 +342,7 @@ NSString *const BackgroundTaskTransportName = @"com.sdl.transport.backgroundTask
 
     // Send the request and depending on the response, post the notification
     __weak typeof(self) weakSelf = self;
-    [self sdl_sendRequest:regRequest
+    [self sendConnectionManagerRequest:regRequest
       withResponseHandler:^(__kindof SDLRPCRequest *_Nullable request, __kindof SDLRPCResponse *_Nullable response, NSError *_Nullable error) {
         // If the success BOOL is NO or we received an error at this point, we failed. Call the ready handler and transition to the DISCONNECTED state.
         if (error != nil || ![response.success boolValue]) {
@@ -529,6 +536,10 @@ NSString *const BackgroundTaskTransportName = @"com.sdl.transport.backgroundTask
         [self.delegate audioStreamingState:SDLAudioStreamingStateNotAudible didChangeToState:self.audioStreamingState];
     }
 
+    if ([self.delegate respondsToSelector:@selector(videoStreamingState:didChangetoState:)]) {
+        [self.delegate videoStreamingState:SDLVideoStreamingStateNotStreamable didChangetoState:self.videoStreamingState];
+    }
+
     // Stop the background task now that setup has completed
     [self.backgroundTaskManager endBackgroundTask];
 }
@@ -576,7 +587,7 @@ NSString *const BackgroundTaskTransportName = @"com.sdl.transport.backgroundTask
         SDLSetAppIcon *setAppIcon = [[SDLSetAppIcon alloc] init];
         setAppIcon.syncFileName = appIcon.name;
 
-        [self sdl_sendRequest:setAppIcon
+        [self sendConnectionManagerRequest:setAppIcon
           withResponseHandler:^(__kindof SDLRPCRequest *_Nullable request, __kindof SDLRPCResponse *_Nullable response, NSError *_Nullable error) {
             if (error != nil) {
                 SDLLogW(@"Error setting up app icon: %@", error);
@@ -640,7 +651,9 @@ NSString *const BackgroundTaskTransportName = @"com.sdl.transport.backgroundTask
         return;
     }
 
-    [self sdl_sendRequest:rpc withResponseHandler:nil];
+    [self sdl_runOnProcessingQueue:^{
+        [self sdl_sendRequest:rpc withResponseHandler:nil];
+    }];
 }
 
 - (void)sendConnectionRequest:(__kindof SDLRPCRequest *)request withResponseHandler:(nullable SDLResponseHandler)handler {
@@ -665,13 +678,17 @@ NSString *const BackgroundTaskTransportName = @"com.sdl.transport.backgroundTask
         
         return;
     }
-    
-    [self sdl_sendRequest:request withResponseHandler:handler];
+
+    [self sdl_runOnProcessingQueue:^{
+        [self sdl_sendRequest:request withResponseHandler:handler];
+    }];
 }
 
 // Managers need to avoid state checking. Part of <SDLConnectionManagerType>.
 - (void)sendConnectionManagerRequest:(__kindof SDLRPCMessage *)request withResponseHandler:(nullable SDLResponseHandler)handler {
-    [self sdl_sendRequest:request withResponseHandler:handler];
+    [self sdl_runOnProcessingQueue:^{
+        [self sdl_sendRequest:request withResponseHandler:handler];
+    }];
 }
 
 - (void)sdl_sendRequest:(__kindof SDLRPCMessage *)request withResponseHandler:(nullable SDLResponseHandler)handler {
@@ -722,8 +739,7 @@ NSString *const BackgroundTaskTransportName = @"com.sdl.transport.backgroundTask
 
 // this is to make sure that the transition happens on the dedicated queue
 - (void)sdl_runOnProcessingQueue:(void (^)(void))block {
-    if (strcmp(dispatch_queue_get_label(DISPATCH_CURRENT_QUEUE_LABEL), dispatch_queue_get_label(self.lifecycleQueue)) == 0
-        || strcmp(dispatch_queue_get_label(DISPATCH_CURRENT_QUEUE_LABEL), dispatch_queue_get_label([SDLGlobals sharedGlobals].sdlProcessingQueue)) == 0) {
+    if (dispatch_get_specific(SDLProcessingQueueName) != nil) {
         block();
     } else {
         dispatch_sync(self.lifecycleQueue, block);
@@ -731,15 +747,9 @@ NSString *const BackgroundTaskTransportName = @"com.sdl.transport.backgroundTask
 }
 
 - (void)sdl_transitionToState:(SDLState *)state {
-    if (strcmp(dispatch_queue_get_label(DISPATCH_CURRENT_QUEUE_LABEL), dispatch_queue_get_label(self.lifecycleQueue)) == 0
-        || strcmp(dispatch_queue_get_label(DISPATCH_CURRENT_QUEUE_LABEL), dispatch_queue_get_label([SDLGlobals sharedGlobals].sdlProcessingQueue)) == 0) {
+    [self sdl_runOnProcessingQueue:^{
         [self.lifecycleStateMachine transitionToState:state];
-    } else {
-        // once this method returns, the transition is completed
-        dispatch_sync(self.lifecycleQueue, ^{
-            [self.lifecycleStateMachine transitionToState:state];
-        });
-    }
+    }];
 }
 
 /**
@@ -795,8 +805,11 @@ NSString *const BackgroundTaskTransportName = @"com.sdl.transport.backgroundTask
     SDLHMILevel oldHMILevel = self.hmiLevel;
     self.hmiLevel = hmiStatusNotification.hmiLevel;
 
-    SDLAudioStreamingState oldStreamingState = self.audioStreamingState;
+    SDLAudioStreamingState oldAudioStreamingState = self.audioStreamingState;
     self.audioStreamingState = hmiStatusNotification.audioStreamingState;
+
+    SDLVideoStreamingState oldVideoStreamingState = self.videoStreamingState;
+    self.videoStreamingState = hmiStatusNotification.videoStreamingState;
 
     SDLSystemContext oldSystemContext = self.systemContext;
     self.systemContext = hmiStatusNotification.systemContext;
@@ -805,8 +818,12 @@ NSString *const BackgroundTaskTransportName = @"com.sdl.transport.backgroundTask
         SDLLogD(@"HMI level changed from %@ to %@", oldHMILevel, self.hmiLevel);
     }
 
-    if (![oldStreamingState isEqualToEnum:self.audioStreamingState]) {
-        SDLLogD(@"Audio streaming state changed from %@ to %@", oldStreamingState, self.audioStreamingState);
+    if (![oldAudioStreamingState isEqualToEnum:self.audioStreamingState]) {
+        SDLLogD(@"Audio streaming state changed from %@ to %@", oldAudioStreamingState, self.audioStreamingState);
+    }
+
+    if (![oldVideoStreamingState isEqualToEnum:self.videoStreamingState]) {
+        SDLLogD(@"Video streaming state changed from %@ to %@", oldVideoStreamingState, self.videoStreamingState);
     }
 
     if (![oldSystemContext isEqualToEnum:self.systemContext]) {
@@ -826,10 +843,16 @@ NSString *const BackgroundTaskTransportName = @"com.sdl.transport.backgroundTask
         [self.delegate hmiLevel:oldHMILevel didChangeToLevel:self.hmiLevel];
     }
 
-    if (![oldStreamingState isEqualToEnum:self.audioStreamingState]
-        && !(oldStreamingState == nil && self.audioStreamingState == nil)
+    if (![oldAudioStreamingState isEqualToEnum:self.audioStreamingState]
+        && !(oldAudioStreamingState == nil && self.audioStreamingState == nil)
         && [self.delegate respondsToSelector:@selector(audioStreamingState:didChangeToState:)]) {
-        [self.delegate audioStreamingState:oldStreamingState didChangeToState:self.audioStreamingState];
+        [self.delegate audioStreamingState:oldAudioStreamingState didChangeToState:self.audioStreamingState];
+    }
+
+    if (![oldVideoStreamingState isEqualToEnum:self.videoStreamingState]
+        && !(oldVideoStreamingState == nil && self.videoStreamingState == nil)
+        && [self.delegate respondsToSelector:@selector(videoStreamingState:didChangetoState:)]) {
+        [self.delegate videoStreamingState:oldVideoStreamingState didChangetoState:self.videoStreamingState];
     }
 
     if (![oldSystemContext isEqualToEnum:self.systemContext]
