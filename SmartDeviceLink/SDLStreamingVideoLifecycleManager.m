@@ -49,6 +49,7 @@
 #import "SDLVersion.h"
 
 static NSUInteger const FramesToSendOnBackground = 30;
+static NSUInteger const defaultFrameRate = 15;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -113,7 +114,6 @@ typedef void(^SDLVideoCapabilityResponseHandler)(SDLVideoStreamingCapability *_N
 
     if (configuration.streamingMediaConfig.rootViewController != nil) {
         NSAssert(configuration.streamingMediaConfig.enableForcedFramerateSync, @"When using CarWindow (rootViewController != nil), forceFrameRateSync must be YES");
-
         if (@available(iOS 9.0, *)) {
             SDLLogD(@"Initializing focusable item locator");
             _focusableItemManager = [[SDLFocusableItemLocator alloc] initWithViewController:configuration.streamingMediaConfig.rootViewController connectionManager:_connectionManager videoScaleManager:_videoScaleManager];
@@ -361,6 +361,10 @@ typedef void(^SDLVideoCapabilityResponseHandler)(SDLVideoStreamingCapability *_N
             if (capability.maxBitrate != nil) {
                 weakSelf.videoEncoderSettings[(__bridge NSString *) kVTCompressionPropertyKey_AverageBitRate] = [[NSNumber alloc] initWithUnsignedLongLong:(capability.maxBitrate.unsignedLongLongValue * 1000)];
             }
+            NSUInteger  preferredFPS = (capability.preferredFPS.integerValue == 0) ? defaultFrameRate : capability.preferredFPS.integerValue;
+            SDLLogD(@"videoEncoderSettings = %@", weakSelf.videoEncoderSettings);
+            weakSelf.videoEncoderSettings[(__bridge NSString *)kVTCompressionPropertyKey_ExpectedFrameRate] = @(preferredFPS);
+            SDLLogD(@"SDLCarWindow#didEnterStateVideoStreamStarting preferredFPS=%lu", (unsigned long)preferredFPS);
 
             if (weakSelf.dataSource != nil) {
                 SDLLogV(@"Calling data source for modified preferred formats");
@@ -378,6 +382,8 @@ typedef void(^SDLVideoCapabilityResponseHandler)(SDLVideoStreamingCapability *_N
             SDLImageResolution *resolution = [[SDLImageResolution alloc] initWithWidth:(uint16_t)weakSelf.videoScaleManager.displayViewportResolution.width height:(uint16_t)weakSelf.videoScaleManager.displayViewportResolution.height];
             weakSelf.preferredFormats = @[format];
             weakSelf.preferredResolutions = @[resolution];
+            weakSelf.videoEncoderSettings[(__bridge NSString *)kVTCompressionPropertyKey_ExpectedFrameRate] = @(defaultFrameRate);
+            SDLLogD(@"SDLCarWindow#didEnterStateVideoStreamStarting preferredFPS is default value (capability is nil)");
 
             if (weakSelf.focusableItemManager != nil) {
                 weakSelf.focusableItemManager.enableHapticDataRequests = NO;
@@ -386,9 +392,16 @@ typedef void(^SDLVideoCapabilityResponseHandler)(SDLVideoStreamingCapability *_N
             SDLLogD(@"Using generic video capabilites, preferred formats: %@, resolutions: %@, haptics disabled", weakSelf.preferredFormats, weakSelf.preferredResolutions);
         }
 
-        // Apply customEncoderSettings here. Note that value from HMI (such as maxBitrate) will be overwritten by custom settings.
+        // Apply customEncoderSettings here. Note that value from HMI (such as maxBitrate) will be overwritten by custom settings,
         for (id key in self.customEncoderSettings.keyEnumerator) {
-            self.videoEncoderSettings[key] = [self.customEncoderSettings valueForKey:key];
+            if ([(NSString *)key isEqualToString:(__bridge NSString *)kVTCompressionPropertyKey_ExpectedFrameRate] == YES) {
+                // do NOT override framerate if custom setting is higher than current setting.
+                if ([self.customEncoderSettings valueForKey:key] < self.videoEncoderSettings[key]) {
+                    self.videoEncoderSettings[key] = [self.customEncoderSettings valueForKey:key];
+                }
+            } else {
+                self.videoEncoderSettings[key] = [self.customEncoderSettings valueForKey:key];
+            }
         }
 
         if (weakSelf.dataSource != nil) {
@@ -582,6 +595,7 @@ typedef void(^SDLVideoCapabilityResponseHandler)(SDLVideoStreamingCapability *_N
         _streamingSupported = YES;
     }
 #pragma clang diagnostic pop
+
     if (!self.isStreamingSupported) {
         SDLLogE(@"Graphics are not supported on this head unit. We are are assuming screen size is also unavailable and exiting.");
         return;

@@ -19,11 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithPreferredResolution:(nullable SDLImageResolution *)preferredResolution maxBitrate:(int32_t)maxBitrate supportedFormats:(nullable NSArray<SDLVideoStreamingFormat *> *)supportedFormats hapticDataSupported:(BOOL)hapticDataSupported {
     return [self initWithPreferredResolution:preferredResolution maxBitrate:@(maxBitrate) supportedFormats:supportedFormats hapticDataSupported:@(hapticDataSupported) diagonalScreenSize:nil ppi:nil scale:nil];
-}
+    }
 
 - (instancetype)initWithPreferredResolution:(nullable SDLImageResolution *)preferredResolution maxBitrate:(int32_t)maxBitrate supportedFormats:(nullable NSArray<SDLVideoStreamingFormat *> *)supportedFormats hapticDataSupported:(BOOL)hapticDataSupported diagonalScreenSize:(float)diagonalScreenSize pixelPerInch:(float)pixelPerInch scale:(float)scale {
     return [self initWithPreferredResolution:preferredResolution maxBitrate:@(maxBitrate) supportedFormats:supportedFormats hapticDataSupported:@(hapticDataSupported) diagonalScreenSize:@(diagonalScreenSize) ppi:@(pixelPerInch) scale:@(scale)];
-}
+    }
 
 - (instancetype)initWithPreferredResolution:(nullable SDLImageResolution *)preferredResolution maxBitrate:(nullable NSNumber *)maxBitrate supportedFormats:(nullable NSArray<SDLVideoStreamingFormat *> *)supportedFormats hapticDataSupported:(nullable NSNumber *)hapticDataSupported diagonalScreenSize:(nullable NSNumber *)diagonalScreenSize ppi:(nullable NSNumber *)pixelPerInch scale:(nullable NSNumber *)scale {
     self = [self init];
@@ -38,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.diagonalScreenSize = diagonalScreenSize;
     self.pixelPerInch = pixelPerInch;
     self.scale = scale;
+    self.preferredFPS = @(15);
 
     return self;
 }
@@ -96,6 +97,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSNumber<SDLFloat> *)scale {
     return [self.store sdl_objectForName:SDLRPCParameterNameScale ofClass:NSNumber.class error:nil];
+}
+
+- (void)setPreferredFPS:(nullable NSNumber<SDLInt> *)preferredFPS {
+    [self.store sdl_setObject:preferredFPS forName:SDLRPCParameterNamePreferredFPS];
+}
+
+- (nullable NSNumber<SDLInt> *)preferredFPS {
+    return [self.store sdl_objectForName:SDLRPCParameterNamePreferredFPS ofClass:NSNumber.class error:nil];
 }
 
 @end

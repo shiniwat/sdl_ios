@@ -477,6 +477,7 @@ extern SDLRPCParameterName const SDLRPCParameterNamePrecipIntensity;
 extern SDLRPCParameterName const SDLRPCParameterNamePrecipProbability;
 extern SDLRPCParameterName const SDLRPCParameterNamePrecipType;
 extern SDLRPCParameterName const SDLRPCParameterNamePreferredResolution;
+extern SDLRPCParameterName const SDLRPCParameterNamePreferredFPS;
 extern SDLRPCParameterName const SDLRPCParameterNamePrerecordedSpeech;
 extern SDLRPCParameterName const SDLRPCParameterNamePresetBankCapabilities;
 extern SDLRPCParameterName const SDLRPCParameterNamePressAvailable;

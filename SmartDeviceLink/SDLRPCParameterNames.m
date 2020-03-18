@@ -472,6 +472,7 @@ SDLRPCParameterName const SDLRPCParameterNamePowerModeActive = @"powerModeActive
 SDLRPCParameterName const SDLRPCParameterNamePowerModeQualificationStatus = @"powerModeQualificationStatus";
 SDLRPCParameterName const SDLRPCParameterNamePowerModeStatus = @"powerModeStatus";
 SDLRPCParameterName const SDLRPCParameterNamePreferredResolution = @"preferredResolution";
+SDLRPCParameterName const SDLRPCParameterNamePreferredFPS = @"preferredFPS";
 SDLRPCParameterName const SDLRPCParameterNamePrerecordedSpeech = @"prerecordedSpeech";
 SDLRPCParameterName const SDLRPCParameterNamePresetBankCapabilities = @"presetBankCapabilities";
 SDLRPCParameterName const SDLRPCParameterNamePressAvailable = @"pressAvailable";
