@@ -38,6 +38,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (assign, nonatomic, getter=isVideoStreamStarted) BOOL videoStreamStarted;
 
+@property (nonatomic) int callCount;
+@property (nonatomic) int lastCount;
+@property (nonatomic) double lastTime;
+
 @end
 
 @implementation SDLCarWindow
@@ -59,6 +63,10 @@ NS_ASSUME_NONNULL_BEGIN
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sdl_didPresentLockScreenViewController:) name:SDLLockScreenManagerDidPresentLockScreenViewController object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sdl_didDismissLockScreenViewController:) name:SDLLockScreenManagerDidDismissLockScreenViewController object:nil];
 
+    _callCount = 0;
+    _lastCount = 0;
+    _lastTime = NSDate.timeIntervalSinceReferenceDate;
+
     return self;
 }
 
@@ -73,6 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     CGRect bounds = self.rootViewController.view.bounds;
+
     UIGraphicsBeginImageContextWithOptions(bounds.size, YES, 1.0f);
     switch (self.renderingType) {
         case SDLCarWindowRenderingTypeLayer: {
@@ -95,6 +104,15 @@ NS_ASSUME_NONNULL_BEGIN
         [self.streamManager sendVideoData:pixelBuffer];
         CVPixelBufferRelease(pixelBuffer);
     }
+    if (_callCount % 100 == 0) {
+        double current = NSDate.timeIntervalSinceReferenceDate;
+        double duration = (current - _lastTime);
+        _lastTime = current;
+        double fps = (double)(_callCount - _lastCount) / duration;
+        NSLog(@"SDLCarWindow#syncFrame call/sec = %.2f; duration=%f", fps, duration);
+        _lastCount = _callCount;
+    }
+    _callCount++;
 }
 
 #pragma mark - SDLNavigationLockScreenManager Notifications
@@ -151,6 +169,7 @@ NS_ASSUME_NONNULL_BEGIN
             }
 
         [self sdl_applyDisplayDimensionsToRootViewController:rootViewController];
+
         self->_rootViewController = rootViewController;
     });
 }

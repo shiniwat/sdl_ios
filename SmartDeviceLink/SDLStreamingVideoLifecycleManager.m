@@ -351,8 +351,8 @@ typedef void(^SDLVideoCapabilityResponseHandler)(SDLVideoStreamingCapability *_N
 
     __weak typeof(self) weakSelf = self;
     [self sdl_requestVideoCapabilities:^(SDLVideoStreamingCapability * _Nullable capability) {
-        SDLLogD(@"Received video capability response");
-        SDLLogV(@"Capability: %@", capability);
+        NSLog(@"Received video capability response");
+        NSLog(@"Capability: %@", capability);
 
         if (capability != nil) {
             // If we got a response, get the head unit's preferred formats and resolutions
@@ -362,12 +362,12 @@ typedef void(^SDLVideoCapabilityResponseHandler)(SDLVideoStreamingCapability *_N
                 weakSelf.videoEncoderSettings[(__bridge NSString *) kVTCompressionPropertyKey_AverageBitRate] = [[NSNumber alloc] initWithUnsignedLongLong:(capability.maxBitrate.unsignedLongLongValue * 1000)];
             }
             NSUInteger  preferredFPS = (capability.preferredFPS.integerValue == 0) ? defaultFrameRate : capability.preferredFPS.integerValue;
-            SDLLogD(@"videoEncoderSettings = %@", weakSelf.videoEncoderSettings);
+            NSLog(@"videoEncoderSettings = %@", weakSelf.videoEncoderSettings);
             weakSelf.videoEncoderSettings[(__bridge NSString *)kVTCompressionPropertyKey_ExpectedFrameRate] = @(preferredFPS);
-            SDLLogD(@"SDLCarWindow#didEnterStateVideoStreamStarting preferredFPS=%lu", (unsigned long)preferredFPS);
+            NSLog(@"SDLCarWindow#didEnterStateVideoStreamStarting preferredFPS=%lu", (unsigned long)preferredFPS);
 
             if (weakSelf.dataSource != nil) {
-                SDLLogV(@"Calling data source for modified preferred formats");
+                NSLog(@"Calling data source for modified preferred formats");
                 weakSelf.preferredFormats = [weakSelf.dataSource preferredVideoFormatOrderFromHeadUnitPreferredOrder:weakSelf.preferredFormats];
             }
 
@@ -383,13 +383,13 @@ typedef void(^SDLVideoCapabilityResponseHandler)(SDLVideoStreamingCapability *_N
             weakSelf.preferredFormats = @[format];
             weakSelf.preferredResolutions = @[resolution];
             weakSelf.videoEncoderSettings[(__bridge NSString *)kVTCompressionPropertyKey_ExpectedFrameRate] = @(defaultFrameRate);
-            SDLLogD(@"SDLCarWindow#didEnterStateVideoStreamStarting preferredFPS is default value (capability is nil)");
+            NSLog(@"SDLCarWindow#didEnterStateVideoStreamStarting preferredFPS is default value (capability is nil)");
 
             if (weakSelf.focusableItemManager != nil) {
                 weakSelf.focusableItemManager.enableHapticDataRequests = NO;
             }
 
-            SDLLogD(@"Using generic video capabilites, preferred formats: %@, resolutions: %@, haptics disabled", weakSelf.preferredFormats, weakSelf.preferredResolutions);
+            NSLog(@"Using generic video capabilites, preferred formats: %@, resolutions: %@, haptics disabled", weakSelf.preferredFormats, weakSelf.preferredResolutions);
         }
 
         // Apply customEncoderSettings here. Note that value from HMI (such as maxBitrate) will be overwritten by custom settings,
