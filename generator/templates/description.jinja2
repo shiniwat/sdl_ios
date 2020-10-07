@@ -1,0 +1,27 @@
+{#- Content of this file include into every item (Enum/Struct/Function) between imports and typedef/@interface declaration -#}
+{% if description or since or history %}
+/**
+ {%- if description %}
+ {%- for d in description %}
+ * {{d}}
+ {%- endfor %}{% endif -%}
+ {%- if description and ( since or history ) %}
+ *
+ {%- endif %}
+ {%- if deprecated is sameas true %}
+ * @deprecated in SmartDeviceLink {{ since }}
+ {%- elif history %}
+ * @added in SmartDeviceLink {{ history }}
+ {%- elif since is defined %}
+ {%- if since %}
+ * @added in SmartDeviceLink {{ since }}
+ {%- endif %}
+ {%- endif %}
+ {%- if deprecated is sameas true and history %}
+ * @added in SmartDeviceLink {{ history }}
+ {%- endif %}
+ */
+{%- endif -%}
+{%- if deprecated %}
+__deprecated
+{%- endif -%}

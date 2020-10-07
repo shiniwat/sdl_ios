@@ -26,7 +26,7 @@ describe(@"Getter/Setter Tests", ^ {
     it(@"Should set and get correctly", ^ {
         SDLPutFile* testRequest = [[SDLPutFile alloc] init];
         
-        testRequest.syncFileName = @"fileName";
+        testRequest.sdlFileName = @"fileName";
         testRequest.fileType = SDLFileTypeJPEG;
         testRequest.persistentFile = @YES;
         testRequest.systemFile = @NO;
@@ -34,7 +34,7 @@ describe(@"Getter/Setter Tests", ^ {
         testRequest.length = @123456789;
         testRequest.crc = @0xffffffff;
         
-        expect(testRequest.syncFileName).to(equal(@"fileName"));
+        expect(testRequest.sdlFileName).to(equal(@"fileName"));
         expect(testRequest.fileType).to(equal(SDLFileTypeJPEG));
         expect(testRequest.persistentFile).to(equal(@YES));
         expect(testRequest.systemFile).to(equal(@NO));
@@ -44,22 +44,19 @@ describe(@"Getter/Setter Tests", ^ {
     });
     
     it(@"Should get and set correctly when initialized", ^ {
-        NSMutableDictionary* dict = [@{SDLRPCParameterNameRequest:
-                                           @{SDLRPCParameterNameParameters:
+        NSDictionary *dict = @{SDLRPCParameterNameRequest:
+                                          @{SDLRPCParameterNameParameters:
                                                 @{ SDLRPCParameterNameSyncFileName:@"fileName",
-                                                    SDLRPCParameterNameFileType:SDLFileTypeJPEG,
-                                                    SDLRPCParameterNamePersistentFile:@YES,
-                                                    SDLRPCParameterNameSystemFile:@NO,
-                                                    SDLRPCParameterNameOffset:@987654321,
-                                                    SDLRPCParameterNameLength:@123456789,
+                                                   SDLRPCParameterNameFileType:SDLFileTypeJPEG,
+                                                   SDLRPCParameterNamePersistentFile:@YES,
+                                                   SDLRPCParameterNameSystemFile:@NO,
+                                                   SDLRPCParameterNameOffset:@987654321,
+                                                   SDLRPCParameterNameLength:@123456789,
                                                    SDLRPCParameterNameCRC:@0xffffffff},
-                                                    SDLRPCParameterNameOperationName:SDLRPCFunctionNamePutFile}} mutableCopy];
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        SDLPutFile* testRequest = [[SDLPutFile alloc] initWithDictionary:dict];
-#pragma clang diagnostic pop
-        
-        expect(testRequest.syncFileName).to(equal(@"fileName"));
+                                            SDLRPCParameterNameOperationName:SDLRPCFunctionNamePutFile}};
+        SDLPutFile *testRequest = [[SDLPutFile alloc] initWithDictionary:dict];
+
+        expect(testRequest.sdlFileName).to(equal(@"fileName"));
         expect(testRequest.fileType).to(equal(SDLFileTypeJPEG));
         expect(testRequest.persistentFile).to(equal(@YES));
         expect(testRequest.systemFile).to(equal(@NO));
@@ -96,7 +93,7 @@ describe(@"initializers", ^{
     context(@"init", ^{
         SDLPutFile *testRequest = [[SDLPutFile alloc] init];
 
-        expect(testRequest.syncFileName).to(beNil());
+        expect(testRequest.sdlFileName).to(beNil());
         expect(testRequest.fileType).to(beNil());
         expect(testRequest.persistentFile).to(beNil());
         expect(testRequest.systemFile).to(beNil());
@@ -109,7 +106,7 @@ describe(@"initializers", ^{
     context(@"initWithFileName:fileType:", ^{
         SDLPutFile *testRequest = [[SDLPutFile alloc] initWithFileName:@"fileName" fileType:SDLFileTypeWAV];
 
-        expect(testRequest.syncFileName).to(equal(@"fileName"));
+        expect(testRequest.sdlFileName).to(equal(@"fileName"));
         expect(testRequest.fileType).to(equal(SDLFileTypeWAV));
         expect(testRequest.persistentFile).to(beNil());
         expect(testRequest.systemFile).to(beNil());
@@ -122,7 +119,7 @@ describe(@"initializers", ^{
     context(@"initWithFileName:fileType:persistentFile:", ^{
         SDLPutFile* testRequest = [[SDLPutFile alloc] initWithFileName:@"fileName" fileType:SDLFileTypePNG persistentFile:false];
 
-        expect(testRequest.syncFileName).to(equal(@"fileName"));
+        expect(testRequest.sdlFileName).to(equal(@"fileName"));
         expect(testRequest.fileType).to(equal(SDLFileTypePNG));
         expect(testRequest.persistentFile).to(beFalse());
         expect(testRequest.systemFile).to(beNil());
@@ -132,26 +129,10 @@ describe(@"initializers", ^{
         expect(testRequest.bulkData).to(beNil());
     });
 
-    context(@"initWithFileName:fileType:persistentFile:systemFile:offset:length:", ^{
-        #pragma clang diagnostic push
-        #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        SDLPutFile *testRequest = [[SDLPutFile alloc] initWithFileName:@"fileName" fileType:SDLFileTypeMP3 persistentFile:true systemFile:true offset:45 length:34];
-
-        expect(testRequest.syncFileName).to(equal(@"fileName"));
-        expect(testRequest.fileType).to(equal(SDLFileTypeMP3));
-        expect(testRequest.persistentFile).to(beTrue());
-        expect(testRequest.systemFile).to(beTrue());
-        expect(testRequest.offset).to(equal(@45));
-        expect(testRequest.length).to(equal(34));
-        expect(testRequest.crc).to(beNil());
-        expect(testRequest.bulkData).to(beNil());
-        #pragma clang diagnostic pop
-    });
-
     context(@"initWithFileName:fileType:persistentFile:systemFile:offset:length:crc:", ^{
         SDLPutFile* testRequest = [[SDLPutFile alloc] initWithFileName:@"fileName" fileType:SDLFileTypeMP3 persistentFile:true systemFile:true offset:45 length:34 crc:0xffffffff];
 
-        expect(testRequest.syncFileName).to(equal(@"fileName"));
+        expect(testRequest.sdlFileName).to(equal(@"fileName"));
         expect(testRequest.fileType).to(equal(SDLFileTypeMP3));
         expect(testRequest.persistentFile).to(beTrue());
         expect(testRequest.systemFile).to(beTrue());
@@ -167,7 +148,7 @@ describe(@"initializers", ^{
 
         SDLPutFile* testRequest = [[SDLPutFile alloc] initWithFileName:@"fileName" fileType:SDLFileTypeAAC persistentFile:true systemFile:true offset:5 length:4 bulkData:testFileData];
 
-        expect(testRequest.syncFileName).to(equal(@"fileName"));
+        expect(testRequest.sdlFileName).to(equal(@"fileName"));
         expect(testRequest.fileType).to(equal(SDLFileTypeAAC));
         expect(testRequest.persistentFile).to(beTrue());
         expect(testRequest.systemFile).to(beTrue());
