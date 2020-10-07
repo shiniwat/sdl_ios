@@ -63,7 +63,7 @@ int const CreateSessionRetries = 3;
  *  Registers for system notifications about connected accessories and the app life cycle.
  */
 - (void)sdl_startEventListening {
-    SDLLogV(@"SDLIAPTransport started listening for events");
+    NSLog(@"SDLIAPTransport started listening for events");
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(sdl_accessoryConnected:)
                                                  name:EAAccessoryDidConnectNotification
@@ -79,7 +79,7 @@ int const CreateSessionRetries = 3;
  *  Unsubscribes to notifications.
  */
 - (void)sdl_stopEventListening {
-    SDLLogV(@"SDLIAPTransport stopped listening for events");
+    NSLog(@"SDLIAPTransport stopped listening for events");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -92,6 +92,7 @@ int const CreateSessionRetries = 3;
  */
 - (void)sdl_accessoryConnected:(NSNotification *)notification {
     EAAccessory *newAccessory = notification.userInfo[EAAccessoryKey];
+    NSLog(@"sdl_accessoryConnected; accessory=%@", newAccessory.serialNumber);
 
     if ([self sdl_isDataSessionActive:self.dataSession newAccessory:newAccessory]) {
         self.accessoryConnectDuringActiveSession = YES;
@@ -132,7 +133,7 @@ int const CreateSessionRetries = 3;
  */
 - (void)sdl_accessoryDisconnected:(NSNotification *)notification {
     EAAccessory *accessory = [notification.userInfo objectForKey:EAAccessoryKey];
-    SDLLogD(@"Accessory with serial number: %@, and connectionID: %lu disconnecting.", accessory.serialNumber, (unsigned long)accessory.connectionID);
+    NSLog(@"Accessory with serial number: %@, and connectionID: %lu disconnecting.", accessory.serialNumber, (unsigned long)accessory.connectionID);
 
     if (self.accessoryConnectDuringActiveSession == YES) {
         SDLLogD(@"Switching transports from Bluetooth to USB. Will reconnect over Bluetooth after disconnecting the USB session.");
