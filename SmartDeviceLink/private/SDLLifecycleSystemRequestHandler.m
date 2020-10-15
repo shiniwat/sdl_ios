@@ -77,7 +77,7 @@ typedef void (^URLSessionDownloadTaskCompletionHandler)(NSURL *location, NSURLRe
 #pragma mark - Handle OnSystemRequest
 - (void)sdl_handleSystemRequestLaunchApp:(SDLOnSystemRequest *)request {
     NSURL *urlScheme = [NSURL URLWithString:request.url];
-    NSLog(@"sdl_handleSystemRequestLaunchApp: url=%@", request.url);
+    SDLLogD(@"sdl_handleSystemRequestLaunchApp: url=%@; thread=%@", request.url, NSThread.currentThread.name);
     if (urlScheme == nil) {
         SDLLogW(@"System request LaunchApp failed: invalid URL sent from module: %@", request.url);
         return;
