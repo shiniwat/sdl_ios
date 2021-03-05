@@ -31,13 +31,13 @@ NS_ASSUME_NONNULL_BEGIN
         return self;
     }
 
-    self.maxBitrate = @(maxBitrate);
+    self.maxBitrate = maxBitrate;
     self.preferredResolution = preferredResolution;
     self.supportedFormats = supportedFormats;
-    self.hapticSpatialDataSupported = @(hapticDataSupported);
-    self.diagonalScreenSize = @(diagonalScreenSize);
-    self.pixelPerInch = @(pixelPerInch);
-    self.scale = @(scale);
+    self.hapticSpatialDataSupported = hapticDataSupported;
+    self.diagonalScreenSize = diagonalScreenSize;
+    self.pixelPerInch = pixelPerInch;
+    self.scale = scale;
     self.preferredFPS = @(15);
 
     return self;
