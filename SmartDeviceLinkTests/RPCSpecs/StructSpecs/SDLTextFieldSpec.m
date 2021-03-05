@@ -18,7 +18,7 @@ QuickSpecBegin(SDLTextFieldSpec)
 
 describe(@"Getter/Setter Tests", ^ {
     __block SDLTextFieldName testName = SDLTextFieldNameETA;
-    __block SDLCharacterSet testCharacterSet = SDLCharacterSetCID1;
+    __block SDLCharacterSet testCharacterSet = SDLCharacterSetUtf8;
     __block NSUInteger testWidth = 100;
     __block NSUInteger testRows = 4;
 
@@ -41,10 +41,7 @@ describe(@"Getter/Setter Tests", ^ {
                                SDLRPCParameterNameCharacterSet:testCharacterSet,
                                SDLRPCParameterNameWidth:@(testWidth),
                                SDLRPCParameterNameRows:@(testRows)};
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         SDLTextField* testStruct = [[SDLTextField alloc] initWithDictionary:dict];
-#pragma clang diagnostic pop
         
         expect(testStruct.name).to(equal(testName));
         expect(testStruct.characterSet).to(equal(testCharacterSet));

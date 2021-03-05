@@ -1,4 +1,158 @@
 # Changelog
+## 7.0.0
+### Versions
+* Supports [SDL RPC Spec 7.0.0](https://github.com/smartdevicelink/rpc_spec/commit/eead323f356be713d2b0f0a253f3f3d36143460a) and [SDL Protocol Spec 5.3.0](https://github.com/smartdevicelink/protocol_spec/tree/release/5.3.0).
+
+### Testing
+* Tested with Xcode 12.0
+* iOS 13.7 and 14.0
+* Core:
+    * Manticore (Core v6.1.1, Generic HMI v0.8.1)
+    * Ford Sync 3.4 (19353_DEVTEST)
+    * Ford Sync 3.0 (17276_DEVTEST)
+    * Ford Sync 4.0 (20016_DEVTEST)
+    * Core v7.0.0-rc.1 with sdl_hmi v5.3.0-develop and generic_hmi v0.9.0-develop
+
+### Enhancements
+* Added main menu RPC support for deeper submenus (https://github.com/smartdevicelink/sdl_ios/issues/910).
+* Added main menu RPC support for driver distraction limitations to the menu (https://github.com/smartdevicelink/sdl_ios/issues/926).
+* Updated max URL lengths in `SystemRequest` to be unlimited (https://github.com/smartdevicelink/sdl_ios/issues/1110).
+* Added support for new types of character sets (https://github.com/smartdevicelink/sdl_ios/issues/1139).
+* Added new RPC for `SubtleAlert`, a notification-like alert (https://github.com/smartdevicelink/sdl_ios/issues/1355).
+* Added support to Swift Package Manager (https://github.com/smartdevicelink/sdl_ios/issues/1387).
+* Added new vehicle data `StabilityControlsStatus` (https://github.com/smartdevicelink/sdl_ios/issues/1449).
+* Changed fuel-related vehicle data RPCs (https://github.com/smartdevicelink/sdl_ios/issues/1472).
+* Added new vehicle data `HandsOffSteering` (https://github.com/smartdevicelink/sdl_ios/issues/1473).
+* Added new vehicle data `WindowStatus` (https://github.com/smartdevicelink/sdl_ios/issues/1508).
+* Added main menu RPC support for pagination and dynamic updating (https://github.com/smartdevicelink/sdl_ios/issues/1520).
+* Added new vehicle data `GearStatus` (https://github.com/smartdevicelink/sdl_ios/issues/1522).
+* Added `changeLayout` method to `SDLScreenManager` to change templates, including in a batched update (https://github.com/smartdevicelink/sdl_ios/issues/1612, https://github.com/smartdevicelink/sdl_ios/issues/1749).
+* Added support for new WebEngine projection hmi types and templates (note that this is not properly supported in this library outside of the RPCs; look at the JavaScript Suite library for more information) (https://github.com/smartdevicelink/sdl_ios/issues/1681).
+* Added a `reason` parameter to protocol NAKs (https://github.com/smartdevicelink/sdl_ios/issues/1684).
+* Update the minimum required iOS version to 10.0 (https://github.com/smartdevicelink/sdl_ios/issues/1738).
+* `SDLSetDisplayLayout(+Response)` is now deprecated (https://github.com/smartdevicelink/sdl_ios/issues/1785).
+* `SDLLockScreenViewController` now defaults to modal presentation style `.fullScreen` (https://github.com/smartdevicelink/sdl_ios/issues/1794).
+
+### Bug Fixes
+* `SDLServiceUpdateReason` enums are now named properly (https://github.com/smartdevicelink/sdl_ios/issues/1502).
+* Consolidated serial queue logic (https://github.com/smartdevicelink/sdl_ios/issues/1614).
+* Consolidated logic for saving the dynamic MTU size (https://github.com/smartdevicelink/sdl_ios/issues/1615).
+* Fixed example app files not in the proper folder (https://github.com/smartdevicelink/sdl_ios/issues/1765).
+* Fixed `SDLSetGlobalProperties` init missing `userLocation` (https://github.com/smartdevicelink/sdl_ios/issues/1771).
+* Fixed `SDLOnDriverDistraction` properties missing `nullable` (https://github.com/smartdevicelink/sdl_ios/issues/1813).
+
+### RPC Generator
+* Fixed generator not sorting imports (https://github.com/smartdevicelink/sdl_ios/issues/1720).
+* Fixed generator generating deprecated properties into initializers (https://github.com/smartdevicelink/sdl_ios/issues/1722).
+* Fixed generator adding incorrect line breaks in documentation (https://github.com/smartdevicelink/sdl_ios/issues/1723).
+* Fixed generator not generating RPC response initializers correctly (https://github.com/smartdevicelink/sdl_ios/issues/1734).
+* Fixed generator not generating min/max array size documentation (https://github.com/smartdevicelink/sdl_ios/issues/1736). 
+* Fixed generator should not strip text after "@TODO" (https://github.com/smartdevicelink/sdl_ios/issues/1744).
+* Fixed generator adding unnecessary #pragma suppressions (https://github.com/smartdevicelink/sdl_ios/issues/1757).
+* Fixed generator not creating proper history documentation (https://github.com/smartdevicelink/sdl_ios/issues/1761).
+* Fixed generator not properly generating initializers with float types (https://github.com/smartdevicelink/sdl_ios/issues/1763).
+
+### Other
+* Moved files around to simplify distribution (https://github.com/smartdevicelink/sdl_ios/issues/568).
+* Fixed warnings in Objective-C example app (https://github.com/smartdevicelink/sdl_ios/issues/1772).
+* Fixed example apps resetting soft buttons whenever going to HMI FULL (https://github.com/smartdevicelink/sdl_ios/issues/1782).
+* Cleaned up inline documentation grammar and spelling issues (https://github.com/smartdevicelink/sdl_ios/issues/1787).
+* Update CI to Xcode 12 and fix screenshot failures (https://github.com/smartdevicelink/sdl_ios/issues/1801).
+* Fixed unit tests crashing (https://github.com/smartdevicelink/sdl_ios/issues/1802).
+* README updates to point to testing YAML (https://github.com/smartdevicelink/sdl_ios/issues/1816).
+* Removed some unnecessary warning suppression (https://github.com/smartdevicelink/sdl_ios/issues/1819).
+
+## 6.7.0
+### Versions
+* Supports [SDL RPC Spec 6.0.0](https://github.com/smartdevicelink/rpc_spec/releases/tag/6.0.0) and [SDL Protocol Spec 5.2.0](https://github.com/smartdevicelink/protocol_spec/releases/tag/5.2.0).
+
+### Testing
+* Tested with Xcode 11.6
+* iOS 13.5 and 13.6
+* Core:
+  * Manticore (Core v6.1.1, Generic HMI v0.8.1)
+  * Ford Sync 3.4 (19353_DEVTEST)
+  * Ford Sync 3.0 (17276_DEVTEST)
+  * Ford Sync 4.0 (20016_DEVTEST)
+  * Core v5.1.0 with sdl_hmi v5.2.0
+  * Core v6.1.1
+
+### Enhancements
+* Added subscribe button features to the screen manager (https://github.com/smartdevicelink/sdl_ios/issues/1563).
+* Added a new `SDLManager` delegate method for updating the HMI and VR language separately (https://github.com/smartdevicelink/sdl_ios/issues/1593).
+* Added a new initializer to `SDLButtonPress` because the existing ones were missing a mandatory parameter (https://github.com/smartdevicelink/sdl_ios/issues/1635).
+* Aligned `SDLPermissionManager` methods with Java Suite and JavaScript Suite libraries, adding methods for parameter permissions and more (https://github.com/smartdevicelink/sdl_ios/issues/1661, https://github.com/smartdevicelink/sdl_ios/issues/1667, https://github.com/smartdevicelink/sdl_ios/issues/1682).
+
+### Bug Fixes
+* Fix the video background when the app goes into the background not always showing when it should (https://github.com/smartdevicelink/sdl_ios/issues/1620).
+* Improved `SDLAudioStreamManager` error messages (https://github.com/smartdevicelink/sdl_ios/issues/1622).
+* Better handling of head units sending a `nil` `displayCapabilities` in the `SystemCapabilityManager` (https://github.com/smartdevicelink/sdl_ios/issues/1623).
+* Fixed a deadlock that could happen on the lock screen due to some calls being asynchronous but handled synchronously (https://github.com/smartdevicelink/sdl_ios/issues/1629).
+* Stop and start `SDLFocusableItemLocator` when the video stream starts and stops (https://github.com/smartdevicelink/sdl_ios/issues/1631).
+* Fixed turning wifi off and back on causing secondary transport to fail (https://github.com/smartdevicelink/sdl_ios/issues/1631, https://github.com/smartdevicelink/sdl_ios/issues/1639).
+* Fixed using the permission manager in Swift would sometimes crash (https://github.com/smartdevicelink/sdl_ios/issues/1636).
+* Fixed Travis tests failing and moved to Github Actions CI (https://github.com/smartdevicelink/sdl_ios/issues/1640, https://github.com/smartdevicelink/sdl_ios/issues/1642, https://github.com/smartdevicelink/sdl_ios/issues/1678).
+* Fixed sending an empty VR array in an `SDLMenuCell` would fail (https://github.com/smartdevicelink/sdl_ios/issues/1648).
+* Fix a launch app should only happen on the main thread (https://github.com/smartdevicelink/sdl_ios/issues/1662).
+* Fixed some documentation for a permission manager method to be more specific (https://github.com/smartdevicelink/sdl_ios/issues/1665).
+* Fix the encryption manager not being shut down correctly after a disconnect / reconnect (https://github.com/smartdevicelink/sdl_ios/issues/1675).
+* Refactor the protocol layer and merge the proxy and lifecycle layers (https://github.com/smartdevicelink/sdl_ios/issues/1680).
+* Fix video session properties not being re-set upon reconnection (https://github.com/smartdevicelink/sdl_ios/issues/1683).
+* Fix soft button image uploads failing if the first state has no images but other states do (https://github.com/smartdevicelink/sdl_ios/issues/1698).
+* Fix a potential race condition in `SystemCapabilityManager` (https://github.com/smartdevicelink/sdl_ios/issues/1709).
+* Fix a deadlock that would occur when restarting the `SDLManager` in the `managerDidDisconnect` callback (https://github.com/smartdevicelink/sdl_ios/issues/1710).
+* Fix a crash that would occur when receiving an unknown RPC (https://github.com/smartdevicelink/sdl_ios/issues/1713).
+* Fix the secondary transport timer starting when a primary transport connects (https://github.com/smartdevicelink/sdl_ios/issues/1716).
+* Fix protocol delegates not always receiving an `EndServiceNAK` (https://github.com/smartdevicelink/sdl_ios/issues/1718).
+
+### Other
+* Use an `NSTimer` wrapper everywhere internally instead of the raw `NSTimer` (https://github.com/smartdevicelink/sdl_ios/issues/1611).
+* Add security manager tests to secondary transport unit tests (https://github.com/smartdevicelink/sdl_ios/issues/1653).
+* Fixed documentation for permission manager subscribe callbacks (https://github.com/smartdevicelink/sdl_ios/issues/1724).
+
+### Example Apps
+* Add icons to example app vehicle data menus (https://github.com/smartdevicelink/sdl_ios/issues/1580).
+* Fixed some small icons and replaced a few icons (https://github.com/smartdevicelink/sdl_ios/issues/1581).
+
+## 6.6.0
+### Versions
+* Supports [SDL RPC Spec 6.0.0](https://github.com/smartdevicelink/rpc_spec/releases/tag/6.0.0) and [SDL Protocol Spec 5.2.0](https://github.com/smartdevicelink/protocol_spec/releases/tag/5.2.0).
+
+### Enhancements
+* The secondary transport now starts only when the app has been brought to HMI Full (https://www.github.com/smartdevicelink/sdl_ios/issues/1145).
+* Added RPC generator script – though it is not currently used (https://www.github.com/smartdevicelink/sdl_ios/issues/1298).
+* Added helpful convenience initializers to `SDLRadioControlData` (https://www.github.com/smartdevicelink/sdl_ios/issues/1206).
+* `SDLSystemCapabilityManager` enhancements and alignment with Java Suite ((https://www.github.com/smartdevicelink/sdl_ios/issues/1535).
+* The `SDLManagerDelegate` now has a `videoStreamingState` callback (https://www.github.com/smartdevicelink/sdl_ios/issues/1546).
+* The secondary transport will no longer be immediately shut down when the app goes to the background (https://www.github.com/smartdevicelink/sdl_ios/issues/1560).
+* Deprecated `SyncPData` and `EncodedSyncPData` RPCs (https://www.github.com/smartdevicelink/sdl_ios/issues/1599).
+* Deprecated `OnLockScreenStatus` and `LockScreenStatus` fake RPCs (https://www.github.com/smartdevicelink/sdl_ios/issues/1601).
+
+### Bug Fixes
+* Fix video streaming timeout when app goes from background to foreground (https://www.github.com/smartdevicelink/sdl_ios/issues/1471).
+* Many lock screen fixes (https://www.github.com/smartdevicelink/sdl_ios/issues/1504, https://www.github.com/smartdevicelink/sdl_ios/issues/1523, https://www.github.com/smartdevicelink/sdl_ios/issues/1545, https://www.github.com/smartdevicelink/sdl_ios/issues/1565).
+* Threading fixes around the response handler map (https://www.github.com/smartdevicelink/sdl_ios/issues/1515).
+* Fixed some warnings emitted from the lock screen storyboard (https://www.github.com/smartdevicelink/sdl_ios/issues/1521).
+* Fix potential race condition in shutting down and starting up `SDLProxy` (https://www.github.com/smartdevicelink/sdl_ios/issues/1532).
+* Fix `SDLTouch` to better handle `NSNull` (https://www.github.com/smartdevicelink/sdl_ios/issues/1534).
+* Fix empty `SetDisplayLayout.displayCapabilities` breaks the screen manager (https://www.github.com/smartdevicelink/sdl_ios/issues/1536).
+* Many secondary transport fixes (https://www.github.com/smartdevicelink/sdl_ios/issues/1551, https://www.github.com/smartdevicelink/sdl_ios/issues/1561).
+* Revert deprecations in RPCs relating to `NSDictionary` (https://www.github.com/smartdevicelink/sdl_ios/issues/1557).
+* Change how the audio pass thru handler is called to allow sending a new one in the response handler (https://www.github.com/smartdevicelink/sdl_ios/issues/1559).
+* Threading fixes around the lifecycle manager `correlationId` (https://www.github.com/smartdevicelink/sdl_ios/issues/1564).
+* Fix `SDLStreamingMediaManager` returning an incorrect value for `isStreamingSupported` (https://www.github.com/smartdevicelink/sdl_ios/issues/1569).
+* Fix using incorrect MTU sizes for non-RPC services (https://www.github.com/smartdevicelink/sdl_ios/issues/1577).
+* Fix IAP crash when the output stream closes (https://www.github.com/smartdevicelink/sdl_ios/issues/1583).
+* Fix potential threading crash in `SDLChoiceSetManager` (https://www.github.com/smartdevicelink/sdl_ios/issues/1584).
+* Adding some documentation (https://www.github.com/smartdevicelink/sdl_ios/issues/1587).
+* Fix a potential race condition crash in the text and graphic manager (https://www.github.com/smartdevicelink/sdl_ios/issues/1595).
+* Fix `SDLImageField` initializer (https://www.github.com/smartdevicelink/sdl_ios/issues/1625).
+
+### Example Apps
+* They now show a warning message if the slider or scrollable message time out (https://www.github.com/smartdevicelink/sdl_ios/issues/1526).
+* Remove example app logic for checking first HMI FULL (https://www.github.com/smartdevicelink/sdl_ios/issues/1554).
+* Example app no longer uses deprecated `SDLConfiguration` (https://www.github.com/smartdevicelink/sdl_ios/issues/1607).
+
 ## 6.5.0 (Since RC 1)
 ### Bug Fixes
 * Update testing dependencies and fix a few tests that fail after updating OCMock to 3.5.0 due to mocks not being used properly in a test (https://www.github.com/smartdevicelink/sdl_ios/issues/1517).

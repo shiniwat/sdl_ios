@@ -29,7 +29,11 @@
   <li><a href="#section--beginUpdates">-beginUpdates</a></li>
   <li><a href="#section--endUpdates">-endUpdates</a></li>
   <li><a href="#section--endUpdatesWithCompletionHandler:">-endUpdatesWithCompletionHandler:</a></li>
+  <li><a href="#section--changeLayout:withCompletionHandler:">-changeLayout:withCompletionHandler:</a></li>
   <li><a href="#section--softButtonObjectNamed:">-softButtonObjectNamed:</a></li>
+  <li><a href="#section--subscribeButton:withUpdateHandler:">-subscribeButton:withUpdateHandler:</a></li>
+  <li><a href="#section--subscribeButton:withObserver:selector:">-subscribeButton:withObserver:selector:</a></li>
+  <li><a href="#section--unsubscribeButton:withObserver:withCompletionHandler:">-unsubscribeButton:withObserver:withCompletionHandler:</a></li>
   <li><a href="#section--preloadChoices:withCompletionHandler:">-preloadChoices:withCompletionHandler:</a></li>
   <li><a href="#section--deleteChoices:">-deleteChoices:</a></li>
   <li><a href="#section--presentChoiceSet:mode:">-presentChoiceSet:mode:</a></li>
@@ -50,12 +54,20 @@
       textField1
   </h3>
   
-  <p>The top text field within a template layout</p>
+  <p>The top text field within a template layout. Pass an empty string <code>\@&quot;&quot;</code> to clear the text field.</p>
+
+<p>If the system does not support a full 4 fields, this will automatically be concatenated and properly send the field available.</p>
+
+<p>If 3 lines are available: [field1, field2, field3 - field 4]</p>
+
+<p>If 2 lines are available: [field1 - field2, field3 - field4]</p>
+
+<p>If 1 line is available: [field1 - field2 - field3 - field4]</p>
 
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">textField1</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">textField1</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -68,12 +80,20 @@
       textField2
   </h3>
   
-  <p>The second text field within a template layout</p>
+  <p>The second text field within a template layout. Pass an empty string <code>\@&quot;&quot;</code> to clear the text field.</p>
+
+<p>If the system does not support a full 4 fields, this will automatically be concatenated and properly send the field available.</p>
+
+<p>If 3 lines are available: [field1, field2, field3 - field 4]</p>
+
+<p>If 2 lines are available: [field1 - field2, field3 - field4]</p>
+
+<p>If 1 line is available: [field1 - field2 - field3 - field4]</p>
 
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">textField2</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">textField2</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -86,12 +106,20 @@
       textField3
   </h3>
   
-  <p>The third text field within a template layout</p>
+  <p>The third text field within a template layout. Pass an empty string <code>\@&quot;&quot;</code> to clear the text field.</p>
+
+<p>If the system does not support a full 4 fields, this will automatically be concatenated and properly send the field available.</p>
+
+<p>If 3 lines are available: [field1, field2, field3 - field 4]</p>
+
+<p>If 2 lines are available: [field1 - field2, field3 - field4]</p>
+
+<p>If 1 line is available: [field1 - field2 - field3 - field4]</p>
 
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">textField3</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">textField3</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -104,12 +132,20 @@
       textField4
   </h3>
   
-  <p>The fourth text field within a template layout</p>
+  <p>The fourth text field within a template layout. Pass an empty string <code>\@&quot;&quot;</code> to clear the text field.</p>
+
+<p>If the system does not support a full 4 fields, this will automatically be concatenated and properly send the field available.</p>
+
+<p>If 3 lines are available: [field1, field2, field3 - field 4]</p>
+
+<p>If 2 lines are available: [field1 - field2, field3 - field4]</p>
+
+<p>If 1 line is available: [field1 - field2 - field3 - field4]</p>
 
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">textField4</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">textField4</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -127,7 +163,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">mediaTrackTextField</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">mediaTrackTextField</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -145,7 +181,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLArtwork.html">SDLArtwork</a></span> <span class="o">*</span><span class="n">primaryGraphic</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLArtwork.html">SDLArtwork</a></span> <span class="o">*</span><span class="n">primaryGraphic</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -163,7 +199,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLArtwork.html">SDLArtwork</a></span> <span class="o">*</span><span class="n">secondaryGraphic</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLArtwork.html">SDLArtwork</a></span> <span class="o">*</span><span class="n">secondaryGraphic</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -181,7 +217,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLTextAlignment.h@T@SDLTextAlignment">SDLTextAlignment</a></span> <span class="n">_Nonnull</span> <span class="n">textAlignment</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">copy</span><span class="p">)</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLTextAlignment.h@T@SDLTextAlignment">SDLTextAlignment</a></span> <span class="n">_Nonnull</span> <span class="n">textAlignment</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -199,7 +235,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLMetadataType.h@T@SDLMetadataType">SDLMetadataType</a></span> <span class="n">textField1Type</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLMetadataType.h@T@SDLMetadataType">SDLMetadataType</a></span> <span class="n">textField1Type</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -217,7 +253,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLMetadataType.h@T@SDLMetadataType">SDLMetadataType</a></span> <span class="n">textField2Type</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLMetadataType.h@T@SDLMetadataType">SDLMetadataType</a></span> <span class="n">textField2Type</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -235,7 +271,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLMetadataType.h@T@SDLMetadataType">SDLMetadataType</a></span> <span class="n">textField3Type</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLMetadataType.h@T@SDLMetadataType">SDLMetadataType</a></span> <span class="n">textField3Type</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -253,7 +289,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLMetadataType.h@T@SDLMetadataType">SDLMetadataType</a></span> <span class="n">textField4Type</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLMetadataType.h@T@SDLMetadataType">SDLMetadataType</a></span> <span class="n">textField4Type</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -271,7 +307,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">title</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">title</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -289,8 +325,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span>
-    <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Classes/SDLSoftButtonObject.html">SDLSoftButtonObject</a></span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">softButtonObjects</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">copy</span><span class="p">)</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Classes/SDLSoftButtonObject.html">SDLSoftButtonObject</a></span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">softButtonObjects</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -314,8 +349,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span>
-    <span class="n"><a href="../Classes/SDLMenuConfiguration.html">SDLMenuConfiguration</a></span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">menuConfiguration</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLMenuConfiguration.html">SDLMenuConfiguration</a></span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">menuConfiguration</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -333,7 +367,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Classes/SDLMenuCell.html">SDLMenuCell</a></span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">menu</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">copy</span><span class="p">)</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Classes/SDLMenuCell.html">SDLMenuCell</a></span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">menu</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -357,8 +391,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span>
-    <span class="n"><a href="../Enums/SDLDynamicMenuUpdatesMode.html">SDLDynamicMenuUpdatesMode</a></span> <span class="n">dynamicMenuUpdatesMode</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n"><a href="../Enums/SDLDynamicMenuUpdatesMode.html">SDLDynamicMenuUpdatesMode</a></span> <span class="n">dynamicMenuUpdatesMode</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -376,8 +409,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span>
-    <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Classes/SDLVoiceCommand.html">SDLVoiceCommand</a></span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">voiceCommands</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">copy</span><span class="p">)</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Classes/SDLVoiceCommand.html">SDLVoiceCommand</a></span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">voiceCommands</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -395,8 +427,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">null_resettable</span><span class="p">)</span>
-    <span class="n"><a href="../Classes/SDLKeyboardProperties.html">SDLKeyboardProperties</a></span> <span class="o">*</span><span class="n">keyboardConfiguration</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">null_resettable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLKeyboardProperties.html">SDLKeyboardProperties</a></span> <span class="o">*</span><span class="n">keyboardConfiguration</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -414,8 +445,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span>
-    <span class="n">NSSet</span><span class="o">&lt;</span><span class="n"><a href="../Classes/SDLChoiceCell.html">SDLChoiceCell</a></span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">preloadedChoices</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">NSSet</span><span class="o">&lt;</span><span class="n"><a href="../Classes/SDLChoiceCell.html">SDLChoiceCell</a></span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">preloadedChoices</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -531,19 +561,11 @@
       -endUpdates
   </h3>
   
-  <p>Update text fields with new text set into the text field properties. Pass an empty string <code>\@&quot;&quot;</code> to clear the text field.</p>
+  <p>Pairs with <code>beginUpdates:</code> to batch text, graphic, and layout changes into a single update with a callback when the update is complete.</p>
 
-<p>If the system does not support a full 4 fields, this will automatically be concatenated and properly send the field available.</p>
+<p>Update text fields with new text set into the text field properties, updates the primary and secondary images with new image(s) if new one(s) been set, and updates the template if one was changed using <code>changeLayout:withCompletionHandler:</code>.</p>
 
-<p>If 3 lines are available: [field1, field2, field3 - field 4]</p>
-
-<p>If 2 lines are available: [field1 - field2, field3 - field4]</p>
-
-<p>If 1 line is available: [field1 - field2 - field3 - field4]</p>
-
-<p>Also updates the primary and secondary images with new image(s) if new one(s) been set. This method will take care of naming the files (based on a hash). This is assumed to be a non-persistant image.</p>
-
-<p>If it needs to be uploaded, it will be. Once the upload is complete, the on-screen graphic will be updated.</p>
+<p>NOTE: The handler in <code>changeLayout:withCompletionHandler:</code> will not be called if the update is batched into this update.</p>
 
   
   
@@ -561,19 +583,13 @@
       -endUpdatesWithCompletionHandler:
   </h3>
   
-  <p>Update text fields with new text set into the text field properties. Pass an empty string <code>\@&quot;&quot;</code> to clear the text field.</p>
+  <p>Pairs with <code>beginUpdates:</code> to batch text, graphic, and layout changes into a single update with a callback when the update is complete.</p>
 
-<p>If the system does not support a full 4 fields, this will automatically be concatenated and properly send the field available.</p>
+<p>Update text fields with new text set into the text field properties, updates the primary and secondary images with new image(s) if new one(s) been set, and updates the template if one was changed using <code>changeLayout:withCompletionHandler:</code>.</p>
 
-<p>If 3 lines are available: [field1, field2, field3 - field 4]</p>
+<p>NOTE: The handler in <code>changeLayout:withCompletionHandler:</code> will not be called if the update is batched into this update.</p>
 
-<p>If 2 lines are available: [field1 - field2, field3 - field4]</p>
-
-<p>If 1 line is available: [field1 - field2 - field3 - field4]</p>
-
-<p>Also updates the primary and secondary images with new image(s) if new one(s) been set. This method will take care of naming the files (based on a hash). This is assumed to be a non-persistant image.</p>
-
-<p>If it needs to be uploaded, it will be. Once the upload is complete, the on-screen graphic will be updated.</p>
+<p>NOTE: If this update returns an error, it may have been superseded by another update. This means that it was cancelled while in-progress because another update was requested, whether batched or not. Check for error domain <code><a href="../Constants.html#/c:@SDLErrorDomainTextAndGraphicManager">SDLErrorDomainTextAndGraphicManager</a></code> and code <code>SDLTextAndGraphicManagerErrorPendingUpdateSuperseded</code> to determine if your update was superseded. Any other error should represent a rejection of your data to be presented by the head unit. Note that if your update is superseded, it&rsquo;s possible that the update will succeed or fail later. If you have set a handler for your update which superseded this update, the error or success will be represented there.</p>
 
   
   
@@ -591,6 +607,39 @@
   <dl>
       <dt>handler</dt>
       <dd><p>A handler run when the fields have finished updating, with an error if the update failed. This handler may be called multiple times when the text update is sent and the image update is sent.</p></dd>
+  </dl>
+  
+  <h3 id="section--changeLayout:withCompletionHandler:">
+      -changeLayout:withCompletionHandler:
+  </h3>
+  
+  <p>Change the current layout to a new layout and optionally update the layout&rsquo;s night and day color schemes. The values set for the text, graphics, buttons and template title persist between layout changes. To update the text, graphics, buttons and template title at the same time as the template, batch all the updates between <code>beginUpdates</code> and <code>endUpdates</code>. If the layout update fails while batching, then the updated text, graphics, buttons or template title will also not be updated.</p>
+
+<p>If you are connected on a &lt; v6.0 connection and batching the update, the layout will be updated, then the text and graphics will be updated. If you are connected on a &gt;= v6.0 connection, the layout will be updated at the same time that the text and graphics are updated.</p>
+
+<p>If this update is batched between <code>beginUpdates</code> and <code>endUpdatesWithCompletionHandler:</code>, the completion handler here will not be called. Use the completion handler on <code>endUpdatesWithCompletionHandler:</code></p>
+
+<p>NOTE: If this update returns an error, it may have been superseded by another update. This means that it was cancelled while in-progress because another update was requested, whether batched or not. Check for error domain <code><a href="../Constants.html#/c:@SDLErrorDomainTextAndGraphicManager">SDLErrorDomainTextAndGraphicManager</a></code> and code <code>SDLTextAndGraphicManagerErrorPendingUpdateSuperseded</code> to determine if your update was superseded. Any other error should represent a rejection of your data to be presented by the head unit. Note that if your update is superseded, it&rsquo;s possible that the update will succeed or fail later. If you have set a handler for your update which superseded this update, the error or success will be represented there.</p>
+
+  
+  
+  <h4>Objective-C</h4>
+  <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">changeLayout</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/SDLTemplateConfiguration.html">SDLTemplateConfiguration</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">templateConfiguration</span>
+    <span class="nf">withCompletionHandler</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">nullable</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLScreenManager.h@T@SDLScreenManagerUpdateCompletionHandler">SDLScreenManagerUpdateCompletionHandler</a></span><span class="p">)</span><span class="nv">handler</span><span class="p">;</span></code></pre>
+
+  
+  <h4>Swift</h4>
+  <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">changeLayout</span><span class="p">(</span><span class="n">_</span> <span class="nv">templateConfiguration</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLTemplateConfiguration.html">SDLTemplateConfiguration</a></span><span class="p">,</span> <span class="n">withCompletionHandler</span> <span class="nv">handler</span><span class="p">:</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLScreenManager.h@T@SDLScreenManagerUpdateCompletionHandler">SDLScreenManagerUpdateCompletionHandler</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+  
+  
+  <h4>Parameters</h4>
+  <dl>
+      <dt>templateConfiguration</dt>
+      <dd><p>The new configuration of the template, including the layout and color scheme.</p></dd>
+      <dt>handler</dt>
+      <dd><p>A handler that will be called when the layout change finished.</p></dd>
   </dl>
   
   <h3 id="section--softButtonObjectNamed:">
@@ -615,6 +664,108 @@
   <dl>
       <dt>name</dt>
       <dd><p>The name of the button</p></dd>
+  </dl>
+  
+  <h3 id="section--subscribeButton:withUpdateHandler:">
+      -subscribeButton:withUpdateHandler:
+  </h3>
+  
+  <p>Subscribes to a subscribe button. The update handler will be called when the button has been selected. If there is an error subscribing to the subscribe button it will be returned in the <code>error</code> parameter of the updateHandler.</p>
+
+  
+  
+  <h4>Objective-C</h4>
+  <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">id</span><span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span><span class="p">)</span><span class="nf">subscribeButton</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLButtonName.h@T@SDLButtonName">SDLButtonName</a></span><span class="p">)</span><span class="nv">buttonName</span>
+                      <span class="nf">withUpdateHandler</span><span class="p">:</span>
+                          <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLScreenManager.h@T@SDLSubscribeButtonHandler">SDLSubscribeButtonHandler</a></span><span class="p">)</span><span class="nv">updateHandler</span><span class="p">;</span></code></pre>
+
+  
+  <h4>Swift</h4>
+  <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">subscribeButton</span><span class="p">(</span><span class="n">_</span> <span class="nv">buttonName</span><span class="p">:</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLButtonName.h@T@SDLButtonName">SDLButtonName</a></span><span class="p">,</span> <span class="n">withUpdateHandler</span> <span class="nv">updateHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLScreenManager.h@T@SDLSubscribeButtonHandler">SDLSubscribeButtonHandler</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NSObjectProtocol</span></code></pre>
+
+  
+  
+  <h4>Parameters</h4>
+  <dl>
+      <dt>buttonName</dt>
+      <dd><p>The name of the hard button to subscribe to</p></dd>
+      <dt>updateHandler</dt>
+      <dd><p>The block run when the subscribe button is selected</p></dd>
+  </dl>
+  <div>
+    <h4>Return Value</h4>
+    <p>An object that can be used to unsubscribe the block using <code>unsubscribeButtonWithObserver:withCompletionHandler:</code>.</p>
+  </div>
+  
+  <h3 id="section--subscribeButton:withObserver:selector:">
+      -subscribeButton:withObserver:selector:
+  </h3>
+  
+  <p>Subscribes to a subscribe button. The selector will be called when the button has been selected. If there is an error subscribing to the subscribe button it will be returned in the <code>error</code> parameter of the selector.</p>
+
+<p>The selector supports the following parameters:</p>
+
+<ol>
+<li><p>A selector with no parameters. The observer will be notified when a button press occurs (it will not know if a short or long press has occurred).</p></li>
+<li><p>A selector with one parameter: (SDLButtonName). The observer will be notified when a button press occurs (both a short and long press will trigger the selector, but it will not be able to distinguish between them). It will not be notified of button events.</p></li>
+<li><p>A selector with two parameters: (SDLButtonName, NSError). The observer will be notified when a button press occurs (both a short and long press will trigger the selector, but it will not be able to distinguish between them). It will not be notified of button events.</p></li>
+<li><p>A selector with three parameters: (SDLButtonName, NSError, SDLOnButtonPress). The observer will be notified when a long or short button press occurs (and can distinguish between a short or long press), but will not be notified of individual button events.</p></li>
+<li><p>A selector with four parameters: (SDLButtonName, NSError, SDLOnButtonPress, SDLOnButtonEvent). The observer will be notified when any button press or any button event occurs (and can distinguish between them).</p></li>
+</ol>
+
+<p>To unsubscribe from the hard button, call <code>unsubscribeButton:withObserver:withCompletionHandler:</code>.</p>
+
+  
+  
+  <h4>Objective-C</h4>
+  <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">subscribeButton</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLButtonName.h@T@SDLButtonName">SDLButtonName</a></span><span class="p">)</span><span class="nv">buttonName</span>
+           <span class="nf">withObserver</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">observer</span>
+               <span class="nf">selector</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">SEL</span><span class="p">)</span><span class="nv">selector</span><span class="p">;</span></code></pre>
+
+  
+  <h4>Swift</h4>
+  <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">subscribeButton</span><span class="p">(</span><span class="n">_</span> <span class="nv">buttonName</span><span class="p">:</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLButtonName.h@T@SDLButtonName">SDLButtonName</a></span><span class="p">,</span> <span class="n">withObserver</span> <span class="nv">observer</span><span class="p">:</span> <span class="kt">NSObjectProtocol</span><span class="p">,</span> <span class="nv">selector</span><span class="p">:</span> <span class="kt">Selector</span><span class="p">)</span></code></pre>
+
+  
+  
+  <h4>Parameters</h4>
+  <dl>
+      <dt>buttonName</dt>
+      <dd><p>The name of the hard button to subscribe to</p></dd>
+      <dt>observer</dt>
+      <dd><p>The object that will have <code>selector</code> called whenever the button has been selected</p></dd>
+      <dt>selector</dt>
+      <dd><p>The selector on <code>observer</code> that will be called whenever the button has been selected</p></dd>
+  </dl>
+  
+  <h3 id="section--unsubscribeButton:withObserver:withCompletionHandler:">
+      -unsubscribeButton:withObserver:withCompletionHandler:
+  </h3>
+  
+  <p>Unsubscribes to a subscribe button. Please note that if a subscribe button has multiple subscribers the observer will no longer get notifications, however, the app will still be subscribed to the hard button until the last subscriber is removed.</p>
+
+  
+  
+  <h4>Objective-C</h4>
+  <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">unsubscribeButton</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLButtonName.h@T@SDLButtonName">SDLButtonName</a></span><span class="p">)</span><span class="nv">buttonName</span>
+             <span class="nf">withObserver</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">observer</span>
+    <span class="nf">withCompletionHandler</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLScreenManager.h@T@SDLScreenManagerUpdateCompletionHandler">SDLScreenManagerUpdateCompletionHandler</a></span><span class="p">)</span><span class="nv">completionHandler</span><span class="p">;</span></code></pre>
+
+  
+  <h4>Swift</h4>
+  <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">unsubscribeButton</span><span class="p">(</span><span class="n">_</span> <span class="nv">buttonName</span><span class="p">:</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLButtonName.h@T@SDLButtonName">SDLButtonName</a></span><span class="p">,</span> <span class="n">withObserver</span> <span class="nv">observer</span><span class="p">:</span> <span class="kt">NSObjectProtocol</span><span class="p">,</span> <span class="n">withCompletionHandler</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLScreenManager.h@T@SDLScreenManagerUpdateCompletionHandler">SDLScreenManagerUpdateCompletionHandler</a></span><span class="p">)</span></code></pre>
+
+  
+  
+  <h4>Parameters</h4>
+  <dl>
+      <dt>buttonName</dt>
+      <dd><p>The name of the hard button to subscribe to</p></dd>
+      <dt>observer</dt>
+      <dd><p>The object that will be unsubscribed. If a block was subscribed, the return value should be passed. If a selector was subscribed, the observer object should be passed</p></dd>
+      <dt>completionHandler</dt>
+      <dd><p>A handler called when the observer has been unsubscribed to the hard button</p></dd>
   </dl>
   
   <h3 id="section--preloadChoices:withCompletionHandler:">

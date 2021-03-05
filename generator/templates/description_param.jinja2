@@ -1,0 +1,24 @@
+{#- Content of this file include into every Param/sub-element of (Enum/Struct/Function) -#}
+{% if param.description or param.since or param.history %}
+/**
+ {%- if param.description %}
+ {%- for d in param.description %}
+ * {{d}}
+ {%- endfor %}{% endif -%}
+ {%- if param.description and ( param.since or param.history ) %}
+ *
+ {%- endif %}
+ {%- if param.deprecated is sameas true %}
+ * @deprecated in SmartDeviceLink {{ param.since }}
+ {%- elif param.history %}
+ * @added in SmartDeviceLink {{ param.history[0].since }}
+ {%- elif param.since is defined %}
+ {%- if param.since %}
+ * @added in SmartDeviceLink {{ param.since }}
+ {%- endif %}
+ {%- endif %}
+ {%- if param.deprecated is sameas true and param.history %}
+ * @added in SmartDeviceLink {{ param.history[0].since }}
+ {%- endif %}
+ */
+{%- endif %}
