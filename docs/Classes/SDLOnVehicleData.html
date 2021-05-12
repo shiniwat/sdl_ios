@@ -3,6 +3,9 @@
 <h3>Section Contents</h3>
 
 <ul>
+  <li><a href="#section--initWithGps:speed:rpm:instantFuelConsumption:fuelRange:externalTemperature:turnSignal:vin:gearStatus:tirePressure:odometer:beltStatus:bodyInformation:deviceStatus:driverBraking:wiperStatus:headLampStatus:engineTorque:accPedalPosition:steeringWheelAngle:engineOilLife:electronicParkBrakeStatus:cloudAppVehicleID:stabilityControlsStatus:eCallInfo:airbagStatus:emergencyEvent:clusterModeStatus:myKey:handsOffSteering:windowStatus:">-initWithGps:speed:rpm:instantFuelConsumption:fuelRange:externalTemperature:turnSignal:vin:gearStatus:tirePressure:odometer:beltStatus:bodyInformation:deviceStatus:driverBraking:wiperStatus:headLampStatus:engineTorque:accPedalPosition:steeringWheelAngle:engineOilLife:electronicParkBrakeStatus:cloudAppVehicleID:stabilityControlsStatus:eCallInfo:airbagStatus:emergencyEvent:clusterModeStatus:myKey:handsOffSteering:windowStatus:</a></li>
+  <li><a href="#section--initWithGps:speed:rpm:instantFuelConsumption:fuelRange:climateData:turnSignal:vin:gearStatus:tirePressure:odometer:beltStatus:bodyInformation:deviceStatus:driverBraking:wiperStatus:headLampStatus:engineTorque:accPedalPosition:steeringWheelAngle:engineOilLife:electronicParkBrakeStatus:cloudAppVehicleID:stabilityControlsStatus:eCallInfo:airbagStatus:emergencyEvent:clusterModeStatus:myKey:windowStatus:handsOffSteering:seatOccupancy:">-initWithGps:speed:rpm:instantFuelConsumption:fuelRange:climateData:turnSignal:vin:gearStatus:tirePressure:odometer:beltStatus:bodyInformation:deviceStatus:driverBraking:wiperStatus:headLampStatus:engineTorque:accPedalPosition:steeringWheelAngle:engineOilLife:electronicParkBrakeStatus:cloudAppVehicleID:stabilityControlsStatus:eCallInfo:airbagStatus:emergencyEvent:clusterModeStatus:myKey:windowStatus:handsOffSteering:seatOccupancy:</a></li>
+  <li><a href="#section-gearStatus">gearStatus</a></li>
   <li><a href="#section-gps">gps</a></li>
   <li><a href="#section-speed">speed</a></li>
   <li><a href="#section-rpm">rpm</a></li>
@@ -10,6 +13,7 @@
   <li><a href="#section-fuelLevel_State">fuelLevel_State</a></li>
   <li><a href="#section-fuelRange">fuelRange</a></li>
   <li><a href="#section-instantFuelConsumption">instantFuelConsumption</a></li>
+  <li><a href="#section-climateData">climateData</a></li>
   <li><a href="#section-externalTemperature">externalTemperature</a></li>
   <li><a href="#section-vin">vin</a></li>
   <li><a href="#section-prndl">prndl</a></li>
@@ -19,7 +23,9 @@
   <li><a href="#section-bodyInformation">bodyInformation</a></li>
   <li><a href="#section-deviceStatus">deviceStatus</a></li>
   <li><a href="#section-driverBraking">driverBraking</a></li>
+  <li><a href="#section-windowStatus">windowStatus</a></li>
   <li><a href="#section-wiperStatus">wiperStatus</a></li>
+  <li><a href="#section-handsOffSteering">handsOffSteering</a></li>
   <li><a href="#section-headLampStatus">headLampStatus</a></li>
   <li><a href="#section-engineOilLife">engineOilLife</a></li>
   <li><a href="#section-engineTorque">engineTorque</a></li>
@@ -31,10 +37,12 @@
   <li><a href="#section-clusterModeStatus">clusterModeStatus</a></li>
   <li><a href="#section-myKey">myKey</a></li>
   <li><a href="#section-electronicParkBrakeStatus">electronicParkBrakeStatus</a></li>
+  <li><a href="#section-stabilityControlsStatus">stabilityControlsStatus</a></li>
   <li><a href="#section-turnSignal">turnSignal</a></li>
   <li><a href="#section-cloudAppVehicleID">cloudAppVehicleID</a></li>
   <li><a href="#section--setOEMCustomVehicleData:withVehicleDataState:">-setOEMCustomVehicleData:withVehicleDataState:</a></li>
   <li><a href="#section--getOEMCustomVehicleData:">-getOEMCustomVehicleData:</a></li>
+  <li><a href="#section-seatOccupancy">seatOccupancy</a></li>
 </ul>
 
 <h3>Overview</h3>
@@ -45,6 +53,273 @@
 
 
 <section class="section task-group-section">
+  <h3 id="section--initWithGps:speed:rpm:instantFuelConsumption:fuelRange:externalTemperature:turnSignal:vin:gearStatus:tirePressure:odometer:beltStatus:bodyInformation:deviceStatus:driverBraking:wiperStatus:headLampStatus:engineTorque:accPedalPosition:steeringWheelAngle:engineOilLife:electronicParkBrakeStatus:cloudAppVehicleID:stabilityControlsStatus:eCallInfo:airbagStatus:emergencyEvent:clusterModeStatus:myKey:handsOffSteering:windowStatus:">
+      -initWithGps:speed:rpm:instantFuelConsumption:fuelRange:externalTemperature:turnSignal:vin:gearStatus:tirePressure:odometer:beltStatus:bodyInformation:deviceStatus:driverBraking:wiperStatus:headLampStatus:engineTorque:accPedalPosition:steeringWheelAngle:engineOilLife:electronicParkBrakeStatus:cloudAppVehicleID:stabilityControlsStatus:eCallInfo:airbagStatus:emergencyEvent:clusterModeStatus:myKey:handsOffSteering:windowStatus:
+  </h3>
+  
+  <p>Convenience init for setting all possible values on vehicle data items.</p>
+
+  
+  
+  <h4>Objective-C</h4>
+  <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span>
+                  <span class="nf">initWithGps</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLGPSData.html">SDLGPSData</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">gps</span>
+                        <span class="nf">speed</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">speed</span>
+                          <span class="nf">rpm</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLUInt">SDLUInt</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">rpm</span>
+       <span class="nf">instantFuelConsumption</span><span class="p">:</span>
+           <span class="p">(</span><span class="n">nullable</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">instantFuelConsumption</span>
+                    <span class="nf">fuelRange</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Classes/SDLFuelRange.html">SDLFuelRange</a></span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">fuelRange</span>
+          <span class="nf">externalTemperature</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">externalTemperature</span>
+                   <span class="nf">turnSignal</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLTurnSignal.h@T@SDLTurnSignal">SDLTurnSignal</a></span><span class="p">)</span><span class="nv">turnSignal</span>
+                          <span class="nf">vin</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">vin</span>
+                   <span class="nf">gearStatus</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLGearStatus.html">SDLGearStatus</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">gearStatus</span>
+                 <span class="nf">tirePressure</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLTireStatus.html">SDLTireStatus</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">tirePressure</span>
+                     <span class="nf">odometer</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLUInt">SDLUInt</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">odometer</span>
+                   <span class="nf">beltStatus</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLBeltStatus.html">SDLBeltStatus</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">beltStatus</span>
+              <span class="nf">bodyInformation</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLBodyInformation.html">SDLBodyInformation</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">bodyInformation</span>
+                 <span class="nf">deviceStatus</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLDeviceStatus.html">SDLDeviceStatus</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">deviceStatus</span>
+                <span class="nf">driverBraking</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLVehicleDataEventStatus.h@T@SDLVehicleDataEventStatus">SDLVehicleDataEventStatus</a></span><span class="p">)</span><span class="nv">driverBraking</span>
+                  <span class="nf">wiperStatus</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLWiperStatus.h@T@SDLWiperStatus">SDLWiperStatus</a></span><span class="p">)</span><span class="nv">wiperStatus</span>
+               <span class="nf">headLampStatus</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLHeadLampStatus.html">SDLHeadLampStatus</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">headLampStatus</span>
+                 <span class="nf">engineTorque</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">engineTorque</span>
+             <span class="nf">accPedalPosition</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">accPedalPosition</span>
+           <span class="nf">steeringWheelAngle</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">steeringWheelAngle</span>
+                <span class="nf">engineOilLife</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">engineOilLife</span>
+    <span class="nf">electronicParkBrakeStatus</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">nullable</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLElectronicParkBrakeStatus.h@T@SDLElectronicParkBrakeStatus">SDLElectronicParkBrakeStatus</a></span><span class="p">)</span><span class="nv">electronicParkBrakeStatus</span>
+            <span class="nf">cloudAppVehicleID</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">cloudAppVehicleID</span>
+      <span class="nf">stabilityControlsStatus</span><span class="p">:</span>
+          <span class="p">(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLStabilityControlsStatus.html">SDLStabilityControlsStatus</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">stabilityControlsStatus</span>
+                    <span class="nf">eCallInfo</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLECallInfo.html">SDLECallInfo</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">eCallInfo</span>
+                 <span class="nf">airbagStatus</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLAirbagStatus.html">SDLAirbagStatus</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">airbagStatus</span>
+               <span class="nf">emergencyEvent</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLEmergencyEvent.html">SDLEmergencyEvent</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">emergencyEvent</span>
+            <span class="nf">clusterModeStatus</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLClusterModeStatus.html">SDLClusterModeStatus</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">clusterModeStatus</span>
+                        <span class="nf">myKey</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLMyKey.html">SDLMyKey</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">myKey</span>
+             <span class="nf">handsOffSteering</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLBool">SDLBool</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">handsOffSteering</span>
+                 <span class="nf">windowStatus</span><span class="p">:</span>
+                     <span class="p">(</span><span class="n">nullable</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Classes/SDLWindowStatus.html">SDLWindowStatus</a></span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">windowStatus</span><span class="p">;</span></code></pre>
+
+  
+  <h4>Swift</h4>
+  <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">gps</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLGPSData.html">SDLGPSData</a></span><span class="p">?,</span> <span class="nv">speed</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSNumber</span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="p">)?,</span> <span class="nv">rpm</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSNumber</span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols.html#/c:objc(pl)SDLUInt">SDLUInt</a></span><span class="p">)?,</span> <span class="nv">instantFuelConsumption</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSNumber</span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="p">)?,</span> <span class="nv">fuelRange</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/SDLFuelRange.html">SDLFuelRange</a></span><span class="p">]?,</span> <span class="nv">externalTemperature</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSNumber</span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="p">)?,</span> <span class="nv">turnSignal</span><span class="p">:</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLTurnSignal.h@T@SDLTurnSignal">SDLTurnSignal</a></span><span class="p">?,</span> <span class="nv">vin</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">gearStatus</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLGearStatus.html">SDLGearStatus</a></span><span class="p">?,</span> <span class="nv">tirePressure</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLTireStatus.html">SDLTireStatus</a></span><span class="p">?,</span> <span class="nv">odometer</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSNumber</span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols.html#/c:objc(pl)SDLUInt">SDLUInt</a></span><span class="p">)?,</span> <span class="nv">beltStatus</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLBeltStatus.html">SDLBeltStatus</a></span><span class="p">?,</span> <span class="nv">bodyInformation</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLBodyInformation.html">SDLBodyInformation</a></span><span class="p">?,</span> <span class="nv">deviceStatus</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLDeviceStatus.html">SDLDeviceStatus</a></span><span class="p">?,</span> <span class="nv">driverBraking</span><span class="p">:</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLVehicleDataEventStatus.h@T@SDLVehicleDataEventStatus">SDLVehicleDataEventStatus</a></span><span class="p">?,</span> <span class="nv">wiperStatus</span><span class="p">:</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLWiperStatus.h@T@SDLWiperStatus">SDLWiperStatus</a></span><span class="p">?,</span> <span class="nv">headLampStatus</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLHeadLampStatus.html">SDLHeadLampStatus</a></span><span class="p">?,</span> <span class="nv">engineTorque</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSNumber</span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="p">)?,</span> <span class="nv">accPedalPosition</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSNumber</span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="p">)?,</span> <span class="nv">steeringWheelAngle</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSNumber</span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="p">)?,</span> <span class="nv">engineOilLife</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSNumber</span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="p">)?,</span> <span class="nv">electronicParkBrakeStatus</span><span class="p">:</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLElectronicParkBrakeStatus.h@T@SDLElectronicParkBrakeStatus">SDLElectronicParkBrakeStatus</a></span><span class="p">?,</span> <span class="nv">cloudAppVehicleID</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">stabilityControlsStatus</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLStabilityControlsStatus.html">SDLStabilityControlsStatus</a></span><span class="p">?,</span> <span class="nv">eCallInfo</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLECallInfo.html">SDLECallInfo</a></span><span class="p">?,</span> <span class="nv">airbagStatus</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLAirbagStatus.html">SDLAirbagStatus</a></span><span class="p">?,</span> <span class="nv">emergencyEvent</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLEmergencyEvent.html">SDLEmergencyEvent</a></span><span class="p">?,</span> <span class="nv">clusterModeStatus</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLClusterModeStatus.html">SDLClusterModeStatus</a></span><span class="p">?,</span> <span class="nv">myKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLMyKey.html">SDLMyKey</a></span><span class="p">?,</span> <span class="nv">handsOffSteering</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSNumber</span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols.html#/c:objc(pl)SDLBool">SDLBool</a></span><span class="p">)?,</span> <span class="nv">windowStatus</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/SDLWindowStatus.html">SDLWindowStatus</a></span><span class="p">]?)</span></code></pre>
+
+  
+  
+  <h4>Parameters</h4>
+  <dl>
+      <dt>gps</dt>
+      <dd><p>- gps</p></dd>
+      <dt>speed</dt>
+      <dd><p>- @(speed)</p></dd>
+      <dt>rpm</dt>
+      <dd><p>- rpm</p></dd>
+      <dt>instantFuelConsumption</dt>
+      <dd><p>- @(instantFuelConsumption)</p></dd>
+      <dt>fuelRange</dt>
+      <dd><p>- fuelRange</p></dd>
+      <dt>externalTemperature</dt>
+      <dd><p>- @(externalTemperature)</p></dd>
+      <dt>turnSignal</dt>
+      <dd><p>- turnSignal</p></dd>
+      <dt>vin</dt>
+      <dd><p>- vin</p></dd>
+      <dt>gearStatus</dt>
+      <dd><p>- gearStatus</p></dd>
+      <dt>tirePressure</dt>
+      <dd><p>- tirePressure</p></dd>
+      <dt>odometer</dt>
+      <dd><p>- odometer</p></dd>
+      <dt>beltStatus</dt>
+      <dd><p>- beltStatus</p></dd>
+      <dt>bodyInformation</dt>
+      <dd><p>- bodyInformation</p></dd>
+      <dt>deviceStatus</dt>
+      <dd><p>- deviceStatus</p></dd>
+      <dt>driverBraking</dt>
+      <dd><p>- driverBraking</p></dd>
+      <dt>wiperStatus</dt>
+      <dd><p>- wiperStatus</p></dd>
+      <dt>headLampStatus</dt>
+      <dd><p>- headLampStatus</p></dd>
+      <dt>engineTorque</dt>
+      <dd><p>- @(engineTorque)</p></dd>
+      <dt>accPedalPosition</dt>
+      <dd><p>- @(accPedalPosition)</p></dd>
+      <dt>steeringWheelAngle</dt>
+      <dd><p>- @(steeringWheelAngle)</p></dd>
+      <dt>engineOilLife</dt>
+      <dd><p>- @(engineOilLife)</p></dd>
+      <dt>electronicParkBrakeStatus</dt>
+      <dd><p>- electronicParkBrakeStatus</p></dd>
+      <dt>cloudAppVehicleID</dt>
+      <dd><p>- cloudAppVehicleID</p></dd>
+      <dt>stabilityControlsStatus</dt>
+      <dd><p>- stabilityControlsStatus</p></dd>
+      <dt>eCallInfo</dt>
+      <dd><p>- eCallInfo</p></dd>
+      <dt>airbagStatus</dt>
+      <dd><p>- airbagStatus</p></dd>
+      <dt>emergencyEvent</dt>
+      <dd><p>- emergencyEvent</p></dd>
+      <dt>clusterModeStatus</dt>
+      <dd><p>- clusterModeStatus</p></dd>
+      <dt>myKey</dt>
+      <dd><p>- myKey</p></dd>
+      <dt>handsOffSteering</dt>
+      <dd><p>- handsOffSteering</p></dd>
+      <dt>windowStatus</dt>
+      <dd><p>- windowStatus</p></dd>
+  </dl>
+  <div>
+    <h4>Return Value</h4>
+    <p>A SDLOnVehicleData object</p>
+  </div>
+  
+  <h3 id="section--initWithGps:speed:rpm:instantFuelConsumption:fuelRange:climateData:turnSignal:vin:gearStatus:tirePressure:odometer:beltStatus:bodyInformation:deviceStatus:driverBraking:wiperStatus:headLampStatus:engineTorque:accPedalPosition:steeringWheelAngle:engineOilLife:electronicParkBrakeStatus:cloudAppVehicleID:stabilityControlsStatus:eCallInfo:airbagStatus:emergencyEvent:clusterModeStatus:myKey:windowStatus:handsOffSteering:seatOccupancy:">
+      -initWithGps:speed:rpm:instantFuelConsumption:fuelRange:climateData:turnSignal:vin:gearStatus:tirePressure:odometer:beltStatus:bodyInformation:deviceStatus:driverBraking:wiperStatus:headLampStatus:engineTorque:accPedalPosition:steeringWheelAngle:engineOilLife:electronicParkBrakeStatus:cloudAppVehicleID:stabilityControlsStatus:eCallInfo:airbagStatus:emergencyEvent:clusterModeStatus:myKey:windowStatus:handsOffSteering:seatOccupancy:
+  </h3>
+  
+  <p>Convenience init for setting all possible values on vehicle data items.</p>
+
+  
+  
+  <h4>Objective-C</h4>
+  <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span>
+                  <span class="nf">initWithGps</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLGPSData.html">SDLGPSData</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">gps</span>
+                        <span class="nf">speed</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">speed</span>
+                          <span class="nf">rpm</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLUInt">SDLUInt</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">rpm</span>
+       <span class="nf">instantFuelConsumption</span><span class="p">:</span>
+           <span class="p">(</span><span class="n">nullable</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">instantFuelConsumption</span>
+                    <span class="nf">fuelRange</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Classes/SDLFuelRange.html">SDLFuelRange</a></span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">fuelRange</span>
+                  <span class="nf">climateData</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLClimateData.html">SDLClimateData</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">climateData</span>
+                   <span class="nf">turnSignal</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLTurnSignal.h@T@SDLTurnSignal">SDLTurnSignal</a></span><span class="p">)</span><span class="nv">turnSignal</span>
+                          <span class="nf">vin</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">vin</span>
+                   <span class="nf">gearStatus</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLGearStatus.html">SDLGearStatus</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">gearStatus</span>
+                 <span class="nf">tirePressure</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLTireStatus.html">SDLTireStatus</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">tirePressure</span>
+                     <span class="nf">odometer</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLUInt">SDLUInt</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">odometer</span>
+                   <span class="nf">beltStatus</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLBeltStatus.html">SDLBeltStatus</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">beltStatus</span>
+              <span class="nf">bodyInformation</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLBodyInformation.html">SDLBodyInformation</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">bodyInformation</span>
+                 <span class="nf">deviceStatus</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLDeviceStatus.html">SDLDeviceStatus</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">deviceStatus</span>
+                <span class="nf">driverBraking</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLVehicleDataEventStatus.h@T@SDLVehicleDataEventStatus">SDLVehicleDataEventStatus</a></span><span class="p">)</span><span class="nv">driverBraking</span>
+                  <span class="nf">wiperStatus</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLWiperStatus.h@T@SDLWiperStatus">SDLWiperStatus</a></span><span class="p">)</span><span class="nv">wiperStatus</span>
+               <span class="nf">headLampStatus</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLHeadLampStatus.html">SDLHeadLampStatus</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">headLampStatus</span>
+                 <span class="nf">engineTorque</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">engineTorque</span>
+             <span class="nf">accPedalPosition</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">accPedalPosition</span>
+           <span class="nf">steeringWheelAngle</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">steeringWheelAngle</span>
+                <span class="nf">engineOilLife</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">engineOilLife</span>
+    <span class="nf">electronicParkBrakeStatus</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">nullable</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLElectronicParkBrakeStatus.h@T@SDLElectronicParkBrakeStatus">SDLElectronicParkBrakeStatus</a></span><span class="p">)</span><span class="nv">electronicParkBrakeStatus</span>
+            <span class="nf">cloudAppVehicleID</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">cloudAppVehicleID</span>
+      <span class="nf">stabilityControlsStatus</span><span class="p">:</span>
+          <span class="p">(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLStabilityControlsStatus.html">SDLStabilityControlsStatus</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">stabilityControlsStatus</span>
+                    <span class="nf">eCallInfo</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLECallInfo.html">SDLECallInfo</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">eCallInfo</span>
+                 <span class="nf">airbagStatus</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLAirbagStatus.html">SDLAirbagStatus</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">airbagStatus</span>
+               <span class="nf">emergencyEvent</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLEmergencyEvent.html">SDLEmergencyEvent</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">emergencyEvent</span>
+            <span class="nf">clusterModeStatus</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLClusterModeStatus.html">SDLClusterModeStatus</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">clusterModeStatus</span>
+                        <span class="nf">myKey</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLMyKey.html">SDLMyKey</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">myKey</span>
+                 <span class="nf">windowStatus</span><span class="p">:</span>
+                     <span class="p">(</span><span class="n">nullable</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Classes/SDLWindowStatus.html">SDLWindowStatus</a></span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">windowStatus</span>
+             <span class="nf">handsOffSteering</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLBool">SDLBool</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">handsOffSteering</span>
+                <span class="nf">seatOccupancy</span><span class="p">:(</span><span class="n">nullable</span> <span class="n"><a href="../Classes/SDLSeatOccupancy.html">SDLSeatOccupancy</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">seatOccupancy</span><span class="p">;</span></code></pre>
+
+  
+  <h4>Swift</h4>
+  <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">gps</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLGPSData.html">SDLGPSData</a></span><span class="p">?,</span> <span class="nv">speed</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSNumber</span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="p">)?,</span> <span class="nv">rpm</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSNumber</span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols.html#/c:objc(pl)SDLUInt">SDLUInt</a></span><span class="p">)?,</span> <span class="nv">instantFuelConsumption</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSNumber</span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="p">)?,</span> <span class="nv">fuelRange</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/SDLFuelRange.html">SDLFuelRange</a></span><span class="p">]?,</span> <span class="nv">climateData</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLClimateData.html">SDLClimateData</a></span><span class="p">?,</span> <span class="nv">turnSignal</span><span class="p">:</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLTurnSignal.h@T@SDLTurnSignal">SDLTurnSignal</a></span><span class="p">?,</span> <span class="nv">vin</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">gearStatus</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLGearStatus.html">SDLGearStatus</a></span><span class="p">?,</span> <span class="nv">tirePressure</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLTireStatus.html">SDLTireStatus</a></span><span class="p">?,</span> <span class="nv">odometer</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSNumber</span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols.html#/c:objc(pl)SDLUInt">SDLUInt</a></span><span class="p">)?,</span> <span class="nv">beltStatus</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLBeltStatus.html">SDLBeltStatus</a></span><span class="p">?,</span> <span class="nv">bodyInformation</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLBodyInformation.html">SDLBodyInformation</a></span><span class="p">?,</span> <span class="nv">deviceStatus</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLDeviceStatus.html">SDLDeviceStatus</a></span><span class="p">?,</span> <span class="nv">driverBraking</span><span class="p">:</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLVehicleDataEventStatus.h@T@SDLVehicleDataEventStatus">SDLVehicleDataEventStatus</a></span><span class="p">?,</span> <span class="nv">wiperStatus</span><span class="p">:</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLWiperStatus.h@T@SDLWiperStatus">SDLWiperStatus</a></span><span class="p">?,</span> <span class="nv">headLampStatus</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLHeadLampStatus.html">SDLHeadLampStatus</a></span><span class="p">?,</span> <span class="nv">engineTorque</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSNumber</span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="p">)?,</span> <span class="nv">accPedalPosition</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSNumber</span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="p">)?,</span> <span class="nv">steeringWheelAngle</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSNumber</span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="p">)?,</span> <span class="nv">engineOilLife</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSNumber</span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="p">)?,</span> <span class="nv">electronicParkBrakeStatus</span><span class="p">:</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLElectronicParkBrakeStatus.h@T@SDLElectronicParkBrakeStatus">SDLElectronicParkBrakeStatus</a></span><span class="p">?,</span> <span class="nv">cloudAppVehicleID</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">stabilityControlsStatus</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLStabilityControlsStatus.html">SDLStabilityControlsStatus</a></span><span class="p">?,</span> <span class="nv">eCallInfo</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLECallInfo.html">SDLECallInfo</a></span><span class="p">?,</span> <span class="nv">airbagStatus</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLAirbagStatus.html">SDLAirbagStatus</a></span><span class="p">?,</span> <span class="nv">emergencyEvent</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLEmergencyEvent.html">SDLEmergencyEvent</a></span><span class="p">?,</span> <span class="nv">clusterModeStatus</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLClusterModeStatus.html">SDLClusterModeStatus</a></span><span class="p">?,</span> <span class="nv">myKey</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLMyKey.html">SDLMyKey</a></span><span class="p">?,</span> <span class="nv">windowStatus</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/SDLWindowStatus.html">SDLWindowStatus</a></span><span class="p">]?,</span> <span class="nv">handsOffSteering</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSNumber</span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols.html#/c:objc(pl)SDLBool">SDLBool</a></span><span class="p">)?,</span> <span class="nv">seatOccupancy</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLSeatOccupancy.html">SDLSeatOccupancy</a></span><span class="p">?)</span></code></pre>
+
+  
+  
+  <h4>Parameters</h4>
+  <dl>
+      <dt>gps</dt>
+      <dd><p>- gps</p></dd>
+      <dt>speed</dt>
+      <dd><p>- speed</p></dd>
+      <dt>rpm</dt>
+      <dd><p>- rpm</p></dd>
+      <dt>instantFuelConsumption</dt>
+      <dd><p>- instantFuelConsumption</p></dd>
+      <dt>fuelRange</dt>
+      <dd><p>- fuelRange</p></dd>
+      <dt>climateData</dt>
+      <dd><p>- climateData</p></dd>
+      <dt>turnSignal</dt>
+      <dd><p>- turnSignal</p></dd>
+      <dt>vin</dt>
+      <dd><p>- vin</p></dd>
+      <dt>gearStatus</dt>
+      <dd><p>- gearStatus</p></dd>
+      <dt>tirePressure</dt>
+      <dd><p>- tirePressure</p></dd>
+      <dt>odometer</dt>
+      <dd><p>- odometer</p></dd>
+      <dt>beltStatus</dt>
+      <dd><p>- beltStatus</p></dd>
+      <dt>bodyInformation</dt>
+      <dd><p>- bodyInformation</p></dd>
+      <dt>deviceStatus</dt>
+      <dd><p>- deviceStatus</p></dd>
+      <dt>driverBraking</dt>
+      <dd><p>- driverBraking</p></dd>
+      <dt>wiperStatus</dt>
+      <dd><p>- wiperStatus</p></dd>
+      <dt>headLampStatus</dt>
+      <dd><p>- headLampStatus</p></dd>
+      <dt>engineTorque</dt>
+      <dd><p>- engineTorque</p></dd>
+      <dt>accPedalPosition</dt>
+      <dd><p>- accPedalPosition</p></dd>
+      <dt>steeringWheelAngle</dt>
+      <dd><p>- steeringWheelAngle</p></dd>
+      <dt>engineOilLife</dt>
+      <dd><p>- engineOilLife</p></dd>
+      <dt>electronicParkBrakeStatus</dt>
+      <dd><p>- electronicParkBrakeStatus</p></dd>
+      <dt>cloudAppVehicleID</dt>
+      <dd><p>- cloudAppVehicleID</p></dd>
+      <dt>stabilityControlsStatus</dt>
+      <dd><p>- stabilityControlsStatus</p></dd>
+      <dt>eCallInfo</dt>
+      <dd><p>- eCallInfo</p></dd>
+      <dt>airbagStatus</dt>
+      <dd><p>- airbagStatus</p></dd>
+      <dt>emergencyEvent</dt>
+      <dd><p>- emergencyEvent</p></dd>
+      <dt>clusterModeStatus</dt>
+      <dd><p>- clusterModeStatus</p></dd>
+      <dt>myKey</dt>
+      <dd><p>- myKey</p></dd>
+      <dt>windowStatus</dt>
+      <dd><p>- windowStatus</p></dd>
+      <dt>handsOffSteering</dt>
+      <dd><p>- handsOffSteering</p></dd>
+      <dt>seatOccupancy</dt>
+      <dd><p>- seatOccupancy</p></dd>
+  </dl>
+  <div>
+    <h4>Return Value</h4>
+    <p>A SDLOnVehicleData object</p>
+  </div>
+  
+  <h3 id="section-gearStatus">
+      gearStatus
+  </h3>
+  
+  <p>See GearStatus</p>
+
+<p>@since SDL 7.0</p>
+
+  
+  
+  <h4>Objective-C</h4>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLGearStatus.html">SDLGearStatus</a></span> <span class="o">*</span><span class="n">gearStatus</span><span class="p">;</span></code></pre>
+
+  
+  <h4>Swift</h4>
+  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">gearStatus</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLGearStatus.html">SDLGearStatus</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+  
+  
+  
   <h3 id="section-gps">
       gps
   </h3>
@@ -54,7 +329,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLGPSData.html">SDLGPSData</a></span> <span class="o">*</span><span class="n">gps</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLGPSData.html">SDLGPSData</a></span> <span class="o">*</span><span class="n">gps</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -72,7 +347,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">speed</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">speed</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -90,7 +365,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLInt">SDLInt</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">rpm</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLInt">SDLInt</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">rpm</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -108,7 +383,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">fuelLevel</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">fuelLevel</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -126,8 +401,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span>
-    <span class="n"><a href="../Type%20Definitions.html#/c:SDLComponentVolumeStatus.h@T@SDLComponentVolumeStatus">SDLComponentVolumeStatus</a></span> <span class="n">fuelLevel_State</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLComponentVolumeStatus.h@T@SDLComponentVolumeStatus">SDLComponentVolumeStatus</a></span> <span class="n">fuelLevel_State</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -147,8 +421,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span>
-    <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Classes/SDLFuelRange.html">SDLFuelRange</a></span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">fuelRange</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Classes/SDLFuelRange.html">SDLFuelRange</a></span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">fuelRange</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -166,8 +439,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span>
-    <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">instantFuelConsumption</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">instantFuelConsumption</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -176,17 +448,40 @@
   
   
   
-  <h3 id="section-externalTemperature">
-      externalTemperature
+  <h3 id="section-climateData">
+      climateData
   </h3>
   
-  <p>The external temperature in degrees celsius.</p>
+  <p>See ClimateData</p>
+
+<p>@added in SmartDeviceLink 7.1.0</p>
 
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span>
-    <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">externalTemperature</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLClimateData.html">SDLClimateData</a></span> <span class="o">*</span><span class="n">climateData</span><span class="p">;</span></code></pre>
+
+  
+  <h4>Swift</h4>
+  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">climateData</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLClimateData.html">SDLClimateData</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+  
+  
+  
+  <h3 id="section-externalTemperature">
+      externalTemperature
+  </h3>
+  
+  <p>The external temperature in degrees celsius. This parameter is deprecated starting RPC Spec 7.1, please see climateData.
+ {&ldquo;num_min_value&rdquo;: -40.0, &ldquo;num_max_value&rdquo;: 100.0}</p>
+
+<p>@deprecated in SmartDeviceLink 7.1.0
+ @added in SmartDeviceLink 2.0.0</p>
+
+  
+  
+  <h4>Objective-C</h4>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">externalTemperature</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -204,7 +499,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">vin</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">vin</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -217,12 +512,15 @@
       prndl
   </h3>
   
-  <p>The current gear shift state of the user&rsquo;s vehicle</p>
+  <p>See PRNDL. This parameter is deprecated and it is now covered in <code><a href="../Classes/SDLOnVehicleData.html#/c:objc(cs)SDLOnVehicleData(py)gearStatus">gearStatus</a></code></p>
+
+<p>@deprecated
+ @since SDL 7.0.0</p>
 
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLPRNDL.h@T@SDLPRNDL">SDLPRNDL</a></span> <span class="n">prndl</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLPRNDL.h@T@SDLPRNDL">SDLPRNDL</a></span> <span class="n">prndl</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -240,7 +538,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLTireStatus.html">SDLTireStatus</a></span> <span class="o">*</span><span class="n">tirePressure</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLTireStatus.html">SDLTireStatus</a></span> <span class="o">*</span><span class="n">tirePressure</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -258,7 +556,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLInt">SDLInt</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">odometer</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLInt">SDLInt</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">odometer</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -276,7 +574,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLBeltStatus.html">SDLBeltStatus</a></span> <span class="o">*</span><span class="n">beltStatus</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLBeltStatus.html">SDLBeltStatus</a></span> <span class="o">*</span><span class="n">beltStatus</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -294,8 +592,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span>
-    <span class="n"><a href="../Classes/SDLBodyInformation.html">SDLBodyInformation</a></span> <span class="o">*</span><span class="n">bodyInformation</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLBodyInformation.html">SDLBodyInformation</a></span> <span class="o">*</span><span class="n">bodyInformation</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -313,7 +610,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLDeviceStatus.html">SDLDeviceStatus</a></span> <span class="o">*</span><span class="n">deviceStatus</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLDeviceStatus.html">SDLDeviceStatus</a></span> <span class="o">*</span><span class="n">deviceStatus</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -331,12 +628,32 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span>
-    <span class="n"><a href="../Type%20Definitions.html#/c:SDLVehicleDataEventStatus.h@T@SDLVehicleDataEventStatus">SDLVehicleDataEventStatus</a></span> <span class="n">driverBraking</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLVehicleDataEventStatus.h@T@SDLVehicleDataEventStatus">SDLVehicleDataEventStatus</a></span> <span class="n">driverBraking</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
   <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">driverBraking</span><span class="p">:</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLVehicleDataEventStatus.h@T@SDLVehicleDataEventStatus">SDLVehicleDataEventStatus</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+  
+  
+  
+  <h3 id="section-windowStatus">
+      windowStatus
+  </h3>
+  
+  <p>See WindowStatus
+ {&ldquo;array_min_size&rdquo;: 0, &ldquo;array_max_size&rdquo;: 100}</p>
+
+<p>@since SDL 7.0</p>
+
+  
+  
+  <h4>Objective-C</h4>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSArray</span><span class="o">&lt;</span><span class="n"><a href="../Classes/SDLWindowStatus.html">SDLWindowStatus</a></span> <span class="o">*&gt;</span> <span class="o">*</span><span class="n">windowStatus</span><span class="p">;</span></code></pre>
+
+  
+  <h4>Swift</h4>
+  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">windowStatus</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/SDLWindowStatus.html">SDLWindowStatus</a></span><span class="p">]?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
   
   
@@ -350,11 +667,29 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLWiperStatus.h@T@SDLWiperStatus">SDLWiperStatus</a></span> <span class="n">wiperStatus</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLWiperStatus.h@T@SDLWiperStatus">SDLWiperStatus</a></span> <span class="n">wiperStatus</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
   <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">wiperStatus</span><span class="p">:</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLWiperStatus.h@T@SDLWiperStatus">SDLWiperStatus</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+  
+  
+  
+  <h3 id="section-handsOffSteering">
+      handsOffSteering
+  </h3>
+  
+  <p>To indicate whether driver hands are off the steering wheel</p>
+
+  
+  
+  <h4>Objective-C</h4>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLBool">SDLBool</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">handsOffSteering</span><span class="p">;</span></code></pre>
+
+  
+  <h4>Swift</h4>
+  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">handsOffSteering</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSNumber</span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols.html#/c:objc(pl)SDLBool">SDLBool</a></span><span class="p">)?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
   
   
@@ -368,8 +703,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span>
-    <span class="n"><a href="../Classes/SDLHeadLampStatus.html">SDLHeadLampStatus</a></span> <span class="o">*</span><span class="n">headLampStatus</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLHeadLampStatus.html">SDLHeadLampStatus</a></span> <span class="o">*</span><span class="n">headLampStatus</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -387,8 +721,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span>
-    <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">engineOilLife</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">engineOilLife</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -406,8 +739,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span>
-    <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">engineTorque</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">engineTorque</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -425,8 +757,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span>
-    <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">accPedalPosition</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">accPedalPosition</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -444,8 +775,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span>
-    <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">steeringWheelAngle</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSNumber</span><span class="o">&lt;</span><span class="n"><a href="../Protocols.html#/c:objc(pl)SDLFloat">SDLFloat</a></span><span class="o">&gt;</span> <span class="o">*</span><span class="n">steeringWheelAngle</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -463,7 +793,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLECallInfo.html">SDLECallInfo</a></span> <span class="o">*</span><span class="n">eCallInfo</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLECallInfo.html">SDLECallInfo</a></span> <span class="o">*</span><span class="n">eCallInfo</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -481,7 +811,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLAirbagStatus.html">SDLAirbagStatus</a></span> <span class="o">*</span><span class="n">airbagStatus</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLAirbagStatus.html">SDLAirbagStatus</a></span> <span class="o">*</span><span class="n">airbagStatus</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -499,8 +829,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span>
-    <span class="n"><a href="../Classes/SDLEmergencyEvent.html">SDLEmergencyEvent</a></span> <span class="o">*</span><span class="n">emergencyEvent</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLEmergencyEvent.html">SDLEmergencyEvent</a></span> <span class="o">*</span><span class="n">emergencyEvent</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -518,8 +847,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span>
-    <span class="n"><a href="../Classes/SDLClusterModeStatus.html">SDLClusterModeStatus</a></span> <span class="o">*</span><span class="n">clusterModeStatus</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLClusterModeStatus.html">SDLClusterModeStatus</a></span> <span class="o">*</span><span class="n">clusterModeStatus</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -537,7 +865,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLMyKey.html">SDLMyKey</a></span> <span class="o">*</span><span class="n">myKey</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLMyKey.html">SDLMyKey</a></span> <span class="o">*</span><span class="n">myKey</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -555,12 +883,29 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span>
-    <span class="n"><a href="../Type%20Definitions.html#/c:SDLElectronicParkBrakeStatus.h@T@SDLElectronicParkBrakeStatus">SDLElectronicParkBrakeStatus</a></span> <span class="n">electronicParkBrakeStatus</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLElectronicParkBrakeStatus.h@T@SDLElectronicParkBrakeStatus">SDLElectronicParkBrakeStatus</a></span> <span class="n">electronicParkBrakeStatus</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
   <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">electronicParkBrakeStatus</span><span class="p">:</span> <span class="kt"><a href="../Type%20Definitions.html#/c:SDLElectronicParkBrakeStatus.h@T@SDLElectronicParkBrakeStatus">SDLElectronicParkBrakeStatus</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+  
+  
+  
+  <h3 id="section-stabilityControlsStatus">
+      stabilityControlsStatus
+  </h3>
+  
+  <p>See StabilityControlsStatus</p>
+
+  
+  
+  <h4>Objective-C</h4>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLStabilityControlsStatus.html">SDLStabilityControlsStatus</a></span> <span class="o">*</span><span class="n">stabilityControlsStatus</span><span class="p">;</span></code></pre>
+
+  
+  <h4>Swift</h4>
+  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">stabilityControlsStatus</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLStabilityControlsStatus.html">SDLStabilityControlsStatus</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
   
   
@@ -574,7 +919,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLTurnSignal.h@T@SDLTurnSignal">SDLTurnSignal</a></span> <span class="n">turnSignal</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Type%20Definitions.html#/c:SDLTurnSignal.h@T@SDLTurnSignal">SDLTurnSignal</a></span> <span class="n">turnSignal</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -592,7 +937,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">cloudAppVehicleID</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">cloudAppVehicleID</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -658,5 +1003,25 @@
     <h4>Return Value</h4>
     <p>An OEM custom vehicle data object for the given vehicle data name.</p>
   </div>
+  
+  <h3 id="section-seatOccupancy">
+      seatOccupancy
+  </h3>
+  
+  <p>See SeatOccupancy</p>
+
+<p>@added in SmartDeviceLink 7.1.0</p>
+
+  
+  
+  <h4>Objective-C</h4>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n"><a href="../Classes/SDLSeatOccupancy.html">SDLSeatOccupancy</a></span> <span class="o">*</span><span class="n">seatOccupancy</span><span class="p">;</span></code></pre>
+
+  
+  <h4>Swift</h4>
+  <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">seatOccupancy</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLSeatOccupancy.html">SDLSeatOccupancy</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+  
+  
   
 </section>

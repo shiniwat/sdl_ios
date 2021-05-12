@@ -60,11 +60,10 @@ describe(@"Sending sequential requests", ^{
                     return YES;
                 } completionHandler:^(BOOL success) {
                     expect(resultResponses).to(haveCount(3));
-                    expect(success).to(beTruthy());
+                    expect(success).to(beTrue());
                 }];
 
                 [testOperationQueue addOperation:testOperation];
-                [NSThread sleepForTimeInterval:0.5];
             });
         });
 
@@ -82,11 +81,10 @@ describe(@"Sending sequential requests", ^{
                     return NO;
                 } completionHandler:^(BOOL success) {
                     expect(resultResponses).to(haveCount(1));
-                    expect(success).to(beFalsy());
+                    expect(success).to(beFalse());
                 }];
 
                 [testOperationQueue addOperation:testOperation];
-                [NSThread sleepForTimeInterval:0.5];
             });
         });
     });
@@ -124,11 +122,10 @@ describe(@"Sending sequential requests", ^{
                 return YES;
             } completionHandler:^(BOOL success) {
                 expect(resultResponses).to(haveCount(3));
-                expect(success).to(beFalsy());
+                expect(success).to(beFalse());
             }];
 
             [testOperationQueue addOperation:testOperation];
-            [NSThread sleepForTimeInterval:0.5];
         });
     });
 });

@@ -1,0 +1,15 @@
+{#- String based enum -#}
+{% include 'copyright.jinja2' %}
+{% block imports -%}
+{%- for import in imports %}
+#import "{{import}}.h"
+{%- endfor %}
+{%- endblock -%}
+{%- block body %}
+{% include 'description.jinja2' %}
+typedef SDLEnum {{ name }} NS_TYPED_ENUM{{ending}};
+{%- for param in params %}
+{%- include 'description_param.jinja2' %}
+extern {{ name }} const {{ name }}{{param.name}}{{ " __deprecated" if param.deprecated and param.deprecated }};
+{% endfor -%}
+{% endblock -%}

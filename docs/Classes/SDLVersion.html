@@ -11,8 +11,6 @@
   <li><a href="#section-+versionWithMajor:minor:patch:">+versionWithMajor:minor:patch:</a></li>
   <li><a href="#section--initWithString:">-initWithString:</a></li>
   <li><a href="#section-+versionWithString:">+versionWithString:</a></li>
-  <li><a href="#section--initWithSyncMsgVersion:">-initWithSyncMsgVersion:</a></li>
-  <li><a href="#section-+versionWithSyncMsgVersion:">+versionWithSyncMsgVersion:</a></li>
   <li><a href="#section--initWithSDLMsgVersion:">-initWithSDLMsgVersion:</a></li>
   <li><a href="#section-+versionWithSDLMsgVersion:">+versionWithSDLMsgVersion:</a></li>
   <li><a href="#section--compare:">-compare:</a></li>
@@ -38,7 +36,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSUInteger</span> <span class="n">major</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSUInteger</span> <span class="n">major</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -56,7 +54,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSUInteger</span> <span class="n">minor</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSUInteger</span> <span class="n">minor</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -74,7 +72,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSUInteger</span> <span class="n">patch</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSUInteger</span> <span class="n">patch</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -92,7 +90,7 @@
   
   
   <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">stringVersion</span><span class="p">;</span></code></pre>
+  <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">stringVersion</span><span class="p">;</span></code></pre>
 
   
   <h4>Swift</h4>
@@ -209,59 +207,6 @@
   <dl>
       <dt>versionString</dt>
       <dd><p>String representation of the version</p></dd>
-  </dl>
-  <div>
-    <h4>Return Value</h4>
-    <p>An SDLVersion object</p>
-  </div>
-  
-  <h3 id="section--initWithSyncMsgVersion:">
-      -initWithSyncMsgVersion:
-  </h3>
-  
-  <p>Deprecated convenience init to set version using SDLSyncMsgVersion</p>
-
-  
-  
-  <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span><span class="nf">initWithSyncMsgVersion</span><span class="p">:</span>
-    <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/SDLSyncMsgVersion.html">SDLSyncMsgVersion</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">syncMsgVersion</span><span class="p">;</span></code></pre>
-
-  
-  <h4>Swift</h4>
-  <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">syncMsgVersion</span><span class="p">:</span> <span class="kt"><a href="../Classes/SDLSyncMsgVersion.html">SDLSyncMsgVersion</a></span><span class="p">)</span></code></pre>
-
-  
-  
-  <h4>Parameters</h4>
-  <dl>
-      <dt>syncMsgVersion</dt>
-      <dd><p>Specifies the version number of the SmartDeviceLink protocol that is supported by the mobile application.</p></dd>
-  </dl>
-  <div>
-    <h4>Return Value</h4>
-    <p>An SDLVersion object</p>
-  </div>
-  
-  <h3 id="section-+versionWithSyncMsgVersion:">
-      +versionWithSyncMsgVersion:
-  </h3>
-  
-  <p>Deprecated convenience init to set version using SDLSyncMsgVersion</p>
-
-  
-  
-  <h4>Objective-C</h4>
-  <pre class="highlight objective_c"><code><span class="k">+</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span><span class="nf">versionWithSyncMsgVersion</span><span class="p">:</span>
-    <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Classes/SDLSyncMsgVersion.html">SDLSyncMsgVersion</a></span> <span class="o">*</span><span class="p">)</span><span class="nv">syncMsgVersion</span><span class="p">;</span></code></pre>
-
-  
-  
-  
-  <h4>Parameters</h4>
-  <dl>
-      <dt>syncMsgVersion</dt>
-      <dd><p>Specifies the version number of the SmartDeviceLink protocol that is supported by the mobile application.</p></dd>
   </dl>
   <div>
     <h4>Return Value</h4>
