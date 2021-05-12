@@ -1,0 +1,42 @@
+{#- To avoid code duplication was crated this parent file, which contain common part used in:
+    "templates/functions/template.m" and "templates/structs/template.m". -#}
+{% include 'copyright.jinja2' %}
+{%- block imports %}
+{%- for import in imports %}
+#import "{{import}}.h"
+{%- endfor %}
+{%- endblock %}
+
+NS_ASSUME_NONNULL_BEGIN
+@implementation {{name}}
+{% block constructors %}
+{%- for c in constructors %}
+- (instancetype)initWith{{c.init}} {
+    self = [self init{{ 'With' + c.self if c.self and c.self is string }}];
+    if (!self) {
+        return nil;
+    }
+    {%- for a in c.arguments %}
+    self.{{a.origin}} = {{a.constructor_argument}};
+    {%- endfor %}
+    return self;
+}
+{% endfor -%}
+{% endblock -%}
+{%- block methods %}
+{%- for param in params %}
+- (void)set{{param.origin|title}}:({{'nullable ' if not param.mandatory}}{{param.type_generic}}{{param.type_sdl|trim}}){{param.origin}} {
+    [self.{{parameters_store}} sdl_setObject:{{param.origin}} forName:SDLRPCParameterName{{param.method_suffix}}];
+}
+
+- ({{'nullable ' if not param.mandatory}}{{param.type_generic}}{{param.type_sdl|trim}}){{param.origin}} {
+    {% if param.mandatory -%}
+    NSError *error = nil;
+    {% endif -%}
+    return [self.{{parameters_store}} sdl_{{param.for_name}}ForName:SDLRPCParameterName{{param.method_suffix}}{{' ofClass:'+param.of_class if param.of_class}} error:{{'&error' if param.mandatory else 'nil'}}];
+}
+{% endfor %}
+{%- endblock %}
+@end
+
+NS_ASSUME_NONNULL_END

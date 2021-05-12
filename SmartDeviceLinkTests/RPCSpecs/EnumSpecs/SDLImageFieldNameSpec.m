@@ -27,6 +27,10 @@ describe(@"Individual Enum Value Tests", ^ {
         expect(SDLImageFieldNameShowConstantTBTIcon).to(equal(@"showConstantTBTIcon"));
         expect(SDLImageFieldNameShowConstantTBTNextTurnIcon).to(equal(@"showConstantTBTNextTurnIcon"));
         expect(SDLImageFieldNameLocationImage).to(equal(@"locationImage"));
+        expect(SDLImageFieldNameSubMenuIcon).to(equal(@"subMenuIcon"));
+        expect(SDLImageFieldNameSubtleAlertIcon).to(equal(@"subtleAlertIcon"));
+        expect(SDLImageFieldNameMenuCommandSecondaryImage).to(equal(@"menuCommandSecondaryImage"));
+        expect(SDLImageFieldNameMenuSubMenuSecondaryImage).to(equal(@"menuSubMenuSecondaryImage"));
     });
 });
 

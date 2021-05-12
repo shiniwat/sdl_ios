@@ -37,10 +37,7 @@ describe(@"Rectangle Tests", ^{
                                 SDLRPCParameterNameY:@200,
                                 SDLRPCParameterNameWidth:@2000,
                                 SDLRPCParameterNameHeight:@3000};
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         SDLRectangle *testStruct = [[SDLRectangle alloc] initWithDictionary:dict];
-#pragma clang diagnostic pop
 
         expect(testStruct.x).to(equal(@20));
         expect(testStruct.y).to(equal(@200));
@@ -55,6 +52,21 @@ describe(@"Rectangle Tests", ^{
         expect(testStruct.y).to(beNil());
         expect(testStruct.width).to(beNil());
         expect(testStruct.height).to(beNil());
+    });
+
+    context(@"isEqual:", ^{
+        SDLRectangle *testRect = [[SDLRectangle alloc] initWithX:50.5 y:60.2 width:500 height:600];
+        SDLRectangle *copyRect = [testRect copy];
+
+        it(@"expect copy to be equal", ^{
+            expect(testRect).to(equal(copyRect));
+        });
+
+        it(@"expect wrong object to be not equal", ^{
+            id object = [[NSObject alloc] init];
+            expect(testRect).toNot(equal(nil));
+            expect(testRect).toNot(equal(object));
+        });
     });
 });
 

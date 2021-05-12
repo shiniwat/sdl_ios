@@ -2,6 +2,7 @@
 #import <Nimble/Nimble.h>
 
 #import "SDLAudioStreamManager.h"
+#import "SDLError.h"
 #import "SDLStreamingAudioManagerMock.h"
 
 QuickSpecBegin(SDLAudioStreamManagerSpec)
@@ -32,8 +33,6 @@ describe(@"the audio stream manager", ^{
             beforeEach(^{
                 mockAudioManager.audioConnected = NO;
                 [testManager pushWithFileURL:testAudioFileURL];
-
-                [NSThread sleepForTimeInterval:0.5];
             });
 
             describe(@"after attempting to play the file", ^{
@@ -43,8 +42,8 @@ describe(@"the audio stream manager", ^{
                 });
 
                 it(@"should fail to send data", ^{
-                    expect(mockAudioManager.dataSinceClear.length).to(equal(0));
-                    expect(mockAudioManager.error.code).toEventually(equal(SDLAudioStreamManagerErrorNotConnected));
+                    expect(mockAudioManager.dataSinceClear.length).withTimeout(3.0).toEventually(equal(0));
+                    expect(mockAudioManager.error.code).withTimeout(3.0).toEventually(equal(SDLAudioStreamManagerErrorNotConnected));
                 });
             });
         });
@@ -53,8 +52,6 @@ describe(@"the audio stream manager", ^{
             beforeEach(^{
                 mockAudioManager.audioConnected = NO;
                 [testManager pushWithData:testAudioFileData];
-
-                [NSThread sleepForTimeInterval:0.5];
             });
 
             describe(@"after attempting to play the file", ^{
@@ -64,7 +61,7 @@ describe(@"the audio stream manager", ^{
                 });
 
                 it(@"should fail to send data", ^{
-                    expect(mockAudioManager.dataSinceClear.length).to(equal(0));
+                    expect(mockAudioManager.dataSinceClear.length).toEventually(equal(0));
                     expect(mockAudioManager.error.code).toEventually(equal(SDLAudioStreamManagerErrorNotConnected));
                 });
             });
@@ -75,28 +72,22 @@ describe(@"the audio stream manager", ^{
         beforeEach(^{
             mockAudioManager.audioConnected = YES;
             [testManager pushWithFileURL:testAudioFileURL];
-
-            [NSThread sleepForTimeInterval:0.5];
         });
 
         it(@"should have a file in the queue", ^{
-            expect(testManager.queue).toNot(beEmpty());
+            expect(testManager.queue).toEventuallyNot(beEmpty());
         });
 
         describe(@"after attempting to play the file", ^{
             beforeEach(^{
                 [mockAudioManager clearData];
                 [testManager playNextWhenReady];
-
-                [NSThread sleepForTimeInterval:1.0];
             });
 
             it(@"should be sending data", ^{
                 expect(testManager.isPlaying).toEventually(beTrue());
                 expect(mockAudioManager.dataSinceClear.length).toEventually(equal(34380));
-
-                // Fails when it shouldn't, `weakself` goes to nil in `sdl_playNextWhenReady`
-                expect(mockAudioManager.finishedPlaying).toEventually(beTrue());
+                expect(mockAudioManager.finishedPlaying).withTimeout(3.0).toEventually(beTrue());
             });
         });
 
@@ -115,12 +106,10 @@ describe(@"the audio stream manager", ^{
         beforeEach(^{
             mockAudioManager.audioConnected = YES;
             [testManager pushWithData:testAudioFileData];
-
-            [NSThread sleepForTimeInterval:0.5];
         });
 
         it(@"should have a file in the queue", ^{
-            expect(testManager.queue).toNot(beEmpty());
+            expect(testManager.queue).toEventuallyNot(beEmpty());
         });
 
         describe(@"after attempting to play the audio buffer", ^{
